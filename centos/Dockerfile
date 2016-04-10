@@ -1,17 +1,15 @@
-# Dockerfile
+# Dockerfile - CentOS 7
 # https://github.com/openresty/docker-openresty
 
-FROM ubuntu:trusty
+FROM centos:7
 
 MAINTAINER Evan Wies <evan@neomantra.net>
 
 # Install APT dependencies
 # Put this before the ARGS to minimize di
-RUN DEBIAN_FRONTEND=noninteractive apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-        build-essential perl make \
-        libreadline-dev libncurses5-dev zlib1g-dev
-
+RUN yum install -y \
+    gcc gcc-c++ perl make \
+    readline-devel zlib-devel
 
 # Docker Build Arguments
 ARG RESTY_VERSION="1.9.7.3"
@@ -49,3 +47,4 @@ WORKDIR /tmp
 RUN rm -rf openssl-${RESTY_OPENSSL_VERSION}.tar.gz openssl-${RESTY_OPENSSL_VERSION} \
            pcre-${RESTY_PCRE_VERSION}.tar.gz pcre-${RESTY_PCRE_VERSION} \
            openresty-${RESTY_VERSION}.tar.gz openresty-${RESTY_VERSION}
+WORKDIR /

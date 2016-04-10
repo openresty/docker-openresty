@@ -34,25 +34,31 @@ Usage
 If you are happy with the defaults, then you can use the openresty image from the [Docker Hub](https://hub.docker.com/r/openresty/docker-openresty/)
 
 ```
-docker run openresty/openresty 
+docker run openresty/openresty:trusty
 ```
 
-Otherwise, it can be built by cloning the repo and running `docker build`.  The build can be customized; see [Build Options](#build-options) below.
+Otherwise, it can be built by cloning the repo and running `docker build -f trusty/Dockerfile`.  The build can be customized; see [Build Options](#build-options) below.
 
 ```
 git clone https://github.com/openresty/docker-openresty.git
 cd docker-openresty
-docker build  -t myopenresty .
-docker run myopenresty 
+docker build  -t myopenresty -f trusty.
+docker run myopenresty /usr/local/openresty/nginx/sbin/nginx
 ```
 
 Build Options
 =============
 
+Dockerfiles are provided for the following base systems, selecting the Dockerfile path with `-f`:
+
+ * [Ubuntu Trusty](https://github.com/openresty/docker-openresty/trusty/Dockerfile) (`trusty/Dockerfile`)
+ * [CentOS 7](https://github.com/openresty/docker-openresty/centos/Dockerfile) (`centos/Dockerfile`)
+ * [Alpine](https://github.com/openresty/docker-openresty/alpine/Dockerfile) (`alpine/Dockerfile`)
+
 The following are the available build-time options.  They can be set using the `--build-arg` CLI argument, like so:
 
 ```
-docker build --build-arg RESTY_J=4 .
+docker build --build-arg RESTY_J=4 -f trusty/Dockerfile .
 ```
 
 | Key  | Default | Description |
