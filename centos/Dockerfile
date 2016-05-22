@@ -6,7 +6,7 @@ FROM centos:7
 MAINTAINER Evan Wies <evan@neomantra.net>
 
 # Docker Build Arguments
-ARG RESTY_VERSION="1.9.7.3"
+ARG RESTY_VERSION="1.9.7.4"
 ARG RESTY_OPENSSL_VERSION="1.0.2e"
 ARG RESTY_PCRE_VERSION="8.38"
 ARG RESTY_J="1"
