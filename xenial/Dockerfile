@@ -1,7 +1,7 @@
-# Dockerfile - alpine
+# Dockerfile - Ubuntu Xenial
 # https://github.com/openresty/docker-openresty
 
-FROM alpine:latest
+FROM ubuntu:xenial
 
 MAINTAINER Evan Wies <evan@neomantra.net>
 
@@ -16,20 +16,22 @@ ARG RESTY_CONFIG_OPTIONS="--with-ipv6 --with-pcre-jit"
 ARG _RESTY_CONFIG_DEPS="--with-openssl=/tmp/openssl-${RESTY_OPENSSL_VERSION} --with-pcre=/tmp/pcre-${RESTY_PCRE_VERSION}"
 
 
-# 1) Install apk dependencies
+# 1) Install apt dependencies
 # 2) Download and untar OpenSSL, PCRE, and OpenResty
 # 3) Build OpenResty
 # 4) Cleanup
 
 RUN \
-    apk add --no-cache --virtual .build-deps \
-        build-base \
+    DEBIAN_FRONTEND=noninteractive apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        build-essential \
+        ca-certificates \
         curl \
-        perl \
+        libncurses5-dev \
+        libreadline-dev \
         make \
-        readline \
-        ncurses \
-        zlib-dev \
+        perl \
+        zlib1g-dev \
     && cd /tmp \
     && curl -fSL https://www.openssl.org/source/openssl-${RESTY_OPENSSL_VERSION}.tar.gz -o openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
     && tar xzf openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
@@ -47,4 +49,9 @@ RUN \
         openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
         openresty-${RESTY_VERSION}.tar.gz openresty-${RESTY_VERSION} \
         pcre-${RESTY_PCRE_VERSION}.tar.gz pcre-${RESTY_PCRE_VERSION} \
-    && apk del .build-deps
+    && DEBIAN_FRONTEND=noninteractive apt-get remove -y --purge \
+        ca-certificates \
+        curl \
+    && DEBIAN_FRONTEND=noninteractive apt-get autoremove -y
+
+# TODO: remove any other apt packages?

@@ -5,14 +5,6 @@ FROM ubuntu:trusty
 
 MAINTAINER Evan Wies <evan@neomantra.net>
 
-# Install APT dependencies
-# Put this before the ARGS to minimize di
-RUN DEBIAN_FRONTEND=noninteractive apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-        build-essential perl make \
-        libreadline-dev libncurses5-dev zlib1g-dev
-
-
 # Docker Build Arguments
 ARG RESTY_VERSION="1.9.7.3"
 ARG RESTY_OPENSSL_VERSION="1.0.2e"
@@ -24,29 +16,42 @@ ARG RESTY_CONFIG_OPTIONS="--with-ipv6 --with-pcre-jit"
 ARG _RESTY_CONFIG_DEPS="--with-openssl=/tmp/openssl-${RESTY_OPENSSL_VERSION} --with-pcre=/tmp/pcre-${RESTY_PCRE_VERSION}"
 
 
-# Download and untar OpenSSL, PCRE, and OpenResty
-WORKDIR /tmp
+# 1) Install apt dependencies
+# 2) Download and untar OpenSSL, PCRE, and OpenResty
+# 3) Build OpenResty
+# 4) Cleanup
 
-ADD https://www.openssl.org/source/openssl-${RESTY_OPENSSL_VERSION}.tar.gz /tmp/openssl-${RESTY_OPENSSL_VERSION}.tar.gz
-RUN tar xzf openssl-${RESTY_OPENSSL_VERSION}.tar.gz
+RUN \
+    DEBIAN_FRONTEND=noninteractive apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        build-essential \
+        ca-certificates \
+        curl \
+        libncurses5-dev \
+        libreadline-dev \
+        make \
+        perl \
+        zlib1g-dev \
+    && cd /tmp \
+    && curl -fSL https://www.openssl.org/source/openssl-${RESTY_OPENSSL_VERSION}.tar.gz -o openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
+    && tar xzf openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
+    && curl -fSL https://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-${RESTY_PCRE_VERSION}.tar.gz -o pcre-${RESTY_PCRE_VERSION}.tar.gz \
+    && tar xzf pcre-${RESTY_PCRE_VERSION}.tar.gz \
+    && curl -fSL https://openresty.org/download/openresty-${RESTY_VERSION}.tar.gz -o openresty-${RESTY_VERSION}.tar.gz \
+    && tar xzf openresty-${RESTY_VERSION}.tar.gz \
+    && cd /tmp/openresty-${RESTY_VERSION} \
+    && ./configure -j${RESTY_J} ${_RESTY_CONFIG_DEPS} ${RESTY_CONFIG_OPTIONS} \
+    && make -j${RESTY_J} \
+    && make -j${RESTY_J} install \
+    && cd /tmp \
+    && rm -rf \
+        openssl-${RESTY_OPENSSL_VERSION} \
+        openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
+        openresty-${RESTY_VERSION}.tar.gz openresty-${RESTY_VERSION} \
+        pcre-${RESTY_PCRE_VERSION}.tar.gz pcre-${RESTY_PCRE_VERSION} \
+    && DEBIAN_FRONTEND=noninteractive apt-get remove -y --purge \
+        ca-certificates \
+        curl \
+    && DEBIAN_FRONTEND=noninteractive apt-get autoremove -y
 
-ADD https://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-${RESTY_PCRE_VERSION}.tar.gz /tmp/pcre-${RESTY_PCRE_VERSION}.tar.gz
-RUN tar xzf pcre-${RESTY_PCRE_VERSION}.tar.gz
-
-ADD https://openresty.org/download/openresty-${RESTY_VERSION}.tar.gz /tmp/openresty-${RESTY_VERSION}.tar.gz
-RUN tar xzf openresty-${RESTY_VERSION}.tar.gz
-
-
-# Build OpenResty
-WORKDIR /tmp/openresty-${RESTY_VERSION}
-RUN ./configure -j${RESTY_J} ${_RESTY_CONFIG_DEPS} ${RESTY_CONFIG_OPTIONS} && \
-    make -j${RESTY_J} && \
-    make -j${RESTY_J} install
-
-
-# Cleanup
-WORKDIR /tmp
-RUN rm -rf openssl-${RESTY_OPENSSL_VERSION}.tar.gz openssl-${RESTY_OPENSSL_VERSION} \
-           pcre-${RESTY_PCRE_VERSION}.tar.gz pcre-${RESTY_PCRE_VERSION} \
-           openresty-${RESTY_VERSION}.tar.gz openresty-${RESTY_VERSION}
-WORKDIR /
+# TODO: remove any other apt packages?
