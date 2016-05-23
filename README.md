@@ -1,7 +1,14 @@
-Name
-====
+# docker-openresty - Docker tooling for OpenResty
 
-docker-openresty - Docker tooling for OpenResty
+## Supported tags and respective `Dockerfile` links
+
+-	[`latest`, `alpine`, `latest-alpine`, `1.9.7.4-alpine`,  (*alpine/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/ecb3a1acd111686e32f79504a8c8d96d8b579fbb/alpine/Dockerfile)
+-	[`centos`, `latest-centos`, `1.9.7.4-centos`,  (*centos/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/ecb3a1acd111686e32f79504a8c8d96d8b579fbb/centos/Dockerfile)
+-	[`trusty`, `latest-trusty`, `1.9.7.4-trusty`,  (*trusty/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/ecb3a1acd111686e32f79504a8c8d96d8b579fbb/trusty/Dockerfile)
+-	[`xenial`, `latest-xenial`, `1.9.7.4-xenial`,  (*xenial/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/ecb3a1acd111686e32f79504a8c8d96d8b579fbb/xenial/Dockerfile)
+
+[![](https://imagelayers.io/badge/openresty/openresty:latest.svg)](https://imagelayers.io/?images=openresty/openresty:latest 'Get your own badge on imagelayers.io')
+
 
 Table of Contents
 =================
