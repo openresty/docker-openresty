@@ -2,10 +2,10 @@
 
 ## Supported tags and respective `Dockerfile` links
 
--	[`latest`, `alpine`, `latest-alpine`, `1.9.7.4-alpine`,  (*alpine/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/ecb3a1acd111686e32f79504a8c8d96d8b579fbb/alpine/Dockerfile)
--	[`centos`, `latest-centos`, `1.9.7.4-centos`,  (*centos/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/ecb3a1acd111686e32f79504a8c8d96d8b579fbb/centos/Dockerfile)
--	[`trusty`, `latest-trusty`, `1.9.7.4-trusty`,  (*trusty/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/ecb3a1acd111686e32f79504a8c8d96d8b579fbb/trusty/Dockerfile)
--	[`xenial`, `latest-xenial`, `1.9.7.4-xenial`,  (*xenial/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/ecb3a1acd111686e32f79504a8c8d96d8b579fbb/xenial/Dockerfile)
+-	[`latest`, `alpine`, `latest-alpine`, `1.9.7.5-alpine`,  (*alpine/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile)
+-	[`centos`, `latest-centos`, `1.9.7.5-centos`,  (*centos/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
+-	[`trusty`, `latest-trusty`, `1.9.7.5-trusty`,  (*trusty/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/trusty/Dockerfile)
+-	[`xenial`, `latest-xenial`, `1.9.7.5-xenial`,  (*xenial/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/xenial/Dockerfile)
 
 [![](https://imagelayers.io/badge/openresty/openresty:latest.svg)](https://imagelayers.io/?images=openresty/openresty:latest 'Get your own badge on imagelayers.io')
 
@@ -75,7 +75,7 @@ docker build --build-arg RESTY_J=4 -f trusty/Dockerfile .
 
 | Key | Default | Description |
 :----- | :-----: |:----------- |
-|RESTY_VERSION | 1.9.7.4 | The version of OpenResty to use. |
+|RESTY_VERSION | 1.9.7.5 | The version of OpenResty to use. |
 |RESTY_OPENSSL_VERSION | 1.0.2e | The version of OpenSSL to use. |
 |RESTY_PCRE_VERSION | 8.38 | The version of PCRE to use. |
 |RESTY_J | 1 | Sets the parallelism level (-jN) for the builds. |
