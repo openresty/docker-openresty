@@ -31,23 +31,48 @@ lots of 3rd-party nginx modules, as well as most of their external dependencies.
 
 This tooling is maintained Evan Wies.
 
+By default, the following modules are included, but one can easily increase or decrease that with [custom build options](#build-options) :
+
+ * file-aio
+ * http_addition_module
+ * http_auth_request_module
+ * http_dav_module
+ * http_flv_module
+ * http_geoip_module=dynamic
+ * http_gunzip_module
+ * http_gzip_static_module
+ * http_image_filter_module=dynamic
+ * http_mp4_module
+ * http_perl_module=dynamic
+ * http_random_index_module
+ * http_realip_module
+ * http_secure_link_module
+ * http_slice_module
+ * http_ssl_module
+ * http_stub_status_module
+ * http_sub_module
+ * http_v2_module
+ * http_xslt_module=dynamic
+ * ipv6
+ * mail
+ * mail_ssl_module
+ * md5-asm
+ * pcre-jit
+ * sha1-asm
+ * stream
+ * stream_ssl_module
+ * threads
+
 Usage
 =====
 
-If you are happy with the build defaults, then you can use the openresty image from the [Docker Hub](https://hub.docker.com/r/openresty/openresty/)
+If you are happy with the build defaults, then you can use the openresty image from the [Docker Hub](https://hub.docker.com/r/openresty/openresty/).  The image tags available there are listed at the top of this README.
 
 ```
 docker run [options] openresty/openresty:latest-trusty /usr/local/openresty/nginx/sbin/nginx
 ```
 
 *[options]* would be things like -p to map ports and -v to map volumes.
-
-The following image tags are available:
-
- * latest-trusty
- * latest-xenial
- * latest-centos
- * latest-alpine
 
 Otherwise, it can be built by cloning the repo and running `docker build -f trusty/Dockerfile .`. The build can be customized; see [Build Options](#build-options) below.
 
@@ -79,7 +104,7 @@ docker build --build-arg RESTY_J=4 -f trusty/Dockerfile .
 |RESTY_OPENSSL_VERSION | 1.0.2e | The version of OpenSSL to use. |
 |RESTY_PCRE_VERSION | 8.38 | The version of PCRE to use. |
 |RESTY_J | 1 | Sets the parallelism level (-jN) for the builds. |
-|RESTY_CONFIG_OPTIONS | "--with-ipv6 --with-pcre-jit" | The options to pass to OpenResty's `./configure` script. |
+|RESTY_CONFIG_OPTIONS | "--with-file-aio --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_geoip_module=dynamic --with-http_gunzip_module --with-http_gzip_static_module --with-http_image_filter_module=dynamic --with-http_mp4_module --with-http_perl_module=dynamic --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-http_xslt_module=dynamic --with-ipv6 --with-mail --with-mail_ssl_module --with-md5-asm --with-pcre-jit --with-sha1-asm --with-stream --with-stream_ssl_module --with-threads" | The options to pass to OpenResty's `./configure` script. |
 
 [Back to TOC](#table-of-contents)
 
