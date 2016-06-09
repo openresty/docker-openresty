@@ -61,15 +61,15 @@ RUN \
         linux-headers \
         make \
         perl-dev \
+        readline-dev \
         zlib-dev \
     && apk add --no-cache \
-        gcc \
         gd \
         geoip \
+        libgcc \
         libxslt \
         ncurses \
         perl \
-        readline \
         zlib \
     && cd /tmp \
     && curl -fSL https://www.openssl.org/source/openssl-${RESTY_OPENSSL_VERSION}.tar.gz -o openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
