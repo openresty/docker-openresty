@@ -89,3 +89,4 @@ RUN \
     && DEBIAN_FRONTEND=noninteractive apt-get autoremove -y
 
 # TODO: remove any other apt packages?
+ENTRYPOINT ["/usr/local/openresty/nginx/sbin/nginx", "-g", "daemon off;"]

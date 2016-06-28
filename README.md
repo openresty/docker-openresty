@@ -69,10 +69,12 @@ Usage
 If you are happy with the build defaults, then you can use the openresty image from the [Docker Hub](https://hub.docker.com/r/openresty/openresty/).  The image tags available there are listed at the top of this README.
 
 ```
-docker run [options] openresty/openresty:latest-trusty /usr/local/openresty/nginx/sbin/nginx
+docker run [options] openresty/openresty:latest-trusty"
 ```
 
 *[options]* would be things like -p to map ports and -v to map volumes.
+
+The `-g "daemon off;"` flag is used in the entrypoint to keep the nginx daemon running after container creation, this flag can also be added to the nginx.conf and ommitted from the entrypoint.
 
 Otherwise, it can be built by cloning the repo and running `docker build -f trusty/Dockerfile .`. The build can be customized; see [Build Options](#build-options) below.
 

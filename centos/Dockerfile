@@ -81,3 +81,5 @@ RUN \
         openresty-${RESTY_VERSION}.tar.gz openresty-${RESTY_VERSION} \
         pcre-${RESTY_PCRE_VERSION}.tar.gz pcre-${RESTY_PCRE_VERSION} \
     && yum clean all
+
+ENTRYPOINT ["/usr/local/openresty/nginx/sbin/nginx", "-g", "daemon off;"]
