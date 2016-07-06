@@ -43,7 +43,6 @@ By default, the following modules are included, but one can easily increase or d
  * http_gzip_static_module
  * http_image_filter_module=dynamic
  * http_mp4_module
- * http_perl_module=dynamic
  * http_random_index_module
  * http_realip_module
  * http_secure_link_module
@@ -62,6 +61,9 @@ By default, the following modules are included, but one can easily increase or d
  * stream
  * stream_ssl_module
  * threads
+ * without-http_fastcgi_module
+ * without-http_uwsgi_module
+ * without-http_scgi_module
 
 Usage
 =====
@@ -98,6 +100,7 @@ docker run myopenresty
 
 Dockerfiles are provided for the following base systems, selecting the Dockerfile path with `-f`:
 
+ * [Alpine](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile) (`alpine/Dockerfile`)
  * [CentOS 7](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile) (`centos/Dockerfile`)
  * [Alpine](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile) (`alpine/Dockerfile`)
  * [Ubuntu Trusty](https://github.com/openresty/docker-openresty/blob/master/trusty/Dockerfile) (`trusty/Dockerfile`)

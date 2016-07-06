@@ -21,7 +21,6 @@ ARG RESTY_CONFIG_OPTIONS="\
     --with-http_gzip_static_module \
     --with-http_image_filter_module=dynamic \
     --with-http_mp4_module \
-    --with-http_perl_module=dynamic \
     --with-http_random_index_module \
     --with-http_realip_module \
     --with-http_secure_link_module \
@@ -40,6 +39,9 @@ ARG RESTY_CONFIG_OPTIONS="\
     --with-stream \
     --with-stream_ssl_module \
     --with-threads \
+    --without-http_fastcgi_module \
+    --without-http_uwsgi_module \
+    --without-http_scgi_module \
     "
 
 # These are not intended to be user-specified
@@ -68,8 +70,6 @@ RUN \
         geoip \
         libgcc \
         libxslt \
-        ncurses \
-        perl \
         zlib \
     && cd /tmp \
     && curl -fSL https://www.openssl.org/source/openssl-${RESTY_OPENSSL_VERSION}.tar.gz -o openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
