@@ -88,7 +88,9 @@ RUN \
     && DEBIAN_FRONTEND=noninteractive apt-get remove -y --purge \
         ca-certificates \
         curl \
-    && DEBIAN_FRONTEND=noninteractive apt-get autoremove -y
+    && DEBIAN_FRONTEND=noninteractive apt-get autoremove -y \
+    && ln -sf /dev/stdout /usr/local/openresty/nginx/logs/access.log \
+    && ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log
 
 # TODO: remove any other apt packages?
 ENTRYPOINT ["/usr/local/openresty/nginx/sbin/nginx", "-g", "daemon off;"]

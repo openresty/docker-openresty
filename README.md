@@ -74,7 +74,12 @@ If you are happy with the build defaults, then you can use the openresty image f
 docker run [options] openresty/openresty:latest-trusty
 ```
 
-*[options]* would be things like -p to map ports and -v to map volumes.
+*[options]* would be things like -p to map ports, -v to map volumes, and -d to daemonize.
+
+`docker-openresty` symlinks `/usr/local/openresty/nginx/logs/access.log` and `error.log` to `/dev/stdout` and `/dev/stderr` respectively, so that Docker logging works correctly.  If you change the log paths in your `nginx.conf`, you should symlink those paths as well.
+
+Docker ENTRYPOINT
+=================
 
 The `-g "daemon off;"` directive is used in the Dockerfile ENTRYPOINT to keep the Nginx daemon running after container creation. If this directive is added to the nginx.conf, then it may be omitted from the ENTRYPOINT.
 
