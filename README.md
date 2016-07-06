@@ -69,30 +69,39 @@ Usage
 If you are happy with the build defaults, then you can use the openresty image from the [Docker Hub](https://hub.docker.com/r/openresty/openresty/).  The image tags available there are listed at the top of this README.
 
 ```
-docker run [options] openresty/openresty:latest-trusty"
+docker run [options] openresty/openresty:latest-trusty
 ```
 
 *[options]* would be things like -p to map ports and -v to map volumes.
 
-The `-g "daemon off;"` flag is used in the entrypoint to keep the nginx daemon running after container creation, this flag can also be added to the nginx.conf and ommitted from the entrypoint.
+The `-g "daemon off;"` directive is used in the Dockerfile ENTRYPOINT to keep the Nginx daemon running after container creation. If this directive is added to the nginx.conf, then it may be omitted from the ENTRYPOINT.
 
-Otherwise, it can be built by cloning the repo and running `docker build -f trusty/Dockerfile .`. The build can be customized; see [Build Options](#build-options) below.
+To invoke with another ENTRYPOINT, for example the `resty` utility, invoke like so:
+
+```
+docker run [options] --entrypoint /usr/local/openresty/bin/resty openresty/openresty:latest-xenial [script.lua]
+```
+
+*NOTE* The `alpine` images do not include the packages `perl` and `ncurses`, which is needed by the `resty` utility.
+
+Building
+========
+
+This Docker image can be built by cloning the repo and running `docker build` with the desired Dockerfile:
 
 ```
 git clone https://github.com/openresty/docker-openresty.git
 cd docker-openresty
 docker build -t myopenresty -f trusty/Dockerfile .
-docker run myopenresty /usr/local/openresty/nginx/sbin/nginx
+docker run myopenresty
 ```
-
-Build Options
-=============
 
 Dockerfiles are provided for the following base systems, selecting the Dockerfile path with `-f`:
 
- * [Ubuntu Trusty](https://github.com/openresty/docker-openresty/blob/master/trusty/Dockerfile) (`trusty/Dockerfile`)
  * [CentOS 7](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile) (`centos/Dockerfile`)
  * [Alpine](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile) (`alpine/Dockerfile`)
+ * [Ubuntu Trusty](https://github.com/openresty/docker-openresty/blob/master/trusty/Dockerfile) (`trusty/Dockerfile`)
+ * [Ubuntu Xenial](https://github.com/openresty/docker-openresty/blob/master/xenial/Dockerfile) (`xenial/Dockerfile`)
 
 The following are the available build-time options. They can be set using the `--build-arg` CLI argument, like so:
 
