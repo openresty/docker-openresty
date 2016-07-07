@@ -78,6 +78,17 @@ docker run [options] openresty/openresty:latest-trusty
 
 `docker-openresty` symlinks `/usr/local/openresty/nginx/logs/access.log` and `error.log` to `/dev/stdout` and `/dev/stderr` respectively, so that Docker logging works correctly.  If you change the log paths in your `nginx.conf`, you should symlink those paths as well.
 
+LuaRocks
+========
+
+[LuaRocks](https://luarocks.org/) is included in the `centos`, `trusty`, and `xenial` variants.  It is excluded from `alpine` because it generally requires a build system and we want to keep that variant lean.
+
+It is available at `/usr/local/openresty/luajit/bin/luarocks`.  Packages can be added in your dependent Dockerfiles like so:
+
+```
+RUN /usr/local/openresty/luajit/bin/luarocks install <rock>
+```
+
 Docker ENTRYPOINT
 =================
 
@@ -120,6 +131,7 @@ docker build --build-arg RESTY_J=4 -f trusty/Dockerfile .
 | Key | Default | Description |
 :----- | :-----: |:----------- |
 |RESTY_VERSION | 1.9.15.1 | The version of OpenResty to use. |
+|RESTY_LUAROCKS_VERSION | 2.3.0 | The version of LuaRocks to use. |
 |RESTY_OPENSSL_VERSION | 1.0.2e | The version of OpenSSL to use. |
 |RESTY_PCRE_VERSION | 8.38 | The version of PCRE to use. |
 |RESTY_J | 1 | Sets the parallelism level (-jN) for the builds. |
