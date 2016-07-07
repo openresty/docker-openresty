@@ -1,5 +1,7 @@
 # docker-openresty - Docker tooling for OpenResty
 
+## Since tag 1.9.15.1 there have been *BREAKING CHANGES*, notably with respect to the Docker ENTRYPOINT and logging.  Please be aware of this if you are using the `latest` tags.
+
 ## Supported tags and respective `Dockerfile` links
 
 -	[`latest`, `alpine`, `latest-alpine`, `1.9.15.1-alpine`,  (*alpine/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile)
