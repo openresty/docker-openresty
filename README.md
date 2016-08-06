@@ -9,8 +9,7 @@
 -	[`trusty`, `latest-trusty`, `1.9.15.1-trusty`,  (*trusty/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/trusty/Dockerfile)
 -	[`xenial`, `latest-xenial`, `1.9.15.1-xenial`,  (*xenial/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/xenial/Dockerfile)
 
-[![](https://imagelayers.io/badge/openresty/openresty:latest.svg)](https://imagelayers.io/?images=openresty/openresty:latest 'Get your own badge on imagelayers.io')
-
+[![](https://images.microbadger.com/badges/image/openresty/openresty.svg)](https://microbadger.com/#/images/openresty/openresty "Get your own image badge on microbadger.com")
 
 Table of Contents
 =================
