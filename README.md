@@ -17,7 +17,10 @@ Table of Contents
 
 * [Description](#description)
 * [Usage](#usage)
-* [Build Options](#build-options)
+* [LuaRocks](#luarocks)
+* [Docker ENTRYPOINT](#docker-entrypoint)
+* [Building (non-RPM based)](#building-non-rpm-based)
+* [Building (RPM based)](#building-rpm-based)
 * [Report Bugs](#report-bugs)
 * [Copyright & License](#copyright--license)
 
@@ -80,7 +83,7 @@ docker run [options] openresty/openresty:latest-trusty
 LuaRocks
 ========
 
-[LuaRocks](https://luarocks.org/) is included in the `centos`, `trusty`, and `xenial` variants.  It is excluded from `alpine` because it generally requires a build system and we want to keep that variant lean.
+[LuaRocks](https://luarocks.org/) is included in the `centos`, `centos-rpm`, `trusty`, and `xenial` variants.  It is excluded from `alpine` because it generally requires a build system and we want to keep that variant lean.
 
 It is available at `/usr/local/openresty/luajit/bin/luarocks`.  Packages can be added in your dependent Dockerfiles like so:
 
