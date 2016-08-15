@@ -40,9 +40,6 @@ ARG RESTY_CONFIG_OPTIONS="\
     --with-stream \
     --with-stream_ssl_module \
     --with-threads \
-    --without-http_fastcgi_module \
-    --without-http_uwsgi_module \
-    --without-http_scgi_module \
     "
 
 # These are not intended to be user-specified
