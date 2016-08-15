@@ -62,9 +62,6 @@ By default, the following modules are included, but one can easily increase or d
  * stream
  * stream_ssl_module
  * threads
- * without-http_fastcgi_module
- * without-http_uwsgi_module
- * without-http_scgi_module
 
 Usage
 =====
@@ -119,7 +116,6 @@ Dockerfiles are provided for the following base systems, selecting the Dockerfil
 
  * [Alpine](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile) (`alpine/Dockerfile`)
  * [CentOS 7](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile) (`centos/Dockerfile`)
- * [Alpine](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile) (`alpine/Dockerfile`)
  * [Ubuntu Trusty](https://github.com/openresty/docker-openresty/blob/master/trusty/Dockerfile) (`trusty/Dockerfile`)
  * [Ubuntu Xenial](https://github.com/openresty/docker-openresty/blob/master/xenial/Dockerfile) (`xenial/Dockerfile`)
 
