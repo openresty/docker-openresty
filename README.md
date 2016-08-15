@@ -6,6 +6,7 @@
 
 -	[`latest`, `alpine`, `latest-alpine`, `1.9.15.1-alpine`,  (*alpine/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile)
 -	[`centos`, `latest-centos`, `1.9.15.1-centos`,  (*centos/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
+-   [`centos-rpm`, `latest-centos-rpm`, `1.9.15.1-centos-rpm`,  (*centos-rpm/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/centos-rpm/Dockerfile)
 -	[`trusty`, `latest-trusty`, `1.9.15.1-trusty`,  (*trusty/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/trusty/Dockerfile)
 -	[`xenial`, `latest-xenial`, `1.9.15.1-xenial`,  (*xenial/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/xenial/Dockerfile)
 
@@ -100,10 +101,10 @@ docker run [options] --entrypoint /usr/local/openresty/bin/resty openresty/openr
 
 *NOTE* The `alpine` images do not include the packages `perl` and `ncurses`, which is needed by the `resty` utility.
 
-Building
-========
+Building (non-RPM based)
+========================
 
-This Docker image can be built by cloning the repo and running `docker build` with the desired Dockerfile:
+This Docker image can be built and customized by cloning the repo and running `docker build` with the desired Dockerfile:
 
 ```
 git clone https://github.com/openresty/docker-openresty.git
@@ -133,6 +134,28 @@ docker build --build-arg RESTY_J=4 -f trusty/Dockerfile .
 |RESTY_PCRE_VERSION | 8.38 | The version of PCRE to use. |
 |RESTY_J | 1 | Sets the parallelism level (-jN) for the builds. |
 |RESTY_CONFIG_OPTIONS | "--with-file-aio --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_geoip_module=dynamic --with-http_gunzip_module --with-http_gzip_static_module --with-http_image_filter_module=dynamic --with-http_mp4_module --with-http_perl_module=dynamic --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-http_xslt_module=dynamic --with-ipv6 --with-mail --with-mail_ssl_module --with-md5-asm --with-pcre-jit --with-sha1-asm --with-stream --with-stream_ssl_module --with-threads" | The options to pass to OpenResty's `./configure` script. |
+
+[Back to TOC](#table-of-contents)
+
+Building (RPM based)
+====================
+
+OpenResty now now has [RPMs available](http://openresty.org/en/rpm-packages.html).  The `centos-rpm` images use these RPMs rather than the build system described above.
+
+This Docker image can be built and customized by cloning the repo and running `docker build` with the desired Dockerfile:
+
+ * [CentOS 7 RPM](https://github.com/openresty/docker-openresty/blob/master/centos-rpm/Dockerfile) (`centos-rpm/Dockerfile`)
+
+The following are the available build-time options. They can be set using the `--build-arg` CLI argument, like so:
+
+```
+docker build --build-arg RESTY_RPM_FLAVOR="-debug" -f centos-rpm/Dockerfile .
+```
+
+| Key | Default | Description |
+:----- | :-----: |:----------- |
+|RESTY_LUAROCKS_VERSION | 2.3.0 | The version of LuaRocks to use. |
+|RESTY_RPM_FLAVOR | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
 
 [Back to TOC](#table-of-contents)
 
