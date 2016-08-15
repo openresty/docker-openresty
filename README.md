@@ -4,11 +4,11 @@
 
 ## Supported tags and respective `Dockerfile` links
 
--	[`latest`, `alpine`, `latest-alpine`, `1.9.15.1-alpine`,  (*alpine/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile)
--	[`centos`, `latest-centos`, `1.9.15.1-centos`,  (*centos/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
--   [`centos-rpm`, `latest-centos-rpm`, `1.9.15.1-centos-rpm`,  (*centos-rpm/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/centos-rpm/Dockerfile)
--	[`trusty`, `latest-trusty`, `1.9.15.1-trusty`,  (*trusty/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/trusty/Dockerfile)
--	[`xenial`, `latest-xenial`, `1.9.15.1-xenial`,  (*xenial/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/xenial/Dockerfile)
+- [`latest`, `alpine`, `latest-alpine`, `1.9.15.1-alpine`,  (*alpine/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile)
+- [`centos`, `latest-centos`, `1.9.15.1-centos`,  (*centos/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
+- [`centos-rpm`, `latest-centos-rpm`, `1.9.15.1-centos-rpm`,  (*centos-rpm/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/centos-rpm/Dockerfile)
+- [`trusty`, `latest-trusty`, `1.9.15.1-trusty`,  (*trusty/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/trusty/Dockerfile)
+- [`xenial`, `latest-xenial`, `1.9.15.1-xenial`,  (*xenial/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/xenial/Dockerfile)
 
 [![](https://images.microbadger.com/badges/image/openresty/openresty.svg)](https://microbadger.com/#/images/openresty/openresty "Get your own image badge on microbadger.com")
 
@@ -36,7 +36,7 @@ lots of 3rd-party nginx modules, as well as most of their external dependencies.
 
 This tooling is maintained Evan Wies.
 
-By default, the following modules are included, but one can easily increase or decrease that with [custom build options](#build-options) :
+From non-RPM flavors, the following modules are included by default, but one can easily increase or decrease that with [custom build options](#build-options) :
 
  * file-aio
  * http_addition_module
@@ -152,7 +152,7 @@ This Docker image can be built and customized by cloning the repo and running `d
 The following are the available build-time options. They can be set using the `--build-arg` CLI argument, like so:
 
 ```
-docker build --build-arg RESTY_RPM_FLAVOR="-debug" -f centos-rpm/Dockerfile .
+docker build --build-arg RESTY_RPM_FLAVOR="-debug" -f centos-rpm/Dockerfile centos-rpm
 ```
 
 | Key | Default | Description |

@@ -8,10 +8,9 @@ MAINTAINER Evan Wies <evan@neomantra.net>
 ARG RESTY_LUAROCKS_VERSION="2.3.0"
 ARG RESTY_RPM_FLAVOR=""
 
-COPY centos-rpm/OpenResty.repo /etc/yum.repos.d/OpenResty.repo
+COPY OpenResty.repo /etc/yum.repos.d/OpenResty.repo
 
-RUN \
-    yum install -y \
+RUN yum install -y \
         make \
         openresty${RESTY_RPM_FLAVOR} \
         openresty-resty \
