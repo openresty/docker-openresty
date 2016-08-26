@@ -1,14 +1,12 @@
 # docker-openresty - Docker tooling for OpenResty
 
-## Since tag 1.9.15.1 there have been *BREAKING CHANGES*, notably with respect to the Docker ENTRYPOINT and logging.  Please be aware of this if you are using the `latest` tags.
-
 ## Supported tags and respective `Dockerfile` links
 
-- [`latest`, `alpine`, `latest-alpine`, `1.9.15.1-alpine`,  (*alpine/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile)
-- [`centos`, `latest-centos`, `1.9.15.1-centos`,  (*centos/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
-- [`centos-rpm`, `latest-centos-rpm`, `1.9.15.1-centos-rpm`,  (*centos-rpm/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/centos-rpm/Dockerfile)
-- [`trusty`, `latest-trusty`, `1.9.15.1-trusty`,  (*trusty/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/trusty/Dockerfile)
-- [`xenial`, `latest-xenial`, `1.9.15.1-xenial`,  (*xenial/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/xenial/Dockerfile)
+- [`latest`, `alpine`, `latest-alpine`, `1.11.2.1-alpine`,  (*alpine/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile)
+- [`centos`, `latest-centos`, `1.11.2.1-centos`,  (*centos/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
+- [`centos-rpm`, `latest-centos-rpm`, `1.11.2.1-centos-rpm`,  (*centos-rpm/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/centos-rpm/Dockerfile)
+- [`trusty`, `latest-trusty`, `1.11.2.1-trusty`,  (*trusty/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/trusty/Dockerfile)
+- [`xenial`, `latest-xenial`, `1.11.2.1-xenial`,  (*xenial/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/xenial/Dockerfile)
 
 [![](https://images.microbadger.com/badges/image/openresty/openresty.svg)](https://microbadger.com/#/images/openresty/openresty "Get your own image badge on microbadger.com")
 
@@ -21,7 +19,8 @@ Table of Contents
 * [Docker ENTRYPOINT](#docker-entrypoint)
 * [Building (non-RPM based)](#building-non-rpm-based)
 * [Building (RPM based)](#building-rpm-based)
-* [Report Bugs](#report-bugs)
+* [Feedback & Bug Reports](#feedback-bug-reports)
+* [Changelog](#changelog)
 * [Copyright & License](#copyright--license)
 
 Description
@@ -33,8 +32,6 @@ Docker is a container management platform.
 
 OpenResty is a full-fledged web application server by bundling the standard nginx core,
 lots of 3rd-party nginx modules, as well as most of their external dependencies.
-
-This tooling is maintained Evan Wies.
 
 From non-RPM flavors, the following modules are included by default, but one can easily increase or decrease that with [custom build options](#build-options) :
 
@@ -131,10 +128,10 @@ docker build --build-arg RESTY_J=4 -f trusty/Dockerfile .
 
 | Key | Default | Description |
 :----- | :-----: |:----------- |
-|RESTY_VERSION | 1.9.15.1 | The version of OpenResty to use. |
+|RESTY_VERSION | 1.11.2.1 | The version of OpenResty to use. |
 |RESTY_LUAROCKS_VERSION | 2.3.0 | The version of LuaRocks to use. |
 |RESTY_OPENSSL_VERSION | 1.0.2e | The version of OpenSSL to use. |
-|RESTY_PCRE_VERSION | 8.38 | The version of PCRE to use. |
+|RESTY_PCRE_VERSION | 8.39 | The version of PCRE to use. |
 |RESTY_J | 1 | Sets the parallelism level (-jN) for the builds. |
 |RESTY_CONFIG_OPTIONS | "--with-file-aio --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_geoip_module=dynamic --with-http_gunzip_module --with-http_gzip_static_module --with-http_image_filter_module=dynamic --with-http_mp4_module --with-http_perl_module=dynamic --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-http_xslt_module=dynamic --with-ipv6 --with-mail --with-mail_ssl_module --with-md5-asm --with-pcre-jit --with-sha1-asm --with-stream --with-stream_ssl_module --with-threads" | The options to pass to OpenResty's `./configure` script. |
 
@@ -159,15 +156,35 @@ docker build --build-arg RESTY_RPM_FLAVOR="-debug" -f centos-rpm/Dockerfile cent
 :----- | :-----: |:----------- |
 |RESTY_LUAROCKS_VERSION | 2.3.0 | The version of LuaRocks to use. |
 |RESTY_RPM_FLAVOR | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
+|RESTY_RPM_VERSION | 1.11.2.1-2.el7.centos.x86_64 | The `openresty` package version to install. |
 
 [Back to TOC](#table-of-contents)
 
-Report Bugs
-===========
+Feedback & Bug Reports
+======================
 
-You're very welcome to report issues on GitHub:
+You're very welcome to report bugs and give feedback as GitHub Issues:
 
 https://github.com/openresty/docker-openresty/issues
+
+[Back to TOC](#table-of-contents)
+
+Changelog
+=========
+
+## 1.11.2.1
+
+ * Upgraded OpenResty to 1.11.2.1
+ * Upgraded PCRE to 8.39
+ * Updated ENTRYPOINT to use the new symlink `/usr/local/openresty/bin/openresty`
+ * `centos-rpm` now has the build argument `RESTY_RPM_VERSION` and ENTRYPOINT `/usr/bin/openresty`
+
+## 1.9.15.1
+
+ * Upgraded OpenResty to 1.9.15.1
+ * Logging is redirected to /dev/stdout and /dev/stderr
+ * Introduced ENTRYPOINT with the `-g "daemon off;"` directive
+ * Add `centos-rpm` base system, using upstream RPM packaging
 
 [Back to TOC](#table-of-contents)
 

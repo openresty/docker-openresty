@@ -7,13 +7,14 @@ MAINTAINER Evan Wies <evan@neomantra.net>
 
 ARG RESTY_LUAROCKS_VERSION="2.3.0"
 ARG RESTY_RPM_FLAVOR=""
+ARG RESTY_RPM_VERSION="1.11.2.1-2.el7.centos.x86_64"
 
 COPY OpenResty.repo /etc/yum.repos.d/OpenResty.repo
 
 RUN yum install -y \
         make \
-        openresty${RESTY_RPM_FLAVOR} \
-        openresty-resty \
+        openresty${RESTY_RPM_FLAVOR}-${RESTY_RPM_VERSION} \
+        openresty-resty-${RESTY_RPM_VERSION} \
     && curl -fSL http://luarocks.org/releases/luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz -o luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && tar xzf luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && cd luarocks-${RESTY_LUAROCKS_VERSION} \
@@ -31,4 +32,4 @@ RUN yum install -y \
     && ln -sf /dev/stdout /usr/local/openresty/nginx/logs/access.log \
     && ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log
 
-ENTRYPOINT ["/usr/local/openresty/nginx/sbin/nginx", "-g", "daemon off;"]
+ENTRYPOINT ["/usr/bin/openresty", "-g", "daemon off;"]

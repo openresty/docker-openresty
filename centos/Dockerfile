@@ -6,10 +6,10 @@ FROM centos:7
 MAINTAINER Evan Wies <evan@neomantra.net>
 
 # Docker Build Arguments
-ARG RESTY_VERSION="1.9.15.1"
+ARG RESTY_VERSION="1.11.2.1"
 ARG RESTY_LUAROCKS_VERSION="2.3.0"
 ARG RESTY_OPENSSL_VERSION="1.0.2h"
-ARG RESTY_PCRE_VERSION="8.38"
+ARG RESTY_PCRE_VERSION="8.39"
 ARG RESTY_J="1"
 ARG RESTY_CONFIG_OPTIONS="\
     --with-file-aio \
@@ -97,4 +97,4 @@ RUN \
     && ln -sf /dev/stdout /usr/local/openresty/nginx/logs/access.log \
     && ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log
 
-ENTRYPOINT ["/usr/local/openresty/nginx/sbin/nginx", "-g", "daemon off;"]
+ENTRYPOINT ["/usr/local/openresty/bin/openresty", "-g", "daemon off;"]
