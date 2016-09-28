@@ -15,6 +15,7 @@ RUN yum install -y \
         make \
         openresty${RESTY_RPM_FLAVOR}-${RESTY_RPM_VERSION} \
         openresty-resty-${RESTY_RPM_VERSION} \
+        unzip \
     && curl -fSL http://luarocks.org/releases/luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz -o luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && tar xzf luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && cd luarocks-${RESTY_LUAROCKS_VERSION} \
