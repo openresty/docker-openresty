@@ -5,7 +5,9 @@
 - [`latest`, `alpine`, `latest-alpine`, `1.11.2.1-alpine`,  (*alpine/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile)
 - [`centos`, `latest-centos`, `1.11.2.1-centos`,  (*centos/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
 - [`centos-rpm`, `latest-centos-rpm`, `1.11.2.1-centos-rpm`,  (*centos-rpm/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/centos-rpm/Dockerfile)
+- [`jessie`, `latest-jessie`, `1.11.2.1-jessie`,  (*jessie/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/jessie/Dockerfile)
 - [`trusty`, `latest-trusty`, `1.11.2.1-trusty`,  (*trusty/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/trusty/Dockerfile)
+- [`wheezy`, `latest-wheezy`, `1.11.2.1-wheezy`,  (*wheezy/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/wheezy/Dockerfile)
 - [`xenial`, `latest-xenial`, `1.11.2.1-xenial`,  (*xenial/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/xenial/Dockerfile)
 
 [![](https://images.microbadger.com/badges/image/openresty/openresty.svg)](https://microbadger.com/#/images/openresty/openresty "Get your own image badge on microbadger.com")
@@ -117,6 +119,8 @@ Dockerfiles are provided for the following base systems, selecting the Dockerfil
 
  * [Alpine](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile) (`alpine/Dockerfile`)
  * [CentOS 7](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile) (`centos/Dockerfile`)
+ * [Debian Jessie](https://github.com/openresty/docker-openresty/blob/master/jessie/Dockerfile) (`jessie/Dockerfile`)
+ * [Debian Wheezy](https://github.com/openresty/docker-openresty/blob/master/wheezy/Dockerfile) (`wheezy/Dockerfile`)
  * [Ubuntu Trusty](https://github.com/openresty/docker-openresty/blob/master/trusty/Dockerfile) (`trusty/Dockerfile`)
  * [Ubuntu Xenial](https://github.com/openresty/docker-openresty/blob/master/xenial/Dockerfile) (`xenial/Dockerfile`)
 
