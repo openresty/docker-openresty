@@ -36,4 +36,9 @@ RUN yum info \
     && ln -sf /dev/stdout /usr/local/openresty/nginx/logs/access.log \
     && ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log
 
+# Unused, present for parity with other Dockerfiles
+# This makes some tooling/testing easier, as specifying a build-arg
+# and not consuming it fails the build.
+ARG RESTY_J="1"
+
 ENTRYPOINT ["/usr/bin/openresty", "-g", "daemon off;"]

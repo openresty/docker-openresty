@@ -2,13 +2,13 @@
 
 ## Supported tags and respective `Dockerfile` links
 
-- [`latest`, `alpine`, `latest-alpine`, `1.11.2.1-alpine`,  (*alpine/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile)
-- [`centos`, `latest-centos`, `1.11.2.1-centos`,  (*centos/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
-- [`centos-rpm`, `latest-centos-rpm`, `1.11.2.1-centos-rpm`,  (*centos-rpm/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/centos-rpm/Dockerfile)
-- [`jessie`, `latest-jessie`, `1.11.2.1-jessie`,  (*jessie/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/jessie/Dockerfile)
-- [`trusty`, `latest-trusty`, `1.11.2.1-trusty`,  (*trusty/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/trusty/Dockerfile)
-- [`wheezy`, `latest-wheezy`, `1.11.2.1-wheezy`,  (*wheezy/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/wheezy/Dockerfile)
-- [`xenial`, `latest-xenial`, `1.11.2.1-xenial`,  (*xenial/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/xenial/Dockerfile)
+- [`latest`, `alpine`, `latest-alpine`, (*alpine/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile)
+- [`centos`, `latest-centos` (*centos/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
+- [`centos-rpm`, `latest-centos-rpm`, (*centos-rpm/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/centos-rpm/Dockerfile)
+- [`jessie`, `latest-jessie`, (*jessie/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/jessie/Dockerfile)
+- [`trusty`, `latest-trusty`, (*trusty/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/trusty/Dockerfile)
+- [`wheezy`, `latest-wheezy`, (*wheezy/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/wheezy/Dockerfile)
+- [`xenial`, `latest-xenial`, (*xenial/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/xenial/Dockerfile)
 
 [![](https://images.microbadger.com/badges/image/openresty/openresty.svg)](https://microbadger.com/#/images/openresty/openresty "Get your own image badge on microbadger.com")
 
@@ -134,7 +134,7 @@ docker build --build-arg RESTY_J=4 -f trusty/Dockerfile .
 :----- | :-----: |:----------- |
 |RESTY_VERSION | 1.11.2.1 | The version of OpenResty to use. |
 |RESTY_LUAROCKS_VERSION | 2.3.0 | The version of LuaRocks to use. |
-|RESTY_OPENSSL_VERSION | 1.0.2e | The version of OpenSSL to use. |
+|RESTY_OPENSSL_VERSION | 1.0.2j | The version of OpenSSL to use. |
 |RESTY_PCRE_VERSION | 8.39 | The version of PCRE to use. |
 |RESTY_J | 1 | Sets the parallelism level (-jN) for the builds. |
 |RESTY_CONFIG_OPTIONS | "--with-file-aio --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_geoip_module=dynamic --with-http_gunzip_module --with-http_gzip_static_module --with-http_image_filter_module=dynamic --with-http_mp4_module --with-http_perl_module=dynamic --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-http_xslt_module=dynamic --with-ipv6 --with-mail --with-mail_ssl_module --with-md5-asm --with-pcre-jit --with-sha1-asm --with-stream --with-stream_ssl_module --with-threads" | The options to pass to OpenResty's `./configure` script. |
@@ -175,6 +175,11 @@ https://github.com/openresty/docker-openresty/issues
 
 Changelog
 =========
+
+## 2016-Oct-26
+
+ * Added Debian Jessie and Wheezy Builds
+ * Upgraded OpenSSL to 1.0.2j
 
 ## 1.11.2.1
 
