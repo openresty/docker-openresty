@@ -7,7 +7,7 @@ MAINTAINER Evan Wies <evan@neomantra.net>
 
 ARG RESTY_LUAROCKS_VERSION="2.3.0"
 ARG RESTY_RPM_FLAVOR=""
-ARG RESTY_RPM_VERSION="1.11.2.1-3.el7.centos.x86_64"
+ARG RESTY_RPM_VERSION="1.11.2.2-2.el7.centos.x86_64"
 
 COPY OpenResty.repo /etc/yum.repos.d/OpenResty.repo
 
@@ -17,6 +17,7 @@ RUN yum info \
     && yum install -y \
         make \
         openresty${RESTY_RPM_FLAVOR}-${RESTY_RPM_VERSION} \
+        openresty-opm-${RESTY_RPM_VERSION} \
         openresty-resty-${RESTY_RPM_VERSION} \
         unzip \
     && curl -fSL http://luarocks.org/releases/luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz -o luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \

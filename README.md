@@ -17,6 +17,7 @@ Table of Contents
 
 * [Description](#description)
 * [Usage](#usage)
+* [OPM](#opm)
 * [LuaRocks](#luarocks)
 * [Docker ENTRYPOINT](#docker-entrypoint)
 * [Building (non-RPM based)](#building-non-rpm-based)
@@ -79,6 +80,13 @@ docker run [options] openresty/openresty:latest-trusty
 
 `docker-openresty` symlinks `/usr/local/openresty/nginx/logs/access.log` and `error.log` to `/dev/stdout` and `/dev/stderr` respectively, so that Docker logging works correctly.  If you change the log paths in your `nginx.conf`, you should symlink those paths as well.
 
+OPM
+===
+
+Starting at version 1.11.2.2, OpenResty includes a [package manager called `opm`](https://github.com/openresty/opm#readme), which can be found at `/usr/local/openresty/bin/opm`.
+
+`opm` is built in all the images.  However, to use it in the `alpine` image, you must also install the `perl` package; it is not included by default because it doubles the image size.  You may install it like so: `apk add --no-cache perl`.
+
 LuaRocks
 ========
 
@@ -132,7 +140,7 @@ docker build --build-arg RESTY_J=4 -f trusty/Dockerfile .
 
 | Key | Default | Description |
 :----- | :-----: |:----------- |
-|RESTY_VERSION | 1.11.2.1 | The version of OpenResty to use. |
+|RESTY_VERSION | 1.11.2.2 | The version of OpenResty to use. |
 |RESTY_LUAROCKS_VERSION | 2.3.0 | The version of LuaRocks to use. |
 |RESTY_OPENSSL_VERSION | 1.0.2j | The version of OpenSSL to use. |
 |RESTY_PCRE_VERSION | 8.39 | The version of PCRE to use. |
@@ -175,6 +183,11 @@ https://github.com/openresty/docker-openresty/issues
 
 Changelog
 =========
+
+## 1.11.2.2
+
+ * Upgraded OpenResty to 1.11.2.2
+ * Add resty-opm package to `centos-rpm`
 
 ## 2016-Oct-26
 
