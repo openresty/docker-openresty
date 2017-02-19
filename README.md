@@ -4,6 +4,7 @@
 
 - [`alpine`, (*alpine/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile)
 - [`alpine-fat`, (*alpine-fat/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine-fat/Dockerfile)
+- [`armhf-xenial`, (*armhf-xenial/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/armhf-xenial/Dockerfile)
 - [`centos`, (*centos/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
 - [`centos-rpm`, (*centos-rpm/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/centos-rpm/Dockerfile)
 - [`jessie`, (*jessie/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/jessie/Dockerfile)
@@ -133,6 +134,7 @@ Dockerfiles are provided for the following base systems, selecting the Dockerfil
  * [Debian Wheezy](https://github.com/openresty/docker-openresty/blob/master/wheezy/Dockerfile) (`wheezy/Dockerfile`)
  * [Ubuntu Trusty](https://github.com/openresty/docker-openresty/blob/master/trusty/Dockerfile) (`trusty/Dockerfile`)
  * [Ubuntu Xenial](https://github.com/openresty/docker-openresty/blob/master/xenial/Dockerfile) (`xenial/Dockerfile`)
+ * [Ubuntu Xenial armhf](https://github.com/openresty/docker-openresty/blob/master/armhf-xenial/Dockerfile) (`armhf-xenial/Dockerfile`)
 
 The following are the available build-time options. They can be set using the `--build-arg` CLI argument, like so:
 
@@ -185,6 +187,10 @@ https://github.com/openresty/docker-openresty/issues
 
 Changelog
 =========
+
+## 2017-Feb-19
+
+ * Add `armhf-xenial` image
 
 ## 2016-Nov-28
 
