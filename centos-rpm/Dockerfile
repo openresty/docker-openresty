@@ -41,4 +41,7 @@ RUN yum info \
 # and not consuming it fails the build.
 ARG RESTY_J="1"
 
+# Add additional binaries into PATH for convenience
+ENV PATH=$PATH:/usr/local/openresty/luajit/bin/:/usr/local/openresty/nginx/sbin/:/usr/local/openresty/bin/
+
 ENTRYPOINT ["/usr/bin/openresty", "-g", "daemon off;"]

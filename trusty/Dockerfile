@@ -100,5 +100,8 @@ RUN \
     && ln -sf /dev/stdout /usr/local/openresty/nginx/logs/access.log \
     && ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log
 
+# Add additional binaries into PATH for convenience
+ENV PATH=$PATH:/usr/local/openresty/luajit/bin/:/usr/local/openresty/nginx/sbin/:/usr/local/openresty/bin/
+
 # TODO: remove any other apt packages?
 ENTRYPOINT ["/usr/local/openresty/bin/openresty", "-g", "daemon off;"]
