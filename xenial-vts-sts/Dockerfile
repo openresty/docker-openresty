@@ -3,7 +3,7 @@
 
 FROM ubuntu:xenial
 
-MAINTAINER Mike Marrotte <marrotte@marrotte@gmail.com>
+MAINTAINER Mike Marrotte <marrotte@gmail.com>
 
 # Docker Build Arguments
 ARG RESTY_VERSION="1.11.2.2"
