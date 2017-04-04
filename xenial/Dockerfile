@@ -42,6 +42,8 @@ ARG RESTY_CONFIG_OPTIONS="\
     --with-stream \
     --with-stream_ssl_module \
     --with-threads \
+    --add-module=/usr/local/src/nginx-module-sts-master  \
+    --add-module=/usr/local/src/nginx-module-stream-sts-master \
     "
 
 # These are not intended to be user-specified
@@ -52,6 +54,18 @@ ARG _RESTY_CONFIG_DEPS="--with-openssl=/tmp/openssl-${RESTY_OPENSSL_VERSION} --w
 # 2) Download and untar OpenSSL, PCRE, and OpenResty
 # 3) Build OpenResty
 # 4) Cleanup
+
+RUN apt-get update
+RUN apt-get -y upgrade
+RUN apt-get install -y unzip wget apt-utils
+
+WORKDIR /usr/local/src
+
+RUN wget -O nginx-module-sts-master.zip https://github.com/vozlt/nginx-module-sts/archive/master.zip \
+  && unzip nginx-module-sts-master.zip
+
+RUN wget -O nginx-module-stream-sts-master.zip https://github.com/vozlt/nginx-module-stream-sts/archive/master.zip \
+  && unzip nginx-module-stream-sts-master.zip
 
 RUN \
     DEBIAN_FRONTEND=noninteractive apt-get update \
