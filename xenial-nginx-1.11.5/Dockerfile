@@ -1,12 +1,14 @@
-# Dockerfile - Ubuntu Xenial
-# https://github.com/openresty/docker-openresty
+# Dockerfile - Ubuntu Xenial Ngninx 1.11.5
+# https://github.com/marrotte/docker-openresty
 
 FROM ubuntu:xenial
 
-MAINTAINER Evan Wies <evan@neomantra.net>
+MAINTAINER Mike Marrotte <marrotte@gmail.com>
 
 # Docker Build Arguments
 ARG RESTY_VERSION="1.11.2.2"
+ARG NGINX_OEM_VERSION="1.11.2"
+ARG NGINX_MOD_VERSION="1.11.5"
 ARG RESTY_LUAROCKS_VERSION="2.3.0"
 ARG RESTY_OPENSSL_VERSION="1.0.2j"
 ARG RESTY_PCRE_VERSION="8.39"
@@ -74,6 +76,10 @@ RUN \
     && tar xzf pcre-${RESTY_PCRE_VERSION}.tar.gz \
     && curl -fSL https://openresty.org/download/openresty-${RESTY_VERSION}.tar.gz -o openresty-${RESTY_VERSION}.tar.gz \
     && tar xzf openresty-${RESTY_VERSION}.tar.gz \
+    && curl -fSL http://nginx.org/download/nginx-${NGINX_MOD_VERSION}.tar.gz -o nginx-${NGINX_MOD_VERSION}.tar.gz \
+    && tar xzf nginx-${NGINX_MOD_VERSION}.tar.gz \
+    && mv nginx-${NGINX_MOD_VERSION} /tmp/openresty-${RESTY_VERSION}/bundle/ \
+    && rm -rf /tmp/openresty-${RESTY_VERSION}/bundle/nginx-${NGINX_OEM_VERSION} \
     && cd /tmp/openresty-${RESTY_VERSION} \
     && ./configure -j${RESTY_J} ${_RESTY_CONFIG_DEPS} ${RESTY_CONFIG_OPTIONS} \
     && make -j${RESTY_J} \
