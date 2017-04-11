@@ -188,6 +188,10 @@ https://github.com/openresty/docker-openresty/issues
 Changelog
 =========
 
+## 2017-Apr-10
+
+ * Change PCRE download URL to https://ftp.pcre.org/pub/pcre
+
 ## 2017-Feb-19
 
  * Add `armhf-xenial` image
