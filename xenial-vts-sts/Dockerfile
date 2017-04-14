@@ -1,5 +1,5 @@
 # Dockerfile - Ubuntu Xenial Nginx 1.11.5 with nginx-module-vts and nginx-module-sts
-# https://github.com/marrotte/openresty-vts-sts/ 
+# https://github.com/marrotte/docker-openresty/ 
 
 FROM ubuntu:xenial
 
