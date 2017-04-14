@@ -11,6 +11,8 @@
 - [`trusty`, (*trusty/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/trusty/Dockerfile)
 - [`wheezy`, (*wheezy/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/wheezy/Dockerfile)
 - [`xenial`, (*xenial/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/xenial/Dockerfile)
+- [`xenial-nginx-1.11.5`, (*xenial-nginx-1.11.5/Dockerfile*)](https://github.com/marrotte/docker-openresty/blob/master/xenial-nginx-1.11.5/Dockerfile)
+- [`xenial-vts-sts`, (*xenial-vts-sts/Dockerfile*)](https://github.com/marrotte/docker-openresty/blob/master/xenial-vts-sts/Dockerfile)
 
 [![](https://images.microbadger.com/badges/image/openresty/openresty.svg)](https://microbadger.com/#/images/openresty/openresty "Get your own image badge on microbadger.com")
 
