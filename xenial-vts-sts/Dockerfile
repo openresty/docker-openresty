@@ -1,5 +1,5 @@
 # Dockerfile - Ubuntu Xenial Nginx 1.11.5 with nginx-module-vts and nginx-module-sts
-# https://github.com/openresty/docker-openresty
+# https://github.com/marrotte/openresty-vts-sts/ 
 
 FROM ubuntu:xenial
 
@@ -42,6 +42,7 @@ ARG RESTY_CONFIG_OPTIONS="\
     --with-stream \
     --with-stream_ssl_module \
     --with-threads \
+    --add-module=/usr/local/src/nginx-module-vts-master  \
     --add-module=/usr/local/src/nginx-module-sts-master  \
     --add-module=/usr/local/src/nginx-module-stream-sts-master \
     "
@@ -60,6 +61,9 @@ RUN apt-get -y upgrade
 RUN apt-get install -y unzip wget apt-utils
 
 WORKDIR /usr/local/src
+
+RUN wget -O nginx-module-vts-master.zip https://github.com/vozlt/nginx-module-vts/archive/master.zip \
+  && unzip nginx-module-vts-master.zip
 
 RUN wget -O nginx-module-sts-master.zip https://github.com/vozlt/nginx-module-sts/archive/master.zip \
   && unzip nginx-module-sts-master.zip
@@ -84,13 +88,13 @@ RUN \
         unzip \
         zlib1g-dev \
     && cd /tmp \
-    && curl -fSL https://www.openssl.org/source/openssl-${RESTY_OPENSSL_VERSION}.tar.gz -o openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
+    && curl -kfSL https://www.openssl.org/source/openssl-${RESTY_OPENSSL_VERSION}.tar.gz -o openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
     && tar xzf openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
-    && curl -fSL https://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-${RESTY_PCRE_VERSION}.tar.gz -o pcre-${RESTY_PCRE_VERSION}.tar.gz \
+    && curl -kfSL https://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-${RESTY_PCRE_VERSION}.tar.gz -o pcre-${RESTY_PCRE_VERSION}.tar.gz \
     && tar xzf pcre-${RESTY_PCRE_VERSION}.tar.gz \
-    && curl -fSL https://openresty.org/download/openresty-${RESTY_VERSION}.tar.gz -o openresty-${RESTY_VERSION}.tar.gz \
+    && curl -kfSL https://openresty.org/download/openresty-${RESTY_VERSION}.tar.gz -o openresty-${RESTY_VERSION}.tar.gz \
     && tar xzf openresty-${RESTY_VERSION}.tar.gz \
-    && curl -fSL http://nginx.org/download/nginx-${NGINX_MOD_VERSION}.tar.gz -o nginx-${NGINX_MOD_VERSION}.tar.gz \
+    && curl -kfSL http://nginx.org/download/nginx-${NGINX_MOD_VERSION}.tar.gz -o nginx-${NGINX_MOD_VERSION}.tar.gz \
     && tar xzf nginx-${NGINX_MOD_VERSION}.tar.gz \
     && mv nginx-${NGINX_MOD_VERSION} /tmp/openresty-${RESTY_VERSION}/bundle/ \
     && rm -rf /tmp/openresty-${RESTY_VERSION}/bundle/nginx-${NGINX_OEM_VERSION} \
@@ -104,7 +108,7 @@ RUN \
         openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
         openresty-${RESTY_VERSION}.tar.gz openresty-${RESTY_VERSION} \
         pcre-${RESTY_PCRE_VERSION}.tar.gz pcre-${RESTY_PCRE_VERSION} \
-    && curl -fSL http://luarocks.org/releases/luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz -o luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
+    && curl -kfSL http://luarocks.org/releases/luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz -o luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && tar xzf luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && cd luarocks-${RESTY_LUAROCKS_VERSION} \
     && ./configure \
