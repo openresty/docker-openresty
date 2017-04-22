@@ -144,9 +144,9 @@ docker build --build-arg RESTY_J=4 -f trusty/Dockerfile .
 
 | Key | Default | Description |
 :----- | :-----: |:----------- |
-|RESTY_VERSION | 1.11.2.2 | The version of OpenResty to use. |
+|RESTY_VERSION | 1.11.2.3 | The version of OpenResty to use. |
 |RESTY_LUAROCKS_VERSION | 2.3.0 | The version of LuaRocks to use. |
-|RESTY_OPENSSL_VERSION | 1.0.2j | The version of OpenSSL to use. |
+|RESTY_OPENSSL_VERSION | 1.0.2k | The version of OpenSSL to use. |
 |RESTY_PCRE_VERSION | 8.39 | The version of PCRE to use. |
 |RESTY_J | 1 | Sets the parallelism level (-jN) for the builds. |
 |RESTY_CONFIG_OPTIONS | "--with-file-aio --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_geoip_module=dynamic --with-http_gunzip_module --with-http_gzip_static_module --with-http_image_filter_module=dynamic --with-http_mp4_module --with-http_perl_module=dynamic --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-http_xslt_module=dynamic --with-ipv6 --with-mail --with-mail_ssl_module --with-md5-asm --with-pcre-jit --with-sha1-asm --with-stream --with-stream_ssl_module --with-threads" | The options to pass to OpenResty's `./configure` script. |
@@ -187,6 +187,12 @@ https://github.com/openresty/docker-openresty/issues
 
 Changelog
 =========
+
+## 1.11.2.3
+
+ * Upgraded OpenResty to 1.11.2.3
+ * Upgraded OpenSSL to 1.0.2k
+ * Update `centos-rpm` to 1.11.2.3-1
 
 ## 2017-Apr-10
 
