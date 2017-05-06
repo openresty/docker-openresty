@@ -52,11 +52,8 @@ ARG _RESTY_CONFIG_DEPS="--with-openssl=/tmp/openssl-${RESTY_OPENSSL_VERSION} --w
 # 4) Cleanup
 
 RUN \
-    DEBIAN_FRONTEND=noninteractive apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    buildDeps="\
         build-essential \
-        ca-certificates \
-        curl \
         libgd-dev \
         libgeoip-dev \
         libncurses5-dev \
@@ -65,8 +62,10 @@ RUN \
         libxslt1-dev \
         make \
         perl \
-        unzip \
-        zlib1g-dev \
+        zlib1g-dev" \
+    && deps="ca-certificates curl unzip" \
+    && DEBIAN_FRONTEND=noninteractive apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends $buildDeps $deps \
     && cd /tmp \
     && curl -fSL https://www.openssl.org/source/openssl-${RESTY_OPENSSL_VERSION}.tar.gz -o openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
     && tar xzf openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
@@ -96,7 +95,8 @@ RUN \
     && make install \
     && cd /tmp \
     && rm -rf luarocks-${RESTY_LUAROCKS_VERSION} luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
-    && DEBIAN_FRONTEND=noninteractive apt-get autoremove -y \
+    && DEBIAN_FRONTEND=noninteractive apt-get autoremove --purge -y $buildDeps \
+    && rm -rf /var/lib/apt/lists/* \
     && ln -sf /dev/stdout /usr/local/openresty/nginx/logs/access.log \
     && ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log
 
