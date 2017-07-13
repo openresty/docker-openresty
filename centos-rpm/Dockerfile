@@ -7,7 +7,7 @@ MAINTAINER Evan Wies <evan@neomantra.net>
 
 ARG RESTY_LUAROCKS_VERSION="2.3.0"
 ARG RESTY_RPM_FLAVOR=""
-ARG RESTY_RPM_VERSION="1.11.2.3-1.el7.centos.x86_64"
+ARG RESTY_RPM_VERSION="1.11.2.4-1.el7.centos.x86_64"
 COPY OpenResty.repo /etc/yum.repos.d/OpenResty.repo
 
 RUN yum info \

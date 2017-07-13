@@ -172,7 +172,7 @@ docker build --build-arg RESTY_RPM_FLAVOR="-debug" -f centos-rpm/Dockerfile cent
 :----- | :-----: |:----------- |
 |RESTY_LUAROCKS_VERSION | 2.3.0 | The version of LuaRocks to use. |
 |RESTY_RPM_FLAVOR | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
-|RESTY_RPM_VERSION | 1.11.2.4-1.el7.centos.x86_6 | The `openresty` package version to install. |
+|RESTY_RPM_VERSION | 1.11.2.4-1.el7.centos.x86_64 | The `openresty` package version to install. |
 
 [Back to TOC](#table-of-contents)
 
