@@ -8,6 +8,7 @@
 - [`centos`, (*centos/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
 - [`centos-rpm`, (*centos-rpm/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/centos-rpm/Dockerfile)
 - [`jessie`, (*jessie/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/jessie/Dockerfile)
+- [`stretch`, (*stretch/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/stretch/Dockerfile)
 - [`trusty`, (*trusty/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/trusty/Dockerfile)
 - [`wheezy`, (*wheezy/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/wheezy/Dockerfile)
 - [`xenial`, (*xenial/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/xenial/Dockerfile)
@@ -22,8 +23,9 @@ Table of Contents
 * [OPM](#opm)
 * [LuaRocks](#luarocks)
 * [Docker ENTRYPOINT](#docker-entrypoint)
-* [Building (non-RPM based)](#building-non-rpm-based)
+* [Building (from source)](#building-from-source)
 * [Building (RPM based)](#building-rpm-based)
+* [Building (DEB based)](#building-deb-based)
 * [Feedback & Bug Reports](#feedback-bug-reports)
 * [Changelog](#changelog)
 * [Copyright & License](#copyright--license)
@@ -38,7 +40,7 @@ Docker is a container management platform.
 OpenResty is a full-fledged web application server by bundling the standard nginx core,
 lots of 3rd-party nginx modules, as well as most of their external dependencies.
 
-From non-RPM flavors, the following modules are included by default, but one can easily increase or decrease that with [custom build options](#build-options) :
+From non-RPM/DEB flavors, the following modules are included by default, but one can easily increase or decrease that with [custom build options](#build-options) :
 
  * file-aio
  * http_addition_module
@@ -87,7 +89,12 @@ OPM
 
 Starting at version 1.11.2.2, OpenResty includes a [package manager called `opm`](https://github.com/openresty/opm#readme), which can be found at `/usr/local/openresty/bin/opm`.
 
-`opm` is built in all the images.  However, to use it in the `alpine` image, you must also install the `perl` package; it is not included by default because it doubles the image size.  You may install it like so: `apk add --no-cache perl`.
+`opm` is built in all the images except `alpine` and `stretch`.
+
+To use `opm` in the `alpine` image, you must also install the `perl` package; it is not included by default because it doubles the image size.  You may install it like so: `apk add --no-cache perl`.
+
+To use `opm` in the `stretch` image, you must also install the `openresty-opm` package as shown in [this example](https://github.com/openresty/docker-openresty/blob/master/stretch/Dockerfile.opm_example).
+
 
 LuaRocks
 ========
@@ -113,7 +120,7 @@ docker run [options] --entrypoint /usr/local/openresty/bin/resty openresty/openr
 
 *NOTE* The `alpine` images do not include the packages `perl` and `ncurses`, which is needed by the `resty` utility.
 
-Building (non-RPM based)
+Building (from source)
 ========================
 
 This Docker image can be built and customized by cloning the repo and running `docker build` with the desired Dockerfile:
@@ -156,7 +163,7 @@ docker build --build-arg RESTY_J=4 -f trusty/Dockerfile .
 Building (RPM based)
 ====================
 
-OpenResty now now has [RPMs available](http://openresty.org/en/rpm-packages.html).  The `centos-rpm` images use these RPMs rather than the build system described above.
+OpenResty now now has [RPMs available](http://openresty.org/en/rpm-packages.html).  The `centos-rpm` images use these RPMs rather than building from source.
 
 This Docker image can be built and customized by cloning the repo and running `docker build` with the desired Dockerfile:
 
@@ -176,6 +183,29 @@ docker build --build-arg RESTY_RPM_FLAVOR="-debug" -f centos-rpm/Dockerfile cent
 
 [Back to TOC](#table-of-contents)
 
+Building (DEB based)
+====================
+
+OpenResty now now has [Debian Packages (DEBs) available](http://openresty.org/en/deb-packages.html).  The `stretch` image use these DEBs rather than building from source.
+
+You can derive your own Docker images from this to install your own packages.  See [Dockerfile.opm_example](https://github.com/openresty/docker-openresty/blob/master/stretch/Dockerfile.opm_example) and [Dockerfile.luarocks_example](https://github.com/openresty/docker-openresty/blob/master/stretch/Dockerfile.luarocks_example).
+
+This Docker image can be built and customized by cloning the repo and running `docker build` with the desired Dockerfile:
+
+ * [Debian Stretch 9 DEB](https://github.com/openresty/docker-openresty/blob/master/stretch/Dockerfile) (`stretch/Dockerfile`)
+
+The following are the available build-time options. They can be set using the `--build-arg` CLI argument, like so:
+
+```
+docker build --build-arg RESTY_DEB_FLAVOR="-debug" -f stretch/Dockerfile stretch
+```
+
+| Key | Default | Description |
+:----- | :-----: |:----------- |
+|RESTY_DEB_FLAVOR | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
+
+[Back to TOC](#table-of-contents)
+
 Feedback & Bug Reports
 ======================
 
@@ -187,6 +217,10 @@ https://github.com/openresty/docker-openresty/issues
 
 Changelog
 =========
+
+## 2017-Jul-31
+
+ * Add `stretch` using official Debian packages
 
 ## 1.11.2.4
 
@@ -244,7 +278,7 @@ Copyright & License
 
 docker-openresty is licensed under the 2-clause BSD license.
 
-Copyright (c) 2016, Evan Wies <evan@neomantra.net>.
+Copyright (c) 2017, Evan Wies <evan@neomantra.net>.
 
 This module is licensed under the terms of the BSD license.
 

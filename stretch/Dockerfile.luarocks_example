@@ -1,0 +1,35 @@
+# Derived Dockerfile Example using `opm`
+# https://github.com/openresty/docker-openresty
+#
+# Installs openresty-opm and then uses opm to install pgmoon.
+#
+
+FROM openresty:stretch
+
+MAINTAINER Evan Wies <evan@neomantra.net>
+
+ARG RESTY_LUAROCKS_VERSION="2.3.0"
+
+
+# install LuaRocks
+RUN DEBIAN_FRONTEND=noninteractive apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        curl \
+        make \
+        unzip \
+    && cd /tmp \
+    && curl -fSL http://luarocks.org/releases/luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz -o luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
+    && tar xzf luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
+    && cd luarocks-${RESTY_LUAROCKS_VERSION} \
+    && ./configure \
+        --prefix=/usr/local/openresty/luajit \
+        --with-lua=/usr/local/openresty/luajit \
+        --lua-suffix=jit-2.1.0-beta2 \
+        --with-lua-include=/usr/local/openresty/luajit/include/luajit-2.1 \
+    && make build \
+    && make install \
+    && cd /tmp \
+    && rm -rf luarocks-${RESTY_LUAROCKS_VERSION} luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz
+
+# install a rock
+RUN /usr/local/openresty/luajit/bin/luarocks install ljsyscall
