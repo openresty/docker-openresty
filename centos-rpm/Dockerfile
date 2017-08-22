@@ -7,12 +7,10 @@ MAINTAINER Evan Wies <evan@neomantra.net>
 
 ARG RESTY_LUAROCKS_VERSION="2.3.0"
 ARG RESTY_RPM_FLAVOR=""
-ARG RESTY_RPM_VERSION="1.11.2.4-1.el7.centos.x86_64"
-COPY OpenResty.repo /etc/yum.repos.d/OpenResty.repo
+ARG RESTY_RPM_VERSION="1.11.2.5-1.el7.centos.x86_64"
 
-RUN yum info \
-        openresty${RESTY_RPM_FLAVOR}-${RESTY_RPM_VERSION} \
-        openresty-resty-${RESTY_RPM_VERSION} \
+RUN yum install -y yum-utils \
+    && yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo \
     && yum install -y \
         make \
         openresty${RESTY_RPM_FLAVOR}-${RESTY_RPM_VERSION} \
@@ -25,7 +23,7 @@ RUN yum info \
     && ./configure \
         --prefix=/usr/local/openresty/luajit \
         --with-lua=/usr/local/openresty/luajit \
-        --lua-suffix=jit-2.1.0-beta2 \
+        --lua-suffix=jit-2.1.0-beta3 \
         --with-lua-include=/usr/local/openresty/luajit/include/luajit-2.1 \
     && make build \
     && make install \
