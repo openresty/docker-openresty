@@ -108,14 +108,14 @@ RUN /usr/local/openresty/luajit/bin/luarocks install <rock>
 ```
 
 Docker CMD
-=================
+============
 
 The `-g "daemon off;"` directive is used in the Dockerfile CMD to keep the Nginx daemon running after container creation. If this directive is added to the nginx.conf, then it may be omitted from the CMD.
 
 To invoke with another CMD, for example the `resty` utility, invoke like so:
 
 ```
-docker run [options] --entrypoint /usr/local/openresty/bin/resty openresty/openresty:xenial [script.lua]
+docker run [options] openresty/openresty:xenial /usr/local/openresty/bin/resty [script.lua]
 ```
 
 *NOTE* The `alpine` images do not include the packages `perl` and `ncurses`, which is needed by the `resty` utility.
@@ -267,14 +267,14 @@ Changelog
 
  * Upgraded OpenResty to 1.11.2.1
  * Upgraded PCRE to 8.39
- * Updated CMD to use the new symlink `/usr/local/openresty/bin/openresty`
- * `centos-rpm` now has the build argument `RESTY_RPM_VERSION` and CMD `/usr/bin/openresty`
+ * Updated ENTRYPOINT to use the new symlink `/usr/local/openresty/bin/openresty`
+ * `centos-rpm` now has the build argument `RESTY_RPM_VERSION` and ENTRYPOINT `/usr/bin/openresty`
 
 ## 1.9.15.1
 
  * Upgraded OpenResty to 1.9.15.1
  * Logging is redirected to /dev/stdout and /dev/stderr
- * Introduced CMD with the `-g "daemon off;"` directive
+ * Introduced ENTRYPOINT with the `-g "daemon off;"` directive
  * Add `centos-rpm` base system, using upstream RPM packaging
 
 [Back to TOC](#table-of-contents)
