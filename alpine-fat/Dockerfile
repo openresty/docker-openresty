@@ -112,4 +112,3 @@ RUN \
 ENV PATH=$PATH:/usr/local/openresty/luajit/bin/:/usr/local/openresty/nginx/sbin/:/usr/local/openresty/bin/
 
 CMD ["/usr/local/openresty/bin/openresty", "-g", "daemon off;"]
-
