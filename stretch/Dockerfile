@@ -39,4 +39,4 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
 # Add additional binaries into PATH for convenience
 ENV PATH="$PATH:/usr/local/openresty${RESTY_DEB_FLAVOR}/luajit/bin/:/usr/local/openresty${RESTY_DEB_FLAVOR}/nginx/sbin/:/usr/local/openresty${RESTY_DEB_FLAVOR}/bin/"
 
-ENTRYPOINT ["/usr/bin/openresty", "-g", "daemon off;"]
+CMD ["/usr/bin/openresty", "-g", "daemon off;"]

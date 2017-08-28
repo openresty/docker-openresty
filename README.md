@@ -22,7 +22,7 @@ Table of Contents
 * [Usage](#usage)
 * [OPM](#opm)
 * [LuaRocks](#luarocks)
-* [Docker ENTRYPOINT](#docker-entrypoint)
+* [Docker CMD](#docker-entrypoint)
 * [Building (from source)](#building-from-source)
 * [Building (RPM based)](#building-rpm-based)
 * [Building (DEB based)](#building-deb-based)
@@ -107,12 +107,12 @@ It is available at `/usr/local/openresty/luajit/bin/luarocks`.  Packages can be 
 RUN /usr/local/openresty/luajit/bin/luarocks install <rock>
 ```
 
-Docker ENTRYPOINT
+Docker CMD
 =================
 
-The `-g "daemon off;"` directive is used in the Dockerfile ENTRYPOINT to keep the Nginx daemon running after container creation. If this directive is added to the nginx.conf, then it may be omitted from the ENTRYPOINT.
+The `-g "daemon off;"` directive is used in the Dockerfile CMD to keep the Nginx daemon running after container creation. If this directive is added to the nginx.conf, then it may be omitted from the CMD.
 
-To invoke with another ENTRYPOINT, for example the `resty` utility, invoke like so:
+To invoke with another CMD, for example the `resty` utility, invoke like so:
 
 ```
 docker run [options] --entrypoint /usr/local/openresty/bin/resty openresty/openresty:xenial [script.lua]
@@ -267,14 +267,14 @@ Changelog
 
  * Upgraded OpenResty to 1.11.2.1
  * Upgraded PCRE to 8.39
- * Updated ENTRYPOINT to use the new symlink `/usr/local/openresty/bin/openresty`
- * `centos-rpm` now has the build argument `RESTY_RPM_VERSION` and ENTRYPOINT `/usr/bin/openresty`
+ * Updated CMD to use the new symlink `/usr/local/openresty/bin/openresty`
+ * `centos-rpm` now has the build argument `RESTY_RPM_VERSION` and CMD `/usr/bin/openresty`
 
 ## 1.9.15.1
 
  * Upgraded OpenResty to 1.9.15.1
  * Logging is redirected to /dev/stdout and /dev/stderr
- * Introduced ENTRYPOINT with the `-g "daemon off;"` directive
+ * Introduced CMD with the `-g "daemon off;"` directive
  * Add `centos-rpm` base system, using upstream RPM packaging
 
 [Back to TOC](#table-of-contents)

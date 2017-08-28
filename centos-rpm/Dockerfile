@@ -42,4 +42,4 @@ ARG RESTY_J="1"
 # Add additional binaries into PATH for convenience
 ENV PATH=$PATH:/usr/local/openresty/luajit/bin/:/usr/local/openresty/nginx/sbin/:/usr/local/openresty/bin/
 
-ENTRYPOINT ["/usr/bin/openresty", "-g", "daemon off;"]
+CMD ["/usr/bin/openresty", "-g", "daemon off;"]
