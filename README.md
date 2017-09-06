@@ -28,8 +28,8 @@ Table of Contents
 * [Building (from source)](#building-from-source)
 * [Building (RPM based)](#building-rpm-based)
 * [Building (DEB based)](#building-deb-based)
-* [Feedback & Bug Reports](#feedback-bug-reports)
-* [Changelog](#changelog)
+* [Feedback & Bug Reports](#feedback--bug-reports)
+* [Changelog & Authors](#changelog--authors)
 * [Copyright & License](#copyright--license)
 
 
@@ -118,7 +118,7 @@ Pitfalls
 
  * **Docker Hub** does not currently support ARM builds, thus the `armhf-xenial` image is not available. (See [#26](https://github.com/openresty/docker-openresty/pull/26))
 
- * By default, OpenResty is built with SSE4.2 optimizations if the build machine supports it.  If run on machine without SSE4.2, there will be [invalid opcode issues](https://github.com/openresty/docker-openresty/issues/39). **Thus all the Docker Hub images require SSE4.2.**. You can [build a custom image from source](#building-from-source) explicitly without SSE4.2 support, using build arguments like so:
+ * By default, OpenResty is built with SSE4.2 optimizations if the build machine supports it.  If run on machine without SSE4.2, there will be [invalid opcode issues](https://github.com/openresty/docker-openresty/issues/39). **Thus all the Docker Hub images require SSE4.2.**  You can [build a custom image from source](#building-from-source) explicitly without SSE4.2 support, using build arguments like so:
 ```
 docker build -f xenial/Dockerfile --build-arg "RESTY_CONFIG_OPTIONS_MORE=--with-luajit-xcflags='-mno-sse4.2'" .
 ```
@@ -238,74 +238,11 @@ https://github.com/openresty/docker-openresty/issues
 [Back to TOC](#table-of-contents)
 
 
-Changelog
-=========
+Changelog & Authors
+===================
 
-## 2017-Sep
-
- * Add `RESTY_CONFIG_OPTIONS_MORE` build-arg to facilitate adding options (versus overriding them)
- * Use `CMD` instead of `ENTRYPOINT` (Lef Ioannidis <lef@unify.id>)
-
-## 1.11.2.5
-
- * Upgraded OpenResty to 1.11.2.5
- * Update `centos-rpm` to 1.11.2.5-1 and use latest repos
- * Upgraded PCRE to 3.40
-
-## 2017-Jul-31
-
- * Add `stretch` using official Debian packages
-
-## 1.11.2.4
-
- * Upgraded OpenResty to 1.11.2.4
- * Update `centos-rpm` to 1.11.2.4-1
-
-## 1.11.2.3
-
- * Upgraded OpenResty to 1.11.2.3
- * Upgraded OpenSSL to 1.0.2k
- * Update `centos-rpm` to 1.11.2.3-1
-
-## 2017-Apr-10
-
- * Change PCRE download URL to https://ftp.pcre.org/pub/pcre
-
-## 2017-Feb-19
-
- * Add `armhf-xenial` image
- * Update `centos-rpm` to 1.11.2.2-8
-
-## 2016-Nov-28
-
- * Add `alpine-fat` image
- * Remove 'latest' tags
-
-## 1.11.2.2
-
- * Upgraded OpenResty to 1.11.2.2
- * Add resty-opm package to `centos-rpm`
-
-## 2016-Oct-26
-
- * Added Debian Jessie and Wheezy Builds
- * Upgraded OpenSSL to 1.0.2j
-
-## 1.11.2.1
-
- * Upgraded OpenResty to 1.11.2.1
- * Upgraded PCRE to 8.39
- * Updated ENTRYPOINT to use the new symlink `/usr/local/openresty/bin/openresty`
- * `centos-rpm` now has the build argument `RESTY_RPM_VERSION` and ENTRYPOINT `/usr/bin/openresty`
-
-## 1.9.15.1
-
- * Upgraded OpenResty to 1.9.15.1
- * Logging is redirected to /dev/stdout and /dev/stderr
- * Introduced ENTRYPOINT with the `-g "daemon off;"` directive
- * Add `centos-rpm` base system, using upstream RPM packaging
-
-[Back to TOC](#table-of-contents)
+ * [CHANGELOG](https://github.com/openresty/docker-openresty/blob/master/CHANGELOG.md)
+ * [AUTHORS](https://github.com/openresty/docker-openresty/blob/master/AUTHORS.md)
 
 
 Copyright & License
