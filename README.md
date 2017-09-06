@@ -172,14 +172,15 @@ This Docker image can be built and customized by cloning the repo and running `d
 The following are the available build-time options. They can be set using the `--build-arg` CLI argument, like so:
 
 ```
-docker build --build-arg RESTY_RPM_FLAVOR="-debug" -f centos-rpm/Dockerfile centos-rpm
+docker build --build-arg RESTY_RPM_FLAVOR="-debug" centos-rpm
 ```
 
 | Key | Default | Description |
 :----- | :-----: |:----------- |
 |RESTY_LUAROCKS_VERSION | 2.3.0 | The version of LuaRocks to use. |
 |RESTY_RPM_FLAVOR | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
-|RESTY_RPM_VERSION | 1.11.2.5-1.el7.centos.x86_64 | The `openresty` package version to install. |
+|RESTY_RPM_VERSION | 1.11.2.5-1.el7.centos | The `openresty` package version to install. |
+|RESTY_RPM_ARCH | x86_64 | The `openresty` package architecture to install. |
 
 [Back to TOC](#table-of-contents)
 
@@ -220,6 +221,7 @@ Changelog
 
 ## 1.11.2.5
 
+ * Fixed `centos-rpm` installation of `opm` and `resty` (2017-Sep-06)
  * Upgraded OpenResty to 1.11.2.5
  * Update `centos-rpm` to 1.11.2.5-1 and use latest repos
  * Upgraded PCRE to 3.40
