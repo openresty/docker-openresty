@@ -3,6 +3,7 @@ Changelog
 
 ## [Unreleased] 
 
+ * Add `envsubst` utility
  * Add `RESTY_CONFIG_OPTIONS_MORE` build-arg to facilitate adding options (versus overriding them)
  * Use `CMD` instead of `ENTRYPOINT`
 

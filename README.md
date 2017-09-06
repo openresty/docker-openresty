@@ -23,7 +23,7 @@ Table of Contents
 * [Usage](#usage)
 * [OPM](#opm)
 * [LuaRocks](#luarocks)
-* [Pitfalls](#pitfalls)
+* [Tips & Pitfalls](#tips--pitfalls)
 * [Docker CMD](#docker-entrypoint)
 * [Building (from source)](#building-from-source)
 * [Building (RPM based)](#building-rpm-based)
@@ -113,8 +113,11 @@ RUN /usr/local/openresty/luajit/bin/luarocks install <rock>
 ```
 
 
-Pitfalls
-========
+Tips & Pitfalls
+===============
+
+ * The `envsubst` utility is included in all images except `alpine`; this utility is also included
+ in the Nginx docker image and is used to template environment variables into configuration files.
 
  * **Docker Hub** does not currently support ARM builds, thus the `armhf-xenial` image is not available. (See [#26](https://github.com/openresty/docker-openresty/pull/26))
 
@@ -127,12 +130,14 @@ docker build -f xenial/Dockerfile --build-arg "RESTY_CONFIG_OPTIONS_MORE=--with-
 Docker CMD
 ==========
 
-The `-g "daemon off;"` directive is used in the Dockerfile CMD to keep the Nginx daemon running after container creation. If this directive is added to the nginx.conf, then it may be omitted from the CMD.
-
-To invoke with another CMD, for example the `resty` utility, invoke like so:
-
+The `-g "daemon off;"` directive is used in the Dockerfile CMD to keep the Nginx daemon running after container creation. If this directive is added to the nginx.conf, then the `docker run` should explicitly invoke `openresty`:
 ```
-docker run [options] openresty/openresty:xenial /usr/local/openresty/bin/resty [script.lua]
+docker run [options] openresty/openresty:xenial openresty
+```
+
+Invoke another CMD, for example the `resty` utility, like so:
+```
+docker run [options] openresty/openresty:xenial resty [script.lua]
 ```
 
 *NOTE* The `alpine` images do not include the packages `perl` and `ncurses`, which is needed by the `resty` utility.

@@ -14,6 +14,7 @@ ARG RESTY_DEB_FLAVOR=""
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         ca-certificates \
+        gettext-base \
         gnupg2 \
         lsb-release \
         software-properties-common \
