@@ -6,8 +6,9 @@ Changelog
  * Add `RESTY_CONFIG_OPTIONS_MORE` build-arg to facilitate adding options (versus overriding them)
  * Use `CMD` instead of `ENTRYPOINT`
 
-## 1.11.2.5
+## 1.11.2.5  (2017-Aug-28)
 
+ * Fixed `centos-rpm` installation of `opm` and `resty` (2017-Sep-06)
  * Upgraded OpenResty to 1.11.2.5
  * Update `centos-rpm` to 1.11.2.5-1 and use latest repos
  * Upgraded PCRE to 3.40

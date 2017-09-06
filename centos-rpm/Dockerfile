@@ -7,13 +7,14 @@ MAINTAINER Evan Wies <evan@neomantra.net>
 
 ARG RESTY_LUAROCKS_VERSION="2.3.0"
 ARG RESTY_RPM_FLAVOR=""
-ARG RESTY_RPM_VERSION="1.11.2.5-1.el7.centos.x86_64"
+ARG RESTY_RPM_VERSION="1.11.2.5-1.el7.centos"
+ARG RESTY_RPM_ARCH="x86_64"
 
 RUN yum install -y yum-utils \
     && yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo \
     && yum install -y \
         make \
-        openresty${RESTY_RPM_FLAVOR}-${RESTY_RPM_VERSION} \
+        openresty${RESTY_RPM_FLAVOR}-${RESTY_RPM_VERSION}.${RESTY_RPM_ARCH} \
         openresty-opm-${RESTY_RPM_VERSION} \
         openresty-resty-${RESTY_RPM_VERSION} \
         unzip \
