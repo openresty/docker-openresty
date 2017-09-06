@@ -22,7 +22,7 @@ Table of Contents
 * [Usage](#usage)
 * [OPM](#opm)
 * [LuaRocks](#luarocks)
-* [Docker ENTRYPOINT](#docker-entrypoint)
+* [Docker CMD](#docker-entrypoint)
 * [Building (from source)](#building-from-source)
 * [Building (RPM based)](#building-rpm-based)
 * [Building (DEB based)](#building-deb-based)
@@ -107,15 +107,15 @@ It is available at `/usr/local/openresty/luajit/bin/luarocks`.  Packages can be 
 RUN /usr/local/openresty/luajit/bin/luarocks install <rock>
 ```
 
-Docker ENTRYPOINT
-=================
+Docker CMD
+============
 
-The `-g "daemon off;"` directive is used in the Dockerfile ENTRYPOINT to keep the Nginx daemon running after container creation. If this directive is added to the nginx.conf, then it may be omitted from the ENTRYPOINT.
+The `-g "daemon off;"` directive is used in the Dockerfile CMD to keep the Nginx daemon running after container creation. If this directive is added to the nginx.conf, then it may be omitted from the CMD.
 
-To invoke with another ENTRYPOINT, for example the `resty` utility, invoke like so:
+To invoke with another CMD, for example the `resty` utility, invoke like so:
 
 ```
-docker run [options] --entrypoint /usr/local/openresty/bin/resty openresty/openresty:xenial [script.lua]
+docker run [options] openresty/openresty:xenial /usr/local/openresty/bin/resty [script.lua]
 ```
 
 *NOTE* The `alpine` images do not include the packages `perl` and `ncurses`, which is needed by the `resty` utility.
@@ -217,6 +217,10 @@ https://github.com/openresty/docker-openresty/issues
 
 Changelog
 =========
+
+## 2017-Sep
+
+ * Use `CMD` instead of `ENTRYPOINT`
 
 ## 1.11.2.5
 
