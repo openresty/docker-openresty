@@ -15,6 +15,7 @@
 
 [![](https://images.microbadger.com/badges/image/openresty/openresty.svg)](https://microbadger.com/#/images/openresty/openresty "Get your own image badge on microbadger.com")
 
+
 Table of Contents
 =================
 
@@ -22,6 +23,7 @@ Table of Contents
 * [Usage](#usage)
 * [OPM](#opm)
 * [LuaRocks](#luarocks)
+* [Pitfalls](#pitfalls)
 * [Docker CMD](#docker-entrypoint)
 * [Building (from source)](#building-from-source)
 * [Building (RPM based)](#building-rpm-based)
@@ -29,6 +31,7 @@ Table of Contents
 * [Feedback & Bug Reports](#feedback-bug-reports)
 * [Changelog](#changelog)
 * [Copyright & License](#copyright--license)
+
 
 Description
 ===========
@@ -71,6 +74,7 @@ From non-RPM/DEB flavors, the following modules are included by default, but one
  * stream_ssl_module
  * threads
 
+
 Usage
 =====
 
@@ -83,6 +87,7 @@ docker run [options] openresty/openresty:trusty
 *[options]* would be things like -p to map ports, -v to map volumes, and -d to daemonize.
 
 `docker-openresty` symlinks `/usr/local/openresty/nginx/logs/access.log` and `error.log` to `/dev/stdout` and `/dev/stderr` respectively, so that Docker logging works correctly.  If you change the log paths in your `nginx.conf`, you should symlink those paths as well.
+
 
 OPM
 ===
@@ -107,8 +112,20 @@ It is available at `/usr/local/openresty/luajit/bin/luarocks`.  Packages can be 
 RUN /usr/local/openresty/luajit/bin/luarocks install <rock>
 ```
 
+
+Pitfalls
+========
+
+ * **Docker Hub** does not currently support ARM builds, thus the `armhf-xenial` image is not available. (See [#26](https://github.com/openresty/docker-openresty/pull/26))
+
+ * By default, OpenResty is built with SSE4.2 optimizations if the build machine supports it.  If run on machine without SSE4.2, there will be [invalid opcode issues](https://github.com/openresty/docker-openresty/issues/39). **Thus all the Docker Hub images require SSE4.2.**. You can [build a custom image from source](#building-from-source) explicitly without SSE4.2 support, using build arguments like so:
+```
+docker build -f xenial/Dockerfile --build-arg "RESTY_CONFIG_OPTIONS_MORE=--with-luajit-xcflags='-mno-sse4.2'" .
+```
+
+
 Docker CMD
-============
+==========
 
 The `-g "daemon off;"` directive is used in the Dockerfile CMD to keep the Nginx daemon running after container creation. If this directive is added to the nginx.conf, then it may be omitted from the CMD.
 
@@ -120,8 +137,9 @@ docker run [options] openresty/openresty:xenial /usr/local/openresty/bin/resty [
 
 *NOTE* The `alpine` images do not include the packages `perl` and `ncurses`, which is needed by the `resty` utility.
 
+
 Building (from source)
-========================
+======================
 
 This Docker image can be built and customized by cloning the repo and running `docker build` with the desired Dockerfile:
 
@@ -156,9 +174,11 @@ docker build --build-arg RESTY_J=4 -f trusty/Dockerfile .
 |RESTY_OPENSSL_VERSION | 1.0.2k | The version of OpenSSL to use. |
 |RESTY_PCRE_VERSION | 8.40 | The version of PCRE to use. |
 |RESTY_J | 1 | Sets the parallelism level (-jN) for the builds. |
-|RESTY_CONFIG_OPTIONS | "--with-file-aio --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_geoip_module=dynamic --with-http_gunzip_module --with-http_gzip_static_module --with-http_image_filter_module=dynamic --with-http_mp4_module --with-http_perl_module=dynamic --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-http_xslt_module=dynamic --with-ipv6 --with-mail --with-mail_ssl_module --with-md5-asm --with-pcre-jit --with-sha1-asm --with-stream --with-stream_ssl_module --with-threads" | The options to pass to OpenResty's `./configure` script. |
+|RESTY_CONFIG_OPTIONS | "--with-file-aio --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_geoip_module=dynamic --with-http_gunzip_module --with-http_gzip_static_module --with-http_image_filter_module=dynamic --with-http_mp4_module --with-http_perl_module=dynamic --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-http_xslt_module=dynamic --with-ipv6 --with-mail --with-mail_ssl_module --with-md5-asm --with-pcre-jit --with-sha1-asm --with-stream --with-stream_ssl_module --with-threads" | Options to pass to OpenResty's `./configure` script. |
+|RESTY_CONFIG_OPTIONS_MORE | "" | More options to pass to OpenResty's `./configure` script. |
 
 [Back to TOC](#table-of-contents)
+
 
 Building (RPM based)
 ====================
@@ -183,6 +203,7 @@ docker build --build-arg RESTY_RPM_FLAVOR="-debug" -f centos-rpm/Dockerfile cent
 
 [Back to TOC](#table-of-contents)
 
+
 Building (DEB based)
 ====================
 
@@ -206,6 +227,7 @@ docker build --build-arg RESTY_DEB_FLAVOR="-debug" -f stretch/Dockerfile stretch
 
 [Back to TOC](#table-of-contents)
 
+
 Feedback & Bug Reports
 ======================
 
@@ -215,12 +237,14 @@ https://github.com/openresty/docker-openresty/issues
 
 [Back to TOC](#table-of-contents)
 
+
 Changelog
 =========
 
 ## 2017-Sep
 
- * Use `CMD` instead of `ENTRYPOINT`
+ * Add `RESTY_CONFIG_OPTIONS_MORE` build-arg to facilitate adding options (versus overriding them)
+ * Use `CMD` instead of `ENTRYPOINT` (Lef Ioannidis <lef@unify.id>)
 
 ## 1.11.2.5
 
@@ -283,10 +307,11 @@ Changelog
 
 [Back to TOC](#table-of-contents)
 
+
 Copyright & License
 ===================
 
-docker-openresty is licensed under the 2-clause BSD license.
+`docker-openresty` is licensed under the 2-clause BSD license.
 
 Copyright (c) 2017, Evan Wies <evan@neomantra.net>.
 
