@@ -96,7 +96,7 @@ Starting at version 1.11.2.2, OpenResty includes a [package manager called `opm`
 
 `opm` is built in all the images except `alpine` and `stretch`.
 
-To use `opm` in the `alpine` image, you must also install the `perl` package; it is not included by default because it doubles the image size.  You may install it like so: `apk add --no-cache perl`.
+To use `opm` in the `alpine` image, you must also install the `curl` and `perl` packages; they are not included by default because they double the image size.  You may install them like so: `apk add --no-cache curl perl`.
 
 To use `opm` in the `stretch` image, you must also install the `openresty-opm` package as shown in [this example](https://github.com/openresty/docker-openresty/blob/master/stretch/Dockerfile.opm_example).
 
