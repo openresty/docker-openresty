@@ -8,7 +8,7 @@ FROM openresty:stretch
 
 MAINTAINER Evan Wies <evan@neomantra.net>
 
-ARG RESTY_LUAROCKS_VERSION="2.3.0"
+ARG RESTY_LUAROCKS_VERSION="2.3.4"
 
 
 # install LuaRocks

@@ -1,8 +1,12 @@
 Changelog
 =========
 
-## [Unreleased] 
+## 1.13.6.1
 
+ * Upgraded OpenResty to 1.13.6.1
+ * Upgraded LuaRocks to 2.3.4
+ * Upgraded PCRE to 3.41
+ * Add `RESTY_DEB_VERSION`
  * Add `envsubst` utility
  * Add `RESTY_CONFIG_OPTIONS_MORE` build-arg to facilitate adding options (versus overriding them)
  * Use `CMD` instead of `ENTRYPOINT`

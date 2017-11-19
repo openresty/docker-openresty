@@ -9,6 +9,7 @@ MAINTAINER Evan Wies <evan@neomantra.net>
 # OpenResty Debian package variants.
 # For example: "-debug" or "-valgrind"
 ARG RESTY_DEB_FLAVOR=""
+ARG RESTY_DEB_VERSION="=1.13.6.1-1~stretch1"
 
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
@@ -30,7 +31,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
         wget \
     && DEBIAN_FRONTEND=noninteractive apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-        openresty${RESTY_DEB_FLAVOR} \
+        openresty${RESTY_DEB_FLAVOR}${RESTY_DEB_VERSION} \
     && DEBIAN_FRONTEND=noninteractive apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/* \
     && ln -sf /dev/stdout /usr/local/openresty${RESTY_DEB_FLAVOR}/nginx/logs/access.log \
