@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## [Unreleased] 
+
+ * Install custom nginx.conf with `include /etc/nginx/conf.d/*.conf`
+   Long term this will make it easier to make docker-specifc changes.
+
 ## 1.13.6.1
 
  * Upgraded OpenResty to 1.13.6.1
