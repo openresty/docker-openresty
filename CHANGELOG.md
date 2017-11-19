@@ -4,8 +4,8 @@ Changelog
 ## 1.13.6.1
 
  * Upgraded OpenResty to 1.13.6.1
- * Upgraded LuaRocks to 2.3.4
- * Upgraded PCRE to 3.41
+ * Upgraded LuaRocks to 2.4.3 via GitHub Releases
+ * Upgraded PCRE to 8.41
  * Add `RESTY_DEB_VERSION`
  * Add `envsubst` utility
  * Add `RESTY_CONFIG_OPTIONS_MORE` build-arg to facilitate adding options (versus overriding them)

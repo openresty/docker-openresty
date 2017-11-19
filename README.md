@@ -175,7 +175,7 @@ docker build --build-arg RESTY_J=4 -f trusty/Dockerfile .
 | Key | Default | Description |
 :----- | :-----: |:----------- |
 |RESTY_VERSION | 1.13.6.1 | The version of OpenResty to use. |
-|RESTY_LUAROCKS_VERSION | 2.3.4 | The version of LuaRocks to use. |
+|RESTY_LUAROCKS_VERSION | 2.4.3 | The version of LuaRocks to use. |
 |RESTY_OPENSSL_VERSION | 1.0.2k | The version of OpenSSL to use. |
 |RESTY_PCRE_VERSION | 8.41 | The version of PCRE to use. |
 |RESTY_J | 1 | Sets the parallelism level (-jN) for the builds. |

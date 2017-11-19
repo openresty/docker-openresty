@@ -4,11 +4,11 @@
 # Installs openresty-opm and then uses opm to install pgmoon.
 #
 
-FROM openresty:stretch
+FROM openresty/openresty:stretch
 
 MAINTAINER Evan Wies <evan@neomantra.net>
 
-ARG RESTY_LUAROCKS_VERSION="2.3.4"
+ARG RESTY_LUAROCKS_VERSION="2.4.3"
 
 
 # install LuaRocks
@@ -18,7 +18,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
         make \
         unzip \
     && cd /tmp \
-    && curl -fSL http://luarocks.org/releases/luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz -o luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
+    && curl -fSL https://github.com/luarocks/luarocks/archive/${RESTY_LUAROCKS_VERSION}.tar.gz -o luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && tar xzf luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && cd luarocks-${RESTY_LUAROCKS_VERSION} \
     && ./configure \

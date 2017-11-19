@@ -5,7 +5,7 @@ FROM centos:7
 
 MAINTAINER Evan Wies <evan@neomantra.net>
 
-ARG RESTY_LUAROCKS_VERSION="2.3.4"
+ARG RESTY_LUAROCKS_VERSION="2.4.3"
 ARG RESTY_RPM_FLAVOR=""
 ARG RESTY_RPM_VERSION="1.13.6.1-1.el7.centos"
 ARG RESTY_RPM_ARCH="x86_64"
@@ -18,7 +18,7 @@ RUN yum-config-manager --add-repo https://openresty.org/package/centos/openresty
         openresty-opm-${RESTY_RPM_VERSION} \
         openresty-resty-${RESTY_RPM_VERSION} \
         unzip \
-    &&  curl -fSL http://luarocks.org/releases/luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz -o luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
+    && curl -fSL https://github.com/luarocks/luarocks/archive/${RESTY_LUAROCKS_VERSION}.tar.gz -o luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && tar xzf luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && cd luarocks-${RESTY_LUAROCKS_VERSION} \
     && ./configure \
