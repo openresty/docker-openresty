@@ -6,7 +6,7 @@
 
 FROM openresty/openresty:stretch
 
-MAINTAINER Evan Wies <evan@neomantra.net>
+LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
 ARG RESTY_LUAROCKS_VERSION="2.4.3"
 

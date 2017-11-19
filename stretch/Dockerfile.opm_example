@@ -6,7 +6,7 @@
 
 FROM openresty:stretch
 
-MAINTAINER Evan Wies <evan@neomantra.net>
+LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \

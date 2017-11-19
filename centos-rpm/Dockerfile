@@ -3,7 +3,7 @@
 
 FROM centos:7
 
-MAINTAINER Evan Wies <evan@neomantra.net>
+LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
 ARG RESTY_LUAROCKS_VERSION="2.4.3"
 ARG RESTY_RPM_FLAVOR=""

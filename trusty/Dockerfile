@@ -3,7 +3,7 @@
 
 FROM ubuntu:trusty
 
-MAINTAINER Evan Wies <evan@neomantra.net>
+LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
 # Docker Build Arguments
 ARG RESTY_VERSION="1.13.6.1"
