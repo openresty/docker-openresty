@@ -18,6 +18,7 @@ RUN yum-config-manager --add-repo https://openresty.org/package/centos/openresty
         openresty-opm-${RESTY_RPM_VERSION} \
         openresty-resty-${RESTY_RPM_VERSION} \
         unzip \
+    && cd /tmp \
     && curl -fSL https://github.com/luarocks/luarocks/archive/${RESTY_LUAROCKS_VERSION}.tar.gz -o luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && tar xzf luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && cd luarocks-${RESTY_LUAROCKS_VERSION} \

@@ -64,6 +64,7 @@ RUN apk add --no-cache --virtual .build-deps \
         readline-dev \
         zlib-dev \
     && apk add --no-cache \
+        bash \
         build-base \
         curl \
         gd \
