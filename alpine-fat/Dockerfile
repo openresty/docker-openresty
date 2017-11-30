@@ -105,8 +105,9 @@ RUN apk add --no-cache --virtual .build-deps \
         --with-lua-include=/usr/local/openresty/luajit/include/luajit-2.1 \
     && make build \
     && make install \
-    && curl -L http://cpanmin.us | perl - App::cpanminus --no-wget \
+    && curl -L https://cpanmin.us | perl - App::cpanminus --no-wget \
     && cpanm Test::Nginx --no-wget \
+    && cpanm --uninstall App::cpanminus \
     && cd /tmp \
     && rm -rf luarocks-${RESTY_LUAROCKS_VERSION} luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && apk add --no-cache --virtual .gettext gettext \
