@@ -2,7 +2,8 @@
 # https://github.com/openresty/docker-openresty
 #
 # This is an alpine-based build that keeps some build-related
-# packages, has perl installed for opm, and includes luarocks.
+# packages, has perl installed for opm, Test::Nginx for testing,
+# and includes luarocks.
 
 FROM alpine:latest
 
@@ -74,6 +75,7 @@ RUN apk add --no-cache --virtual .build-deps \
         linux-headers \
         make \
         perl \
+        perl-dev \
         unzip \
         zlib \
     && cd /tmp \
@@ -104,6 +106,8 @@ RUN apk add --no-cache --virtual .build-deps \
         --with-lua-include=/usr/local/openresty/luajit/include/luajit-2.1 \
     && make build \
     && make install \
+    && curl -L http://cpanmin.us | perl - App::cpanminus --no-wget \
+    && cpanm Test::Nginx --no-wget \
     && cd /tmp \
     && rm -rf luarocks-${RESTY_LUAROCKS_VERSION} luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && apk add --no-cache --virtual .gettext gettext \
