@@ -75,7 +75,6 @@ RUN apk add --no-cache --virtual .build-deps \
         linux-headers \
         make \
         perl \
-        perl-dev \
         unzip \
         zlib \
     && cd /tmp \
