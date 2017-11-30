@@ -1,0 +1,12 @@
+--- a/src//third_party/libpng/libpng.gyp
++++ b/src//third_party/libpng/libpng.gyp
+@@ -111,9 +111,6 @@
+               '<!(<(pkg-config) --atleast-version=1.4.0 libpng; echo $?)'
+           },
+           'direct_dependent_settings': {
+-            'cflags': [
+-              '<!@(<(pkg-config) --cflags libpng)',
+-            ],
+             'defines+': [
+               'USE_SYSTEM_LIBPNG',
+               'DBG=<(png_free_me_suported_define_in_libpng)',
