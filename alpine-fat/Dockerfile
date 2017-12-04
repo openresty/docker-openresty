@@ -107,6 +107,7 @@ RUN apk add --no-cache --virtual .build-deps \
     && make build \
     && make install \
     && PERL_MM_USE_DEFAULT=1 cpan install Test::Nginx \
+    && rm -rf /root/.cpan \
     && cd /tmp \
     && rm -rf luarocks-${RESTY_LUAROCKS_VERSION} luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && apk add --no-cache --virtual .gettext gettext \
