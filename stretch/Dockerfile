@@ -42,7 +42,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
 ENV PATH="$PATH:/usr/local/openresty${RESTY_DEB_FLAVOR}/luajit/bin/:/usr/local/openresty${RESTY_DEB_FLAVOR}/nginx/sbin/:/usr/local/openresty${RESTY_DEB_FLAVOR}/bin/"
 
 # Copy nginx configuration files
-COPY nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
-COPY nginx.vh.default.conf /etc/nginx/conf.d/default.conf
+ADD https://raw.githubusercontent.com/openresty/docker-openresty/master/nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
+ADD https://raw.githubusercontent.com/openresty/docker-openresty/master/nginx.vh.default.conf /etc/nginx/conf.d/default.conf
 
 CMD ["/usr/bin/openresty", "-g", "daemon off;"]
