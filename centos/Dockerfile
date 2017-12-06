@@ -102,7 +102,7 @@ RUN yum install -y \
 ENV PATH=$PATH:/usr/local/openresty/luajit/bin/:/usr/local/openresty/nginx/sbin/:/usr/local/openresty/bin/
 
 # Copy nginx configuration files
-COPY nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
-COPY nginx.vh.default.conf /etc/nginx/conf.d/default.conf
+ADD https://raw.githubusercontent.com/openresty/docker-openresty/master/nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
+ADD https://raw.githubusercontent.com/openresty/docker-openresty/master/nginx.vh.default.conf /etc/nginx/conf.d/default.conf
 
 CMD ["/usr/local/openresty/bin/openresty", "-g", "daemon off;"]
