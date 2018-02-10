@@ -39,7 +39,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
 
 
 # Add additional binaries into PATH for convenience
-ENV PATH="$PATH:/usr/local/openresty${RESTY_DEB_FLAVOR}/luajit/bin/:/usr/local/openresty${RESTY_DEB_FLAVOR}/nginx/sbin/:/usr/local/openresty${RESTY_DEB_FLAVOR}/bin/"
+ENV PATH="$PATH:/usr/local/openresty${RESTY_DEB_FLAVOR}/luajit/bin:/usr/local/openresty${RESTY_DEB_FLAVOR}/nginx/sbin:/usr/local/openresty${RESTY_DEB_FLAVOR}/bin"
 
 # Copy nginx configuration files
 COPY nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
