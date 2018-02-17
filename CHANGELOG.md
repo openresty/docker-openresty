@@ -5,6 +5,7 @@ Changelog
 
  * New docker tagging scheme
  * Travis CI build system (Thank you @travis-ci!!) (#62)
+ * Add underlying package metadata as labels (#48)
  * Install custom nginx.conf with `include /etc/nginx/conf.d/*.conf`
    Long term this will make it easier to make docker-specifc changes.
 

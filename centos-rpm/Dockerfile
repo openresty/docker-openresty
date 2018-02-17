@@ -10,6 +10,11 @@ ARG RESTY_RPM_FLAVOR=""
 ARG RESTY_RPM_VERSION="1.13.6.1-1.el7.centos"
 ARG RESTY_RPM_ARCH="x86_64"
 
+LABEL resty_luarocks_version="${RESTY_LUAROCKS_VERSION}"
+LABEL resty_rpm_flavor="${RESTY_RPM_FLAVOR}"
+LABEL resty_rpm_version="${RESTY_RPM_VERSION}"
+LABEL resty_rpm_arch="${RESTY_RPM_ARCH}"
+
 RUN yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo \
     && yum install -y \
         gettext \

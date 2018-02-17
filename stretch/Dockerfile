@@ -11,6 +11,8 @@ LABEL maintainer="Evan Wies <evan@neomantra.net>"
 ARG RESTY_DEB_FLAVOR=""
 ARG RESTY_DEB_VERSION="=1.13.6.1-1~stretch1"
 
+LABEL resty_deb_flavor="${RESTY_DEB_FLAVOR}"
+LABEL resty_deb_version="${RESTY_DEB_VERSION}"
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
