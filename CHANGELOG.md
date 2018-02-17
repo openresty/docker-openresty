@@ -1,12 +1,14 @@
 Changelog
 =========
 
-## [Unreleased] 
+## 1.13.6.1-1
 
+ * New docker tagging scheme
+ * Travis CI build system (Thank you @travis-ci!!) (#62)
  * Install custom nginx.conf with `include /etc/nginx/conf.d/*.conf`
    Long term this will make it easier to make docker-specifc changes.
 
-## 1.13.6.1
+## 1.13.6.1-0
 
  * Upgraded OpenResty to 1.13.6.1
  * Upgraded LuaRocks to 2.4.3 via GitHub Releases
