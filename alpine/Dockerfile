@@ -1,7 +1,7 @@
 # Dockerfile - alpine
 # https://github.com/openresty/docker-openresty
 
-FROM alpine:3.6
+FROM alpine:3.7
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
