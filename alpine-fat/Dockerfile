@@ -4,7 +4,7 @@
 # This is an alpine-based build that keeps some build-related
 # packages, has perl installed for opm, and includes luarocks.
 
-FROM alpine:3.6
+FROM alpine:3.7
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
