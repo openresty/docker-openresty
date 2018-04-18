@@ -1,12 +1,5 @@
 # Dockerfile - Windows
-
-FROM microsoft/windowsservercore AS base
-
-WORKDIR C:/openresty
-RUN setx /M PATH "%PATH%;C:\Strawberry\perl\bin;C:\openresty"
-
-CMD [ "nginx", "-g", "\"daemon off;\""]
-
+# https://github.com/openresty/docker-openresty
 
 FROM microsoft/windowsservercore as downloader
 
@@ -26,7 +19,15 @@ RUN Invoke-WebRequest -Uri "https://chocolatey.org/install.ps1" -UseBasicParsing
     mv .\openresty-*\ .\openresty ; 
 
 
-FROM base 
+FROM microsoft/windowsservercore
+
+LABEL maintainer="Evan Wies <evan@neomantra.net>"
+
+WORKDIR C:/openresty
+RUN setx /M PATH "%PATH%;C:\Strawberry\perl\bin;C:\openresty"
+
+CMD [ "nginx", "-g", "\"daemon off;\""]
+
 COPY --from=downloader C:/dl/ C:/
 
 # nginx config is not overwritten as paths in the Windows distribution are already fine
