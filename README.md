@@ -1,6 +1,6 @@
 # docker-openresty - Docker tooling for OpenResty
 
-[![Build Status](https://travis-ci.org/neomantra/docker-openresty.svg?branch=master)](https://travis-ci.org/neomantra/docker-openresty)  [![](https://images.microbadger.com/badges/image/openresty/openresty.svg)](https://microbadger.com/#/images/openresty/openresty "microbadger.com")
+[![Travis Status](https://travis-ci.org/neomantra/docker-openresty.svg?branch=master)](https://travis-ci.org/neomantra/docker-openresty)  [![Appveyor status](https://ci.appveyor.com/api/projects/status/github/openresyty/docker-openresty?branch=master&svg=true)]  [![](https://images.microbadger.com/badges/image/openresty/openresty.svg)](https://microbadger.com/#/images/openresty/openresty "microbadger.com")
 
 ## Supported tags and respective `Dockerfile` links
 
@@ -15,7 +15,7 @@ The following "flavors" are available:
 - [`stretch`, (*stretch/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/stretch/Dockerfile)
 - [`trusty`, (*trusty/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/trusty/Dockerfile)
 - [`wheezy`, (*wheezy/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/wheezy/Dockerfile)
-- [`windows`, (*windows/Dockerfile*)](./windows/Dockerfile)
+- [`windows`, (*windows/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/windows/Dockerfile)
 - [`xenial`, (*xenial/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/xenial/Dockerfile)
 
 
@@ -35,6 +35,7 @@ Table of Contents
 * [Docker CMD](#docker-entrypoint)
 * [Building (from source)](#building-from-source)
 * [Building (RPM based)](#building-rpm-based)
+* [Building (Windows based)](#building-windows-based)
 * [Building (DEB based)](#building-deb-based)
 * [Feedback & Bug Reports](#feedback--bug-reports)
 * [Changelog & Authors](#changelog--authors)
@@ -234,8 +235,8 @@ docker build --build-arg RESTY_RPM_FLAVOR="-debug" centos-rpm
 
 [Back to TOC](#table-of-contents)
 
-Building (Windows)
-====================
+Building (Windows based)
+========================
 
 This Docker image can be built and customized by cloning the repo and running `docker build` with the desired Dockerfile:
 
