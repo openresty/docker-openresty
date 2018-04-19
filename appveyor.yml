@@ -1,0 +1,32 @@
+version: 1.0.{build}
+
+image: Visual Studio 2017
+
+environment:
+  DOCKER_ORG:
+    secure: zzVvB/twdpuNAko2Sjpu7g==
+  DOCKER_USER:
+    secure: GfPcN/48qsxPw+Tp011d+A==
+  DOCKER_PASS:
+    secure: zYHL3LCh2EskrlIVjrOqKmOwpbcGNtDCw2fHreu+xTs=
+
+install:
+- ps: docker version
+
+build_script:
+- ps: docker build -t openresty:windows -f windows/Dockerfile .
+
+test_script:
+- cmd: docker run openresty:windows nginx -vt
+
+deploy_script:
+- ps: >-
+    docker login -u="$env:DOCKER_USER" -p="$env:DOCKER_PASS"
+    if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
+        docker tag openresty:windows lippertmarkus/openresty:windows
+        docker push openresty/openresty:windows
+    }
+    if ($env:APPVEYOR_REPO_TAG_NAME) {
+        docker tag openresty:windows lippertmarkus/openresty:$env:APPVEYOR_REPO_TAG_NAME-windows
+        docker push opnresty/openresty:$env:APPVEYOR_REPO_TAG_NAME-windows
+    }

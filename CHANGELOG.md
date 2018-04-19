@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.13.6.1-2
+
+ * Add Windows support
+
 ## 1.13.6.1-1
 
  * New docker tagging scheme

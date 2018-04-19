@@ -1,6 +1,6 @@
 # docker-openresty - Docker tooling for OpenResty
 
-[![Build Status](https://travis-ci.org/neomantra/docker-openresty.svg?branch=master)](https://travis-ci.org/neomantra/docker-openresty)  [![](https://images.microbadger.com/badges/image/openresty/openresty.svg)](https://microbadger.com/#/images/openresty/openresty "microbadger.com")
+[![Travis Status](https://travis-ci.org/neomantra/docker-openresty.svg?branch=master)](https://travis-ci.org/neomantra/docker-openresty)  [![Appveyor status](https://ci.appveyor.com/api/projects/status/github/openresyty/docker-openresty?branch=master&svg=true)]  [![](https://images.microbadger.com/badges/image/openresty/openresty.svg)](https://microbadger.com/#/images/openresty/openresty "microbadger.com")
 
 ## Supported tags and respective `Dockerfile` links
 
@@ -15,6 +15,7 @@ The following "flavors" are available:
 - [`stretch`, (*stretch/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/stretch/Dockerfile)
 - [`trusty`, (*trusty/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/trusty/Dockerfile)
 - [`wheezy`, (*wheezy/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/wheezy/Dockerfile)
+- [`windows`, (*windows/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/windows/Dockerfile)
 - [`xenial`, (*xenial/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/xenial/Dockerfile)
 
 
@@ -34,6 +35,7 @@ Table of Contents
 * [Docker CMD](#docker-entrypoint)
 * [Building (from source)](#building-from-source)
 * [Building (RPM based)](#building-rpm-based)
+* [Building (Windows based)](#building-windows-based)
 * [Building (DEB based)](#building-deb-based)
 * [Feedback & Bug Reports](#feedback--bug-reports)
 * [Changelog & Authors](#changelog--authors)
@@ -93,14 +95,14 @@ docker run [options] openresty/openresty:trusty
 
 *[options]* would be things like -p to map ports, -v to map volumes, and -d to daemonize.
 
-`docker-openresty` symlinks `/usr/local/openresty/nginx/logs/access.log` and `error.log` to `/dev/stdout` and `/dev/stderr` respectively, so that Docker logging works correctly.  If you change the log paths in your `nginx.conf`, you should symlink those paths as well.
+`docker-openresty` symlinks `/usr/local/openresty/nginx/logs/access.log` and `error.log` to `/dev/stdout` and `/dev/stderr` respectively, so that Docker logging works correctly.  If you change the log paths in your `nginx.conf`, you should symlink those paths as well. This is not possible with the `windows` image.
 
 nginx config files
 ==================
 
 The Docker tooling installs its own [`nginx.conf` file](https://github.com/openresty/docker-openresty/blob/master/nginx.conf).  If you want to directly override it, you can replace it in your own Dockerfile or via volume bind-mounting.
 
-That `nginx.conf` has the directive `include /etc/nginx/conf.d/*.conf;` so all nginx configurations in that directory will be included.  The [default virtual host configuration](https://github.com/openresty/docker-openresty/blob/master/nginx.vh.default.conf) has the original OpenResty configuration and is copied to `/etc/nginx/conf.d/default.conf`. 
+For the Linux images, that `nginx.conf` has the directive `include /etc/nginx/conf.d/*.conf;` so all nginx configurations in that directory will be included.  The [default virtual host configuration](https://github.com/openresty/docker-openresty/blob/master/nginx.vh.default.conf) has the original OpenResty configuration and is copied to `/etc/nginx/conf.d/default.conf`. 
 
 You can override that `default.conf` directly or volume bind-mount the `/etc/nginx/conf.d` directory to your own set of configurations:
 
@@ -108,10 +110,15 @@ You can override that `default.conf` directly or volume bind-mount the `/etc/ngi
 docker run -v /my/custom/conf.d:/etc/nginx/conf.d openresty/openresty:alpine
 ```
 
+When using the `windows` image you can change the main configuration directly:
+```
+docker run -v C:/my/custom/nginx.conf:C:/openresty/conf/nginx.conf openresty/openresty:windows
+```
+
 OPM
 ===
 
-Starting at version 1.11.2.2, OpenResty includes a [package manager called `opm`](https://github.com/openresty/opm#readme), which can be found at `/usr/local/openresty/bin/opm`.
+Starting at version 1.11.2.2, OpenResty for Linux includes a [package manager called `opm`](https://github.com/openresty/opm#readme), which can be found at `/usr/local/openresty/bin/opm`.
 
 `opm` is built in all the images except `alpine` and `stretch`.
 
@@ -135,7 +142,7 @@ RUN /usr/local/openresty/luajit/bin/luarocks install <rock>
 Tips & Pitfalls
 ===============
 
- * The `envsubst` utility is included in all images except `alpine`; this utility is also included
+ * The `envsubst` utility is included in all images except `alpine` and `windows`; this utility is also included
  in the Nginx docker image and is used to template environment variables into configuration files.
 
  * **Docker Hub** does not currently support ARM builds, thus the `armhf-xenial` image is not available. (See [#26](https://github.com/openresty/docker-openresty/pull/26))
@@ -149,7 +156,7 @@ docker build -f xenial/Dockerfile --build-arg "RESTY_CONFIG_OPTIONS_MORE=--with-
 Docker CMD
 ==========
 
-The `-g "daemon off;"` directive is used in the Dockerfile CMD to keep the Nginx daemon running after container creation. If this directive is added to the nginx.conf, then the `docker run` should explicitly invoke `openresty`:
+The `-g "daemon off;"` directive is used in the Dockerfile CMD to keep the Nginx daemon running after container creation. If this directive is added to the nginx.conf, then the `docker run` should explicitly invoke `openresty` (or `nginx` for `windows` images):
 ```
 docker run [options] openresty/openresty:xenial openresty
 ```
@@ -225,6 +232,25 @@ docker build --build-arg RESTY_RPM_FLAVOR="-debug" centos-rpm
 |RESTY_RPM_FLAVOR | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
 |RESTY_RPM_VERSION | 1.11.2.5-1.el7.centos | The `openresty` package version to install. |
 |RESTY_RPM_ARCH | x86_64 | The `openresty` package architecture to install. |
+
+[Back to TOC](#table-of-contents)
+
+Building (Windows based)
+========================
+
+This Docker image can be built and customized by cloning the repo and running `docker build` with the desired Dockerfile:
+
+ * [Windows](https://github.com/openresty/docker-openresty/blob/master/centos-rpm/Dockerfile) (`windows/Dockerfile`)
+
+The following are the available build-time options. They can be set using the `--build-arg` CLI argument, like so:
+
+```
+docker build --build-arg RESTY_VERSION="1.13.6.1" -f windows/Dockerfile .
+```
+
+| Key | Default | Description |
+:----- | :-----: |:----------- |
+|RESTY_VERSION | 1.13.6.1 | The version of OpenResty to use. |
 
 [Back to TOC](#table-of-contents)
 
