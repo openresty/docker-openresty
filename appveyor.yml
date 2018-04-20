@@ -21,13 +21,14 @@ test_script:
 
 deploy_script:
 - ps: >-
-    docker login -u="$env:DOCKER_USER" -p="$env:DOCKER_PASS"
+    docker login -u="${env:DOCKER_USER}" -p="${env:DOCKER_PASS}"
 
-    if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
-        docker tag $env:DOCKER_ORG:windows $env:DOCKER_ORG/openresty:windows
-        docker push $env:DOCKER_ORG/openresty:windows
+    if (${env:APPVEYOR_REPO_BRANCH} -eq "master") {
+        docker tag ${env:DOCKER_ORG}:windows ${env:DOCKER_ORG}/openresty:windows
+        docker push ${env:DOCKER_ORG}/openresty:windows
     }
-    if ($env:APPVEYOR_REPO_TAG_NAME) {
-        docker tag $env:DOCKER_ORG:windows $env:DOCKER_ORG/openresty:$env:APPVEYOR_REPO_TAG_NAME-windows
-        docker push $env:DOCKER_ORG/openresty:$env:APPVEYOR_REPO_TAG_NAME-windows
+
+    if (${env:APPVEYOR_REPO_TAG_NAME}) {
+        docker tag ${env:DOCKER_ORG}:windows ${env:DOCKER_ORG}/openresty:${env:APPVEYOR_REPO_TAG_NAME}-windows
+        docker push ${env:DOCKER_ORG}/openresty:${env:APPVEYOR_REPO_TAG_NAME}-windows
     }
