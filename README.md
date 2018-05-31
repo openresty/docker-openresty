@@ -1,22 +1,23 @@
 # docker-openresty - Docker tooling for OpenResty
 
-[![Travis Status](https://travis-ci.org/neomantra/docker-openresty.svg?branch=master)](https://travis-ci.org/neomantra/docker-openresty)  [![Appveyor status](https://ci.appveyor.com/api/projects/status/github/openresty/docker-openresty?branch=master&svg=true)](https://ci.appveyor.com/project/openresty/docker-openresty)  [![](https://images.microbadger.com/badges/image/openresty/openresty.svg)](https://microbadger.com/#/images/openresty/openresty "microbadger.com")
+[![Travis Status](https://travis-ci.org/neomantra/docker-openresty.svg?branch=master)](https://travis-ci.org/docker run neomantra/docker-openresty)  [![Appveyor status](https://ci.appveyor.com/api/projects/status/github/openresty/docker-openresty?branch=master&svg=true)](https://ci.appveyor.com/project/openresty/docker-openresty)  [![](https://images.microbadger.com/badges/image/openresty/openresty.svg)](https://microbadger.com/#/images/openresty/openresty "microbadger.com")
 
 ## Supported tags and respective `Dockerfile` links
 
 The following "flavors" are available:
 
 - [`alpine`, (*alpine/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile)
-- [`alpine-fat`, (*alpine-fat/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine-fat/Dockerfile)
+- [`alpine-fat`, (*alpine/Dockerfile.alpine-fat*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile.alpine-fat)
 - [`centos`, `centos-rpm`, (*centos/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
 - [`stretch`, (*stretch/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/stretch/Dockerfile)
 - [`windows`, (*windows/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/windows/Dockerfile)
 - [`xenial`, (*xenial/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/xenial/Dockerfile)
 
+The `centos` and `stretch` images are built from [upstream OpenResty packages](http://openresty.org/en/linux-packages.html). It is *highly recommended* that you use those images for best support.   The other images are for more advanced and custom usage.
 
 Starting with `1.13.6.1`, releases are tagged with `<openresty-version>-<image-version>-<flavor>`.  The latest `image-version` will also be tagged `<openresty-version>-<flavor>`.   The HEAD of the master branch is also labeled plainly as `<flavor>`.  The builds are managed by [Travis-CI](https://travis-ci.org/neomantra/docker-openresty).
 
-For best stability, pin your images to the full tag, for example `1.13.6.1-0-xenial`.
+For best stability, pin your images to the full tag, for example `1.13.6.2-0-xenial`.
 
 
 Table of Contents
@@ -30,9 +31,8 @@ Table of Contents
 * [Docker CMD](#docker-entrypoint)
 * [Building (from source)](#building-from-source)
 * [Building (RPM based)](#building-rpm-based)
-* [Building (Windows based)](#building-windows-based)
 * [Building (DEB based)](#building-deb-based)
-* [Dockerfile Archive](#dockerfile-archive)
+* [Building (Windows based)](#building-windows-based)
 * [Feedback & Bug Reports](#feedback--bug-reports)
 * [Changelog & Authors](#changelog--authors)
 * [Copyright & License](#copyright--license)
@@ -141,7 +141,10 @@ Tips & Pitfalls
  * The `envsubst` utility is included in all images except `alpine` and `windows`; this utility is also included
  in the Nginx docker image and is used to template environment variables into configuration files.
 
- * **Docker Hub** does not currently support ARM builds, thus the `armhf-xenial` image is not available. (See [#26](https://github.com/openresty/docker-openresty/pull/26))
+ * **Docker Hub** does not currently support ARM builds, thus an `armhf-xenial` image is not available (See [#26](https://github.com/openresty/docker-openresty/pull/26)). You can build an image yourself using the `RESTY_DEBIAN_BASE` build argument:
+ ```
+docker build -f xenial/Dockerfile --build-arg "RESTY_DEBIAN_BASE=armv7/armhf-ubuntu" .
+```
 
  * By default, OpenResty is built with SSE4.2 optimizations if the build machine supports it.  If run on machine without SSE4.2, there will be [invalid opcode issues](https://github.com/openresty/docker-openresty/issues/39). **Thus all the Docker Hub images require SSE4.2.**  You can [build a custom image from source](#building-from-source) explicitly without SSE4.2 support, using build arguments like so:
 ```
@@ -181,7 +184,6 @@ Dockerfiles are provided for the following base systems, selecting the Dockerfil
 
  * [Alpine](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile) (`alpine/Dockerfile`)
  * [Alpine Fat](https://github.com/openresty/docker-openresty/blob/master/alpine-fat/Dockerfile) (`alpine-fat/Dockerfile`)
- * [CentOS 7](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile) (`centos/Dockerfile`)
  * [Ubuntu Xenial](https://github.com/openresty/docker-openresty/blob/master/xenial/Dockerfile) (`xenial/Dockerfile`)
 
 We used to support more build flavors but have trimmed that down.  Older Dockerfiles are archived in the [`archive`](https://github.com/openresty/docker-openresty/tree/master/archive) folder.
@@ -195,10 +197,12 @@ docker build --build-arg RESTY_J=4 -f trusty/Dockerfile .
 
 | Key | Default | Description |
 :----- | :-----: |:----------- |
-|RESTY_VERSION | 1.13.6.1 | The version of OpenResty to use. |
-|RESTY_LUAROCKS_VERSION | 2.4.3 | The version of LuaRocks to use. |
-|RESTY_OPENSSL_VERSION | 1.0.2k | The version of OpenSSL to use. |
-|RESTY_PCRE_VERSION | 8.41 | The version of PCRE to use. |
+|RESTY_IMAGE_BASE | "ubuntu" / "alpine" | The Debian or Alpine Docker image base to build `FROM`. |
+|RESTY_IMAGE_TAG  | "xenial" / "3.7" | The Debian or Alpine Docker image tag to build `FROM`. |
+|RESTY_VERSION | 1.13.6.2 | The version of OpenResty to use. |
+|RESTY_LUAROCKS_VERSION | 2.4.4 | The version of LuaRocks to use. |
+|RESTY_OPENSSL_VERSION | 1.1.0h  / 1.0.2k | The version of OpenSSL to use. |
+|RESTY_PCRE_VERSION | 8.42 | The version of PCRE to use. |
 |RESTY_J | 1 | Sets the parallelism level (-jN) for the builds. |
 |RESTY_CONFIG_OPTIONS | "--with-file-aio --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_geoip_module=dynamic --with-http_gunzip_module --with-http_gzip_static_module --with-http_image_filter_module=dynamic --with-http_mp4_module --with-http_perl_module=dynamic --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-http_xslt_module=dynamic --with-ipv6 --with-mail --with-mail_ssl_module --with-md5-asm --with-pcre-jit --with-sha1-asm --with-stream --with-stream_ssl_module --with-threads" | Options to pass to OpenResty's `./configure` script. |
 |RESTY_CONFIG_OPTIONS_MORE | "" | More options to pass to OpenResty's `./configure` script. |
@@ -209,44 +213,26 @@ docker build --build-arg RESTY_J=4 -f trusty/Dockerfile .
 Building (RPM based)
 ====================
 
-OpenResty now now has [RPMs available](http://openresty.org/en/rpm-packages.html).  The `centos-rpm` images use these RPMs rather than building from source.
+OpenResty now now has [RPMs available](http://openresty.org/en/rpm-packages.html).  The `centos` images use these RPMs rather than building from source.
 
 This Docker image can be built and customized by cloning the repo and running `docker build` with the desired Dockerfile:
 
- * [CentOS 7 RPM](https://github.com/openresty/docker-openresty/blob/master/centos-rpm/Dockerfile) (`centos-rpm/Dockerfile`)
+ * [CentOS 7 RPM](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile) (`centos/Dockerfile`)
 
 The following are the available build-time options. They can be set using the `--build-arg` CLI argument, like so:
 
 ```
-docker build --build-arg RESTY_RPM_FLAVOR="-debug" centos-rpm
+docker build --build-arg RESTY_RPM_FLAVOR="-debug" centos
 ```
 
 | Key | Default | Description |
 :----- | :-----: |:----------- |
-|RESTY_LUAROCKS_VERSION | 2.3.0 | The version of LuaRocks to use. |
+|RESTY_IMAGE_BASE | "centos" | The Centos Docker image base to build `FROM`. |
+|RESTY_IMAGE_TAG | "7" | The CentOS Docker image tag to build `FROM`. |
+|RESTY_LUAROCKS_VERSION | 2.4.4 | The version of LuaRocks to use. |
 |RESTY_RPM_FLAVOR | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
-|RESTY_RPM_VERSION | 1.11.2.5-1.el7.centos | The `openresty` package version to install. |
+|RESTY_RPM_VERSION | 1.13.6.2-1.el7.centos | The `openresty` package version to install. |
 |RESTY_RPM_ARCH | x86_64 | The `openresty` package architecture to install. |
-
-[Back to TOC](#table-of-contents)
-
-
-Building (Windows based)
-========================
-
-This Docker image can be built and customized by cloning the repo and running `docker build` with the desired Dockerfile:
-
- * [Windows](https://github.com/openresty/docker-openresty/blob/master/centos-rpm/Dockerfile) (`windows/Dockerfile`)
-
-The following are the available build-time options. They can be set using the `--build-arg` CLI argument, like so:
-
-```
-docker build --build-arg RESTY_VERSION="1.13.6.1" -f windows/Dockerfile .
-```
-
-| Key | Default | Description |
-:----- | :-----: |:----------- |
-|RESTY_VERSION | 1.13.6.1 | The version of OpenResty to use. |
 
 [Back to TOC](#table-of-contents)
 
@@ -265,13 +251,35 @@ This Docker image can be built and customized by cloning the repo and running `d
 The following are the available build-time options. They can be set using the `--build-arg` CLI argument, like so:
 
 ```
-docker build --build-arg RESTY_DEB_FLAVOR="-debug" -f stretch/Dockerfile stretch
+docker build --build-arg RESTY_DEB_FLAVOR="-debug" -f stretch/Dockerfile .
 ```
 
 | Key | Default | Description |
 :----- | :-----: |:----------- |
+|RESTY_IMAGE_BASE  | "debian" | The Debian Docker image base to build `FROM`. |
+|RESTY_IMAGE_TAG   | "stretch-slim" | The Debian Docker image tag to build `FROM`. |
 |RESTY_DEB_FLAVOR  | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
-|RESTY_DEB_VERSION | "=1.13.6.1-1~stretch1" | The Debian package version to use, with `=` prepended. |
+|RESTY_DEB_VERSION | "=1.13.6.2-1~stretch1" | The Debian package version to use, with `=` prepended. |
+
+[Back to TOC](#table-of-contents)
+
+
+Building (Windows based)
+========================
+
+This Docker image can be built and customized by cloning the repo and running `docker build` with the desired Dockerfile:
+
+ * [Windows](https://github.com/openresty/docker-openresty/blob/master/centos-rpm/Dockerfile) (`windows/Dockerfile`)
+
+The following are the available build-time options. They can be set using the `--build-arg` CLI argument, like so:
+
+```
+docker build --build-arg RESTY_VERSION="1.13.6.2" -f windows/Dockerfile .
+```
+
+| Key | Default | Description |
+:----- | :-----: |:----------- |
+|RESTY_VERSION | 1.13.6.2 | The version of OpenResty to use. |
 
 [Back to TOC](#table-of-contents)
 

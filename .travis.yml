@@ -24,7 +24,7 @@ services:
 jobs:
   include:
 
-    - stage: build docker image for flavor alpine
+    - stage: build docker image for flavors alpine and alpine-fat
       script:
       - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
       - docker build -t openresty:alpine -f alpine/Dockerfile .
@@ -44,11 +44,8 @@ jobs:
           docker tag openresty:alpine $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine &&
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine ;
         fi
-
-    - stage: build docker image for flavor alpine-fat
-      script:
       - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-      - docker build -t openresty:alpine-fat -f alpine-fat/Dockerfile .
+      - docker build -t openresty:alpine-fat -f alpine/Dockerfile.alpine-fat .
       - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
           docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
           docker tag openresty:alpine-fat $DOCKER_ORG/openresty:alpine-fat &&

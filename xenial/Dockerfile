@@ -1,15 +1,18 @@
 # Dockerfile - Ubuntu Xenial
 # https://github.com/openresty/docker-openresty
 
-FROM ubuntu:xenial
+ARG RESTY_IMAGE_BASE="ubuntu"
+ARG RESTY_IMAGE_TAG="xenial"
+
+FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
 # Docker Build Arguments
-ARG RESTY_VERSION="1.13.6.1"
-ARG RESTY_LUAROCKS_VERSION="2.4.3"
-ARG RESTY_OPENSSL_VERSION="1.0.2k"
-ARG RESTY_PCRE_VERSION="8.41"
+ARG RESTY_VERSION="1.13.6.2"
+ARG RESTY_LUAROCKS_VERSION="2.4.4"
+ARG RESTY_OPENSSL_VERSION="1.1.0h"
+ARG RESTY_PCRE_VERSION="8.42"
 ARG RESTY_J="1"
 ARG RESTY_CONFIG_OPTIONS="\
     --with-file-aio \
@@ -108,5 +111,4 @@ ENV PATH=$PATH:/usr/local/openresty/luajit/bin:/usr/local/openresty/nginx/sbin:/
 COPY nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
 COPY nginx.vh.default.conf /etc/nginx/conf.d/default.conf
 
-# TODO: remove any other apt packages?
 CMD ["/usr/local/openresty/bin/openresty", "-g", "daemon off;"]

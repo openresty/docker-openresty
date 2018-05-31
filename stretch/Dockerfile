@@ -1,7 +1,10 @@
 # Dockerfile - Debian 9 Stretch - DEB version
 # https://github.com/openresty/docker-openresty
 
-FROM debian:stretch-slim
+ARG RESTY_IMAGE_BASE="debian"
+ARG RESTY_IMAGE_TAG="stretch-slim"
+
+FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
@@ -9,7 +12,7 @@ LABEL maintainer="Evan Wies <evan@neomantra.net>"
 # OpenResty Debian package variants.
 # For example: "-debug" or "-valgrind"
 ARG RESTY_DEB_FLAVOR=""
-ARG RESTY_DEB_VERSION="=1.13.6.1-1~stretch1"
+ARG RESTY_DEB_VERSION="=1.13.6.2-1~stretch1"
 
 LABEL resty_deb_flavor="${RESTY_DEB_FLAVOR}"
 LABEL resty_deb_version="${RESTY_DEB_VERSION}"

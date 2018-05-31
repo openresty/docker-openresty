@@ -1,13 +1,16 @@
 # Dockerfile - CentOS 7 - RPM version
 # https://github.com/openresty/docker-openresty
 
-FROM centos:7
+ARG RESTY_IMAGE_BASE="centos"
+ARG RESTY_IMAGE_TAG="7"
+
+FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
-ARG RESTY_LUAROCKS_VERSION="2.4.3"
+ARG RESTY_LUAROCKS_VERSION="2.4.4"
 ARG RESTY_RPM_FLAVOR=""
-ARG RESTY_RPM_VERSION="1.13.6.1-1.el7.centos"
+ARG RESTY_RPM_VERSION="1.13.6.2-1.el7.centos"
 ARG RESTY_RPM_ARCH="x86_64"
 
 LABEL resty_luarocks_version="${RESTY_LUAROCKS_VERSION}"
@@ -15,7 +18,7 @@ LABEL resty_rpm_flavor="${RESTY_RPM_FLAVOR}"
 LABEL resty_rpm_version="${RESTY_RPM_VERSION}"
 LABEL resty_rpm_arch="${RESTY_RPM_ARCH}"
 
-RUN yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo \
+RUN yum-config-manager --add-repo https://openresty.org/package/${RESTY_IMAGE_BASE}/openresty.repo \
     && yum install -y \
         gettext \
         make \

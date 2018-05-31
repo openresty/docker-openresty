@@ -1,6 +1,27 @@
 Changelog
 =========
 
+## 1.13.6.2-0
+
+ * Upgraded OpenResty to 1.13.6.2
+ * Upgraded LuaRocks to 2.4.4 via GitHub Releases
+ * Upgraded PCRE to 8.42
+ * Upgraded OpenSSL to 1.1.0h (except Alpine is still at 1.0.2k)
+
+ * Upgraded Windows build to 64-bit upstream and nanoserver (much smaller image!!)
+
+ * Use build-args with `FROM` to give more flexible package building (and less Dockerfiles),
+   with `RESTY_IMAGE_BASE` and `RESTY_IMAGE_TAG`.
+
+ * Simplify availble images and archive old distributions,
+   settling on alpine/xenial from source and centos/stretch from upsteam packages.
+
+    * `centos-rpm` renamed to `centos`.  `centos-rpm` tag works but is deprecated.
+
+    * Archive `armhf-xenial`, `centos`, `jessie`, `trusty`, `wheezy` 
+
+    * `alpine-fat` is now built on top of `alpine` rather than standalone
+
 ## 1.13.6.1-2
 
  * Add Windows support
