@@ -45,6 +45,12 @@ ARG RESTY_CONFIG_OPTIONS="\
     "
 ARG RESTY_CONFIG_OPTIONS_MORE=""
 
+LABEL resty_version="${RESTY_VERSION}"
+LABEL resty_openssl_version="${RESTY_OPENSSL_VERSION}"
+LABEL resty_pcre_version="${RESTY_PCRE_VERSION}"
+LABEL resty_config_options="${RESTY_CONFIG_OPTIONS}"
+LABEL resty_config_options_more="${RESTY_CONFIG_OPTIONS_MORE}"
+
 # These are not intended to be user-specified
 ARG _RESTY_CONFIG_DEPS="--with-openssl=/tmp/openssl-${RESTY_OPENSSL_VERSION} --with-pcre=/tmp/pcre-${RESTY_PCRE_VERSION}"
 

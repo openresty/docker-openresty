@@ -5,6 +5,8 @@ FROM microsoft/windowsservercore as downloader
 
 ARG RESTY_VERSION="1.13.6.2"
 
+LABEL resty_version="${RESTY_VERSION}"
+
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 WORKDIR C:/dl

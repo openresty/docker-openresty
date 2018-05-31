@@ -8,6 +8,7 @@ FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
+ARG RESTY_IMAGE_BASE="centos"
 ARG RESTY_LUAROCKS_VERSION="2.4.4"
 ARG RESTY_RPM_FLAVOR=""
 ARG RESTY_RPM_VERSION="1.13.6.2-1.el7.centos"
