@@ -24,7 +24,6 @@ services:
 jobs:
   include:
 
-
     - stage: build docker image for flavor alpine
       script:
       - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
@@ -67,6 +66,7 @@ jobs:
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-fat ;
         fi
 
+    # aliased as `centos-rpm`
     - stage: build docker image for flavor centos
       script:
       - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
@@ -75,6 +75,8 @@ jobs:
           docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
           docker tag openresty:centos $DOCKER_ORG/openresty:centos &&
           docker push $DOCKER_ORG/openresty:centos ;
+          docker tag $DOCKER_ORG/openresty:centos $DOCKER_ORG/openresty:centos-rpm &&
+          docker push $DOCKER_ORG/openresty:centos-rpm ;
         fi
       - if [[ "$TRAVIS_TAG" ]] ; then
           TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
@@ -82,52 +84,14 @@ jobs:
             docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
             docker tag openresty:centos $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-centos &&
             docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-centos ;
+            docker tag $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-centos $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-centos-rpm &&
+            docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-centos-rpm ;
           fi ;
           docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
           docker tag openresty:centos $DOCKER_ORG/openresty:$TRAVIS_TAG-centos &&
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-centos ;
-        fi
-
-    - stage: build docker image for flavor centos-rpm
-      script:
-      - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-      - docker build -t openresty:centos-rpm -f centos-rpm/Dockerfile .
-      - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
-          docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
-          docker tag openresty:centos-rpm $DOCKER_ORG/openresty:centos-rpm &&
-          docker push $DOCKER_ORG/openresty:centos-rpm ;
-        fi
-      - if [[ "$TRAVIS_TAG" ]] ; then
-          TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
-          if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
-            docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
-            docker tag openresty:centos-rpm $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-centos-rpm &&
-            docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-centos-rpm ;
-          fi ;
-          docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
-          docker tag openresty:centos-rpm $DOCKER_ORG/openresty:$TRAVIS_TAG-centos-rpm &&
+          docker tag $DOCKER_ORG/openresty:$TRAVIS_TAG-centos $DOCKER_ORG/openresty:$TRAVIS_TAG-centos-rpm &&
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-centos-rpm ;
-        fi
-
-    - stage: build docker image for flavor jessie
-      script:
-      - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-      - docker build -t openresty:jessie -f jessie/Dockerfile .
-      - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
-          docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
-          docker tag openresty:jessie $DOCKER_ORG/openresty:jessie &&
-          docker push $DOCKER_ORG/openresty:jessie ;
-        fi
-      - if [[ "$TRAVIS_TAG" ]] ; then
-          TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
-          if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
-            docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
-            docker tag openresty:jessie $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-jessie &&
-            docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-jessie ;
-          fi ;
-          docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
-          docker tag openresty:jessie $DOCKER_ORG/openresty:$TRAVIS_TAG-jessie &&
-          docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-jessie ;
         fi
 
     - stage: build docker image for flavor stretch
@@ -151,48 +115,6 @@ jobs:
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-stretch ;
         fi
 
-    - stage: build docker image for flavor trusty
-      script:
-      - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-      - docker build -t openresty:trusty -f trusty/Dockerfile .
-      - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
-          docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
-          docker tag openresty:trusty $DOCKER_ORG/openresty:trusty &&
-          docker push $DOCKER_ORG/openresty:trusty ;
-        fi
-      - if [[ "$TRAVIS_TAG" ]] ; then
-          TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
-          if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
-            docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
-            docker tag openresty:trusty $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-trusty &&
-            docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-trusty ;
-          fi ;
-          docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
-          docker tag openresty:trusty $DOCKER_ORG/openresty:$TRAVIS_TAG-trusty &&
-          docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-trusty ;
-        fi
-
-    - stage: build docker image for flavor wheezy
-      script:
-      - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-      - docker build -t openresty:wheezy -f wheezy/Dockerfile .
-      - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
-          docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
-          docker tag openresty:wheezy $DOCKER_ORG/openresty:wheezy &&
-          docker push $DOCKER_ORG/openresty:wheezy ;
-        fi
-      - if [[ "$TRAVIS_TAG" ]] ; then
-          TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
-          if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
-            docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
-            docker tag openresty:wheezy $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-wheezy &&
-            docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-wheezy ;
-          fi ;
-          docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
-          docker tag openresty:wheezy $DOCKER_ORG/openresty:$TRAVIS_TAG-wheezy &&
-          docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-wheezy ;
-        fi
-
     - stage: build docker image for flavor xenial
       script:
       - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
@@ -213,5 +135,4 @@ jobs:
           docker tag openresty:xenial $DOCKER_ORG/openresty:$TRAVIS_TAG-xenial &&
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-xenial ;
         fi
-
 

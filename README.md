@@ -8,13 +8,8 @@ The following "flavors" are available:
 
 - [`alpine`, (*alpine/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile)
 - [`alpine-fat`, (*alpine-fat/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine-fat/Dockerfile)
-- [`armhf-xenial`, (*armhf-xenial/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/armhf-xenial/Dockerfile)
-- [`centos`, (*centos/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
-- [`centos-rpm`, (*centos-rpm/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/centos-rpm/Dockerfile)
-- [`jessie`, (*jessie/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/jessie/Dockerfile)
+- [`centos`, `centos-rpm`, (*centos/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
 - [`stretch`, (*stretch/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/stretch/Dockerfile)
-- [`trusty`, (*trusty/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/trusty/Dockerfile)
-- [`wheezy`, (*wheezy/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/wheezy/Dockerfile)
 - [`windows`, (*windows/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/windows/Dockerfile)
 - [`xenial`, (*xenial/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/xenial/Dockerfile)
 
@@ -37,6 +32,7 @@ Table of Contents
 * [Building (RPM based)](#building-rpm-based)
 * [Building (Windows based)](#building-windows-based)
 * [Building (DEB based)](#building-deb-based)
+* [Dockerfile Archive](#dockerfile-archive)
 * [Feedback & Bug Reports](#feedback--bug-reports)
 * [Changelog & Authors](#changelog--authors)
 * [Copyright & License](#copyright--license)
@@ -130,7 +126,7 @@ To use `opm` in the `stretch` image, you must also install the `openresty-opm` p
 LuaRocks
 ========
 
-[LuaRocks](https://luarocks.org/) is included in the `alpine-fat`, `centos`, `centos-rpm`, `trusty`, and `xenial` variants.  It is excluded from `alpine` because it generally requires a build system and we want to keep that variant lean.
+[LuaRocks](https://luarocks.org/) is included in the `alpine-fat`, `centos`, and `xenial` variants.  It is excluded from `alpine` because it generally requires a build system and we want to keep that variant lean.
 
 It is available at `/usr/local/openresty/luajit/bin/luarocks`.  Packages can be added in your dependent Dockerfiles like so:
 
@@ -186,11 +182,10 @@ Dockerfiles are provided for the following base systems, selecting the Dockerfil
  * [Alpine](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile) (`alpine/Dockerfile`)
  * [Alpine Fat](https://github.com/openresty/docker-openresty/blob/master/alpine-fat/Dockerfile) (`alpine-fat/Dockerfile`)
  * [CentOS 7](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile) (`centos/Dockerfile`)
- * [Debian Jessie](https://github.com/openresty/docker-openresty/blob/master/jessie/Dockerfile) (`jessie/Dockerfile`)
- * [Debian Wheezy](https://github.com/openresty/docker-openresty/blob/master/wheezy/Dockerfile) (`wheezy/Dockerfile`)
- * [Ubuntu Trusty](https://github.com/openresty/docker-openresty/blob/master/trusty/Dockerfile) (`trusty/Dockerfile`)
  * [Ubuntu Xenial](https://github.com/openresty/docker-openresty/blob/master/xenial/Dockerfile) (`xenial/Dockerfile`)
- * [Ubuntu Xenial armhf](https://github.com/openresty/docker-openresty/blob/master/armhf-xenial/Dockerfile) (`armhf-xenial/Dockerfile`)
+
+We used to support more build flavors but have trimmed that down.  Older Dockerfiles are archived in the [`archive`](https://github.com/openresty/docker-openresty/tree/master/archive) folder.
+
 
 The following are the available build-time options. They can be set using the `--build-arg` CLI argument, like so:
 
@@ -234,6 +229,7 @@ docker build --build-arg RESTY_RPM_FLAVOR="-debug" centos-rpm
 |RESTY_RPM_ARCH | x86_64 | The `openresty` package architecture to install. |
 
 [Back to TOC](#table-of-contents)
+
 
 Building (Windows based)
 ========================
