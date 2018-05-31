@@ -3,7 +3,7 @@
 
 FROM microsoft/windowsservercore as downloader
 
-ARG RESTY_VERSION="1.13.6.1"
+ARG RESTY_VERSION="1.13.6.2"
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
@@ -14,12 +14,12 @@ RUN Invoke-WebRequest -Uri "https://chocolatey.org/install.ps1" -UseBasicParsing
     choco install strawberryperl -y --no-progress ; \
     mv C:\Strawberry\ C:\dl\ ; \
     Write-Host "Downloading OpenResty.." ; \
-    Invoke-WebRequest "https://openresty.org/download/openresty-$($env:RESTY_VERSION)-win32.zip" -OutFile C:\openresty.zip ; \
+    Invoke-WebRequest "https://openresty.org/download/openresty-$($env:RESTY_VERSION)-win64.zip" -OutFile C:\openresty.zip ; \
     Expand-Archive C:\openresty.zip . ; \
     mv .\openresty-*\ .\openresty ; 
 
 
-FROM microsoft/windowsservercore
+FROM microsoft/nanoserver
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
