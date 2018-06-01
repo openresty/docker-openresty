@@ -88,7 +88,7 @@ Usage
 If you are happy with the build defaults, then you can use the openresty image from the [Docker Hub](https://hub.docker.com/r/openresty/openresty/).  The image tags available there are listed at the top of this README.
 
 ```
-docker run [options] openresty/openresty:trusty
+docker run [options] openresty/openresty:stetch-fat
 ```
 
 *[options]* would be things like -p to map ports, -v to map volumes, and -d to daemonize.
@@ -153,6 +153,10 @@ docker build -f xenial/Dockerfile --build-arg "RESTY_DEBIAN_BASE=armv7/armhf-ubu
 docker build -f xenial/Dockerfile --build-arg "RESTY_CONFIG_OPTIONS_MORE=--with-luajit-xcflags='-mno-sse4.2'" .
 ```
 
+* All of the image flavors use `OpenSSL 1.1.0h`.  Be careful of compatibility between
+  your `opm` and LuaRocks packages -- they must all use the same OpenSSL version.
+
+* The `1.13.6.2-alpine` is built from `OpenSSL 1.0.2.k` because of build issues on Alpine.
 
 Docker CMD
 ==========
@@ -178,7 +182,7 @@ This Docker image can be built and customized by cloning the repo and running `d
 ```
 git clone https://github.com/openresty/docker-openresty.git
 cd docker-openresty
-docker build -t myopenresty -f trusty/Dockerfile .
+docker build -t myopenresty -f xenial/Dockerfile .
 docker run myopenresty
 ```
 
@@ -194,7 +198,7 @@ We used to support more build flavors but have trimmed that down.  Older Dockerf
 The following are the available build-time options. They can be set using the `--build-arg` CLI argument, like so:
 
 ```
-docker build --build-arg RESTY_J=4 -f trusty/Dockerfile .
+docker build --build-arg RESTY_J=4 -f xenial/Dockerfile .
 ```
 
 | Key | Default | Description |
