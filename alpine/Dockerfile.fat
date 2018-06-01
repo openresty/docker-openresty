@@ -5,7 +5,7 @@
 # some build-related packages, has perl installed for opm,
 # and includes luarocks and envsubst.
 
-ARG RESTY_IMAGE_BASE="openresty"
+ARG RESTY_IMAGE_BASE="openresty/openresty"
 ARG RESTY_IMAGE_TAG="alpine"
 
 FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}

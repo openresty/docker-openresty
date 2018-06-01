@@ -22,6 +22,8 @@ Changelog
 
     * `alpine-fat` is now built on top of `alpine` rather than standalone
 
+    * added `stretch-fat` image
+
 ## 1.13.6.1-2
 
  * Add Windows support

@@ -4,7 +4,7 @@
 # Installs openresty-opm and then uses opm to install pgmoon.
 #
 
-FROM openresty:stretch
+FROM openresty/openresty:stretch
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
