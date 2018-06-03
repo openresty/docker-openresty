@@ -6,3 +6,4 @@ We'd like to thank the following people for their commits:
 - Lef Ioannidis <lef@unify.id>
 - Onni Hakala <onni@keksi.io>
 - mahnkong <mahnkong@gmx.de>
+- Markus Lippert <markus9656@gmail.com>
