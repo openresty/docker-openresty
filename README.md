@@ -88,7 +88,7 @@ Usage
 If you are happy with the build defaults, then you can use the openresty image from the [Docker Hub](https://hub.docker.com/r/openresty/openresty/).  The image tags available there are listed at the top of this README.
 
 ```
-docker run [options] openresty/openresty:stetch-fat
+docker run [options] openresty/openresty:stretch-fat
 ```
 
 *[options]* would be things like -p to map ports, -v to map volumes, and -d to daemonize.
