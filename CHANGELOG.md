@@ -5,6 +5,7 @@ Changelog
 
  * Add LUA_PATH and LUA_CPATH to ENV for LuaRocks (#53)
  * Add custom module building via build-args (#79)
+ * Stop with SIGQUIT so that "docker stop" is actually a graceful stop (#80)
 
 ## 1.13.6.2-1
 
