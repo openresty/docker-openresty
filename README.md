@@ -159,6 +159,8 @@ docker build -f xenial/Dockerfile --build-arg "RESTY_CONFIG_OPTIONS_MORE=--with-
 
 * The `1.13.6.2-alpine` is built from `OpenSSL 1.0.2.k` because of build issues on Alpine.
 
+* The SIGQUIT signal will be sent to nginx to stop this container, to give it an opportunity to stop gracefully (i.e, finish processing active connections). However, note that if your configuration listens on UNIX domain sockets, this means that you'll need to manually remove the socket file upon shutdown, due to [nginx bug #753](https://trac.nginx.org/nginx/ticket/753).
+
 Docker CMD
 ==========
 
