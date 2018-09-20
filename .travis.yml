@@ -151,3 +151,24 @@ jobs:
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-xenial ;
         fi
 
+    - stage: build docker image for flavor bionic
+      script:
+      - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+      - docker build -t openresty:bionic -f bionic/Dockerfile .
+      - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
+          docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
+          docker tag openresty:bionic $DOCKER_ORG/openresty:bionic &&
+          docker push $DOCKER_ORG/openresty:bionic ;
+        fi
+      - if [[ "$TRAVIS_TAG" ]] ; then
+          TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
+          if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
+            docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
+            docker tag openresty:bionic $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-bionic &&
+            docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-bionic ;
+          fi ;
+          docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
+          docker tag openresty:bionic $DOCKER_ORG/openresty:$TRAVIS_TAG-bionic &&
+          docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-bionic ;
+        fi
+
