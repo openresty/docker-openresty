@@ -3,9 +3,9 @@ Changelog
 
 ## 1.13.6.2-1
 
+ * Added `bionic` image
  * Upgraded alpine base image to 3.8
  * Upgraded OpenSSL to 1.1.0i (xenial/bionic) and 1.0.2p (alpine)
- * Added `bionic` image
 
 ## 1.13.6.2-0
 
