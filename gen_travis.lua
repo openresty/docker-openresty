@@ -20,12 +20,13 @@ print(template({
     flavors = {
         "alpine",
         "alpine-fat",
+        "bionic",
         "centos",
         "centos-rpm",
         "jessie",
         "stretch",
         "trusty",
         "wheezy",
-        "xenial",
+        "xenial"
     },
 }))

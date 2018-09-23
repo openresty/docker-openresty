@@ -1,8 +1,8 @@
-# Dockerfile - Ubuntu Xenial
+# Dockerfile - Ubuntu Bionic
 # https://github.com/openresty/docker-openresty
 
 ARG RESTY_IMAGE_BASE="ubuntu"
-ARG RESTY_IMAGE_TAG="xenial"
+ARG RESTY_IMAGE_TAG="bionic"
 
 FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
 
