@@ -44,9 +44,9 @@ ARG RESTY_CONFIG_OPTIONS="\
     --with-threads \
     "
 ARG RESTY_CONFIG_OPTIONS_MORE=""
-ARG RESTY_ADD_PACKAGE_BUILDDEPS=" "
-ARG RESTY_SCRIPT_BEFORE_CONFIG=""
-ARG RESTY_SCRIPT_AFTER_MAKE=""
+ARG RESTY_ADD_PACKAGE_BUILDDEPS=""
+ARG RESTY_EVAL_PRE_CONFIGURE=""
+ARG RESTY_EVAL_POST_MAKE=""
 
 LABEL resty_version="${RESTY_VERSION}"
 LABEL resty_openssl_version="${RESTY_OPENSSL_VERSION}"
@@ -54,8 +54,8 @@ LABEL resty_pcre_version="${RESTY_PCRE_VERSION}"
 LABEL resty_config_options="${RESTY_CONFIG_OPTIONS}"
 LABEL resty_config_options_more="${RESTY_CONFIG_OPTIONS_MORE}"
 LABEL resty_add_package_builddeps="${RESTY_ADD_PACKAGE_BUILDDEPS}"
-LABEL resty_script_before_config="${RESTY_SCRIPT_BEFORE_CONFIG}"
-LABEL resty_script_after_make="${RESTY_SCRIPT_AFTER_MAKE}"
+LABEL resty_eval_pre_configure="${RESTY_EVAL_PRE_CONFIGURE}"
+LABEL resty_eval_post_make="${RESTY_EVAL_POST_MAKE}"
 
 # These are not intended to be user-specified
 ARG _RESTY_CONFIG_DEPS="--with-openssl=/tmp/openssl-${RESTY_OPENSSL_VERSION} --with-pcre=/tmp/pcre-${RESTY_PCRE_VERSION}"
@@ -77,6 +77,7 @@ RUN apk add --no-cache --virtual .build-deps \
         perl-dev \
         readline-dev \
         zlib-dev \
+        ${RESTY_ADD_PACKAGE_BUILDDEPS} \
     && apk add --no-cache \
         gd \
         geoip \
@@ -84,7 +85,7 @@ RUN apk add --no-cache --virtual .build-deps \
         libxslt \
         zlib \
     && cd /tmp \
-    && if [ -z "${RESTY_SCRIPT_BEFORE_MAKE}" ]; then eval $(echo ${RESTY_SCRIPT_BEFORE_CONFIG}); fi \
+    && if [ -z "${RESTY_EVAL_PRE_CONFIGURE}" ]; then eval $(echo ${RESTY_EVAL_PRE_CONFIGURE}); fi \
     && curl -fSL https://www.openssl.org/source/openssl-${RESTY_OPENSSL_VERSION}.tar.gz -o openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
     && tar xzf openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
     && curl -fSL https://ftp.pcre.org/pub/pcre/pcre-${RESTY_PCRE_VERSION}.tar.gz -o pcre-${RESTY_PCRE_VERSION}.tar.gz \
@@ -96,7 +97,7 @@ RUN apk add --no-cache --virtual .build-deps \
     && make -j${RESTY_J} \
     && make -j${RESTY_J} install \
     && cd /tmp \
-    && if [ -z "${RESTY_SCRIPT_AFTER_MAKE}" ]; then eval $(echo ${RESTY_SCRIPT_AFTER_MAKE}); fi \
+    && if [ -z "${RESTY_EVAL_POST_MAKE}" ]; then eval $(echo ${RESTY_EVAL_POST_MAKE}); fi \
     && rm -rf \
         openssl-${RESTY_OPENSSL_VERSION} \
         openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
