@@ -8,3 +8,4 @@ We'd like to thank the following people for their commits:
 - mahnkong <mahnkong@gmx.de>
 - Markus Lippert <markus9656@gmail.com>
 - Davide Montanari <damontan@microsoft.com>
+- Roy Nasser (NeoAssist) <roy@nasser.com.br>

@@ -4,6 +4,7 @@ Changelog
 ## 1.13.6.2-2
 
  * Add LUA_PATH and LUA_CPATH to ENV for LuaRocks (#53)
+ * Add custom module building via build-args (#79)
 
 ## 1.13.6.2-1
 
