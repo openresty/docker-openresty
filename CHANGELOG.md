@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.13.6.2-2
+
+ * Add LUA_PATH and LUA_CPATH to ENV for LuaRocks (#53)
+
 ## 1.13.6.2-1
 
  * Added `bionic` image
