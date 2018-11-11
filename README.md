@@ -28,6 +28,7 @@ Table of Contents
 
 * [Description](#description)
 * [Usage](#usage)
+* [Nginx Config Files](#nginx-config-files)
 * [OPM](#opm)
 * [LuaRocks](#luarocks)
 * [Tips & Pitfalls](#tips--pitfalls)
@@ -51,37 +52,6 @@ Docker is a container management platform.
 OpenResty is a full-fledged web application server by bundling the standard nginx core,
 lots of 3rd-party nginx modules, as well as most of their external dependencies.
 
-From non-RPM/DEB flavors, the following modules are included by default, but one can easily increase or decrease that with [custom build options](#build-options) :
-
- * file-aio
- * http_addition_module
- * http_auth_request_module
- * http_dav_module
- * http_flv_module
- * http_geoip_module=dynamic
- * http_gunzip_module
- * http_gzip_static_module
- * http_image_filter_module=dynamic
- * http_mp4_module
- * http_random_index_module
- * http_realip_module
- * http_secure_link_module
- * http_slice_module
- * http_ssl_module
- * http_stub_status_module
- * http_sub_module
- * http_v2_module
- * http_xslt_module=dynamic
- * ipv6
- * mail
- * mail_ssl_module
- * md5-asm
- * pcre-jit
- * sha1-asm
- * stream
- * stream_ssl_module
- * threads
-
 
 Usage
 =====
@@ -96,7 +66,8 @@ docker run [options] openresty/openresty:stretch-fat
 
 `docker-openresty` symlinks `/usr/local/openresty/nginx/logs/access.log` and `error.log` to `/dev/stdout` and `/dev/stderr` respectively, so that Docker logging works correctly.  If you change the log paths in your `nginx.conf`, you should symlink those paths as well. This is not possible with the `windows` image.
 
-nginx config files
+
+Nginx Config Files
 ==================
 
 The Docker tooling installs its own [`nginx.conf` file](https://github.com/openresty/docker-openresty/blob/master/nginx.conf).  If you want to directly override it, you can replace it in your own Dockerfile or via volume bind-mounting.
@@ -113,6 +84,7 @@ When using the `windows` image you can change the main configuration directly:
 ```
 docker run -v C:/my/custom/nginx.conf:C:/openresty/conf/nginx.conf openresty/openresty:windows
 ```
+
 
 OPM
 ===
@@ -158,6 +130,7 @@ docker build -f xenial/Dockerfile --build-arg "RESTY_CONFIG_OPTIONS_MORE=--with-
   your `opm` and LuaRocks packages -- they must all use the same OpenSSL version.
 
 * The `1.13.6.2-alpine` is built from `OpenSSL 1.0.2.k` because of build issues on Alpine.
+
 
 Docker CMD
 ==========
@@ -218,6 +191,36 @@ docker build --build-arg RESTY_J=4 -f xenial/Dockerfile .
 |RESTY_EVAL_PRE_CONFIGURE | "" | Command(s) to run prior to executing OpenResty's `./configure` script. (this can be used to clone a github repo of an extension you want to add to OpenResty, for example.  In that case, dont forget to add the appropriate argument to the RESTY_CONFIG_OPTIONS_MORE argument as described above). |
 |RESTY_EVAL_POST_MAKE | "" | Command(s) to run after running make install.  |
 
+These built-from-source flavors include the following modules by default, but one can easily increase or decrease that with the custom build options above:
+
+ * file-aio
+ * http_addition_module
+ * http_auth_request_module
+ * http_dav_module
+ * http_flv_module
+ * http_geoip_module=dynamic
+ * http_gunzip_module
+ * http_gzip_static_module
+ * http_image_filter_module=dynamic
+ * http_mp4_module
+ * http_random_index_module
+ * http_realip_module
+ * http_secure_link_module
+ * http_slice_module
+ * http_ssl_module
+ * http_stub_status_module
+ * http_sub_module
+ * http_v2_module
+ * http_xslt_module=dynamic
+ * ipv6
+ * mail
+ * mail_ssl_module
+ * md5-asm
+ * pcre-jit
+ * sha1-asm
+ * stream
+ * stream_ssl_module
+ * threads
 [Back to TOC](#table-of-contents)
 
 
