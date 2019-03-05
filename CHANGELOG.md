@@ -1,6 +1,15 @@
 Changelog
 =========
 
+## 1.15.8.1rc1-0
+
+ * Upgrade Openresty to 1.15.8.1rc1
+ * Upgrade LuaRocks to 3.0.4
+ * Upgrade OpenSSL to 1.0.2r / 1.1.0j
+ 
+ * Temporarily disable Travis builds of centos / stretch images 
+   until upstream packages are available
+
 ## 1.13.6.2-2
 
  * Add LUA_PATH and LUA_CPATH to ENV for LuaRocks (#53)
