@@ -23,6 +23,7 @@ RUN apk add --no-cache --virtual .build-deps \
         curl \
         linux-headers \
         make \
+        outils-md5 \
         perl \
         unzip \
     && cd /tmp \

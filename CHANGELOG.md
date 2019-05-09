@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## unreleased
+
+ * Install `outils-md5` on `alpine-fat` (#98)
+
 ## 1.15.8.1rc1-0
 
  * Upgrade Openresty to 1.15.8.1rc1
