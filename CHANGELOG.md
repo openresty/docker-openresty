@@ -3,6 +3,7 @@ Changelog
 
 ## unreleased
 
+ * Upgraded alpine base image to 3.9 (#94)
  * Install `outils-md5` on `alpine-fat` (#98)
 
 ## 1.15.8.1rc1-0
