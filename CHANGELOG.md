@@ -1,8 +1,9 @@
 Changelog
 =========
 
-## unreleased
+## 1.15.8.1rc2-0
 
+ * Upgrade Openresty to 1.15.8.1rc2
  * Upgraded alpine base image to 3.9 (#94)
  * Install `outils-md5` on `alpine-fat` (#98)
 
