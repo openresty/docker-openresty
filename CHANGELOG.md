@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## unreleased
+
+ * Downgrade alpine base image to 3.8 until OpenSSL 1.1.1 works (#99)
+
 ## 1.15.8.1rc2-0
 
  * Upgrade Openresty to 1.15.8.1rc2
