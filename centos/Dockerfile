@@ -9,7 +9,7 @@ FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
 ARG RESTY_IMAGE_BASE="centos"
-ARG RESTY_LUAROCKS_VERSION="3.0.4"
+ARG RESTY_LUAROCKS_VERSION="3.1.2"
 ARG RESTY_RPM_FLAVOR=""
 ARG RESTY_RPM_VERSION="1.15.8.1rc1-0.el7.centos"
 ARG RESTY_RPM_ARCH="x86_64"
@@ -28,7 +28,7 @@ RUN yum-config-manager --add-repo https://openresty.org/package/${RESTY_IMAGE_BA
         openresty-resty-${RESTY_RPM_VERSION} \
         unzip \
     && cd /tmp \
-    && curl -fSL https://github.com/luarocks/luarocks/archive/${RESTY_LUAROCKS_VERSION}.tar.gz -o luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
+    && curl -fSL https://luarocks.github.io/luarocks/releases/luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz -o luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && tar xzf luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && cd luarocks-${RESTY_LUAROCKS_VERSION} \
     && ./configure \

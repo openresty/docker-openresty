@@ -1,8 +1,9 @@
 Changelog
 =========
 
-## unreleased
+## 1.15.8.1rc2-1
 
+ * Upgrade LuaRocks to 3.1.2 and change release URL (#100)
  * Downgrade alpine base image to 3.8 until OpenSSL 1.1.1 works (#99)
 
 ## 1.15.8.1rc2-0

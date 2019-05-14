@@ -181,8 +181,8 @@ docker build --build-arg RESTY_J=4 -f xenial/Dockerfile .
 :----- | :-----: |:----------- |
 |RESTY_IMAGE_BASE | "ubuntu" / "alpine" | The Debian or Alpine Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG  | { "xenial", "bionic" } / "3.8" | The Debian or Alpine Docker image tag to build `FROM`. |
-|RESTY_VERSION | 1.15.8.1rc1 | The version of OpenResty to use. |
-|RESTY_LUAROCKS_VERSION | 3.0.4 | The version of LuaRocks to use. |
+|RESTY_VERSION | 1.15.8.1rc2 | The version of OpenResty to use. |
+|RESTY_LUAROCKS_VERSION | 3.1.2 | The version of LuaRocks to use. |
 |RESTY_OPENSSL_VERSION | 1.1.0j  / 1.0.2r | The version of OpenSSL to use. |
 |RESTY_PCRE_VERSION | 8.42 | The version of PCRE to use. |
 |RESTY_J | 1 | Sets the parallelism level (-jN) for the builds. |
@@ -245,7 +245,7 @@ docker build --build-arg RESTY_RPM_FLAVOR="-debug" centos
 :----- | :-----: |:----------- |
 |RESTY_IMAGE_BASE | "centos" | The Centos Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG | "7" | The CentOS Docker image tag to build `FROM`. |
-|RESTY_LUAROCKS_VERSION | 2.4.4 | The version of LuaRocks to use. |
+|RESTY_LUAROCKS_VERSION | 3.1.2 | The version of LuaRocks to use. |
 |RESTY_RPM_FLAVOR | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
 |RESTY_RPM_VERSION | 1.13.6.2-1.el7.centos | The `openresty` package version to install. |
 |RESTY_RPM_ARCH | x86_64 | The `openresty` package architecture to install. |
