@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.15.8.1rc2-2
+
+ * Add `-nosse42` builds to `alpine`, `xenial`, and `bionic` flavors (#103)
+
 ## 1.15.8.1rc2-1
 
  * Upgrade LuaRocks to 3.1.2 and change release URL (#100)
