@@ -63,72 +63,72 @@ jobs:
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-fat ;
         fi
 
-#   # aliased as `centos-rpm`
-#   - stage: build docker image for flavor centos
-#     script:
-#     - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-#     - docker build -t openresty:centos -f centos/Dockerfile .
-#     - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
-#         docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
-#         docker tag openresty:centos $DOCKER_ORG/openresty:centos &&
-#         docker push $DOCKER_ORG/openresty:centos ;
-#         docker tag $DOCKER_ORG/openresty:centos $DOCKER_ORG/openresty:centos-rpm &&
-#         docker push $DOCKER_ORG/openresty:centos-rpm ;
-#       fi
-#     - if [[ "$TRAVIS_TAG" ]] ; then
-#         TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
-#         if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
-#           docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
-#           docker tag openresty:centos $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-centos &&
-#           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-centos ;
-#           docker tag $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-centos $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-centos-rpm &&
-#           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-centos-rpm ;
-#         fi ;
-#         docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
-#         docker tag openresty:centos $DOCKER_ORG/openresty:$TRAVIS_TAG-centos &&
-#         docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-centos ;
-#         docker tag $DOCKER_ORG/openresty:$TRAVIS_TAG-centos $DOCKER_ORG/openresty:$TRAVIS_TAG-centos-rpm &&
-#         docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-centos-rpm ;
-#       fi
-#
-#   - stage: build docker image for flavor stretch and stretch-fat
-#     script:
-#     - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-#     - docker build -t openresty:stretch -f stretch/Dockerfile .
-#     - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
-#         docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
-#         docker tag openresty:stretch $DOCKER_ORG/openresty:stretch &&
-#         docker push $DOCKER_ORG/openresty:stretch ;
-#       fi
-#     - if [[ "$TRAVIS_TAG" ]] ; then
-#         TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
-#         if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
-#           docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
-#           docker tag openresty:stretch $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-stretch &&
-#           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-stretch ;
-#         fi ;
-#         docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
-#         docker tag openresty:stretch $DOCKER_ORG/openresty:$TRAVIS_TAG-stretch &&
-#         docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-stretch ;
-#       fi
-#     - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-#     - docker build -t openresty:stretch-fat -f stretch/Dockerfile.fat .
-#     - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
-#         docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
-#         docker tag openresty:stretch-fat $DOCKER_ORG/openresty:stretch-fat &&
-#         docker push $DOCKER_ORG/openresty:stretch-fat ;
-#       fi
-#     - if [[ "$TRAVIS_TAG" ]] ; then
-#         TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
-#         if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
-#           docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
-#           docker tag openresty:stretch-fat $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-stretch-fat &&
-#           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-stretch-fat ;
-#         fi ;
-#         docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
-#         docker tag openresty:stretch-fat $DOCKER_ORG/openresty:$TRAVIS_TAG-stretch-fat &&
-#         docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-stretch-fat ;
-#       fi
+  # aliased as `centos-rpm`
+  - stage: build docker image for flavor centos
+    script:
+    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+    - docker build -t openresty:centos -f centos/Dockerfile .
+    - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
+        docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
+        docker tag openresty:centos $DOCKER_ORG/openresty:centos &&
+        docker push $DOCKER_ORG/openresty:centos ;
+        docker tag $DOCKER_ORG/openresty:centos $DOCKER_ORG/openresty:centos-rpm &&
+        docker push $DOCKER_ORG/openresty:centos-rpm ;
+      fi
+    - if [[ "$TRAVIS_TAG" ]] ; then
+        TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
+        if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
+          docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
+          docker tag openresty:centos $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-centos &&
+          docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-centos ;
+          docker tag $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-centos $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-centos-rpm &&
+          docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-centos-rpm ;
+        fi ;
+        docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
+        docker tag openresty:centos $DOCKER_ORG/openresty:$TRAVIS_TAG-centos &&
+        docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-centos ;
+        docker tag $DOCKER_ORG/openresty:$TRAVIS_TAG-centos $DOCKER_ORG/openresty:$TRAVIS_TAG-centos-rpm &&
+        docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-centos-rpm ;
+      fi
+
+  - stage: build docker image for flavor stretch and stretch-fat
+    script:
+    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+    - docker build -t openresty:stretch -f stretch/Dockerfile .
+    - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
+        docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
+        docker tag openresty:stretch $DOCKER_ORG/openresty:stretch &&
+        docker push $DOCKER_ORG/openresty:stretch ;
+      fi
+    - if [[ "$TRAVIS_TAG" ]] ; then
+        TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
+        if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
+          docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
+          docker tag openresty:stretch $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-stretch &&
+          docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-stretch ;
+        fi ;
+        docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
+        docker tag openresty:stretch $DOCKER_ORG/openresty:$TRAVIS_TAG-stretch &&
+        docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-stretch ;
+      fi
+    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+    - docker build -t openresty:stretch-fat -f stretch/Dockerfile.fat .
+    - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
+        docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
+        docker tag openresty:stretch-fat $DOCKER_ORG/openresty:stretch-fat &&
+        docker push $DOCKER_ORG/openresty:stretch-fat ;
+      fi
+    - if [[ "$TRAVIS_TAG" ]] ; then
+        TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
+        if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
+          docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
+          docker tag openresty:stretch-fat $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-stretch-fat &&
+          docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-stretch-fat ;
+        fi ;
+        docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
+        docker tag openresty:stretch-fat $DOCKER_ORG/openresty:$TRAVIS_TAG-stretch-fat &&
+        docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-stretch-fat ;
+      fi
 
     - stage: build docker image for flavor xenial
       script:

@@ -9,7 +9,7 @@ FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
 # Docker Build Arguments
-ARG RESTY_VERSION="1.15.8.1rc2"
+ARG RESTY_VERSION="1.15.8.1"
 ARG RESTY_OPENSSL_VERSION="1.0.2r"
 ARG RESTY_PCRE_VERSION="8.42"
 ARG RESTY_J="1"

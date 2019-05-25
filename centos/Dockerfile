@@ -11,7 +11,7 @@ LABEL maintainer="Evan Wies <evan@neomantra.net>"
 ARG RESTY_IMAGE_BASE="centos"
 ARG RESTY_LUAROCKS_VERSION="3.1.2"
 ARG RESTY_RPM_FLAVOR=""
-ARG RESTY_RPM_VERSION="1.15.8.1rc1-0.el7.centos"
+ARG RESTY_RPM_VERSION="1.15.8.1-1.el7"
 ARG RESTY_RPM_ARCH="x86_64"
 
 LABEL resty_luarocks_version="${RESTY_LUAROCKS_VERSION}"

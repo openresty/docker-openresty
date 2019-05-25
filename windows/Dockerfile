@@ -3,7 +3,7 @@
 
 FROM microsoft/windowsservercore as downloader
 
-ARG RESTY_VERSION="1.15.8.1rc2"
+ARG RESTY_VERSION="1.15.8.1"
 
 LABEL resty_version="${RESTY_VERSION}"
 

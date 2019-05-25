@@ -1,8 +1,9 @@
 Changelog
 =========
 
-## 1.15.8.1rc2-2
+## 1.15.8.1-0
 
+ * Upgrade OpenResty to 1.15.8.1
  * Add `-nosse42` builds to `alpine`, `xenial`, and `bionic` flavors (#103)
 
 ## 1.15.8.1rc2-1

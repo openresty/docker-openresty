@@ -20,9 +20,9 @@ The following "flavors" are built from source and are intended for more advanced
 
 Starting with `1.13.6.1`, releases are tagged with `<openresty-version>-<image-version>-<flavor>`.  The latest `image-version` will also be tagged `<openresty-version>-<flavor>`.   The HEAD of the master branch is also labeled plainly as `<flavor>`.  The builds are managed by [Travis-CI](https://travis-ci.org/openresty/docker-openresty) and [Appveyor](https://ci.appveyor.com/project/openresty/docker-openresty) (for Windows images).
 
-Starting with `1.15.8.1`, there are also `-nosse42` image flavors for systems which do not support SSE 4.2 (e.g. older systems and embedded systems).  They are built with `--build-arg RESTY_CONFIG_OPTIONS_MORE="--with-luajit-xcflags='-mno-sse4.2'"`.  It is highly recommended *NOT* to use these if your system supports SSE 4.2 because the `CRC32` instruction dramatically improves large string performance.  These are only for built-from-source flavors, e.g. `1.15.8.1rc2-2-bionic-nosse42`, `1.15.8.1rc2-2-alpine-nosse42`, `1.15.8.1rc2-2-alpine-fat-nosse42`.
+Starting with `1.15.8.1`, there are also `-nosse42` image flavors for systems which do not support SSE 4.2 (e.g. older systems and embedded systems).  They are built with `--build-arg RESTY_CONFIG_OPTIONS_MORE="--with-luajit-xcflags='-mno-sse4.2'"`.  It is highly recommended *NOT* to use these if your system supports SSE 4.2 because the `CRC32` instruction dramatically improves large string performance.  These are only for built-from-source flavors, e.g. `1.15.8.1-0-bionic-nosse42`, `1.15.8.1-0-alpine-nosse42`, `1.15.8.1-0-alpine-fat-nosse42`.
 
-It is *highly recommended* that you use the upstream-based images for best support.  For best stability, pin your images to the full tag, for example `1.13.6.2-0-xenial`.
+It is *highly recommended* that you use the upstream-based images for best support.  For best stability, pin your images to the full tag, for example `1.15.8.1-0-bionic`.
 
 
 Table of Contents
@@ -184,7 +184,7 @@ docker build --build-arg RESTY_J=4 -f xenial/Dockerfile .
 :----- | :-----: |:----------- |
 |RESTY_IMAGE_BASE | "ubuntu" / "alpine" | The Debian or Alpine Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG  | { "xenial", "bionic" } / "3.8" | The Debian or Alpine Docker image tag to build `FROM`. |
-|RESTY_VERSION | 1.15.8.1rc2 | The version of OpenResty to use. |
+|RESTY_VERSION | 1.15.8.1 | The version of OpenResty to use. |
 |RESTY_LUAROCKS_VERSION | 3.1.2 | The version of LuaRocks to use. |
 |RESTY_OPENSSL_VERSION | 1.1.0j  / 1.0.2r | The version of OpenSSL to use. |
 |RESTY_PCRE_VERSION | 8.42 | The version of PCRE to use. |
@@ -250,7 +250,7 @@ docker build --build-arg RESTY_RPM_FLAVOR="-debug" centos
 |RESTY_IMAGE_TAG | "7" | The CentOS Docker image tag to build `FROM`. |
 |RESTY_LUAROCKS_VERSION | 3.1.2 | The version of LuaRocks to use. |
 |RESTY_RPM_FLAVOR | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
-|RESTY_RPM_VERSION | 1.13.6.2-1.el7.centos | The `openresty` package version to install. |
+|RESTY_RPM_VERSION | 1.15.8.1-1.el7 | The `openresty` package version to install. |
 |RESTY_RPM_ARCH | x86_64 | The `openresty` package architecture to install. |
 
 [Back to TOC](#table-of-contents)
@@ -278,7 +278,7 @@ docker build --build-arg RESTY_DEB_FLAVOR="-debug" -f stretch/Dockerfile .
 |RESTY_IMAGE_BASE  | "debian" | The Debian Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG   | "stretch-slim" | The Debian Docker image tag to build `FROM`. |
 |RESTY_DEB_FLAVOR  | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
-|RESTY_DEB_VERSION | "=1.13.6.2-1~stretch1" | The Debian package version to use, with `=` prepended. |
+|RESTY_DEB_VERSION | "=1.15.8.1-1~stretch1" | The Debian package version to use, with `=` prepended. |
 
 [Back to TOC](#table-of-contents)
 
@@ -298,7 +298,7 @@ docker build --build-arg RESTY_VERSION="1.13.6.2" -f windows/Dockerfile .
 
 | Key | Default | Description |
 :----- | :-----: |:----------- |
-|RESTY_VERSION | 1.13.6.2 | The version of OpenResty to use. |
+|RESTY_VERSION | 1.15.8.1 | The version of OpenResty to use. |
 
 [Back to TOC](#table-of-contents)
 
@@ -327,7 +327,7 @@ Copyright & License
 
 `docker-openresty` is licensed under the 2-clause BSD license.
 
-Copyright (c) 2017, Evan Wies <evan@neomantra.net>.
+Copyright (c) 2017-2019, Evan Wies <evan@neomantra.net>.
 
 This module is licensed under the terms of the BSD license.
 
