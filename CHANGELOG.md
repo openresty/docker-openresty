@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.15.8.1-1
+
+ * Fixed an error caused by '"' in executing apt (#95)
+
 ## 1.15.8.1-0
 
  * Upgrade OpenResty to 1.15.8.1
