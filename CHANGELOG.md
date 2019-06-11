@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.15.8.1-2
+
+ * Alpine upgraded to 3.9 with OpenSSL 1.1.1c (#94, #101)
+
 ## 1.15.8.1-1
 
  * Fixed an error caused by '"' in executing apt (#95)
