@@ -1,13 +1,13 @@
 # Dockerfile - Windows
 # https://github.com/openresty/docker-openresty
 
-ARG RESTY_INSTALL_BASE="mcr.microsoft.com/windows/servercore"
-ARG RESTY_INSTALL_TAG="ltsc2019"
+ARG RESTY_INSTALL_BASE="microsoft/windowsservercore"
+ARG RESTY_INSTALL_TAG="10.0.14393.2848"
 
 FROM ${RESTY_INSTALL_BASE}:${RESTY_INSTALL_TAG} AS downloader
 
-ARG RESTY_INSTALL_BASE="mcr.microsoft.com/windows/servercore"
-ARG RESTY_INSTALL_TAG="ltsc2019"
+ARG RESTY_INSTALL_BASE="microsoft/windowsservercore"
+ARG RESTY_INSTALL_TAG="10.0.14393.2848"
 ARG RESTY_VERSION="1.15.8.1"
 
 LABEL resty_install_base="${RESTY_INSTALL_BASE}"
@@ -27,13 +27,13 @@ RUN Invoke-WebRequest -Uri "https://chocolatey.org/install.ps1" -UseBasicParsing
     mv .\openresty-*\ .\openresty ; 
 
 
-ARG RESTY_IMAGE_BASE="mcr.microsoft.com/windows/nanoserver"
-ARG RESTY_IMAGE_TAG="1903"
+ARG RESTY_IMAGE_BASE="microsoft/nanoserver"
+ARG RESTY_IMAGE_TAG="10.0.14393.2551"
 
 FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
 
-ARG RESTY_IMAGE_BASE="mcr.microsoft.com/windows/nanoserver"
-ARG RESTY_IMAGE_TAG="1903"
+ARG RESTY_IMAGE_BASE="microsoft/nanoserver"
+ARG RESTY_IMAGE_TAG="10.0.14393.2551"
 ARG RESTY_VERSION="1.15.8.1"
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
