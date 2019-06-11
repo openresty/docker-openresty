@@ -1,11 +1,17 @@
 # Dockerfile - Windows
 # https://github.com/openresty/docker-openresty
 
-FROM microsoft/windowsservercore as downloader
+ARG RESTY_INSTALL_BASE="mcr.microsoft.com/windows/servercore"
+ARG RESTY_INSTALL_TAG="ltsc2019"
 
+FROM ${RESTY_INSTALL_BASE}:${RESTY_INSTALL_TAG} AS downloader
+
+ARG RESTY_INSTALL_BASE="mcr.microsoft.com/windows/servercore"
+ARG RESTY_INSTALL_TAG="ltsc2019"
 ARG RESTY_VERSION="1.15.8.1"
 
-LABEL resty_version="${RESTY_VERSION}"
+LABEL resty_install_base="${RESTY_INSTALL_BASE}"
+LABEL resty_install_tag="${RESTY_INSTALL_TAG}"
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
@@ -21,9 +27,19 @@ RUN Invoke-WebRequest -Uri "https://chocolatey.org/install.ps1" -UseBasicParsing
     mv .\openresty-*\ .\openresty ; 
 
 
-FROM microsoft/nanoserver
+ARG RESTY_IMAGE_BASE="mcr.microsoft.com/windows/nanoserver"
+ARG RESTY_IMAGE_TAG="1903"
+
+FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
+
+ARG RESTY_IMAGE_BASE="mcr.microsoft.com/windows/nanoserver"
+ARG RESTY_IMAGE_TAG="1903"
+ARG RESTY_VERSION="1.15.8.1"
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
+LABEL resty_image_base="${RESTY_IMAGE_BASE}"
+LABEL resty_image_tag="${RESTY_IMAGE_TAG}"
+LABEL resty_version="${RESTY_VERSION}"
 
 WORKDIR C:/openresty
 RUN setx /M PATH "%PATH%;C:\Strawberry\perl\bin;C:\openresty"

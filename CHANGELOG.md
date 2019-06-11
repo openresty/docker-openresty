@@ -5,6 +5,7 @@ Changelog
 
  * Alpine upgraded to 3.9 with OpenSSL 1.1.1c (#94, #101)
  * Upgrade LuaRocks to 3.1.3
+ * Windows installer and base images are customizable and now use MCR as default
 
 ## 1.15.8.1-1
 

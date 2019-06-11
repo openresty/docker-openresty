@@ -297,6 +297,10 @@ docker build --build-arg RESTY_VERSION="1.13.6.2" -f windows/Dockerfile .
 
 | Key | Default | Description |
 :----- | :-----: |:----------- |
+|RESTY_INSTALL_BASE  | "mcr.microsoft.com/windows/servercore" | The Windows Server Docker image name to download and install OpenResty with. |
+|RESTY_INSTALL_TAG   | "ltsc2019" | The Windows Server Docker image name to download and install OpenResty with. |
+|RESTY_IMAGE_BASE  | "mcr.microsoft.com/windows/nanoserver" | The Windows Server Docker image name to build `FROM`. |
+|RESTY_IMAGE_TAG   | "1903" | The Windows Server Docker image tag to build `FROM`. |
 |RESTY_VERSION | 1.15.8.1 | The version of OpenResty to use. |
 
 [Back to TOC](#table-of-contents)
