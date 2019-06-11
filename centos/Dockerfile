@@ -9,11 +9,14 @@ FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
 ARG RESTY_IMAGE_BASE="centos"
+ARG RESTY_IMAGE_TAG="7"
 ARG RESTY_LUAROCKS_VERSION="3.1.3"
 ARG RESTY_RPM_FLAVOR=""
 ARG RESTY_RPM_VERSION="1.15.8.1-1.el7"
 ARG RESTY_RPM_ARCH="x86_64"
 
+LABEL resty_image_base="${RESTY_IMAGE_BASE}"
+LABEL resty_image_tag="${RESTY_IMAGE_TAG}"
 LABEL resty_luarocks_version="${RESTY_LUAROCKS_VERSION}"
 LABEL resty_rpm_flavor="${RESTY_RPM_FLAVOR}"
 LABEL resty_rpm_version="${RESTY_RPM_VERSION}"

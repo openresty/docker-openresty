@@ -13,7 +13,11 @@ LABEL maintainer="Evan Wies <evan@neomantra.net>"
 # For example: "-debug" or "-valgrind"
 ARG RESTY_DEB_FLAVOR=""
 ARG RESTY_DEB_VERSION="=1.15.8.1-1~stretch1"
+ARG RESTY_IMAGE_BASE="debian"
+ARG RESTY_IMAGE_TAG="stretch-slim"
 
+LABEL resty_image_base="${RESTY_IMAGE_BASE}"
+LABEL resty_image_tag="${RESTY_IMAGE_TAG}"
 LABEL resty_deb_flavor="${RESTY_DEB_FLAVOR}"
 LABEL resty_deb_version="${RESTY_DEB_VERSION}"
 

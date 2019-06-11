@@ -34,6 +34,7 @@ Table of Contents
 * [OPM](#opm)
 * [LuaRocks](#luarocks)
 * [Tips & Pitfalls](#tips--pitfalls)
+* [Image Labels](#image-labels)
 * [Docker CMD](#docker-entrypoint)
 * [Building (from source)](#building-from-source)
 * [Building (RPM based)](#building-rpm-based)
@@ -128,11 +129,57 @@ docker build -f xenial/Dockerfile --build-arg "RESTY_DEBIAN_BASE=armv7/armhf-ubu
 docker build -f xenial/Dockerfile --build-arg "RESTY_CONFIG_OPTIONS_MORE=--with-luajit-xcflags='-mno-sse4.2'" .
 ```
 
-* OpenResty's OpenSSL library version must be compatible with your `opm` and LuaRocks packages' version.  At minimum, the numeric portion should be the same (e.g. `1.1.1`).  The image label `resty_openssl_version` indicates this value.
+* OpenResty's OpenSSL library version must be compatible with your `opm` and LuaRocks packages' version.  At minimum, the numeric portion should be the same (e.g. `1.1.1`).  The image label `resty_openssl_version` indicates this value. see [Labels](#image-labels).
 
 * The `1.13.6.2-alpine` is built from `OpenSSL 1.0.2r` because of build issues on Alpine. `1.15.8.1-alpine` is built from `OpenSSL 1.1.1c` on `Alpine 3.9`.
 
 * The `SIGQUIT` signal will be sent to nginx to stop this container, to give it an opportunity to stop gracefully (i.e, finish processing active connections).  The Docker default is `SIGTERM`, which immediately terminates active connections.   Note that if your configuration listens on UNIX domain sockets, this means that you'll need to manually remove the socket file upon shutdown, due to [nginx bug #753](https://trac.nginx.org/nginx/ticket/753).
+
+
+Image Labels
+============
+
+The image builds are labeled with various information, such as the versions of OpenRestyand its dependent libraries.  Here's an example of printing the labels using [`jq`](https://stedolan.github.io/jq/):
+
+```
+$ docker pull openresty/openresty:1.15.8.1-1-alpine
+$ docker inspect openresty/openresty:1.15.8.1-1-alpine | jq '.[].Config.Labels'
+{
+  "maintainer": "Evan Wies <evan@*********.net>",
+  "resty_add_package_builddeps": "",
+  "resty_add_package_rundeps": "",
+  "resty_config_options": "    --with-file-aio     --with-http_addition_module     --with-http_auth_request_module     --with-http_dav_module     --with-http_flv_module     --with-http_geoip_module=dynamic     --with-http_gunzip_module     --with-http_gzip_static_module     --with-http_image_filter_module=dynamic     --with-http_mp4_module     --with-http_random_index_module     --with-http_realip_module     --with-http_secure_link_module     --with-http_slice_module     --with-http_ssl_module     --with-http_stub_status_module     --with-http_sub_module     --with-http_v2_module     --with-http_xslt_module=dynamic     --with-ipv6     --with-mail     --with-mail_ssl_module     --with-md5-asm     --with-pcre-jit     --with-sha1-asm     --with-stream     --with-stream_ssl_module     --with-threads     ",
+  "resty_config_options_more": "",
+  "resty_eval_post_make": "",
+  "resty_eval_pre_configure": "",
+  "resty_openssl_version": "1.0.2r",
+  "resty_pcre_version": "8.42",
+  "resty_version": "1.15.8.1"
+}
+```
+
+| Label Name                   | Description             |
+:----------------------------- |:----------------------- |
+|`maintainer`                  | Maintainer of the image |
+|`resty_add_package_builddeps` | buildarg `RESTY_ADD_PACKAGE_BUILDDEPS` |
+|`resty_add_package_rundeps`   | buildarg `RESTY_ADD_PACKAGE_RUNDEPS` |
+|`resty_config_options`        | buildarg `RESTY_CONFIG_OPTIONS`  |
+|`resty_config_options_more`   | buildarg `RESTY_CONFIG_OPTIONS_MORE`  |
+|`resty_deb_flavor`            | buildarg `RESTY_DEB_FLAVOR`  |
+|`resty_deb_version`           | buildarg `RESTY_DEB_VERSION`  |
+|`resty_eval_post_make`        | buildarg `RESTY_EVAL_POST_MAKE`  |
+|`resty_eval_pre_configure`    | buildarg `RESTY_EVAL_PRE_CONFIGURE`  |
+|`resty_image_base`            | Name of the base image to build from, buildarg  `RESTY_IMAGE_BASE` |
+|`resty_image_tag`             | Tag of the base image to build from, buildarg `RESTY_IMAGE_TAG` |
+|`resty_install_base`          | buildarg `RESTY_INSTALL_BASE` |
+|`resty_install_tag`           | buildarg `RESTY_INSTALL_TAG` |
+|`resty_luarocks_version`      | buildarg `RESTY_LUAROCKS_VERSION`  |
+|`resty_openssl_version`       | buildarg `RESTY_OPENSSL_VERSION`  |
+|`resty_pcre_version`          | buildarg `RESTY_PCRE_VERSION`  |
+|`resty_rpm_arch`              | buildarg `RESTY_RPM_ARCH`  |
+|`resty_rpm_flavor`            | buildarg `RESTY_RPM_FLAVOR`  |
+|`resty_rpm_version`           | buildarg `RESTY_RPM_VERSION`  |
+|`resty_version`               | buildarg `RESTY_VERSION`  |
 
 
 Docker CMD

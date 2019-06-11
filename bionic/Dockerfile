@@ -9,6 +9,8 @@ FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
 # Docker Build Arguments
+ARG RESTY_IMAGE_BASE="ubuntu"
+ARG RESTY_IMAGE_TAG="bionic"
 ARG RESTY_VERSION="1.15.8.1"
 ARG RESTY_LUAROCKS_VERSION="3.1.3"
 ARG RESTY_OPENSSL_VERSION="1.1.0j"
@@ -50,6 +52,8 @@ ARG RESTY_ADD_PACKAGE_RUNDEPS=""
 ARG RESTY_EVAL_PRE_CONFIGURE=""
 ARG RESTY_EVAL_POST_MAKE=""
 
+LABEL resty_image_base="${RESTY_IMAGE_BASE}"
+LABEL resty_image_tag="${RESTY_IMAGE_TAG}"
 LABEL resty_version="${RESTY_VERSION}"
 LABEL resty_luarocks_version="${RESTY_LUAROCKS_VERSION}"
 LABEL resty_openssl_version="${RESTY_OPENSSL_VERSION}"

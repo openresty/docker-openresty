@@ -9,6 +9,8 @@ FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
 # Docker Build Arguments
+ARG RESTY_IMAGE_BASE="alpine"
+ARG RESTY_IMAGE_TAG="3.9"
 ARG RESTY_VERSION="1.15.8.1"
 ARG RESTY_OPENSSL_VERSION="1.1.1c"
 ARG RESTY_PCRE_VERSION="8.42"
@@ -49,6 +51,8 @@ ARG RESTY_ADD_PACKAGE_RUNDEPS=""
 ARG RESTY_EVAL_PRE_CONFIGURE=""
 ARG RESTY_EVAL_POST_MAKE=""
 
+LABEL resty_image_base="${RESTY_IMAGE_BASE}"
+LABEL resty_image_tag="${RESTY_IMAGE_TAG}"
 LABEL resty_version="${RESTY_VERSION}"
 LABEL resty_openssl_version="${RESTY_OPENSSL_VERSION}"
 LABEL resty_pcre_version="${RESTY_PCRE_VERSION}"
