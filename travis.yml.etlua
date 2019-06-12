@@ -27,21 +27,21 @@ jobs:
 <% for i, flavor in pairs(flavors) do %>
     - stage: build docker image for flavor <%= flavor %>
       script:
-      - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+      - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
       - docker build -t openresty:<%= flavor -%> -f <%= flavor -%>/Dockerfile .
       - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
-          docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
           docker tag openresty:<%= flavor -%> $DOCKER_ORG/openresty:<%= flavor -%> &&
           docker push $DOCKER_ORG/openresty:<%= flavor -%> ;
         fi
       - if [[ "$TRAVIS_TAG" ]] ; then
           TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
           if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
-            docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
+            echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
             docker tag openresty:<%= flavor -%> $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-<%= flavor -%> &&
             docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-<%= flavor -%> ;
           fi ;
-          docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
           docker tag openresty:<%= flavor -%> $DOCKER_ORG/openresty:$TRAVIS_TAG-<%= flavor -%> &&
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-<%= flavor -%> ;
         fi

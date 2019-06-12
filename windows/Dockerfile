@@ -2,16 +2,13 @@
 # https://github.com/openresty/docker-openresty
 
 ARG RESTY_INSTALL_BASE="microsoft/windowsservercore"
-ARG RESTY_INSTALL_TAG="10.0.14393.2848"
+ARG RESTY_INSTALL_TAG="ltsc2016"
+ARG RESTY_IMAGE_BASE="microsoft/nanoserver"
+ARG RESTY_IMAGE_TAG="sac2016"
 
-FROM ${RESTY_INSTALL_BASE}:${RESTY_INSTALL_TAG} AS downloader
+FROM "${RESTY_INSTALL_BASE}:${RESTY_INSTALL_TAG}" AS downloader
 
-ARG RESTY_INSTALL_BASE="microsoft/windowsservercore"
-ARG RESTY_INSTALL_TAG="10.0.14393.2848"
 ARG RESTY_VERSION="1.15.8.1"
-
-LABEL resty_install_base="${RESTY_INSTALL_BASE}"
-LABEL resty_install_tag="${RESTY_INSTALL_TAG}"
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
@@ -27,16 +24,17 @@ RUN Invoke-WebRequest -Uri "https://chocolatey.org/install.ps1" -UseBasicParsing
     mv .\openresty-*\ .\openresty ; 
 
 
-ARG RESTY_IMAGE_BASE="microsoft/nanoserver"
-ARG RESTY_IMAGE_TAG="10.0.14393.2551"
+FROM "${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}"
 
-FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
-
+ARG RESTY_INSTALL_BASE="microsoft/windowsservercore"
+ARG RESTY_INSTALL_TAG="ltsc2016"
 ARG RESTY_IMAGE_BASE="microsoft/nanoserver"
-ARG RESTY_IMAGE_TAG="10.0.14393.2551"
+ARG RESTY_IMAGE_TAG="sac2016"
 ARG RESTY_VERSION="1.15.8.1"
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
+LABEL resty_install_base="${RESTY_INSTALL_BASE}"
+LABEL resty_install_tag="${RESTY_INSTALL_TAG}"
 LABEL resty_image_base="${RESTY_IMAGE_BASE}"
 LABEL resty_image_tag="${RESTY_IMAGE_TAG}"
 LABEL resty_version="${RESTY_VERSION}"

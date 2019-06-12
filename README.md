@@ -133,6 +133,8 @@ docker build -f xenial/Dockerfile --build-arg "RESTY_CONFIG_OPTIONS_MORE=--with-
 
 * The `1.13.6.2-alpine` is built from `OpenSSL 1.0.2r` because of build issues on Alpine. `1.15.8.1-alpine` is built from `OpenSSL 1.1.1c` on `Alpine 3.9`.
 
+* Windows images must be built from the same version as the host system it runs on.  See [Windows container version compatibility](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/version-compatibility).  Our images are currently built from the "Windows Server 2016" series.
+
 * The `SIGQUIT` signal will be sent to nginx to stop this container, to give it an opportunity to stop gracefully (i.e, finish processing active connections).  The Docker default is `SIGTERM`, which immediately terminates active connections.   Note that if your configuration listens on UNIX domain sockets, this means that you'll need to manually remove the socket file upon shutdown, due to [nginx bug #753](https://trac.nginx.org/nginx/ticket/753).
 
 
@@ -344,11 +346,11 @@ docker build --build-arg RESTY_VERSION="1.13.6.2" -f windows/Dockerfile .
 
 | Key | Default | Description |
 :----- | :-----: |:----------- |
-|RESTY_INSTALL_BASE  | "microsoft/windowsservercore" | The Windows Server Docker image name to download and install OpenResty with. |
-|RESTY_INSTALL_TAG   | "10.0.14393.2848" | The Windows Server Docker image name to download and install OpenResty with. |
-|RESTY_IMAGE_BASE  | "microsoft/nanoserver" | The Windows Server Docker image name to build `FROM`. |
-|RESTY_IMAGE_TAG   | "10.0.14393.2551" | The Windows Server Docker image tag to build `FROM`. |
-|RESTY_VERSION | 1.15.8.1 | The version of OpenResty to use. |
+|RESTY_INSTALL_BASE | "microsoft/windowsservercore" | The Windows Server Docker image name to download and install OpenResty with. |
+|RESTY_INSTALL_TAG  | "ltsc2016" | The Windows Server Docker image name to download and install OpenResty with. |
+|RESTY_IMAGE_BASE   | "microsoft/nanoserver" | The Windows Server Docker image name to build `FROM` for final image. |
+|RESTY_IMAGE_TAG    | "sac2016" | The Windows Server Docker image tag to build `FROM` for final image. |
+|RESTY_VERSION      | 1.15.8.1 | The version of OpenResty to use. |
 
 [Back to TOC](#table-of-contents)
 
