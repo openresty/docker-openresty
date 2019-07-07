@@ -64,7 +64,7 @@ LABEL resty_eval_pre_configure="${RESTY_EVAL_PRE_CONFIGURE}"
 LABEL resty_eval_post_make="${RESTY_EVAL_POST_MAKE}"
 
 # These are not intended to be user-specified
-ARG _RESTY_CONFIG_DEPS="--with-openssl=/tmp/openssl-${RESTY_OPENSSL_VERSION} --with-pcre=/tmp/pcre-${RESTY_PCRE_VERSION}"
+ARG _RESTY_CONFIG_DEPS="--with-openssl=/tmp/openssl-${RESTY_OPENSSL_VERSION} --with-pcre"
 
 
 # 1) Install apk dependencies
@@ -100,6 +100,9 @@ RUN apk add --no-cache --virtual .build-deps \
     && tar xzf pcre-${RESTY_PCRE_VERSION}.tar.gz \
     && curl -fSL https://openresty.org/download/openresty-${RESTY_VERSION}.tar.gz -o openresty-${RESTY_VERSION}.tar.gz \
     && tar xzf openresty-${RESTY_VERSION}.tar.gz \
+    && cd /tmp/pcre-${RESTY_PCRE_VERSION} \
+    && ./configure --enable-jit --enable-utf --enable-unicode-properties \
+    && make && make install \
     && cd /tmp/openresty-${RESTY_VERSION} \
     && if [[ "1.1.1" == $(echo -e "${RESTY_OPENSSL_VERSION}\n1.1.1" | sort -V | head -n1) ]] ; then \
         echo 'patching Nginx for OpenSSL 1.1.1' \
