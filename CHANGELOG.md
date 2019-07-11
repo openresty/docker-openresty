@@ -1,10 +1,12 @@
 Changelog
 =========
 
-## 1.15.8.1-3 (unreleased)
+## 1.15.8.1-3
 
  * Fix PCRE issues by building it ourselves (#22, #108)
  * Build Nginx with `-DNGX_LUA_ABORT_AT_PANIC` like upstream
+ * Add `RESTY_LUAJIT_OPTIONS` build arg for harmony with upstream
+     Defaults to `--with-luajit-xcflags='-DLUAJIT_NUMMODE=2 -DLUAJIT_ENABLE_LUA52COMPAT'`
  * Tag `stretch` builds on `master` branch as the `latest` (#112)
 
 ## 1.15.8.1-2

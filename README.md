@@ -20,9 +20,9 @@ The following "flavors" are built from source and are intended for more advanced
 
 Starting with `1.13.6.1`, releases are tagged with `<openresty-version>-<image-version>-<flavor>`.  The latest `image-version` will also be tagged `<openresty-version>-<flavor>`.   The HEAD of the master branch is also labeled plainly as `<flavor>`.  The builds are managed by [Travis-CI](https://travis-ci.org/openresty/docker-openresty) and [Appveyor](https://ci.appveyor.com/project/openresty/docker-openresty) (for Windows images).
 
-Starting with `1.15.8.1`, there are also `-nosse42` image flavors for systems which do not support SSE 4.2 (e.g. older systems and embedded systems).  They are built with `--build-arg RESTY_CONFIG_OPTIONS_MORE="--with-luajit-xcflags='-mno-sse4.2'"`.  It is highly recommended *NOT* to use these if your system supports SSE 4.2 because the `CRC32` instruction dramatically improves large string performance.  These are only for built-from-source flavors, e.g. `1.15.8.1-0-bionic-nosse42`, `1.15.8.1-0-alpine-nosse42`, `1.15.8.1-0-alpine-fat-nosse42`.
+Starting with `1.15.8.1`, there are also `-nosse42` image flavors for systems which do not support SSE 4.2 (e.g. older systems and embedded systems).  They are built with `-mno-sse4.2` appended to the build arg `RESTY_LUAJIT_OPTIONS`.  It is highly recommended *NOT* to use these if your system supports SSE 4.2 because the `CRC32` instruction dramatically improves large string performance.  These are only for built-from-source flavors, e.g. `1.15.8.1-3-bionic-nosse42`, `1.15.8.1-3-alpine-nosse42`, `1.15.8.1-3-alpine-fat-nosse42`.
 
-It is *highly recommended* that you use the upstream-based images for best support.  For best stability, pin your images to the full tag, for example `1.15.8.1-0-bionic`.
+It is *highly recommended* that you use the upstream-based images for best support.  For best stability, pin your images to the full tag, for example `1.15.8.1-3-bionic`.
 
 
 Table of Contents
@@ -126,7 +126,7 @@ docker build -f xenial/Dockerfile --build-arg "RESTY_DEBIAN_BASE=armv7/armhf-ubu
 
  * By default, OpenResty is built with SSE4.2 optimizations if the build machine supports it.  If run on machine without SSE4.2, there will be [invalid opcode issues](https://github.com/openresty/docker-openresty/issues/39). **Thus all the Docker Hub images require SSE4.2.**  You can [build a custom image from source](#building-from-source) explicitly without SSE4.2 support, using build arguments like so:
 ```
-docker build -f xenial/Dockerfile --build-arg "RESTY_CONFIG_OPTIONS_MORE=--with-luajit-xcflags='-mno-sse4.2'" .
+docker build -f xenial/Dockerfile --build-arg "RESTY_LUAJIT_OPTIONS=--with-luajit-xcflags='-DLUAJIT_NUMMODE=2 -DLUAJIT_ENABLE_LUA52COMPAT -mno-sse4.2'" .
 ```
 
 * OpenResty's OpenSSL library version must be compatible with your `opm` and LuaRocks packages' version.  At minimum, the numeric portion should be the same (e.g. `1.1.1`).  The image label `resty_openssl_version` indicates this value. see [Labels](#image-labels).
@@ -165,6 +165,7 @@ $ docker inspect openresty/openresty:1.15.8.1-1-alpine | jq '.[].Config.Labels'
 |`maintainer`                  | Maintainer of the image |
 |`resty_add_package_builddeps` | buildarg `RESTY_ADD_PACKAGE_BUILDDEPS` |
 |`resty_add_package_rundeps`   | buildarg `RESTY_ADD_PACKAGE_RUNDEPS` |
+|`resty_config_deps`           | buildarg `_RESTY_CONFIG_DEPS` (internal) |
 |`resty_config_options`        | buildarg `RESTY_CONFIG_OPTIONS`  |
 |`resty_config_options_more`   | buildarg `RESTY_CONFIG_OPTIONS_MORE`  |
 |`resty_deb_flavor`            | buildarg `RESTY_DEB_FLAVOR`  |
@@ -175,6 +176,7 @@ $ docker inspect openresty/openresty:1.15.8.1-1-alpine | jq '.[].Config.Labels'
 |`resty_image_tag`             | Tag of the base image to build from, buildarg `RESTY_IMAGE_TAG` |
 |`resty_install_base`          | buildarg `RESTY_INSTALL_BASE` |
 |`resty_install_tag`           | buildarg `RESTY_INSTALL_TAG` |
+|`resty_luajit_options`        | buildarg `RESTY_LUAJIT_OPTIONS` |
 |`resty_luarocks_version`      | buildarg `RESTY_LUAROCKS_VERSION`  |
 |`resty_openssl_version`       | buildarg `RESTY_OPENSSL_VERSION`  |
 |`resty_pcre_version`          | buildarg `RESTY_PCRE_VERSION`  |
@@ -238,6 +240,7 @@ docker build --build-arg RESTY_J=4 -f xenial/Dockerfile .
 |RESTY_PCRE_VERSION | 8.42 | The version of PCRE to use. |
 |RESTY_J | 1 | Sets the parallelism level (-jN) for the builds. |
 |RESTY_CONFIG_OPTIONS | "--with-file-aio --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_geoip_module=dynamic --with-http_gunzip_module --with-http_gzip_static_module --with-http_image_filter_module=dynamic --with-http_mp4_module --with-http_perl_module=dynamic --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-http_xslt_module=dynamic --with-ipv6 --with-mail --with-mail_ssl_module --with-md5-asm --with-pcre-jit --with-sha1-asm --with-stream --with-stream_ssl_module --with-threads" | Options to pass to OpenResty's `./configure` script. |
+|RESTY_LUAJIT_OPTIONS | "--with-luajit-xcflags='-DLUAJIT_NUMMODE=2 -DLUAJIT_ENABLE_LUA52COMPAT'" | Options to tweak LuaJIT. |
 |RESTY_CONFIG_OPTIONS_MORE | "" | More options to pass to OpenResty's `./configure` script. |
 |RESTY_ADD_PACKAGE_BUILDDEPS | "" | Additional packages to install with package manager required by build only (removed after installation) |
 |RESTY_ADD_PACKAGE_RUNDEPS | "" | Additional packages to install with package manager required at runtime (not removed after installation) |
