@@ -99,6 +99,9 @@ jobs:
           echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
           docker tag openresty:stretch $DOCKER_ORG/openresty:stretch &&
           docker push $DOCKER_ORG/openresty:stretch ;
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+          docker tag openresty:stretch $DOCKER_ORG/openresty:latest &&
+          docker push $DOCKER_ORG/openresty:latest ;
         fi
       - if [[ "$TRAVIS_TAG" ]] ; then
           TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;

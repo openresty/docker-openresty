@@ -5,6 +5,7 @@ Changelog
 
  * Fix PCRE issues by building it ourselves (#22, #108)
  * Build Nginx with `-DNGX_LUA_ABORT_AT_PANIC` like upstream
+ * Tag `stretch` builds on `master` branch as the `latest` (#112)
 
 ## 1.15.8.1-2
 
