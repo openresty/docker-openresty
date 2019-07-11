@@ -4,6 +4,7 @@ Changelog
 ## 1.15.8.1-3 (unreleased)
 
  * Fix PCRE issues by building it ourselves (#22, #108)
+ * Build Nginx with `-DNGX_LUA_ABORT_AT_PANIC` like upstream
 
 ## 1.15.8.1-2
 
