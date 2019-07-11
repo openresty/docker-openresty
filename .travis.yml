@@ -178,8 +178,7 @@ jobs:
     - stage: build docker image for flavors alpine-nosse42 and alpine-fat-nosse42
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
-      - docker build -t openresty:alpine-nosse42 -f alpine/Dockerfile \
-          --build-arg RESTY_LUAJIT_OPTIONS="--with-luajit-xcflags='-DLUAJIT_NUMMODE=2 -DLUAJIT_ENABLE_LUA52COMPAT -mno-sse4.2'" .
+      - docker build -t openresty:alpine-nosse42 -f alpine/Dockerfile --build-arg RESTY_LUAJIT_OPTIONS="--with-luajit-xcflags='-DLUAJIT_NUMMODE=2 -DLUAJIT_ENABLE_LUA52COMPAT -mno-sse4.2'" .
       - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
           echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
           docker tag openresty:alpine-nosse42 $DOCKER_ORG/openresty:alpine-nosse42 &&
@@ -218,8 +217,7 @@ jobs:
     - stage: build docker image for flavor xenial-nosse42
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
-      - docker build -t openresty:xenial-nosse42 -f xenial/Dockerfile \
-            --build-arg RESTY_LUAJIT_OPTIONS="--with-luajit-xcflags='-DLUAJIT_NUMMODE=2 -DLUAJIT_ENABLE_LUA52COMPAT -mno-sse4.2'" .
+      - docker build -t openresty:xenial-nosse42 -f xenial/Dockerfile --build-arg RESTY_LUAJIT_OPTIONS="--with-luajit-xcflags='-DLUAJIT_NUMMODE=2 -DLUAJIT_ENABLE_LUA52COMPAT -mno-sse4.2'" .
       - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
           echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
           docker tag openresty:xenial-nosse42 $DOCKER_ORG/openresty:xenial-nosse42 &&
@@ -240,8 +238,7 @@ jobs:
     - stage: build docker image for flavor bionic-nosse42
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
-      - docker build -t openresty:bionic-nosse42 -f bionic/Dockerfile \
-          --build-arg RESTY_LUAJIT_OPTIONS="--with-luajit-xcflags='-DLUAJIT_NUMMODE=2 -DLUAJIT_ENABLE_LUA52COMPAT -mno-sse4.2'" .
+      - docker build -t openresty:bionic-nosse42 -f bionic/Dockerfile --build-arg RESTY_LUAJIT_OPTIONS="--with-luajit-xcflags='-DLUAJIT_NUMMODE=2 -DLUAJIT_ENABLE_LUA52COMPAT -mno-sse4.2'" .
       - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
           echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
           docker tag openresty:bionic-nosse42 $DOCKER_ORG/openresty:bionic-nosse42 &&
