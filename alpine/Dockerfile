@@ -16,6 +16,7 @@ ARG RESTY_OPENSSL_VERSION="1.1.1c"
 ARG RESTY_PCRE_VERSION="8.42"
 ARG RESTY_J="1"
 ARG RESTY_CONFIG_OPTIONS="\
+    --with-compat \
     --with-file-aio \
     --with-http_addition_module \
     --with-http_auth_request_module \
