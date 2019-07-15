@@ -10,3 +10,4 @@ We'd like to thank the following people for their commits:
 - Davide Montanari <damontan@microsoft.com>
 - Roy Nasser (NeoAssist) <roy@nasser.com.br>
 - Joseph C. Sible
+- Robin Ketelbuters <robin.ketelbuters@gmail.com>
