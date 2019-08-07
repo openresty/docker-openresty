@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.15.8.1-4
+
+ * enable --with-compat NGINX option in source-built images (#114)
+
 ## 1.15.8.1-3
 
  * Fix PCRE issues by building it ourselves (#22, #108)
