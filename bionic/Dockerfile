@@ -11,10 +11,10 @@ LABEL maintainer="Evan Wies <evan@neomantra.net>"
 # Docker Build Arguments
 ARG RESTY_IMAGE_BASE="ubuntu"
 ARG RESTY_IMAGE_TAG="bionic"
-ARG RESTY_VERSION="1.15.8.1"
+ARG RESTY_VERSION="1.15.8.2"
 ARG RESTY_LUAROCKS_VERSION="3.1.3"
-ARG RESTY_OPENSSL_VERSION="1.1.0j"
-ARG RESTY_PCRE_VERSION="8.42"
+ARG RESTY_OPENSSL_VERSION="1.1.0k"
+ARG RESTY_PCRE_VERSION="8.43"
 ARG RESTY_J="1"
 ARG RESTY_CONFIG_OPTIONS="\
     --with-compat \
@@ -114,7 +114,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && make -j${RESTY_J} \
     && make -j${RESTY_J} install \
     && cd /tmp \
-    && curl -fSL https://openresty.org/download/openresty-${RESTY_VERSION}.tar.gz -o openresty-${RESTY_VERSION}.tar.gz \
+    && curl -fSL https://github.com/openresty/openresty/releases/download/v${RESTY_VERSION}/openresty-${RESTY_VERSION}.tar.gz -o openresty-${RESTY_VERSION}.tar.gz \
     && tar xzf openresty-${RESTY_VERSION}.tar.gz \
     && cd /tmp/openresty-${RESTY_VERSION} \
     && eval ./configure -j${RESTY_J} ${_RESTY_CONFIG_DEPS} ${RESTY_CONFIG_OPTIONS} ${RESTY_CONFIG_OPTIONS_MORE} ${RESTY_LUAJIT_OPTIONS} \

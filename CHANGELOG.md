@@ -1,6 +1,14 @@
 Changelog
 =========
 
+## 1.15.8.2-0 (untagged)
+
+ * Upgrade OpenResty to 1.15.8.2
+ * Upgrade PCRE to 8.43
+ * Upgrade OpenSSL 1.1.0 versions to 1.1.0k
+ * Download OpenResty source from github.com instead of openresty.org
+ * Add note about OpenSSL 1.1.1 / TLS 1.3 issues (affects `alpine` flavor)
+
 ## 1.15.8.1-4
 
  * enable --with-compat NGINX option in source-built images (#114)

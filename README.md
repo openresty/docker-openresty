@@ -137,6 +137,7 @@ docker build -f xenial/Dockerfile --build-arg "RESTY_LUAJIT_OPTIONS=--with-luaji
 
 * The `SIGQUIT` signal will be sent to nginx to stop this container, to give it an opportunity to stop gracefully (i.e, finish processing active connections).  The Docker default is `SIGTERM`, which immediately terminates active connections.   Note that if your configuration listens on UNIX domain sockets, this means that you'll need to manually remove the socket file upon shutdown, due to [nginx bug #753](https://trac.nginx.org/nginx/ticket/753).
 
+* Alpine 3.9 added OpenSSL 1.1.1 and we build images against this.  OpenSSL 1.1.1 enabled TLS 1.3 by default, which can create unexpected behavior with ssl_session_(store|fetch)_by_lua*. See this patch, which will ship in OpenResty 1.17.x.1, for more information: https://github.com/openresty/lua-nginx-module/commit/d3dbc0c8102a9978d649c99e3261d93aac547378
 
 Image Labels
 ============
@@ -234,10 +235,10 @@ docker build --build-arg RESTY_J=4 -f xenial/Dockerfile .
 :----- | :-----: |:----------- |
 |RESTY_IMAGE_BASE | "ubuntu" / "alpine" | The Debian or Alpine Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG  | { "xenial", "bionic" } / "3.9" | The Debian or Alpine Docker image tag to build `FROM`. |
-|RESTY_VERSION | 1.15.8.1 | The version of OpenResty to use. |
+|RESTY_VERSION | 1.15.8.2 | The version of OpenResty to use. |
 |RESTY_LUAROCKS_VERSION | 3.1.3 | The version of LuaRocks to use. |
-|RESTY_OPENSSL_VERSION | 1.1.0j  / 1.1.1c | The version of OpenSSL to use. |
-|RESTY_PCRE_VERSION | 8.42 | The version of PCRE to use. |
+|RESTY_OPENSSL_VERSION | 1.1.0k  / 1.1.1c | The version of OpenSSL to use. |
+|RESTY_PCRE_VERSION | 8.43 | The version of PCRE to use. |
 |RESTY_J | 1 | Sets the parallelism level (-jN) for the builds. |
 |RESTY_CONFIG_OPTIONS | "--with-compat --with-file-aio --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_geoip_module=dynamic --with-http_gunzip_module --with-http_gzip_static_module --with-http_image_filter_module=dynamic --with-http_mp4_module --with-http_perl_module=dynamic --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-http_xslt_module=dynamic --with-ipv6 --with-mail --with-mail_ssl_module --with-md5-asm --with-pcre-jit --with-sha1-asm --with-stream --with-stream_ssl_module --with-threads" | Options to pass to OpenResty's `./configure` script. |
 |RESTY_LUAJIT_OPTIONS | "--with-luajit-xcflags='-DLUAJIT_NUMMODE=2 -DLUAJIT_ENABLE_LUA52COMPAT'" | Options to tweak LuaJIT. |

@@ -11,9 +11,9 @@ LABEL maintainer="Evan Wies <evan@neomantra.net>"
 # Docker Build Arguments
 ARG RESTY_IMAGE_BASE="alpine"
 ARG RESTY_IMAGE_TAG="3.9"
-ARG RESTY_VERSION="1.15.8.1"
+ARG RESTY_VERSION="1.15.8.2"
 ARG RESTY_OPENSSL_VERSION="1.1.1c"
-ARG RESTY_PCRE_VERSION="8.42"
+ARG RESTY_PCRE_VERSION="8.43"
 ARG RESTY_J="1"
 ARG RESTY_CONFIG_OPTIONS="\
     --with-compat \
@@ -114,7 +114,7 @@ RUN apk add --no-cache --virtual .build-deps \
     && make -j${RESTY_J} \
     && make -j${RESTY_J} install \
     && cd /tmp \
-    && curl -fSL https://openresty.org/download/openresty-${RESTY_VERSION}.tar.gz -o openresty-${RESTY_VERSION}.tar.gz \
+    && curl -fSL https://github.com/openresty/openresty/releases/download/v${RESTY_VERSION}/openresty-${RESTY_VERSION}.tar.gz -o openresty-${RESTY_VERSION}.tar.gz \
     && tar xzf openresty-${RESTY_VERSION}.tar.gz \
     && cd /tmp/openresty-${RESTY_VERSION} \
     && if [[ "1.1.1" == $(echo -e "${RESTY_OPENSSL_VERSION}\n1.1.1" | sort -V | head -n1) ]] ; then \
