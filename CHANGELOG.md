@@ -1,13 +1,19 @@
 Changelog
 =========
 
+## 1.15.8.2-1 (untagged)
+
+ * Patch and build OpenSSL in built-from-source flavors (#117, #118)
+
 ## 1.15.8.2-0 (untagged)
+
+For now (untagged release), the following only applies to built-from-source flavors (alpine/bionic/xenial). We are waiting for OpenResty upstream to release their packages for CentOS and Debian.
 
  * Upgrade OpenResty to 1.15.8.2
  * Upgrade PCRE to 8.43
  * Upgrade OpenSSL 1.1.0 versions to 1.1.0k
  * Download OpenResty source from github.com instead of openresty.org
- * Add note about OpenSSL 1.1.1 / TLS 1.3 issues (affects `alpine` flavor)
+ * README note about OpenSSL 1.1.1 / TLS 1.3 issues with ssl_session_(store|fetch)_by_lua* (affects `alpine` flavor)
 
 ## 1.15.8.1-4
 
