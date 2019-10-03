@@ -67,8 +67,7 @@ docker run [options] openresty/openresty:stretch-fat
 
 *[options]* would be things like -p to map ports, -v to map volumes, and -d to daemonize.
 
-`docker-openresty` symlinks `/var/log/openresty/access.log` and `error.log` to `/dev/stdout` and `/dev/stderr` respectively, so that Docker lteogging works correctly.  If you change the log paths in your `ngin
-x.conf`, you should symlink those paths as well. This is not possible with the `windows` image.
+`docker-openresty` symlinks `/usr/local/openresty/nginx/logs/access.log` and `error.log` to `/dev/stdout` and `/dev/stderr` respectively, so that Docker logging works correctly.  If you change the log paths in your `nginx.conf`, you should symlink those paths as well. This is not possible with the `windows` image.
 
 Temporary directories such as `client_body_temp_path` are stored in `/var/run/openresty/`.  You may consider mounting that volume, rather than writing to a container-local directory.
 

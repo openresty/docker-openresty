@@ -159,8 +159,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && rm -rf luarocks-${RESTY_LUAROCKS_VERSION} luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && if [ -n "${RESTY_ADD_PACKAGE_BUILDDEPS}" ]; then DEBIAN_FRONTEND=noninteractive apt-get remove -y --purge ${RESTY_ADD_PACKAGE_BUILDDEPS} ; fi \
     && DEBIAN_FRONTEND=noninteractive apt-get autoremove -y \
-    && ln -sf /dev/stdout /var/log/openresty/access.log \
-    && ln -sf /dev/stderr /var/log/openresty/error.log
+    && ln -sf /dev/stdout /usr/local/openresty/nginx/logs/access.log \
+    && ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log
 
 # Add additional binaries into PATH for convenience
 ENV PATH=$PATH:/usr/local/openresty/luajit/bin:/usr/local/openresty/nginx/sbin:/usr/local/openresty/bin
