@@ -1,11 +1,11 @@
 Changelog
 =========
 
-## 1.15.8.2-1
+## 1.15.8.2-2
 
  * Upgrade built-from-upstream packages (`stretch`, `centos`, `windows`) to 1.15.8.2
  * Upgrade LuaRocks to 3.2.1 (#122)
- * Move default writable paths to dedicated directories (#119)
+ * Move default writable paths to dedicated directories `/var/log/openresty` and `/var/run/openresty` (#119)
 
 ## 1.15.8.2-1 (untagged in git)
 

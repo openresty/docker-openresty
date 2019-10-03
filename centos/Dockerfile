@@ -45,8 +45,8 @@ RUN yum-config-manager --add-repo https://openresty.org/package/${RESTY_IMAGE_BA
     && rm -rf luarocks-${RESTY_LUAROCKS_VERSION} luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && yum remove -y make \
     && yum clean all \
-    && ln -sf /dev/stdout /usr/local/openresty/nginx/logs/access.log \
-    && ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log
+    && ln -sf /dev/stdout /var/log/openresty/access.log \
+    && ln -sf /dev/stderr /var/log/openresty/error.log
 
 # Unused, present for parity with other Dockerfiles
 # This makes some tooling/testing easier, as specifying a build-arg
