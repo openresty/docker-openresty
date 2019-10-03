@@ -300,9 +300,9 @@ docker build --build-arg RESTY_RPM_FLAVOR="-debug" centos
 :----- | :-----: |:----------- |
 |RESTY_IMAGE_BASE | "centos" | The Centos Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG | "7" | The CentOS Docker image tag to build `FROM`. |
-|RESTY_LUAROCKS_VERSION | 3.1.2 | The version of LuaRocks to use. |
+|RESTY_LUAROCKS_VERSION | 3.2.1 | The version of LuaRocks to use. |
 |RESTY_RPM_FLAVOR | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
-|RESTY_RPM_VERSION | 1.15.8.1-1.el7 | The `openresty` package version to install. |
+|RESTY_RPM_VERSION | 1.15.8.2-2.el7 | The `openresty` package version to install. |
 |RESTY_RPM_ARCH | x86_64 | The `openresty` package architecture to install. |
 
 [Back to TOC](#table-of-contents)
@@ -330,7 +330,7 @@ docker build --build-arg RESTY_DEB_FLAVOR="-debug" -f stretch/Dockerfile .
 |RESTY_IMAGE_BASE  | "debian" | The Debian Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG   | "stretch-slim" | The Debian Docker image tag to build `FROM`. |
 |RESTY_DEB_FLAVOR  | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
-|RESTY_DEB_VERSION | "=1.15.8.1-1~stretch1" | The Debian package version to use, with `=` prepended. |
+|RESTY_DEB_VERSION | "=1.15.8.2-1~stretch1" | The Debian package version to use, with `=` prepended. |
 
 [Back to TOC](#table-of-contents)
 
@@ -354,7 +354,7 @@ docker build --build-arg RESTY_VERSION="1.13.6.2" -f windows/Dockerfile .
 |RESTY_INSTALL_TAG  | "ltsc2016" | The Windows Server Docker image name to download and install OpenResty with. |
 |RESTY_IMAGE_BASE   | "microsoft/nanoserver" | The Windows Server Docker image name to build `FROM` for final image. |
 |RESTY_IMAGE_TAG    | "sac2016" | The Windows Server Docker image tag to build `FROM` for final image. |
-|RESTY_VERSION      | 1.15.8.1 | The version of OpenResty to use. |
+|RESTY_VERSION      | 1.15.8.2 | The version of OpenResty to use. |
 
 [Back to TOC](#table-of-contents)
 
