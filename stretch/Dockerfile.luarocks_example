@@ -8,7 +8,7 @@ FROM openresty/openresty:stretch
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
-ARG RESTY_LUAROCKS_VERSION="3.1.3"
+ARG RESTY_LUAROCKS_VERSION="3.2.1"
 
 
 # install LuaRocks

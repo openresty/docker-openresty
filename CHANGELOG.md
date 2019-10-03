@@ -3,7 +3,8 @@ Changelog
 
 ## 1.15.8.2-1 (untagged)
 
- * Patch and build OpenSSL in built-from-source flavors (#117, #118)
+ * Patch and build OpenSSL ourselves in built-from-source flavors (#117, #118)
+ * Upgrade LuaRocks to 3.2.1 (#122)
 
 ## 1.15.8.2-0 (untagged)
 

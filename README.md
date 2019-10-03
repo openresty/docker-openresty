@@ -236,7 +236,7 @@ docker build --build-arg RESTY_J=4 -f xenial/Dockerfile .
 |RESTY_IMAGE_BASE | "ubuntu" / "alpine" | The Debian or Alpine Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG  | { "xenial", "bionic" } / "3.9" | The Debian or Alpine Docker image tag to build `FROM`. |
 |RESTY_VERSION | 1.15.8.2 | The version of OpenResty to use. |
-|RESTY_LUAROCKS_VERSION | 3.1.3 | The version of LuaRocks to use. |
+|RESTY_LUAROCKS_VERSION | 3.2.1 | The version of LuaRocks to use. |
 |RESTY_OPENSSL_VERSION | 1.1.0k  / 1.1.1c | The version of OpenSSL to use. |
 |RESTY_PCRE_VERSION | 8.43 | The version of PCRE to use. |
 |RESTY_J | 1 | Sets the parallelism level (-jN) for the builds. |
