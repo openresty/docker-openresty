@@ -4,7 +4,7 @@ Changelog
 ## 1.15.8.2-3
 
  * Fix broken `alpine` logging
- * Add `VOLUME` for temporary paths (#124)
+ * Add `VOLUME` for temporary paths (#124) (but not for `windows`)
 
 ## 1.15.8.2-2 (broken, do not use)
 

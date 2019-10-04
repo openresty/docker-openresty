@@ -39,9 +39,6 @@ LABEL resty_image_base="${RESTY_IMAGE_BASE}"
 LABEL resty_image_tag="${RESTY_IMAGE_TAG}"
 LABEL resty_version="${RESTY_VERSION}"
 
-# Volume for temporary files
-VOLUME ["/var/run/openresty"]
-
 WORKDIR C:/openresty
 RUN setx /M PATH "%PATH%;C:\Strawberry\perl\bin;C:\openresty"
 
@@ -50,3 +47,5 @@ CMD [ "nginx", "-g", "\"daemon off;\""]
 COPY --from=downloader C:/dl/ C:/
 
 # nginx config is not overwritten as paths in the Windows distribution are already fine
+
+# we do not move writeable temp paths for Windows (#119)
