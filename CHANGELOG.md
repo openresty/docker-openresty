@@ -1,7 +1,11 @@
 Changelog
 =========
 
-## 1.15.8.2-2
+## 1.15.8.2-3 (untagged)
+
+ * Fix broken `alpine` logging
+
+## 1.15.8.2-2 (broken, do not use)
 
  * Upgrade built-from-upstream packages (`stretch`, `centos`, `windows`) to 1.15.8.2
  * Upgrade LuaRocks to 3.2.1 (#122)
