@@ -1,9 +1,10 @@
 Changelog
 =========
 
-## 1.15.8.2-3 (untagged)
+## 1.15.8.2-3
 
  * Fix broken `alpine` logging
+ * Add `VOLUME` for temporary paths (#124)
 
 ## 1.15.8.2-2 (broken, do not use)
 

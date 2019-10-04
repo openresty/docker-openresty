@@ -21,6 +21,9 @@ LABEL resty_image_tag="${RESTY_IMAGE_TAG}"
 LABEL resty_deb_flavor="${RESTY_DEB_FLAVOR}"
 LABEL resty_deb_version="${RESTY_DEB_VERSION}"
 
+# Volume for temporary files
+VOLUME ["/var/run/openresty"]
+
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         ca-certificates \

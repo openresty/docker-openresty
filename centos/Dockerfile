@@ -22,6 +22,9 @@ LABEL resty_rpm_flavor="${RESTY_RPM_FLAVOR}"
 LABEL resty_rpm_version="${RESTY_RPM_VERSION}"
 LABEL resty_rpm_arch="${RESTY_RPM_ARCH}"
 
+# Volume for temporary files
+VOLUME ["/var/run/openresty"]
+
 RUN yum-config-manager --add-repo https://openresty.org/package/${RESTY_IMAGE_BASE}/openresty.repo \
     && yum install -y \
         gettext \

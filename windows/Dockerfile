@@ -39,6 +39,9 @@ LABEL resty_image_base="${RESTY_IMAGE_BASE}"
 LABEL resty_image_tag="${RESTY_IMAGE_TAG}"
 LABEL resty_version="${RESTY_VERSION}"
 
+# Volume for temporary files
+VOLUME ["/var/run/openresty"]
+
 WORKDIR C:/openresty
 RUN setx /M PATH "%PATH%;C:\Strawberry\perl\bin;C:\openresty"
 
