@@ -9,6 +9,8 @@ The following "flavors" are available and built from [upstream OpenResty package
 - [`centos`, `centos-rpm`, (*centos/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
 - [`stretch`, (*stretch/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/stretch/Dockerfile)
 - [`stretch-fat`, (*stretch/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/stretch/Dockerfile.fat)
+- [`buster`, (*buster/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile)
+- [`buster-fat`, (*buster/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile.fat)
 - [`windows`, (*windows/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/windows/Dockerfile)
 
 The following "flavors" are built from source and are intended for more advanced and custom usage, caveat emptor:
@@ -62,7 +64,7 @@ Usage
 If you are happy with the build defaults, then you can use the openresty image from the [Docker Hub](https://hub.docker.com/r/openresty/openresty/).  The image tags available there are listed at the top of this README.
 
 ```
-docker run [options] openresty/openresty:stretch-fat
+docker run [options] openresty/openresty:buster-fat
 ```
 
 *[options]* would be things like -p to map ports, -v to map volumes, and -d to daemonize.
@@ -77,7 +79,7 @@ Nginx Config Files
 
 The Docker tooling installs its own [`nginx.conf` file](https://github.com/openresty/docker-openresty/blob/master/nginx.conf).  If you want to directly override it, you can replace it in your own Dockerfile or via volume bind-mounting.
 
-For the Linux images, that `nginx.conf` has the directive `include /etc/nginx/conf.d/*.conf;` so all nginx configurations in that directory will be included.  The [default virtual host configuration](https://github.com/openresty/docker-openresty/blob/master/nginx.vh.default.conf) has the original OpenResty configuration and is copied to `/etc/nginx/conf.d/default.conf`. 
+For the Linux images, that `nginx.conf` has the directive `include /etc/nginx/conf.d/*.conf;` so all nginx configurations in that directory will be included.  The [default virtual host configuration](https://github.com/openresty/docker-openresty/blob/master/nginx.vh.default.conf) has the original OpenResty configuration and is copied to `/etc/nginx/conf.d/default.conf`.
 
 You can override that `default.conf` directly or volume bind-mount the `/etc/nginx/conf.d` directory to your own set of configurations:
 
@@ -96,11 +98,11 @@ OPM
 
 Starting at version 1.11.2.2, OpenResty for Linux includes a [package manager called `opm`](https://github.com/openresty/opm#readme), which can be found at `/usr/local/openresty/bin/opm`.
 
-`opm` is built in all the images except `alpine` and `stretch`.
+`opm` is built in all the images except `alpine`, `stretch` and `buster`.
 
 To use `opm` in the `alpine` image, you must also install the `curl` and `perl` packages; they are not included by default because they double the image size.  You may install them like so: `apk add --no-cache curl perl`.
 
-To use `opm` within the `stretch` image, you can either use the `stretch-fat` image or install the `openresty-opm` package in a custom build (which you would need to do to install your own `opm` packages anyway), as shown in [this example](https://github.com/openresty/docker-openresty/blob/master/stretch/Dockerfile.opm_example).
+To use `opm` within the `stretch` and `buster` image, you can either use the `stretch-fat`/`buster-fat` image or install the `openresty-opm` package in a custom build (which you would need to do to install your own `opm` packages anyway), as shown in [this example](https://github.com/openresty/docker-openresty/blob/master/stretch/Dockerfile.opm_example).
 
 
 LuaRocks
@@ -320,6 +322,7 @@ You can derive your own Docker images from this to install your own packages.  S
 This Docker image can be built and customized by cloning the repo and running `docker build` with the desired Dockerfile:
 
  * [Debian Stretch 9 DEB](https://github.com/openresty/docker-openresty/blob/master/stretch/Dockerfile) (`stretch/Dockerfile`)
+ * [Debian Buster 10 DEB](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile) (`buster/Dockerfile`)
 
 The following are the available build-time options. They can be set using the `--build-arg` CLI argument, like so:
 
