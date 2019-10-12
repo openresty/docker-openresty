@@ -133,6 +133,48 @@ jobs:
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-stretch-fat ;
         fi
 
+    - stage: build docker image for flavor buster and buster-fat
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
+      - docker build -t openresty:buster -f buster/Dockerfile .
+      - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+          docker tag openresty:buster $DOCKER_ORG/openresty:buster &&
+          docker push $DOCKER_ORG/openresty:buster ;
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+          docker tag openresty:buster $DOCKER_ORG/openresty:latest &&
+          docker push $DOCKER_ORG/openresty:latest ;
+        fi
+      - if [[ "$TRAVIS_TAG" ]] ; then
+          TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
+          if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
+            echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+            docker tag openresty:buster $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-buster &&
+            docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-buster ;
+          fi ;
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+          docker tag openresty:buster $DOCKER_ORG/openresty:$TRAVIS_TAG-buster &&
+          docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-buster ;
+        fi
+      - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
+      - docker build -t openresty:buster-fat -f buster/Dockerfile.fat .
+      - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+          docker tag openresty:buster-fat $DOCKER_ORG/openresty:buster-fat &&
+          docker push $DOCKER_ORG/openresty:buster-fat ;
+        fi
+      - if [[ "$TRAVIS_TAG" ]] ; then
+          TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
+          if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
+            echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+            docker tag openresty:buster-fat $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-buster-fat &&
+            docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-buster-fat ;
+          fi ;
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+          docker tag openresty:buster-fat $DOCKER_ORG/openresty:$TRAVIS_TAG-buster-fat &&
+          docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-buster-fat ;
+        fi
+
     - stage: build docker image for flavor xenial
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin

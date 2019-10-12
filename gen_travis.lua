@@ -25,6 +25,7 @@ print(template({
         "centos-rpm",
         "jessie",
         "stretch",
+        "buster",
         "trusty",
         "wheezy",
         "xenial"
