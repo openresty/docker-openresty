@@ -11,3 +11,4 @@ We'd like to thank the following people for their commits:
 - Roy Nasser (NeoAssist) <roy@nasser.com.br>
 - Joseph C. Sible
 - Robin Ketelbuters <robin.ketelbuters@gmail.com>
+- Joel Linn <jl@conductive.de>

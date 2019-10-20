@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.15.8.2-4
+
+ * Add `buster` and `buster-fat` using upstream Debian packages
+
 ## 1.15.8.2-3
 
  * Fix broken `alpine` logging
