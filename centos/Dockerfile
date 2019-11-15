@@ -22,8 +22,6 @@ LABEL resty_rpm_flavor="${RESTY_RPM_FLAVOR}"
 LABEL resty_rpm_version="${RESTY_RPM_VERSION}"
 LABEL resty_rpm_arch="${RESTY_RPM_ARCH}"
 
-# Volume for temporary files
-VOLUME ["/var/run/openresty"]
 
 RUN yum-config-manager --add-repo https://openresty.org/package/${RESTY_IMAGE_BASE}/openresty.repo \
     && yum install -y \
@@ -48,6 +46,7 @@ RUN yum-config-manager --add-repo https://openresty.org/package/${RESTY_IMAGE_BA
     && rm -rf luarocks-${RESTY_LUAROCKS_VERSION} luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && yum remove -y make \
     && yum clean all \
+    && mkdir -p /var/run/openresty \
     && ln -sf /dev/stdout /usr/local/openresty/nginx/logs/access.log \
     && ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log
 

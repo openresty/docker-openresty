@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.15.8.2-5
+
+ * Remove `VOLUME` directive and just `mkdir /var/run/openresty` (#128)
+
 ## 1.15.8.2-4
 
  * Add `buster` and `buster-fat` using upstream Debian packages

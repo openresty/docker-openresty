@@ -21,8 +21,6 @@ LABEL resty_image_tag="${RESTY_IMAGE_TAG}"
 LABEL resty_deb_flavor="${RESTY_DEB_FLAVOR}"
 LABEL resty_deb_version="${RESTY_DEB_VERSION}"
 
-# Volume for temporary files
-VOLUME ["/var/run/openresty"]
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
@@ -46,6 +44,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
         openresty${RESTY_DEB_FLAVOR}${RESTY_DEB_VERSION} \
     && DEBIAN_FRONTEND=noninteractive apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/* \
+    && mkdir -p /var/run/openresty \
     && ln -sf /dev/stdout /usr/local/openresty${RESTY_DEB_FLAVOR}/nginx/logs/access.log \
     && ln -sf /dev/stderr /usr/local/openresty${RESTY_DEB_FLAVOR}/nginx/logs/error.log
 
