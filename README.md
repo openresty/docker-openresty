@@ -186,9 +186,11 @@ $ docker inspect openresty/openresty:1.15.8.1-1-alpine | jq '.[].Config.Labels'
 |`resty_openssl_version`       | buildarg `RESTY_OPENSSL_VERSION`  |
 |`resty_pcre_version`          | buildarg `RESTY_PCRE_VERSION`  |
 |`resty_rpm_arch`              | buildarg `RESTY_RPM_ARCH`  |
+|`resty_rpm_dist`              | buildarg `RESTY_RPM_DIST`  |
 |`resty_rpm_flavor`            | buildarg `RESTY_RPM_FLAVOR`  |
 |`resty_rpm_version`           | buildarg `RESTY_RPM_VERSION`  |
 |`resty_version`               | buildarg `RESTY_VERSION`  |
+|`resty_yum_repo`              | buildarg `RESTY_YUM_REPO`  |
 
 
 Docker CMD
@@ -305,9 +307,11 @@ docker build --build-arg RESTY_RPM_FLAVOR="-debug" centos
 |RESTY_IMAGE_BASE | "centos" | The Centos Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG | "7" | The CentOS Docker image tag to build `FROM`. |
 |RESTY_LUAROCKS_VERSION | 3.2.1 | The version of LuaRocks to use. |
+|RESTY_YUM_REPO | "https://openresty.org/package/centos/openresty.repo" | URL for the OpenResty YUM Repository. |
 |RESTY_RPM_FLAVOR | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
-|RESTY_RPM_VERSION | 1.15.8.2-2.el7 | The `openresty` package version to install. |
-|RESTY_RPM_ARCH | x86_64 | The `openresty` package architecture to install. |
+|RESTY_RPM_VERSION | "1.15.8.2-2" | The `openresty` package version to install. |
+|RESTY_RPM_DIST | "el7" | The `openresty` package distribution to install. |
+|RESTY_RPM_ARCH | "x86_64" | The `openresty` package architecture to install. |
 
 [Back to TOC](#table-of-contents)
 

@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 1.15.8.2-6 (unreleased)
+
+ * Add `RESTY_YUM_REPO` and `RESTY_RPM_DIST` build args to `centos` 
+ * Install more yum packages for `centos` builds
+
 ## 1.15.8.2-5
 
  * Remove `VOLUME` directive and just `mkdir /var/run/openresty` (#128)

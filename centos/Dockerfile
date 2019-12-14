@@ -11,25 +11,32 @@ LABEL maintainer="Evan Wies <evan@neomantra.net>"
 ARG RESTY_IMAGE_BASE="centos"
 ARG RESTY_IMAGE_TAG="7"
 ARG RESTY_LUAROCKS_VERSION="3.2.1"
+ARG RESTY_YUM_REPO="https://openresty.org/package/centos/openresty.repo"
 ARG RESTY_RPM_FLAVOR=""
-ARG RESTY_RPM_VERSION="1.15.8.2-2.el7"
+ARG RESTY_RPM_VERSION="1.15.8.2-2"
+ARG RESTY_RPM_DIST="el7"
 ARG RESTY_RPM_ARCH="x86_64"
 
 LABEL resty_image_base="${RESTY_IMAGE_BASE}"
 LABEL resty_image_tag="${RESTY_IMAGE_TAG}"
 LABEL resty_luarocks_version="${RESTY_LUAROCKS_VERSION}"
+LABEL resty_yum_repo="${RESTY_YUM_REPO}"
 LABEL resty_rpm_flavor="${RESTY_RPM_FLAVOR}"
 LABEL resty_rpm_version="${RESTY_RPM_VERSION}"
+LABEL resty_rpm_dist="${RESTY_RPM_DIST}"
 LABEL resty_rpm_arch="${RESTY_RPM_ARCH}"
 
 
-RUN yum-config-manager --add-repo https://openresty.org/package/${RESTY_IMAGE_BASE}/openresty.repo \
+RUN yum install -y yum-utils \
+    && yum-config-manager --add-repo ${RESTY_YUM_REPO} \
     && yum install -y \
         gettext \
+        gzip \
         make \
-        openresty${RESTY_RPM_FLAVOR}-${RESTY_RPM_VERSION}.${RESTY_RPM_ARCH} \
-        openresty-opm-${RESTY_RPM_VERSION} \
-        openresty-resty-${RESTY_RPM_VERSION} \
+        openresty${RESTY_RPM_FLAVOR}-${RESTY_RPM_VERSION}.${RESTY_RPM_DIST}.${RESTY_RPM_ARCH} \
+        openresty-opm-${RESTY_RPM_VERSION}.${RESTY_RPM_DIST} \
+        openresty-resty-${RESTY_RPM_VERSION}.${RESTY_RPM_DIST} \
+        tar \
         unzip \
     && cd /tmp \
     && curl -fSL https://luarocks.github.io/luarocks/releases/luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz -o luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
