@@ -1,10 +1,11 @@
 Changelog
 =========
 
-## 1.15.8.2-6 (unreleased)
+## 1.15.8.2-6
 
  * Add `RESTY_YUM_REPO` and `RESTY_RPM_DIST` build args to `centos` 
  * Install more yum packages for `centos` builds
+ * Add `amzn2` flavor, based on `centos`
 
 ## 1.15.8.2-5
 

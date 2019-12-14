@@ -6,7 +6,8 @@
 
 The following "flavors" are available and built from [upstream OpenResty packages](http://openresty.org/en/linux-packages.html):
 
-- [`centos`, `centos-rpm`, (*centos/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
+- [`centos`, `centos-rpm`, (*centos/Dockerfile* with `el7`)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
+- [`amzn2`, (*centos/Dockerfile* with `amzn2`)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
 - [`stretch`, (*stretch/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/stretch/Dockerfile)
 - [`stretch-fat`, (*stretch/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/stretch/Dockerfile.fat)
 - [`buster`, (*buster/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile)

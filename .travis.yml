@@ -91,6 +91,27 @@ jobs:
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-centos-rpm ;
         fi
 
+    - stage: build docker image for flavor Amazon Linux (amzn2)
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
+      - docker build -t openresty:amzn2 --build-arg RESTY_IMAGE_BASE=amazonlinux --build-arg RESTY_IMAGE_TAG=2 --build-arg RESTY_YUM_REPO="https://openresty.org/package/amazon/openresty.repo" --build-arg RESTY_RPM_DIST="amzn2" -f centos/Dockerfile .
+      - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+          docker tag openresty:amzn2 $DOCKER_ORG/openresty:amzn2 &&
+          docker push $DOCKER_ORG/openresty:amzn2 ;
+        fi
+      - if [[ "$TRAVIS_TAG" ]] ; then
+          TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
+          if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
+            echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+            docker tag openresty:amzn2 $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-amzn2 &&
+            docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-amzn2 ;
+          fi ;
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+          docker tag openresty:amzn2 $DOCKER_ORG/openresty:$TRAVIS_TAG-amzn2 &&
+          docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-amzn2 ;
+        fi
+
     - stage: build docker image for flavor stretch and stretch-fat
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
