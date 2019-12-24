@@ -88,6 +88,11 @@ You can override that `default.conf` directly or volume bind-mount the `/etc/ngi
 docker run -v /my/custom/conf.d:/etc/nginx/conf.d openresty/openresty:alpine
 ```
 
+If you are running on an `selinux` host (e.g. CentOS), you may need to add `:Z` to your [volume bind-mount argument](https://docs.docker.com/storage/bind-mounts/#configure-the-selinux-label):
+```
+docker run -v /my/custom/conf.d:/etc/nginx/conf.d:Z openresty/openresty:alpine
+```
+
 When using the `windows` image you can change the main configuration directly:
 ```
 docker run -v C:/my/custom/nginx.conf:C:/openresty/conf/nginx.conf openresty/openresty:windows
