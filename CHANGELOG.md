@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.15.8.2-7
+
+ * Add `buster-nosse2` and `buster-fat-nosse2` (#103)
+
 ## 1.15.8.2-6
 
  * Add `RESTY_YUM_REPO` and `RESTY_RPM_DIST` build args to `centos` 
