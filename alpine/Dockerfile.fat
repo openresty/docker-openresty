@@ -4,6 +4,10 @@
 # This builds upon the base OpenResty alpine image that adds
 # some build-related packages, has perl installed for opm,
 # and includes luarocks and envsubst.
+#
+# NOTE: For envsubst, we install gettext (envsubst's source package),
+#       copy it out, then uninstall gettext (to save some space as envsubst is very small)
+#       libintl and musl are dependencies of envsubst, so those are installed as well
 
 ARG RESTY_IMAGE_BASE="openresty/openresty"
 ARG RESTY_IMAGE_TAG="alpine"
@@ -21,8 +25,10 @@ RUN apk add --no-cache --virtual .build-deps \
         bash \
         build-base \
         curl \
+        libintl \ 
         linux-headers \
         make \
+        musl \
         outils-md5 \
         perl \
         unzip \
@@ -41,14 +47,6 @@ RUN apk add --no-cache --virtual .build-deps \
     && rm -rf luarocks-${RESTY_LUAROCKS_VERSION} luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && apk add --no-cache --virtual .gettext gettext \
     && mv /usr/bin/envsubst /tmp/ \
-    && runDeps="$( \
-        scanelf --needed --nobanner /tmp/envsubst \
-            | awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
-            | sort -u \
-            | xargs -r apk info --installed \
-            | sort -u \
-    )" \
-    && apk add --no-cache --virtual $runDeps \
     && apk del .build-deps .gettext \
     && mv /tmp/envsubst /usr/local/bin/
 
