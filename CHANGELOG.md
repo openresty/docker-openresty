@@ -4,7 +4,7 @@ Changelog
 ## 1.15.8.2-7
 
  * Add `buster-nosse2` and `buster-fat-nosse2` (#103)
- * Bump `alpine` to 3.10 to address CVE-2019-18276 (#135)
+ * Bump `alpine` to 3.11 to address CVE-2019-18276 (#135)
 
 ## 1.15.8.2-6
 
