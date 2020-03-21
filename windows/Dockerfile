@@ -30,7 +30,7 @@ ARG RESTY_INSTALL_BASE="microsoft/windowsservercore"
 ARG RESTY_INSTALL_TAG="ltsc2016"
 ARG RESTY_IMAGE_BASE="microsoft/nanoserver"
 ARG RESTY_IMAGE_TAG="sac2016"
-ARG RESTY_VERSION="1.15.8.2"
+ARG RESTY_VERSION="1.15.8.3"
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 LABEL resty_install_base="${RESTY_INSTALL_BASE}"

@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.15.8.3-0
+
+* Upgrade OpenResty to 1.15.8.3
+ 
 ## 1.15.8.2-7
 
  * Add `buster-nosse2` and `buster-fat-nosse2` (#103)
