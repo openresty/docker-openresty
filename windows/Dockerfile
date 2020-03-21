@@ -8,7 +8,7 @@ ARG RESTY_IMAGE_TAG="sac2016"
 
 FROM "${RESTY_INSTALL_BASE}:${RESTY_INSTALL_TAG}" AS downloader
 
-ARG RESTY_VERSION="1.15.8.1"
+ARG RESTY_VERSION="1.15.8.3"
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
