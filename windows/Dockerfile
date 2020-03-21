@@ -11,7 +11,7 @@ FROM "${RESTY_INSTALL_BASE}:${RESTY_INSTALL_TAG}" AS downloader
 
 ARG RESTY_VERSION="1.15.8.3"
 
-SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue'; $env:chocolateyUseWindowsCompression = 'true';"]
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue'; "]
 
 WORKDIR C:/dl
 
@@ -19,7 +19,7 @@ WORKDIR C:/dl
 RUN [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 ; `
     Invoke-WebRequest -Uri "https://chocolatey.org/install.ps1" -UseBasicParsing | iex ; `
     choco install strawberryperl -y --no-progress ; `
-    mv C:\StrawberryPerl\ C:\dl\ ; `
+    mv C:\Strawberry\ C:\dl\ ; `
     Write-Host "Downloading OpenResty.." ; `
     Invoke-WebRequest "https://openresty.org/download/openresty-$($env:RESTY_VERSION)-win64.zip" -OutFile C:\openresty.zip ; `
     Expand-Archive C:\openresty.zip . ; `
