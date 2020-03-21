@@ -46,7 +46,11 @@ LABEL resty_image_tag="${RESTY_IMAGE_TAG}"
 LABEL resty_version="${RESTY_VERSION}"
 
 WORKDIR C:/openresty
+
+# "ERROR: Access to the registry path is denied."
+USER ContainerAdministrator
 RUN setx /M PATH "%PATH%;C:\Strawberry\perl\bin;C:\openresty"
+USER ContainerUser
 
 CMD [ "nginx", "-g", "`"daemon off;`""]
 
