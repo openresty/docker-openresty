@@ -4,6 +4,7 @@ Changelog
 ## 1.15.8.3-0
 
 * Upgrade OpenResty to 1.15.8.3
+* Windows builds now use `servercore:ltsc2019` and `nanoserver:1809`
  
 ## 1.15.8.2-7
 
