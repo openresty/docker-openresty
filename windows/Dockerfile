@@ -15,7 +15,8 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPref
 WORKDIR C:/dl
 
 # Download Perl and OpenResty
-RUN Invoke-WebRequest -Uri "https://chocolatey.org/install.ps1" -UseBasicParsing | iex ; \
+RUN [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 ; \
+    Invoke-WebRequest -Uri "https://chocolatey.org/install.ps1" -UseBasicParsing | iex ; \
     choco install strawberryperl -y --no-progress ; \
     mv C:\Strawberry\ C:\dl\ ; \
     Write-Host "Downloading OpenResty.." ; \
