@@ -3,9 +3,9 @@
 # https://github.com/openresty/docker-openresty
 
 ARG RESTY_INSTALL_BASE="mcr.microsoft.com/windows/servercore"
-ARG RESTY_INSTALL_TAG="1803"
+ARG RESTY_INSTALL_TAG="ltsc2019"
 ARG RESTY_IMAGE_BASE="mcr.microsoft.com/windows/nanoserver"
-ARG RESTY_IMAGE_TAG="1803"
+ARG RESTY_IMAGE_TAG="1909"
 
 FROM "${RESTY_INSTALL_BASE}:${RESTY_INSTALL_TAG}" AS downloader
 
