@@ -19,7 +19,7 @@ WORKDIR C:/dl
 RUN [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 ; `
     Invoke-WebRequest -Uri "https://chocolatey.org/install.ps1" -UseBasicParsing | iex ; `
     choco install strawberryperl -y --no-progress ; `
-    mv C:\Strawberry\ C:\dl\ ; `
+    mv C:\StrawberryPerl\ C:\dl\ ; `
     Write-Host "Downloading OpenResty.." ; `
     Invoke-WebRequest "https://openresty.org/download/openresty-$($env:RESTY_VERSION)-win64.zip" -OutFile C:\openresty.zip ; `
     Expand-Archive C:\openresty.zip . ; `
