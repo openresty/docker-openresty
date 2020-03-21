@@ -1,3 +1,4 @@
+# escape=`
 # Dockerfile - Windows
 # https://github.com/openresty/docker-openresty
 
@@ -10,7 +11,7 @@ FROM "${RESTY_INSTALL_BASE}:${RESTY_INSTALL_TAG}" AS downloader
 
 ARG RESTY_VERSION="1.15.8.3"
 
-SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue'; $env:chocolateyUseWindowsCompression = 'true';"]
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue'; $env:chocolateyUseWindowsCompression = 'true'"]
 
 WORKDIR C:/dl
 
@@ -43,7 +44,7 @@ LABEL resty_version="${RESTY_VERSION}"
 WORKDIR C:/openresty
 RUN setx /M PATH "%PATH%;C:\Strawberry\perl\bin;C:\openresty"
 
-CMD [ "nginx", "-g", "\"daemon off;\""]
+CMD [ "nginx", "-g", "`"daemon off;`""]
 
 COPY --from=downloader C:/dl/ C:/
 
