@@ -15,14 +15,14 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPref
 WORKDIR C:/dl
 
 # Download Perl and OpenResty
-RUN [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 ; \
-    Invoke-WebRequest -Uri "https://chocolatey.org/install.ps1" -UseBasicParsing | iex ; \
-    choco install strawberryperl -y --no-progress ; \
-    mv C:\Strawberry\ C:\dl\ ; \
-    Write-Host "Downloading OpenResty.." ; \
-    Invoke-WebRequest "https://openresty.org/download/openresty-$($env:RESTY_VERSION)-win64.zip" -OutFile C:\openresty.zip ; \
-    Expand-Archive C:\openresty.zip . ; \
-    mv .\openresty-*\ .\openresty ; 
+RUN [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 ; `
+    Invoke-WebRequest -Uri "https://chocolatey.org/install.ps1" -UseBasicParsing | iex ; `
+    choco install strawberryperl -y --no-progress ; `
+    mv C:\Strawberry\ C:\dl\ ; `
+    Write-Host "Downloading OpenResty.." ; `
+    Invoke-WebRequest "https://openresty.org/download/openresty-$($env:RESTY_VERSION)-win64.zip" -OutFile C:\openresty.zip ; `
+    Expand-Archive C:\openresty.zip . ; `
+    mv .\openresty-*\ .\openresty
 
 
 FROM "${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}"
