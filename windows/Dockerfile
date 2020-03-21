@@ -26,12 +26,16 @@ RUN [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tl
     mv .\openresty-*\ .\openresty
 
 
+###############################################################################
+# Runtime Image Build
+###############################################################################
+
 FROM "${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}"
 
-ARG RESTY_INSTALL_BASE="microsoft/windowsservercore"
-ARG RESTY_INSTALL_TAG="ltsc2016"
-ARG RESTY_IMAGE_BASE="microsoft/nanoserver"
-ARG RESTY_IMAGE_TAG="sac2016"
+ARG RESTY_INSTALL_BASE="mcr.microsoft.com/windows/servercore"
+ARG RESTY_INSTALL_TAG="ltsc2019"
+ARG RESTY_IMAGE_BASE="mcr.microsoft.com/windows/nanoserver"
+ARG RESTY_IMAGE_TAG="1809"
 ARG RESTY_VERSION="1.15.8.3"
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
