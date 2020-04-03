@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.15.8.3-1
+
+ * Upgrade PRCE to 8.44
+
 ## 1.15.8.3-0
 
 * Upgrade OpenResty to 1.15.8.3
