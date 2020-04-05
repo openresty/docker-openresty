@@ -3,7 +3,9 @@ Changelog
 
 ## 1.15.8.3-1
 
- * Upgrade PRCE to 8.44
+ * Upgrade PRCE to 8.44 for built-from-source flavors
+ * Upgrade OpenSSL to 1.1.0l and 1.1.1f for built-from-source flavors
+ * Add RESTY_OPENSSL_PATCH_VERSION and RESTY_OPENSSL_URL_BASE build args
 
 ## 1.15.8.3-0
 

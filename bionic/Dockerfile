@@ -13,7 +13,9 @@ ARG RESTY_IMAGE_BASE="ubuntu"
 ARG RESTY_IMAGE_TAG="bionic"
 ARG RESTY_VERSION="1.15.8.3"
 ARG RESTY_LUAROCKS_VERSION="3.2.1"
-ARG RESTY_OPENSSL_VERSION="1.1.0k"
+ARG RESTY_OPENSSL_VERSION="1.1.0l"
+ARG RESTY_OPENSSL_PATCH_VERSION="1.1.0d"
+ARG RESTY_OPENSSL_URL_BASE="https://www.openssl.org/source/old/1.1.0"
 ARG RESTY_PCRE_VERSION="8.44"
 ARG RESTY_J="1"
 ARG RESTY_CONFIG_OPTIONS="\
@@ -66,6 +68,8 @@ LABEL resty_image_tag="${RESTY_IMAGE_TAG}"
 LABEL resty_version="${RESTY_VERSION}"
 LABEL resty_luarocks_version="${RESTY_LUAROCKS_VERSION}"
 LABEL resty_openssl_version="${RESTY_OPENSSL_VERSION}"
+LABEL resty_openssl_patch_version="${RESTY_OPENSSL_PATCH_VERSION}"
+LABEL resty_openssl_url_base="${RESTY_OPENSSL_URL_BASE}"
 LABEL resty_pcre_version="${RESTY_PCRE_VERSION}"
 LABEL resty_config_options="${RESTY_CONFIG_OPTIONS}"
 LABEL resty_config_options_more="${RESTY_CONFIG_OPTIONS_MORE}"
@@ -96,17 +100,17 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
         ${RESTY_ADD_PACKAGE_RUNDEPS} \
     && cd /tmp \
     && if [ -n "${RESTY_EVAL_PRE_CONFIGURE}" ]; then eval $(echo ${RESTY_EVAL_PRE_CONFIGURE}); fi \
-    && curl -fSL https://www.openssl.org/source/openssl-${RESTY_OPENSSL_VERSION}.tar.gz -o openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
+    && curl -fSL "${RESTY_OPENSSL_URL_BASE}/openssl-${RESTY_OPENSSL_VERSION}.tar.gz" -o openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
     && tar xzf openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
     && cd openssl-${RESTY_OPENSSL_VERSION} \
     && if [ $(echo ${RESTY_OPENSSL_VERSION} | cut -c 1-5) = "1.1.1" ] ; then \
         echo 'patching OpenSSL 1.1.1 for OpenResty' \
-        && curl -s https://raw.githubusercontent.com/openresty/openresty/master/patches/openssl-1.1.1c-sess_set_get_cb_yield.patch | patch -p1 ; \
+        && curl -s https://raw.githubusercontent.com/openresty/openresty/master/patches/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch | patch -p1 ; \
     fi \
     && if [ $(echo ${RESTY_OPENSSL_VERSION} | cut -c 1-5) = "1.1.0" ] ; then \
         echo 'patching OpenSSL 1.1.0 for OpenResty' \
         && curl -s https://raw.githubusercontent.com/openresty/openresty/ed328977028c3ec3033bc25873ee360056e247cd/patches/openssl-1.1.0j-parallel_build_fix.patch | patch -p1 \
-        && curl -s https://raw.githubusercontent.com/openresty/openresty/master/patches/openssl-1.1.0d-sess_set_get_cb_yield.patch | patch -p1 ; \
+        && curl -s https://raw.githubusercontent.com/openresty/openresty/master/patches/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch | patch -p1 ; \
     fi \
     && ./config \
       no-threads shared zlib -g \

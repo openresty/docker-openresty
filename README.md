@@ -188,8 +188,10 @@ $ docker inspect openresty/openresty:1.15.8.1-1-alpine | jq '.[].Config.Labels'
 |`resty_install_base`          | buildarg `RESTY_INSTALL_BASE` |
 |`resty_install_tag`           | buildarg `RESTY_INSTALL_TAG` |
 |`resty_luajit_options`        | buildarg `RESTY_LUAJIT_OPTIONS` |
-|`resty_luarocks_version`      | buildarg `RESTY_LUAROCKS_VERSION`  |
-|`resty_openssl_version`       | buildarg `RESTY_OPENSSL_VERSION`  |
+|`resty_luarocks_version`      | buildarg `RESTY_LUAROCKS_VERSION` |
+|`resty_openssl_version`       | buildarg `RESTY_OPENSSL_VERSION` |
+|`resty_openssl_patch_version` | buildarg `RESTY_OPENSSL_PATCH_VERSION` |
+|`resty_openssl_url_base`      | buildarg `RESTY_OPENSSL_URL_BASE` |
 |`resty_pcre_version`          | buildarg `RESTY_PCRE_VERSION`  |
 |`resty_rpm_arch`              | buildarg `RESTY_RPM_ARCH`  |
 |`resty_rpm_dist`              | buildarg `RESTY_RPM_DIST`  |
@@ -249,7 +251,9 @@ docker build --build-arg RESTY_J=4 -f xenial/Dockerfile .
 |RESTY_IMAGE_TAG  | { "xenial", "bionic" } / "3.11" | The Debian or Alpine Docker image tag to build `FROM`. |
 |RESTY_VERSION | 1.15.8.3 | The version of OpenResty to use. |
 |RESTY_LUAROCKS_VERSION | 3.2.1 | The version of LuaRocks to use. |
-|RESTY_OPENSSL_VERSION | 1.1.0k  / 1.1.1c | The version of OpenSSL to use. |
+|RESTY_OPENSSL_VERSION | 1.1.0l  / 1.1.1f | The version of OpenSSL to use. |
+|RESTY_OPENSSL_PATCH_VERSION | 1.1.0d  / 1.1.1d | The version of OpenSSL to use when patching. |
+|RESTY_OPENSSL_URL_BASE | https://www.openssl.org/source/old/1.1.0 / https://www.openssl.org/source | The base of the URL to download OpenSSL from. |
 |RESTY_PCRE_VERSION | 8.44 | The version of PCRE to use. |
 |RESTY_J | 1 | Sets the parallelism level (-jN) for the builds. |
 |RESTY_CONFIG_OPTIONS | "--with-compat --with-file-aio --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_geoip_module=dynamic --with-http_gunzip_module --with-http_gzip_static_module --with-http_image_filter_module=dynamic --with-http_mp4_module --with-http_perl_module=dynamic --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-http_xslt_module=dynamic --with-ipv6 --with-mail --with-mail_ssl_module --with-md5-asm --with-pcre-jit --with-sha1-asm --with-stream --with-stream_ssl_module --with-threads" | Options to pass to OpenResty's `./configure` script. |
