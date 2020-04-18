@@ -232,7 +232,7 @@ docker run myopenresty
 Dockerfiles are provided for the following base systems, selecting the Dockerfile path with `-f`:
 
  * [Alpine](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile) (`alpine/Dockerfile`)
- * [Alpine Fat](https://github.com/openresty/docker-openresty/blob/master/alpine-fat/Dockerfile) (`alpine-fat/Dockerfile`)
+ * [Alpine Fat](https://github.com/openresty/docker-openresty/blob/master/alpine-fat/Dockerfile) (`alpine/Dockerfile.fat`)
  * [Ubuntu Xenial](https://github.com/openresty/docker-openresty/blob/master/xenial/Dockerfile) (`xenial/Dockerfile`)
  * [Ubuntu Bionic](https://github.com/openresty/docker-openresty/blob/master/bionic/Dockerfile) (`bionic/Dockerfile`)
 
