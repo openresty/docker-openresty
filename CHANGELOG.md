@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.15.8.3-2
+
+ * Upgrade OpenSSL to 1.1.1g for `alpine` flavor (for CVE-2020-1967).
+
 ## 1.15.8.3-1
 
  * Upgrade PRCE to 8.44 for built-from-source flavors
