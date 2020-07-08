@@ -17,6 +17,7 @@ The following "flavors" are built from source and are intended for more advanced
 - [`alpine`, (*alpine/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile)
 - [`alpine-fat`, (*alpine/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile.fat)
 - [`bionic`, (*bionic/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/bionic/Dockerfile)
+- [`focal`, (*focal/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/focal/Dockerfile)
 
 Starting with `1.13.6.1`, releases are tagged with `<openresty-version>-<image-version>-<flavor>`.  The latest `image-version` will also be tagged `<openresty-version>-<flavor>`.   The HEAD of the master branch is also labeled plainly as `<flavor>`.  The builds are managed by [Travis-CI](https://travis-ci.org/openresty/docker-openresty) and [Appveyor](https://ci.appveyor.com/project/openresty/docker-openresty) (for Windows images).
 
@@ -152,8 +153,8 @@ Image Labels
 The image builds are labeled with various information, such as the versions of OpenRestyand its dependent libraries.  Here's an example of printing the labels using [`jq`](https://stedolan.github.io/jq/):
 
 ```
-$ docker pull openresty/openresty:1.17.8.1-0-alpine
-$ docker inspect openresty/openresty:1.17.8.1-0-alpine | jq '.[].Config.Labels'
+$ docker pull openresty/openresty:1.17.8.1-0-bionic
+$ docker inspect openresty/openresty:1.17.8.1-0-bionic | jq '.[].Config.Labels'
 {
   "maintainer": "Evan Wies <evan@*********.net>",
   "resty_add_package_builddeps": "",
@@ -237,6 +238,7 @@ Dockerfiles are provided for the following base systems, selecting the Dockerfil
  * [Alpine](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile) (`alpine/Dockerfile`)
  * [Alpine Fat](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile.fat) (`alpine/Dockerfile.fat`)
  * [Ubuntu Bionic](https://github.com/openresty/docker-openresty/blob/master/bionic/Dockerfile) (`bionic/Dockerfile`)
+ * [Ubuntu Focal](https://github.com/openresty/docker-openresty/blob/master/focal/Dockerfile) (`focal/Dockerfile`)
 
 We used to support more build flavors but have trimmed that down.  Older Dockerfiles are archived in the [`archive`](https://github.com/openresty/docker-openresty/tree/master/archive) folder.
 
@@ -333,7 +335,7 @@ Building (DEB based)
 
 OpenResty now now has [Debian Packages (DEBs) available](http://openresty.org/en/deb-packages.html).  The `buster` image use these DEBs rather than building from source.
 
-You can derive your own Docker images from this to install your own packages.  See [Dockerfile.opm_example](https://github.com/openresty/docker-openresty/blob/master/bionic/Dockerfile.opm_example) and [Dockerfile.luarocks_example](https://github.com/openresty/docker-openresty/blob/master/bionic/Dockerfile.luarocks_example).
+You can derive your own Docker images from this to install your own packages.  See [Dockerfile.opm_example](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile.opm_example) and [Dockerfile.luarocks_example](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile.luarocks_example).
 
 This Docker image can be built and customized by cloning the repo and running `docker build` with the desired Dockerfile:
 
@@ -342,7 +344,7 @@ This Docker image can be built and customized by cloning the repo and running `d
 The following are the available build-time options. They can be set using the `--build-arg` CLI argument, like so:
 
 ```
-docker build --build-arg RESTY_DEB_FLAVOR="-debug" -f bionic/Dockerfile .
+docker build --build-arg RESTY_DEB_FLAVOR="-debug" -f buster/Dockerfile .
 ```
 
 | Key | Default | Description |

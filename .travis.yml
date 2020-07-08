@@ -175,6 +175,27 @@ jobs:
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-bionic ;
         fi
 
+    - stage: build docker image for flavor focal
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
+      - docker build -t openresty:focal -f focal/Dockerfile .
+      - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+          docker tag openresty:focal $DOCKER_ORG/openresty:focal &&
+          docker push $DOCKER_ORG/openresty:focal ;
+        fi
+      - if [[ "$TRAVIS_TAG" ]] ; then
+          TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
+          if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
+            echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+            docker tag openresty:focal $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-focal &&
+            docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-focal ;
+          fi ;
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+          docker tag openresty:focal $DOCKER_ORG/openresty:$TRAVIS_TAG-focal &&
+          docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-focal ;
+        fi
+
     - stage: build docker image for flavors alpine-nosse42 and alpine-fat-nosse42
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
@@ -233,6 +254,27 @@ jobs:
           echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
           docker tag openresty:bionic-nosse42 $DOCKER_ORG/openresty:$TRAVIS_TAG-bionic-nosse42 &&
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-bionic-nosse42 ;
+        fi
+
+    - stage: build docker image for flavor focal-nosse42
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
+      - docker build -t openresty:focal-nosse42 -f focal/Dockerfile --build-arg RESTY_LUAJIT_OPTIONS="--with-luajit-xcflags='-DLUAJIT_NUMMODE=2 -DLUAJIT_ENABLE_LUA52COMPAT -mno-sse4.2'" .
+      - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+          docker tag openresty:focal-nosse42 $DOCKER_ORG/openresty:focal-nosse42 &&
+          docker push $DOCKER_ORG/openresty:focal-nosse42 ;
+        fi
+      - if [[ "$TRAVIS_TAG" ]] ; then
+          TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
+          if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
+            echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+            docker tag openresty:focal-nosse42 $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-focal-nosse42 &&
+            docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-focal-nosse42 ;
+          fi ;
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+          docker tag openresty:focal-nosse42 $DOCKER_ORG/openresty:$TRAVIS_TAG-focal-nosse42 &&
+          docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-focal-nosse42 ;
         fi
 
     - stage: build docker image for flavor buster-nosse42 and buster-fat-nosse42
