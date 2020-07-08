@@ -22,7 +22,7 @@ Starting with `1.13.6.1`, releases are tagged with `<openresty-version>-<image-v
 
 Starting with `1.15.8.1`, there are also `-nosse42` image flavors for systems which do not support SSE 4.2 (e.g. older systems and embedded systems).  They are built with `-mno-sse4.2` appended to the build arg `RESTY_LUAJIT_OPTIONS`.  It is highly recommended *NOT* to use these if your system supports SSE 4.2 because the `CRC32` instruction dramatically improves large string performance.  These are only for built-from-source flavors, e.g. `1.15.8.1-3-bionic-nosse42`, `1.15.8.1-3-alpine-nosse42`, `1.15.8.1-3-alpine-fat-nosse42`.
 
-It is *highly recommended* that you use the upstream-based images for best support.  For best stability, pin your images to the full tag, for example `1.15.8.1-3-bionic`.
+It is *highly recommended* that you use the upstream-based images for best support.  For best stability, pin your images to the full tag, for example `1.17.8.1-0-bionic`.
 
 
 Table of Contents
@@ -138,7 +138,7 @@ docker build -f bionic/Dockerfile --build-arg "RESTY_LUAJIT_OPTIONS=--with-luaji
 
 * OpenResty's OpenSSL library version must be compatible with your `opm` and LuaRocks packages' version.  At minimum, the numeric portion should be the same (e.g. `1.1.1`).  The image label `resty_openssl_version` indicates this value. see [Labels](#image-labels).
 
-* The `1.13.6.2-alpine` is built from `OpenSSL 1.0.2r` because of build issues on Alpine. `1.15.8.1-alpine` is built from `OpenSSL 1.1.1c` on `Alpine 3.9`.
+* The `1.13.6.2-alpine` is built from `OpenSSL 1.0.2r` because of build issues on Alpine. `1.15.8.1-alpine` and later are built from `OpenSSL 1.1.1` series.
 
 * Windows images must be built from the same version as the host system it runs on.  See [Windows container version compatibility](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/version-compatibility).  Our images are currently built from the "Windows Server 2016" series.
 
@@ -152,19 +152,25 @@ Image Labels
 The image builds are labeled with various information, such as the versions of OpenRestyand its dependent libraries.  Here's an example of printing the labels using [`jq`](https://stedolan.github.io/jq/):
 
 ```
-$ docker pull openresty/openresty:1.15.8.1-1-alpine
-$ docker inspect openresty/openresty:1.15.8.1-1-alpine | jq '.[].Config.Labels'
+$ docker pull openresty/openresty:1.17.8.1-0-alpine
+$ docker inspect openresty/openresty:1.17.8.1-0-alpine | jq '.[].Config.Labels'
 {
   "maintainer": "Evan Wies <evan@*********.net>",
   "resty_add_package_builddeps": "",
   "resty_add_package_rundeps": "",
-  "resty_config_options": "    --with-file-aio     --with-http_addition_module     --with-http_auth_request_module     --with-http_dav_module     --with-http_flv_module     --with-http_geoip_module=dynamic     --with-http_gunzip_module     --with-http_gzip_static_module     --with-http_image_filter_module=dynamic     --with-http_mp4_module     --with-http_random_index_module     --with-http_realip_module     --with-http_secure_link_module     --with-http_slice_module     --with-http_ssl_module     --with-http_stub_status_module     --with-http_sub_module     --with-http_v2_module     --with-http_xslt_module=dynamic     --with-ipv6     --with-mail     --with-mail_ssl_module     --with-md5-asm     --with-pcre-jit     --with-sha1-asm     --with-stream     --with-stream_ssl_module     --with-threads     ",
+  "resty_config_deps": "--with-pcre     --with-cc-opt='-DNGX_LUA_ABORT_AT_PANIC -I/usr/local/openresty/pcre/include -I/usr/local/openresty/openssl/include'     --with-ld-opt='-L/usr/local/openresty/pcre/lib -L/usr/local/openresty/openssl/lib -Wl,-rpath,/usr/local/openresty/pcre/lib:/usr/local/openresty/openssl/lib'     ",
+  "resty_config_options": "    --with-compat     --with-file-aio     --with-http_addition_module     --with-http_auth_request_module     --with-http_dav_module     --with-http_flv_module     --with-http_geoip_module=dynamic     --with-http_gunzip_module     --with-http_gzip_static_module     --with-http_image_filter_module=dynamic     --with-http_mp4_module     --with-http_random_index_module     --with-http_realip_module     --with-http_secure_link_module     --with-http_slice_module     --with-http_ssl_module     --with-http_stub_status_module     --with-http_sub_module     --with-http_v2_module     --with-http_xslt_module=dynamic     --with-ipv6     --with-mail     --with-mail_ssl_module     --with-md5-asm     --with-pcre-jit     --with-sha1-asm     --with-stream     --with-stream_ssl_module     --with-threads     ",
   "resty_config_options_more": "",
   "resty_eval_post_make": "",
   "resty_eval_pre_configure": "",
-  "resty_openssl_version": "1.0.2r",
-  "resty_pcre_version": "8.42",
-  "resty_version": "1.15.8.1"
+  "resty_image_base": "ubuntu",
+  "resty_image_tag": "bionic",
+  "resty_luarocks_version": "3.2.1",
+  "resty_openssl_patch_version": "1.1.0d",
+  "resty_openssl_url_base": "https://www.openssl.org/source/old/1.1.0",
+  "resty_openssl_version": "1.1.0l",
+  "resty_pcre_version": "8.44",
+  "resty_version": "1.17.8.1"
 }
 ```
 
@@ -311,12 +317,12 @@ docker build --build-arg RESTY_RPM_FLAVOR="-debug" centos
 | Key | Default | Description |
 :----- | :-----: |:----------- |
 |RESTY_IMAGE_BASE | "centos" | The Centos Docker image base to build `FROM`. |
-|RESTY_IMAGE_TAG | "7" | The CentOS Docker image tag to build `FROM`. |
+|RESTY_IMAGE_TAG | "8" | The CentOS Docker image tag to build `FROM`. |
 |RESTY_LUAROCKS_VERSION | 3.2.1 | The version of LuaRocks to use. |
 |RESTY_YUM_REPO | "https://openresty.org/package/centos/openresty.repo" | URL for the OpenResty YUM Repository. |
 |RESTY_RPM_FLAVOR | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
-|RESTY_RPM_VERSION | "1.15.8.3-2" | The `openresty` package version to install. |
-|RESTY_RPM_DIST | "el7" | The `openresty` package distribution to install. |
+|RESTY_RPM_VERSION | "1.17.8.1-1" | The `openresty` package version to install. |
+|RESTY_RPM_DIST | "el8" | The `openresty` package distribution to install. |
 |RESTY_RPM_ARCH | "x86_64" | The `openresty` package architecture to install. |
 
 [Back to TOC](#table-of-contents)
@@ -344,7 +350,7 @@ docker build --build-arg RESTY_DEB_FLAVOR="-debug" -f bionic/Dockerfile .
 |RESTY_IMAGE_BASE  | "debian" | The Debian Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG   | "buster-slim" | The Debian Docker image tag to build `FROM`. |
 |RESTY_DEB_FLAVOR  | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
-|RESTY_DEB_VERSION | "=1.15.8.3-1~buster" | The Debian package version to use, with `=` prepended. |
+|RESTY_DEB_VERSION | "=1.17.8.1-1~buster" | The Debian package version to use, with `=` prepended. |
 
 [Back to TOC](#table-of-contents)
 
@@ -368,7 +374,7 @@ docker build --build-arg RESTY_VERSION="1.13.6.2" -f windows/Dockerfile .
 |RESTY_INSTALL_TAG  | "ltsc2019" | The Windows Server Docker image name to download and install OpenResty with. |
 |RESTY_IMAGE_BASE   | "mcr.microsoft.com/windows/nanoserver" | The Windows Server Docker image name to build `FROM` for final image. |
 |RESTY_IMAGE_TAG    | "1809" | The Windows Server Docker image tag to build `FROM` for final image. |
-|RESTY_VERSION      | 1.15.8.3 | The version of OpenResty to use. |
+|RESTY_VERSION      | 1.17.8.1 | The version of OpenResty to use. |
 
 [Back to TOC](#table-of-contents)
 

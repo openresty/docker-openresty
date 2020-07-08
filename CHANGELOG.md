@@ -3,6 +3,9 @@ Changelog
 
 ## 1.17.8.1-0 (untagged)
 
+ * Upgrade OpenResty to 1.17.8.1 (#138)
+ * Upgrade CentOS to 8
+ * Built-from-source flavors download from https://openresty.org/download/openresty
  * Move `xenial` and `stretch` to archive
 
 ## 1.15.8.3-2
