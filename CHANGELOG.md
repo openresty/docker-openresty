@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.17.8.1-0 (untagged)
+
+ * Move `xenial` and `stretch` to archive
+
 ## 1.15.8.3-2
 
  * Upgrade OpenSSL to 1.1.1g for `alpine` flavor (for CVE-2020-1967).

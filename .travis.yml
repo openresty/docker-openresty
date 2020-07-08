@@ -112,45 +112,6 @@ jobs:
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-amzn2 ;
         fi
 
-    - stage: build docker image for flavor stretch and stretch-fat
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
-      - docker build -t openresty:stretch -f stretch/Dockerfile .
-      - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
-          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
-          docker tag openresty:stretch $DOCKER_ORG/openresty:stretch &&
-          docker push $DOCKER_ORG/openresty:stretch ;
-        fi
-      - if [[ "$TRAVIS_TAG" ]] ; then
-          TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
-          if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
-            echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
-            docker tag openresty:stretch $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-stretch &&
-            docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-stretch ;
-          fi ;
-          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
-          docker tag openresty:stretch $DOCKER_ORG/openresty:$TRAVIS_TAG-stretch &&
-          docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-stretch ;
-        fi
-      - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
-      - docker build -t openresty:stretch-fat -f stretch/Dockerfile.fat .
-      - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
-          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
-          docker tag openresty:stretch-fat $DOCKER_ORG/openresty:stretch-fat &&
-          docker push $DOCKER_ORG/openresty:stretch-fat ;
-        fi
-      - if [[ "$TRAVIS_TAG" ]] ; then
-          TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
-          if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
-            echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
-            docker tag openresty:stretch-fat $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-stretch-fat &&
-            docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-stretch-fat ;
-          fi ;
-          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
-          docker tag openresty:stretch-fat $DOCKER_ORG/openresty:$TRAVIS_TAG-stretch-fat &&
-          docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-stretch-fat ;
-        fi
-
     - stage: build docker image for flavor buster and buster-fat
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
@@ -191,27 +152,6 @@ jobs:
           echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
           docker tag openresty:buster-fat $DOCKER_ORG/openresty:$TRAVIS_TAG-buster-fat &&
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-buster-fat ;
-        fi
-
-    - stage: build docker image for flavor xenial
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
-      - docker build -t openresty:xenial -f xenial/Dockerfile .
-      - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
-          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
-          docker tag openresty:xenial $DOCKER_ORG/openresty:xenial &&
-          docker push $DOCKER_ORG/openresty:xenial ;
-        fi
-      - if [[ "$TRAVIS_TAG" ]] ; then
-          TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
-          if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
-            echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
-            docker tag openresty:xenial $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-xenial &&
-            docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-xenial ;
-          fi ;
-          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
-          docker tag openresty:xenial $DOCKER_ORG/openresty:$TRAVIS_TAG-xenial &&
-          docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-xenial ;
         fi
 
     - stage: build docker image for flavor bionic
@@ -272,27 +212,6 @@ jobs:
           echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
           docker tag openresty:alpine-fat-nosse42 $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-fat-nosse42 &&
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-fat-nosse42 ;
-        fi
-
-    - stage: build docker image for flavor xenial-nosse42
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
-      - docker build -t openresty:xenial-nosse42 -f xenial/Dockerfile --build-arg RESTY_LUAJIT_OPTIONS="--with-luajit-xcflags='-DLUAJIT_NUMMODE=2 -DLUAJIT_ENABLE_LUA52COMPAT -mno-sse4.2'" .
-      - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
-          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
-          docker tag openresty:xenial-nosse42 $DOCKER_ORG/openresty:xenial-nosse42 &&
-          docker push $DOCKER_ORG/openresty:xenial-nosse42 ;
-        fi
-      - if [[ "$TRAVIS_TAG" ]] ; then
-          TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
-          if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
-            echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
-            docker tag openresty:xenial-nosse42 $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-xenial-nosse42 &&
-            docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-xenial-nosse42 ;
-          fi ;
-          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
-          docker tag openresty:xenial-nosse42 $DOCKER_ORG/openresty:$TRAVIS_TAG-xenial-nosse42 &&
-          docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-xenial-nosse42 ;
         fi
 
     - stage: build docker image for flavor bionic-nosse42

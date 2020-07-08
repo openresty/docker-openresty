@@ -8,8 +8,6 @@ The following "flavors" are available and built from [upstream OpenResty package
 
 - [`centos`, `centos-rpm`, (*centos/Dockerfile* with `el7`)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
 - [`amzn2`, (*centos/Dockerfile* with `amzn2`)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
-- [`stretch`, (*stretch/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/stretch/Dockerfile)
-- [`stretch-fat`, (*stretch/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/stretch/Dockerfile.fat)
 - [`buster`, (*buster/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile)
 - [`buster-fat`, (*buster/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile.fat)
 - [`windows`, (*windows/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/windows/Dockerfile)
@@ -19,7 +17,6 @@ The following "flavors" are built from source and are intended for more advanced
 - [`alpine`, (*alpine/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile)
 - [`alpine-fat`, (*alpine/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile.fat)
 - [`bionic`, (*bionic/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/bionic/Dockerfile)
-- [`xenial`, (*xenial/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/xenial/Dockerfile)
 
 Starting with `1.13.6.1`, releases are tagged with `<openresty-version>-<image-version>-<flavor>`.  The latest `image-version` will also be tagged `<openresty-version>-<flavor>`.   The HEAD of the master branch is also labeled plainly as `<flavor>`.  The builds are managed by [Travis-CI](https://travis-ci.org/openresty/docker-openresty) and [Appveyor](https://ci.appveyor.com/project/openresty/docker-openresty) (for Windows images).
 
@@ -104,17 +101,17 @@ OPM
 
 Starting at version 1.11.2.2, OpenResty for Linux includes a [package manager called `opm`](https://github.com/openresty/opm#readme), which can be found at `/usr/local/openresty/bin/opm`.
 
-`opm` is built in all the images except `alpine`, `stretch` and `buster`.
+`opm` is built in all the images except `alpine` and `buster`.
 
 To use `opm` in the `alpine` image, you must also install the `curl` and `perl` packages; they are not included by default because they double the image size.  You may install them like so: `apk add --no-cache curl perl`.
 
-To use `opm` within the `stretch` and `buster` image, you can either use the `stretch-fat`/`buster-fat` image or install the `openresty-opm` package in a custom build (which you would need to do to install your own `opm` packages anyway), as shown in [this example](https://github.com/openresty/docker-openresty/blob/master/stretch/Dockerfile.opm_example).
+To use `opm` within the `buster` image, you can either use the `buster-fat` image or install the `openresty-opm` package in a custom build (which you would need to do to install your own `opm` packages anyway), as shown in [this example](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile.opm_example).
 
 
 LuaRocks
 ========
 
-[LuaRocks](https://luarocks.org/) is included in the `alpine-fat`, `centos`, and `xenial` variants.  It is excluded from `alpine` because it generally requires a build system and we want to keep that variant lean.
+[LuaRocks](https://luarocks.org/) is included in the `alpine-fat`, `centos`, and `bionic` variants.  It is excluded from `alpine` because it generally requires a build system and we want to keep that variant lean.
 
 It is available at `/usr/local/openresty/luajit/bin/luarocks`.  Packages can be added in your dependent Dockerfiles like so:
 
@@ -129,14 +126,14 @@ Tips & Pitfalls
  * The `envsubst` utility is included in all images except `alpine` and `windows`; this utility is also included
  in the Nginx docker image and is used to template environment variables into configuration files.
 
- * **Docker Hub** does not currently support ARM builds, thus an `armhf-xenial` image is not available (See [#26](https://github.com/openresty/docker-openresty/pull/26)). You can build an image yourself using the `RESTY_DEBIAN_BASE` build argument:
+ * **Docker Hub** does not currently support ARM builds, thus an `armhf-bionic` image is not available (See [#26](https://github.com/openresty/docker-openresty/pull/26)). You can build an image yourself using the `RESTY_DEBIAN_BASE` build argument:
  ```
-docker build -f xenial/Dockerfile --build-arg "RESTY_DEBIAN_BASE=armv7/armhf-ubuntu" .
+docker build -f bionic/Dockerfile --build-arg "RESTY_DEBIAN_BASE=armv7/armhf-ubuntu" .
 ```
 
  * By default, OpenResty is built with SSE4.2 optimizations if the build machine supports it.  If run on machine without SSE4.2, there will be [invalid opcode issues](https://github.com/openresty/docker-openresty/issues/39). **Thus all the Docker Hub images require SSE4.2.**  You can [build a custom image from source](#building-from-source) explicitly without SSE4.2 support, using build arguments like so:
 ```
-docker build -f xenial/Dockerfile --build-arg "RESTY_LUAJIT_OPTIONS=--with-luajit-xcflags='-DLUAJIT_NUMMODE=2 -DLUAJIT_ENABLE_LUA52COMPAT -mno-sse4.2'" .
+docker build -f bionic/Dockerfile --build-arg "RESTY_LUAJIT_OPTIONS=--with-luajit-xcflags='-DLUAJIT_NUMMODE=2 -DLUAJIT_ENABLE_LUA52COMPAT -mno-sse4.2'" .
 ```
 
 * OpenResty's OpenSSL library version must be compatible with your `opm` and LuaRocks packages' version.  At minimum, the numeric portion should be the same (e.g. `1.1.1`).  The image label `resty_openssl_version` indicates this value. see [Labels](#image-labels).
@@ -206,12 +203,12 @@ Docker CMD
 
 The `-g "daemon off;"` directive is used in the Dockerfile CMD to keep the Nginx daemon running after container creation. If this directive is added to the nginx.conf, then the `docker run` should explicitly invoke `openresty` (or `nginx` for `windows` images):
 ```
-docker run [options] openresty/openresty:xenial openresty
+docker run [options] openresty/openresty:bionic openresty
 ```
 
 Invoke another CMD, for example the `resty` utility, like so:
 ```
-docker run [options] openresty/openresty:xenial resty [script.lua]
+docker run [options] openresty/openresty:bionic resty [script.lua]
 ```
 
 *NOTE* The `alpine` images do not include the packages `perl` and `ncurses`, which is needed by the `resty` utility.
@@ -225,7 +222,7 @@ This Docker image can be built and customized by cloning the repo and running `d
 ```
 git clone https://github.com/openresty/docker-openresty.git
 cd docker-openresty
-docker build -t myopenresty -f xenial/Dockerfile .
+docker build -t myopenresty -f bionic/Dockerfile .
 docker run myopenresty
 ```
 
@@ -233,7 +230,6 @@ Dockerfiles are provided for the following base systems, selecting the Dockerfil
 
  * [Alpine](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile) (`alpine/Dockerfile`)
  * [Alpine Fat](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile.fat) (`alpine/Dockerfile.fat`)
- * [Ubuntu Xenial](https://github.com/openresty/docker-openresty/blob/master/xenial/Dockerfile) (`xenial/Dockerfile`)
  * [Ubuntu Bionic](https://github.com/openresty/docker-openresty/blob/master/bionic/Dockerfile) (`bionic/Dockerfile`)
 
 We used to support more build flavors but have trimmed that down.  Older Dockerfiles are archived in the [`archive`](https://github.com/openresty/docker-openresty/tree/master/archive) folder.
@@ -242,15 +238,15 @@ We used to support more build flavors but have trimmed that down.  Older Dockerf
 The following are the available build-time options. They can be set using the `--build-arg` CLI argument, like so:
 
 ```
-docker build --build-arg RESTY_J=4 -f xenial/Dockerfile .
+docker build --build-arg RESTY_J=4 -f bionic/Dockerfile .
 ```
 
 | Key | Default | Description |
 :----- | :-----: |:----------- |
 |RESTY_IMAGE_BASE | "ubuntu" / "alpine" | The Debian or Alpine Docker image base to build `FROM`. |
-|RESTY_IMAGE_TAG  | { "xenial", "bionic" } / "3.11" | The Debian or Alpine Docker image tag to build `FROM`. |
-|RESTY_VERSION | 1.15.8.3 | The version of OpenResty to use. |
-|RESTY_LUAROCKS_VERSION | 3.2.1 | The version of LuaRocks to use. |
+|RESTY_IMAGE_TAG  | "bionic" / "3.11" | The Debian or Alpine Docker image tag to build `FROM`. |
+|RESTY_VERSION | 1.17.8.1 | The version of OpenResty to use. |
+|RESTY_LUAROCKS_VERSION | 3.3.1 | The version of LuaRocks to use. |
 |RESTY_OPENSSL_VERSION | 1.1.0l  / 1.1.1g | The version of OpenSSL to use. |
 |RESTY_OPENSSL_PATCH_VERSION | 1.1.0d  / 1.1.1f | The version of OpenSSL to use when patching. |
 |RESTY_OPENSSL_URL_BASE | https://www.openssl.org/source/old/1.1.0 / https://www.openssl.org/source | The base of the URL to download OpenSSL from. |
@@ -329,27 +325,26 @@ docker build --build-arg RESTY_RPM_FLAVOR="-debug" centos
 Building (DEB based)
 ====================
 
-OpenResty now now has [Debian Packages (DEBs) available](http://openresty.org/en/deb-packages.html).  The `stretch` image use these DEBs rather than building from source.
+OpenResty now now has [Debian Packages (DEBs) available](http://openresty.org/en/deb-packages.html).  The `buster` image use these DEBs rather than building from source.
 
-You can derive your own Docker images from this to install your own packages.  See [Dockerfile.opm_example](https://github.com/openresty/docker-openresty/blob/master/stretch/Dockerfile.opm_example) and [Dockerfile.luarocks_example](https://github.com/openresty/docker-openresty/blob/master/stretch/Dockerfile.luarocks_example).
+You can derive your own Docker images from this to install your own packages.  See [Dockerfile.opm_example](https://github.com/openresty/docker-openresty/blob/master/bionic/Dockerfile.opm_example) and [Dockerfile.luarocks_example](https://github.com/openresty/docker-openresty/blob/master/bionic/Dockerfile.luarocks_example).
 
 This Docker image can be built and customized by cloning the repo and running `docker build` with the desired Dockerfile:
 
- * [Debian Stretch 9 DEB](https://github.com/openresty/docker-openresty/blob/master/stretch/Dockerfile) (`stretch/Dockerfile`)
  * [Debian Buster 10 DEB](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile) (`buster/Dockerfile`)
 
 The following are the available build-time options. They can be set using the `--build-arg` CLI argument, like so:
 
 ```
-docker build --build-arg RESTY_DEB_FLAVOR="-debug" -f stretch/Dockerfile .
+docker build --build-arg RESTY_DEB_FLAVOR="-debug" -f bionic/Dockerfile .
 ```
 
 | Key | Default | Description |
 :----- | :-----: |:----------- |
 |RESTY_IMAGE_BASE  | "debian" | The Debian Docker image base to build `FROM`. |
-|RESTY_IMAGE_TAG   | "stretch-slim" | The Debian Docker image tag to build `FROM`. |
+|RESTY_IMAGE_TAG   | "buster-slim" | The Debian Docker image tag to build `FROM`. |
 |RESTY_DEB_FLAVOR  | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
-|RESTY_DEB_VERSION | "=1.15.8.3-1~stretch1" | The Debian package version to use, with `=` prepended. |
+|RESTY_DEB_VERSION | "=1.15.8.3-1~buster" | The Debian package version to use, with `=` prepended. |
 
 [Back to TOC](#table-of-contents)
 
