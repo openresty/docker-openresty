@@ -7,6 +7,7 @@ Changelog
  * Upgrade CentOS to 8
  * Upgrade LuaRocks to 3.3.1
  * Build-from-source flavors download from https://openresty.org/download/openresty
+ * Add `alpine-apk` build-from-package flavor (#142)
  * Add `focal` build-from-source flavor
  * Move `xenial` and `stretch` to archive
 

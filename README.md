@@ -6,7 +6,8 @@
 
 The following "flavors" are available and built from [upstream OpenResty packages](http://openresty.org/en/linux-packages.html):
 
-- [`centos`, `centos-rpm`, (*centos/Dockerfile* with `el7`)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
+- [`alpine-apk`, (*alpine-apk/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine-apk/Dockerfile)
+- [`centos`, `centos-rpm`, (*centos/Dockerfile* with `el8`)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
 - [`amzn2`, (*centos/Dockerfile* with `amzn2`)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
 - [`buster`, (*buster/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile)
 - [`buster-fat`, (*buster/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile.fat)
@@ -40,6 +41,7 @@ Table of Contents
 * [Building (from source)](#building-from-source)
 * [Building (RPM based)](#building-rpm-based)
 * [Building (DEB based)](#building-deb-based)
+* [Building (APK based)](#building-apk-based)
 * [Building (Windows based)](#building-windows-based)
 * [Feedback & Bug Reports](#feedback--bug-reports)
 * [Changelog & Authors](#changelog--authors)
@@ -180,6 +182,8 @@ $ docker inspect openresty/openresty:1.17.8.1-0-bionic | jq '.[].Config.Labels'
 |`maintainer`                  | Maintainer of the image |
 |`resty_add_package_builddeps` | buildarg `RESTY_ADD_PACKAGE_BUILDDEPS` |
 |`resty_add_package_rundeps`   | buildarg `RESTY_ADD_PACKAGE_RUNDEPS` |
+|`resty_apk_key_url`           | buildarg `RESTY_APK_KEY_URL` |
+|`resty_apk_repo_url`          | buildarg `RESTY_APK_REPO_URL` |
 |`resty_config_deps`           | buildarg `_RESTY_CONFIG_DEPS` (internal) |
 |`resty_config_options`        | buildarg `RESTY_CONFIG_OPTIONS`  |
 |`resty_config_options_more`   | buildarg `RESTY_CONFIG_OPTIONS_MORE`  |
@@ -353,6 +357,31 @@ docker build --build-arg RESTY_DEB_FLAVOR="-debug" -f buster/Dockerfile .
 |RESTY_IMAGE_TAG   | "buster-slim" | The Debian Docker image tag to build `FROM`. |
 |RESTY_DEB_FLAVOR  | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
 |RESTY_DEB_VERSION | "=1.17.8.1-1~buster" | The Debian package version to use, with `=` prepended. |
+
+[Back to TOC](#table-of-contents)
+
+
+Building (APK based)
+====================
+
+OpenResty now now has [Alpine Packages (APKs) available](http://openresty.org/en/apk-packages.html).  The `alpine-apk` image use these APKs rather than building from source.  You can derive your own Docker images from this to install your own packages.
+
+This Docker image can be built and customized by cloning the repo and running `docker build` with the desired Dockerfile:
+
+ * [Alpine APK](https://github.com/openresty/docker-openresty/blob/master/alpine-apk/Dockerfile) (`alpine-apk/Dockerfile`)
+
+The following are the available build-time options. They can be set using the `--build-arg` CLI argument, like so:
+
+```
+docker build --build-arg RESTY_IMAGE_TAG="3.11" -f alpine-apk/Dockerfile .
+```
+
+| Key | Default | Description |
+:----- | :-----: |:----------- |
+|RESTY_IMAGE_BASE   | "alpine" | The Alpine Docker image base to build `FROM`. |
+|RESTY_IMAGE_TAG    | "3.11" | The Alpine Docker image tag to build `FROM`. |
+|RESTY_APK_KEY_URL  | "http://openresty.org/package/admin@openresty.com-5ea678a6.rsa.pub" | The URL of the signing key of the `openresty` package. |
+|RESTY_APK_REPO_URL | "http://openresty.org/package/alpine/v${RESTY_IMAGE_TAG}/main" | The URL of the APK repository for `openresty` package. |
 
 [Back to TOC](#table-of-contents)
 
