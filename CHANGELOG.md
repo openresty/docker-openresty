@@ -5,6 +5,7 @@ Changelog
 
  * Upgrade OpenResty to 1.17.8.1 (#138)
  * Upgrade CentOS to 8
+ * Upgrade LuaRocks to 3.3.1
  * Built-from-source flavors download from https://openresty.org/download/openresty
  * Move `xenial` and `stretch` to archive
 

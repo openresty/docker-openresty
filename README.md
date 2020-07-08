@@ -165,7 +165,7 @@ $ docker inspect openresty/openresty:1.17.8.1-0-alpine | jq '.[].Config.Labels'
   "resty_eval_pre_configure": "",
   "resty_image_base": "ubuntu",
   "resty_image_tag": "bionic",
-  "resty_luarocks_version": "3.2.1",
+  "resty_luarocks_version": "3.3.1",
   "resty_openssl_patch_version": "1.1.0d",
   "resty_openssl_url_base": "https://www.openssl.org/source/old/1.1.0",
   "resty_openssl_version": "1.1.0l",
@@ -318,7 +318,7 @@ docker build --build-arg RESTY_RPM_FLAVOR="-debug" centos
 :----- | :-----: |:----------- |
 |RESTY_IMAGE_BASE | "centos" | The Centos Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG | "8" | The CentOS Docker image tag to build `FROM`. |
-|RESTY_LUAROCKS_VERSION | 3.2.1 | The version of LuaRocks to use. |
+|RESTY_LUAROCKS_VERSION | 3.3.1 | The version of LuaRocks to use. |
 |RESTY_YUM_REPO | "https://openresty.org/package/centos/openresty.repo" | URL for the OpenResty YUM Repository. |
 |RESTY_RPM_FLAVOR | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
 |RESTY_RPM_VERSION | "1.17.8.1-1" | The `openresty` package version to install. |
