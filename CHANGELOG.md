@@ -1,7 +1,7 @@
 Changelog
 =========
 
-## 1.17.8.1-0 (untagged)
+## 1.17.8.1-0
 
  * Upgrade OpenResty to 1.17.8.1 (#138)
  * Upgrade CentOS to 8
