@@ -16,7 +16,9 @@
 #   openresty:<openresty-version>-<flavor>
 #
 
-sudo: required
+os: linux
+dist: bionic
+language: ruby
 
 services:
   - docker
@@ -63,7 +65,7 @@ jobs:
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-fat ;
         fi
 
-    - stage: build docker image for flavors alpine-apk
+    - stage: build docker image for flavor alpine-apk
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
       - docker build -t openresty:alpine-apk -f alpine-apk/Dockerfile .
