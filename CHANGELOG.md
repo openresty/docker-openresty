@@ -1,6 +1,16 @@
 Changelog
 =========
 
+## 1.17.8.1-0 (untagged)
+
+ * Upgrade OpenResty to 1.17.8.1 (#138)
+ * Upgrade CentOS to 8
+ * Upgrade LuaRocks to 3.3.1
+ * Build-from-source flavors download from https://openresty.org/download/openresty
+ * Add `alpine-apk` build-from-package flavor (#142)
+ * Add `focal` build-from-source flavor
+ * Move `xenial` and `stretch` to archive
+
 ## 1.15.8.3-2
 
  * Upgrade OpenSSL to 1.1.1g for `alpine` flavor (for CVE-2020-1967).
