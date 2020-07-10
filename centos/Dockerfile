@@ -1,4 +1,4 @@
-# Dockerfile - CentOS 7 - RPM version
+# Dockerfile - CentOS 8 - RPM version
 # https://github.com/openresty/docker-openresty
 
 ARG RESTY_IMAGE_BASE="centos"
