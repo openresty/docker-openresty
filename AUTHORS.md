@@ -12,3 +12,4 @@ We'd like to thank the following people for their commits:
 - Joseph C. Sible
 - Robin Ketelbuters <robin.ketelbuters@gmail.com>
 - Joel Linn <jl@conductive.de>
+- Kshitij Joshi <kshitijmjoshi@gmail.com>
