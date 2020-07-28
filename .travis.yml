@@ -299,3 +299,31 @@ jobs:
           docker tag openresty:focal-nosse42 $DOCKER_ORG/openresty:$TRAVIS_TAG-focal-nosse42 &&
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-focal-nosse42 ;
         fi
+        
+    # aliased as `fedora-rpm`
+    - stage: build docker image for flavor fedora
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
+      - docker build -t openresty:fedora -f fedora/Dockerfile .
+      - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+          docker tag openresty:fedora $DOCKER_ORG/openresty:fedora &&
+          docker push $DOCKER_ORG/openresty:fedora ;
+          docker tag $DOCKER_ORG/openresty:fedora $DOCKER_ORG/openresty:fedora-rpm &&
+          docker push $DOCKER_ORG/openresty:fedora-rpm ;
+        fi
+      - if [[ "$TRAVIS_TAG" ]] ; then
+          TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
+          if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
+            echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+            docker tag openresty:fedora $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-fedora &&
+            docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-fedora ;
+            docker tag $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-fedora $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-fedora-rpm &&
+            docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-fedora-rpm ;
+          fi ;
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+          docker tag openresty:fedora $DOCKER_ORG/openresty:$TRAVIS_TAG-fedora &&
+          docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-fedora ;
+          docker tag $DOCKER_ORG/openresty:$TRAVIS_TAG-fedora $DOCKER_ORG/openresty:$TRAVIS_TAG-fedora-rpm &&
+          docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-fedora-rpm ;
+        fi

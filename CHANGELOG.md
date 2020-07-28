@@ -4,6 +4,7 @@ Changelog
 ## 1.17.8.2-1
 
  * Upgrade OpenSSL to 1.1.1 for build-from-source `bionic` and `focal` flavors
+ * Add `fedora` built-from-upstream flavor (#150)
 
 ## 1.17.8.2-0
 
