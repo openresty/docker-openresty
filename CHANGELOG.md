@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 1.17.8.2-0
+
+ * Upgrade OpenResty to 1.17.8.2
+ * Add `RESTY_APK_VERSION` to  manage versions and build `-debug`
+
 ## 1.17.8.1-0
 
  * Upgrade OpenResty to 1.17.8.1 (#138)

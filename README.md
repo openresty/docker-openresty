@@ -184,6 +184,7 @@ $ docker inspect openresty/openresty:1.17.8.1-0-bionic | jq '.[].Config.Labels'
 |`resty_add_package_rundeps`   | buildarg `RESTY_ADD_PACKAGE_RUNDEPS` |
 |`resty_apk_key_url`           | buildarg `RESTY_APK_KEY_URL` |
 |`resty_apk_repo_url`          | buildarg `RESTY_APK_REPO_URL` |
+|`resty_apk_version`           | buildarg `RESTY_APK_VERSION` |
 |`resty_config_deps`           | buildarg `_RESTY_CONFIG_DEPS` (internal) |
 |`resty_config_options`        | buildarg `RESTY_CONFIG_OPTIONS`  |
 |`resty_config_options_more`   | buildarg `RESTY_CONFIG_OPTIONS_MORE`  |
@@ -257,7 +258,7 @@ docker build --build-arg RESTY_J=4 -f bionic/Dockerfile .
 :----- | :-----: |:----------- |
 |RESTY_IMAGE_BASE | "ubuntu" / "alpine" | The Debian or Alpine Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG  | "bionic" / "3.11" | The Debian or Alpine Docker image tag to build `FROM`. |
-|RESTY_VERSION | 1.17.8.1 | The version of OpenResty to use. |
+|RESTY_VERSION | 1.17.8.2 | The version of OpenResty to use. |
 |RESTY_LUAROCKS_VERSION | 3.3.1 | The version of LuaRocks to use. |
 |RESTY_OPENSSL_VERSION | 1.1.0l  / 1.1.1g | The version of OpenSSL to use. |
 |RESTY_OPENSSL_PATCH_VERSION | 1.1.0d  / 1.1.1f | The version of OpenSSL to use when patching. |
@@ -327,7 +328,7 @@ docker build --build-arg RESTY_RPM_FLAVOR="-debug" centos
 |RESTY_LUAROCKS_VERSION | 3.3.1 | The version of LuaRocks to use. |
 |RESTY_YUM_REPO | "https://openresty.org/package/centos/openresty.repo" | URL for the OpenResty YUM Repository. |
 |RESTY_RPM_FLAVOR | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
-|RESTY_RPM_VERSION | "1.17.8.1-1" | The `openresty` package version to install. |
+|RESTY_RPM_VERSION | "1.17.8.2-1" | The `openresty` package version to install. |
 |RESTY_RPM_DIST | "el8" | The `openresty` package distribution to install. |
 |RESTY_RPM_ARCH | "x86_64" | The `openresty` package architecture to install. |
 
@@ -356,7 +357,7 @@ docker build --build-arg RESTY_DEB_FLAVOR="-debug" -f buster/Dockerfile .
 |RESTY_IMAGE_BASE  | "debian" | The Debian Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG   | "buster-slim" | The Debian Docker image tag to build `FROM`. |
 |RESTY_DEB_FLAVOR  | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
-|RESTY_DEB_VERSION | "=1.17.8.1-1~buster" | The Debian package version to use, with `=` prepended. |
+|RESTY_DEB_VERSION | "=1.17.8.2-1~buster" | The Debian package version to use, with `=` prepended. |
 
 [Back to TOC](#table-of-contents)
 
@@ -382,6 +383,7 @@ docker build --build-arg RESTY_IMAGE_TAG="3.11" -f alpine-apk/Dockerfile .
 |RESTY_IMAGE_TAG    | "3.11" | The Alpine Docker image tag to build `FROM`. |
 |RESTY_APK_KEY_URL  | "http://openresty.org/package/admin@openresty.com-5ea678a6.rsa.pub" | The URL of the signing key of the `openresty` package. |
 |RESTY_APK_REPO_URL | "http://openresty.org/package/alpine/v${RESTY_IMAGE_TAG}/main" | The URL of the APK repository for `openresty` package. |
+|RESTY_APK_VERSION | "=1.17.8.2-r0" | The suffix to add to the apk instaalpackage name: `openresty${RESTY_APK_VERSION`}. |
 
 [Back to TOC](#table-of-contents)
 
@@ -405,7 +407,7 @@ docker build --build-arg RESTY_VERSION="1.13.6.2" -f windows/Dockerfile .
 |RESTY_INSTALL_TAG  | "ltsc2019" | The Windows Server Docker image name to download and install OpenResty with. |
 |RESTY_IMAGE_BASE   | "mcr.microsoft.com/windows/nanoserver" | The Windows Server Docker image name to build `FROM` for final image. |
 |RESTY_IMAGE_TAG    | "1809" | The Windows Server Docker image tag to build `FROM` for final image. |
-|RESTY_VERSION      | 1.17.8.1 | The version of OpenResty to use. |
+|RESTY_VERSION      | 1.17.8.2 | The version of OpenResty to use. |
 
 [Back to TOC](#table-of-contents)
 
