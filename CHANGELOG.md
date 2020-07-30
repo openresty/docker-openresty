@@ -4,6 +4,7 @@ Changelog
 ## 1.17.8.2-2
 
  * Don't uninstall `make` in `centos` and `fedora` flavors (#154)
+ * Install `lsb-base` dependency in `buster` flavor (#155)
 
 ## 1.17.8.2-1
 
