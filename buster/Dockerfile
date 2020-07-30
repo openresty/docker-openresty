@@ -27,6 +27,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
         ca-certificates \
         gettext-base \
         gnupg2 \
+        lsb-base \
         lsb-release \
         software-properties-common \
         wget \
