@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.17.8.2-2
+
+ * Don't uninstall `make` in `centos` and `fedora` flavors (#154)
+
 ## 1.17.8.2-1
 
  * Upgrade OpenSSL to 1.1.1 for build-from-source `bionic` and `focal` flavors
