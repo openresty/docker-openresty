@@ -20,6 +20,10 @@ os: linux
 dist: bionic
 language: ruby
 
+arch:
+  - amd64
+  - arm64
+
 services:
   - docker
 
@@ -299,7 +303,7 @@ jobs:
           docker tag openresty:focal-nosse42 $DOCKER_ORG/openresty:$TRAVIS_TAG-focal-nosse42 &&
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-focal-nosse42 ;
         fi
-        
+
     # aliased as `fedora-rpm`
     - stage: build docker image for flavor fedora
       script:
