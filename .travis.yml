@@ -25,8 +25,8 @@ services:
 
 jobs:
   include:
-
-    - stage: build docker image for flavors alpine and alpine-fat
+    - name: build docker image for arm64 flavors alpine and alpine-fat
+      arch: amd64
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
       - docker build -t openresty:alpine -f alpine/Dockerfile .
@@ -65,7 +65,47 @@ jobs:
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-fat ;
         fi
 
-    - stage: build docker image for flavor alpine-apk
+    - name: build docker image for arm64 flavors alpine and alpine-fat
+      arch: arm64
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
+      - docker build -t openresty:alpine -f alpine/Dockerfile .
+      - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+          docker tag openresty:alpine $DOCKER_ORG/openresty:alpine &&
+          docker push $DOCKER_ORG/openresty:alpine ;
+        fi
+      - if [[ "$TRAVIS_TAG" ]] ; then
+          TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
+          if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
+            echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+            docker tag openresty:alpine $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-alpine &&
+            docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-alpine ;
+          fi ;
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+          docker tag openresty:alpine $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine &&
+          docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine ;
+        fi
+      - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
+      - docker build -t openresty:alpine-fat -f alpine/Dockerfile.fat .
+      - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+          docker tag openresty:alpine-fat $DOCKER_ORG/openresty:alpine-fat &&
+          docker push $DOCKER_ORG/openresty:alpine-fat ;
+        fi
+      - if [[ "$TRAVIS_TAG" ]] ; then
+          TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
+          if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
+            echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+            docker tag openresty:alpine-fat $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-alpine-fat &&
+            docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-alpine-fat ;
+          fi ;
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+          docker tag openresty:alpine-fat $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-fat &&
+          docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-fat ;
+        fi
+
+    - name: build docker image for flavor alpine-apk
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
       - docker build -t openresty:alpine-apk -f alpine-apk/Dockerfile .
@@ -87,7 +127,7 @@ jobs:
         fi
 
     # aliased as `centos-rpm`
-    - stage: build docker image for flavor centos
+    - name: build docker image for flavor centos
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
       - docker build -t openresty:centos -f centos/Dockerfile .
@@ -114,7 +154,7 @@ jobs:
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-centos-rpm ;
         fi
 
-    - stage: build docker image for flavor Amazon Linux (amzn2)
+    - name: build docker image for flavor Amazon Linux (amzn2)
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
       - docker build -t openresty:amzn2 --build-arg RESTY_IMAGE_BASE=amazonlinux --build-arg RESTY_IMAGE_TAG=2 --build-arg RESTY_YUM_REPO="https://openresty.org/package/amazon/openresty.repo" --build-arg RESTY_RPM_DIST="amzn2" -f centos/Dockerfile .
@@ -135,7 +175,7 @@ jobs:
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-amzn2 ;
         fi
 
-    - stage: build docker image for flavor buster and buster-fat
+    - name: build docker image for flavor buster and buster-fat
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
       - docker build -t openresty:buster -f buster/Dockerfile .
@@ -177,7 +217,7 @@ jobs:
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-buster-fat ;
         fi
 
-    - stage: build docker image for flavor bionic
+    - name: build docker image for flavor bionic
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
       - docker build -t openresty:bionic -f bionic/Dockerfile .
@@ -198,7 +238,7 @@ jobs:
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-bionic ;
         fi
 
-    - stage: build docker image for flavor focal
+    - name: build docker image for flavor focal
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
       - docker build -t openresty:focal -f focal/Dockerfile .
@@ -219,7 +259,7 @@ jobs:
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-focal ;
         fi
 
-    - stage: build docker image for flavors alpine-nosse42 and alpine-fat-nosse42
+    - name: build docker image for flavors alpine-nosse42 and alpine-fat-nosse42
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
       - docker build -t openresty:alpine-nosse42 -f alpine/Dockerfile --build-arg RESTY_LUAJIT_OPTIONS="--with-luajit-xcflags='-DLUAJIT_NUMMODE=2 -DLUAJIT_ENABLE_LUA52COMPAT -mno-sse4.2'" .
@@ -258,7 +298,7 @@ jobs:
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-fat-nosse42 ;
         fi
 
-    - stage: build docker image for flavor bionic-nosse42
+    - name: build docker image for flavor bionic-nosse42
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
       - docker build -t openresty:bionic-nosse42 -f bionic/Dockerfile --build-arg RESTY_LUAJIT_OPTIONS="--with-luajit-xcflags='-DLUAJIT_NUMMODE=2 -DLUAJIT_ENABLE_LUA52COMPAT -mno-sse4.2'" .
@@ -279,7 +319,7 @@ jobs:
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-bionic-nosse42 ;
         fi
 
-    - stage: build docker image for flavor focal-nosse42
+    - name: build docker image for flavor focal-nosse42
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
       - docker build -t openresty:focal-nosse42 -f focal/Dockerfile --build-arg RESTY_LUAJIT_OPTIONS="--with-luajit-xcflags='-DLUAJIT_NUMMODE=2 -DLUAJIT_ENABLE_LUA52COMPAT -mno-sse4.2'" .
@@ -299,9 +339,9 @@ jobs:
           docker tag openresty:focal-nosse42 $DOCKER_ORG/openresty:$TRAVIS_TAG-focal-nosse42 &&
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-focal-nosse42 ;
         fi
-        
+
     # aliased as `fedora-rpm`
-    - stage: build docker image for flavor fedora
+    - name: build docker image for flavor fedora
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
       - docker build -t openresty:fedora -f fedora/Dockerfile .
