@@ -20,16 +20,52 @@ os: linux
 dist: bionic
 language: ruby
 
-arch:
-  - amd64
-  - arm64
-
 services:
   - docker
 
 jobs:
   include:
-    - name: build docker image for flavors alpine and alpine-fat
+    - name: build docker image for arm64 flavors alpine and alpine-fat
+      arch: amd64
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
+      - docker build -t openresty:alpine -f alpine/Dockerfile .
+      - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+          docker tag openresty:alpine $DOCKER_ORG/openresty:alpine &&
+          docker push $DOCKER_ORG/openresty:alpine ;
+        fi
+      - if [[ "$TRAVIS_TAG" ]] ; then
+          TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
+          if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
+            echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+            docker tag openresty:alpine $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-alpine &&
+            docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-alpine ;
+          fi ;
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+          docker tag openresty:alpine $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine &&
+          docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine ;
+        fi
+      - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
+      - docker build -t openresty:alpine-fat -f alpine/Dockerfile.fat .
+      - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+          docker tag openresty:alpine-fat $DOCKER_ORG/openresty:alpine-fat &&
+          docker push $DOCKER_ORG/openresty:alpine-fat ;
+        fi
+      - if [[ "$TRAVIS_TAG" ]] ; then
+          TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
+          if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
+            echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+            docker tag openresty:alpine-fat $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-alpine-fat &&
+            docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-alpine-fat ;
+          fi ;
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+          docker tag openresty:alpine-fat $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-fat &&
+          docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-fat ;
+        fi
+
+    - name: build docker image for arm64 flavors alpine and alpine-fat
       arch: arm64
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
