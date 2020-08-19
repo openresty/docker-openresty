@@ -30,8 +30,8 @@ services:
 
 jobs:
   include:
-
     - stage: build docker image for flavors alpine and alpine-fat
+      arch: arm64
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
       - docker build -t openresty:alpine -f alpine/Dockerfile .
