@@ -28,17 +28,17 @@ jobs:
     - name: build docker image for arm64 flavors alpine and alpine-fat
       arch: amd64
       script:
-      - docker build -t openresty:alpine -f alpine/Dockerfile .
-      - docker build -t openresty:alpine-fat -f alpine/Dockerfile.fat .
+      - docker build -t $DOCKER_USERNAME/openresty:alpine -f alpine/Dockerfile .
+      - docker build -t $DOCKER_USERNAME/openresty:alpine-fat -f alpine/Dockerfile.fat .
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker push duncaan/openresty:alpine
-      - docker push duncaan/openresty:alpine-fat
+      - docker push $DOCKER_USERNAME/openresty:alpine
+      - docker push $DOCKER_USERNAME/openresty:alpine-fat
 
     - name: build docker image for arm64 flavors alpine and alpine-fat
       arch: arm64
       script:
-      - docker build -t openresty:alpine -f alpine/Dockerfile .
-      - docker build -t openresty:alpine-fat -f alpine/Dockerfile.fat .
+      - docker build -t $DOCKER_USERNAME/openresty:alpine -f alpine/Dockerfile .
+      - docker build -t $DOCKER_USERNAME/openresty:alpine-fat -f alpine/Dockerfile.fat .
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker push duncaan/openresty:alpine
-      - docker push duncaan/openresty:alpine-fat
+      - docker push $DOCKER_USERNAME/openresty:alpine
+      - docker push $DOCKER_USERNAME/openresty:alpine-fat
