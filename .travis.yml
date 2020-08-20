@@ -20,25 +20,18 @@ os: linux
 dist: bionic
 language: ruby
 
-services:
-  - docker
+before_install:
+  - curl -fsSL https://get.docker.com | sh
+  - echo '{"experimental":"enabled"}' | sudo tee /etc/docker/daemon.json
+  - mkdir -p $HOME/.docker
+  - echo '{"experimental":"enabled"}' | sudo tee $HOME/.docker/config.json
+  - sudo service docker start
 
 jobs:
   include:
     - name: build docker image for arm64 flavors alpine and alpine-fat
-      arch: amd64
       script:
-      - docker build -t $DOCKER_USERNAME/openresty:alpine -f alpine/Dockerfile .
-      - docker build -t $DOCKER_USERNAME/openresty:alpine-fat -f alpine/Dockerfile.fat .
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker push $DOCKER_USERNAME/openresty:alpine
-      - docker push $DOCKER_USERNAME/openresty:alpine-fat
+      - docker buildx build --progress plain --build-arg RESTY_J=4 --platform=linux/amd64,linux/arm64,linux/arm/v7 -t $DOCKER_USERNAME/openresty:alpine --push .
+      - docker buildx build --progress plain --build-arg RESTY_J=4 --platform=linux/amd64,linux/arm64,linux/arm/v7 -t $DOCKER_USERNAME/openresty:alpine-fat --push .
 
-    - name: build docker image for arm64 flavors alpine and alpine-fat
-      arch: arm64
-      script:
-      - docker build -t $DOCKER_USERNAME/openresty:alpine -f alpine/Dockerfile .
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker push $DOCKER_USERNAME/openresty:alpine
-      - docker build -t $DOCKER_USERNAME/openresty:alpine-fat -f alpine/Dockerfile.fat .
-      - docker push $DOCKER_USERNAME/openresty:alpine-fat
