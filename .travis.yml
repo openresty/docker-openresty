@@ -20,24 +20,39 @@ os: linux
 dist: bionic
 language: ruby
 
-before_install:
-  - curl -fsSL https://get.docker.com | sh
-  - echo '{"experimental":"enabled"}' | sudo tee /etc/docker/daemon.json
-  - mkdir -p $HOME/.docker
-  - echo '{"experimental":"enabled"}' | sudo tee $HOME/.docker/config.json
-  - sudo service docker start
-  - sudo apt install -y qemu-user qemu-user-static
-  - sudo docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+services:
+  - docker
 
 jobs:
   include:
-    - name: build docker image for flavors alpine and alpine-fat
+    - stage: build
+      name: arm64/v8
+      arch: arm64
       script:
-      - docker buildx create --use
-      - docker buildx ls
-      - docker buildx build --progress plain --build-arg RESTY_J=4 --platform=linux/amd64,linux/arm64/v8,linux/arm/v7 -t $DOCKER_USERNAME/openresty:alpine -f alpine/Dockerfile .
+      - docker build --build-arg RESTY_J=4 -t $DOCKER_USERNAME/openresty:alpine-arm64v8 -f alpine/Dockerfile .
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker push $DOCKER_USERNAME/openresty:alpine
-      - docker buildx build --progress plain --build-arg RESTY_J=4 --platform=linux/amd64,linux/arm64/v8,linux/arm/v7 -t $DOCKER_USERNAME/openresty:alpine-fat -f alpine/Dockerfile.fat .
-      - docker push $DOCKER_USERNAME/openresty:alpine-fat
+      - docker push $DOCKER_USERNAME/openresty:alpine-arm64v8
+      - docker build --build-arg RESTY_J=4 -t $DOCKER_USERNAME/openresty:alpine-fat-arm64v8 -f alpine/Dockerfile.fat .
+      - docker push $DOCKER_USERNAME/openresty:alpine-fat-arm64v8
+    - name: amd64
+      arch: amd64
+      script:
+      - docker build --build-arg RESTY_J=4 -t $DOCKER_USERNAME/openresty:alpine-amd64 -f alpine/Dockerfile .
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker push $DOCKER_USERNAME/openresty:alpine-amd64
+      - docker build --build-arg RESTY_J=4 -t $DOCKER_USERNAME/openresty:alpine-fat-amd64 -f alpine/Dockerfile.fat .
+      - docker push $DOCKER_USERNAME/openresty:alpine-fat-amd64
+    - stage: create manifest
+      script:
+      - docker manifest create \
+        duncaan/openresty:alpine \
+        --amend duncaan/openresty:alpine-amd64 \
+        --amend duncaan/openresty:alpine-arm64v8
+      - docker manifest push duncaan/openresty:alpine
+      - docker manifest create \
+        duncaan/openresty:alpine-fat \
+        --amend duncaan/openresty:alpine-fat-amd64 \
+        --amend duncaan/openresty:alpine-fat-arm64v8
+      - docker manifest push duncaan/openresty:alpine-fat
+
 
