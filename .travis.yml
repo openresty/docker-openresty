@@ -44,6 +44,7 @@ jobs:
       - docker push $DOCKER_USERNAME/openresty:alpine-fat-amd64
     - stage: create manifest
       script:
+      - export DOCKER_CLI_EXPERIMENTAL=enabled
       - docker manifest create \
         duncaan/openresty:alpine \
         --amend duncaan/openresty:alpine-amd64 \
