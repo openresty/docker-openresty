@@ -27,15 +27,16 @@ before_install:
   - echo '{"experimental":"enabled"}' | sudo tee $HOME/.docker/config.json
   - sudo service docker start
   - sudo apt install -y qemu-user qemu-user-static
-  #- docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+  - sudo docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 
 jobs:
   include:
     - name: build docker image for flavors alpine and alpine-fat
       script:
-      - sudo docker buildx create --use
+      - docker buildx create --use
+      - docker buildx ls
+      - docker buildx build --progress plain --build-arg RESTY_J=4 --platform=linux/amd64,linux/arm64/v8,linux/arm/v7 -t $DOCKER_USERNAME/openresty:alpine .
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker buildx build --progress plain --build-arg RESTY_J=4 --platform=linux/amd64,linux/arm64,linux/arm/v7 -t $DOCKER_USERNAME/openresty:alpine .
       - docker push $DOCKER_USERNAME/openresty:alpine
       - docker buildx build --progress plain --build-arg RESTY_J=4 --platform=linux/amd64,linux/arm64,linux/arm/v7 -t $DOCKER_USERNAME/openresty:alpine-fat .
       - docker push $DOCKER_USERNAME/openresty:alpine-fat
