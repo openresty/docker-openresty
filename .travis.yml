@@ -38,7 +38,7 @@ jobs:
       arch: arm64
       script:
       - docker build -t $DOCKER_USERNAME/openresty:alpine -f alpine/Dockerfile .
-      - docker build -t $DOCKER_USERNAME/openresty:alpine-fat -f alpine/Dockerfile.fat .
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker push $DOCKER_USERNAME/openresty:alpine
+      - docker build -t $DOCKER_USERNAME/openresty:alpine-fat -f alpine/Dockerfile.fat .
       - docker push $DOCKER_USERNAME/openresty:alpine-fat
