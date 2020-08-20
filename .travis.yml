@@ -35,9 +35,9 @@ jobs:
       script:
       - docker buildx create --use
       - docker buildx ls
-      - docker buildx build --progress plain --build-arg RESTY_J=4 --platform=linux/amd64,linux/arm64/v8,linux/arm/v7 -t $DOCKER_USERNAME/openresty:alpine .
+      - docker buildx build --progress plain --build-arg RESTY_J=4 --platform=linux/amd64,linux/arm64/v8,linux/arm/v7 -t $DOCKER_USERNAME/openresty:alpine -f alpine/Dockerfile.
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker push $DOCKER_USERNAME/openresty:alpine
-      - docker buildx build --progress plain --build-arg RESTY_J=4 --platform=linux/amd64,linux/arm64,linux/arm/v7 -t $DOCKER_USERNAME/openresty:alpine-fat .
+      - docker buildx build --progress plain --build-arg RESTY_J=4 --platform=linux/amd64,linux/arm64/v8,linux/arm/v7 -t $DOCKER_USERNAME/openresty:alpine-fat -f alpine/Dockerfile.fat .
       - docker push $DOCKER_USERNAME/openresty:alpine-fat
 
