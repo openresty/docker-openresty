@@ -42,9 +42,10 @@ jobs:
       - docker push $DOCKER_USERNAME/openresty:alpine-amd64
       - docker build --build-arg RESTY_J=4 -t $DOCKER_USERNAME/openresty:alpine-fat-amd64 -f alpine/Dockerfile.fat .
       - docker push $DOCKER_USERNAME/openresty:alpine-fat-amd64
-    - name: create manifest
+    - stage: create manifest
       script:
       - export DOCKER_CLI_EXPERIMENTAL=enabled
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker manifest create $DOCKER_USERNAME/openresty:alpine --amend $DOCKER_USERNAME/openresty:alpine-amd64 --amend $DOCKER_USERNAME/openresty:alpine-arm64v8
       - docker manifest push $DOCKER_USERNAME/openresty:alpine
       - docker manifest create $DOCKER_USERNAME/openresty:alpine-fat --amend $DOCKER_USERNAME/openresty:alpine-fat-amd64 --amend $DOCKER_USERNAME/openresty:alpine-fat-arm64v8
