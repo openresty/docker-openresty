@@ -16,8 +16,8 @@ The following "flavors" are available and built from [upstream OpenResty package
 
 The following "flavors" are built from source and are intended for more advanced and custom usage, caveat emptor:
 
-- [`alpine`, (*alpine/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile)
-- [`alpine-fat`, (*alpine/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile.fat)
+- [`alpine`, (*alpine/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile) - AMD64 and ARM64v8
+- [`alpine-fat`, (*alpine/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile.fat) - AMD64 and ARM64v8
 - [`bionic`, (*bionic/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/bionic/Dockerfile)
 - [`focal`, (*focal/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/focal/Dockerfile)
 
@@ -26,6 +26,8 @@ Starting with `1.13.6.1`, releases are tagged with `<openresty-version>-<image-v
 Starting with `1.15.8.1`, there are also `-nosse42` image flavors for systems which do not support SSE 4.2 (e.g. older systems and embedded systems).  They are built with `-mno-sse4.2` appended to the build arg `RESTY_LUAJIT_OPTIONS`.  It is highly recommended *NOT* to use these if your system supports SSE 4.2 because the `CRC32` instruction dramatically improves large string performance.  These are only for built-from-source flavors, e.g. `1.15.8.1-3-bionic-nosse42`, `1.15.8.1-3-alpine-nosse42`, `1.15.8.1-3-alpine-fat-nosse42`.
 
 It is *highly recommended* that you use the upstream-based images for best support.  For best stability, pin your images to the full tag, for example `1.17.8.1-0-bionic`.
+
+At this time, the only images that are compatible with ARM64v8 are alpine and alpine-fat.  Once there are binary packages available, they can be released with the upstream packages.
 
 
 Table of Contents
