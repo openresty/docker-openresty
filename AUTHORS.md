@@ -13,3 +13,4 @@ We'd like to thank the following people for their commits:
 - Robin Ketelbuters <robin.ketelbuters@gmail.com>
 - Joel Linn <jl@conductive.de>
 - Kshitij Joshi <kshitijmjoshi@gmail.com>
+- Duncan Schulze <duschulze@gmail.com>

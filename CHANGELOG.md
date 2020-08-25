@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.17.8.2-3
+
+ * Multi-architecture builds for `alpine`, supporting `amd64` and `arm64v8` (#130, #157)
+
 ## 1.17.8.2-2
 
  * Don't uninstall `make` in `centos` and `fedora` flavors (#154)
