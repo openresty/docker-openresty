@@ -389,7 +389,7 @@ jobs:
       script:
       - export DOCKER_CLI_EXPERIMENTAL=enabled
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker manifest create $DOCKER_USERNAME/openresty:alpine --amend $DOCKER_USERNAME/openresty:alpine-amd64 --amend $DOCKER_USERNAME/openresty:alpine-arm64v8
-      - docker manifest push $DOCKER_USERNAME/openresty:alpine
-      - docker manifest create $DOCKER_USERNAME/openresty:alpine-fat --amend $DOCKER_USERNAME/openresty:alpine-fat-amd64 --amend $DOCKER_USERNAME/openresty:alpine-fat-arm64v8
-      - docker manifest push $DOCKER_USERNAME/openresty:alpine-fat
+      - docker manifest create $DOCKER_ORG/openresty:alpine --amend $DOCKER_ORG/openresty:alpine-amd64 --amend $DOCKER_ORG/openresty:alpine-arm64v8
+      - docker manifest push $DOCKER_ORG/openresty:alpine
+      - docker manifest create $DOCKER_ORG/openresty:alpine-fat --amend $DOCKER_ORG/openresty:alpine-fat-amd64 --amend $DOCKER_ORG/openresty:alpine-fat-arm64v8
+      - docker manifest push $DOCKER_ORG/openresty:alpine-fat
