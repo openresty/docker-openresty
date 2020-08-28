@@ -396,13 +396,13 @@ jobs:
       - if [[ "$TRAVIS_TAG" ]] ; then
           TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
           if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
-            docker tag openresty:alpine $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-alpine &&
+            docker tag $DOCKER_ORG/openresty:alpine $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-alpine &&
             docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-alpine ;
-            docker tag openresty:alpine-fat $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-alpine-fat &&
+            docker tag $DOCKER_ORG/openresty:alpine-fat $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-alpine-fat &&
             docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-alpine-fat ;
           fi ;
-          docker tag openresty:alpine $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine &&
+          docker tag $DOCKER_ORG/openresty:alpine $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine &&
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine ;
-          docker tag openresty:alpine-fat $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-fat &&
+          docker tag $DOCKER_ORG/openresty:alpine-fat $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-fat &&
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-fat ;
         fi
