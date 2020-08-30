@@ -396,13 +396,13 @@ jobs:
       - if [[ "$TRAVIS_TAG" ]] ; then
           TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
           if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
-            docker manifest create $DOCKER_ORG/$TRAVIS_TAG_BASE-openresty:alpine --amend $DOCKER_ORG/$TRAVIS_TAG_BASE-openresty:alpine-amd64 --amend $DOCKER_ORG/$TRAVIS_TAG_BASE-openresty:alpine-arm64v8 &&
-            docker manifest push $DOCKER_ORG/$TRAVIS_TAG_BASE-openresty:alpine ;
-            docker manifest create $DOCKER_ORG/$TRAVIS_TAG_BASE-openresty:alpine-fat --amend $DOCKER_ORG/$TRAVIS_TAG_BASE-openresty:alpine-fat-amd64 --amend $DOCKER_ORG/$TRAVIS_TAG_BASE-openresty:alpine-fat-arm64v8 &&
-            docker manifest push $DOCKER_ORG/$TRAVIS_TAG_BASE-openresty:alpine-fat ;
+            docker manifest create $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-alpine --amend $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-alpine-amd64 --amend $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-alpine-arm64v8 &&
+            docker manifest push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-alpine ;
+            docker manifest create $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-alpine-fat --amend $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-alpine-fat-amd64 --amend $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-alpine-fat-arm64v8 &&
+            docker manifest push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-alpine-fat ;
           fi ;
-          docker manifest create $DOCKER_ORG/$TRAVIS_TAG-openresty:alpine --amend $DOCKER_ORG/$TRAVIS_TAG-openresty:alpine-amd64 --amend $DOCKER_ORG/$TRAVIS_TAG-openresty:alpine-arm64v8 &&
-          docker manifest push $DOCKER_ORG/$TRAVIS_TAG-openresty:alpine ;
-          docker manifest create $DOCKER_ORG/$TRAVIS_TAG-openresty:alpine-fat --amend $DOCKER_ORG/$TRAVIS_TAG-openresty:alpine-fat-amd64 --amend $DOCKER_ORG/$TRAVIS_TAG-openresty:alpine-fat-arm64v8 &&
-          docker manifest push $DOCKER_ORG/$TRAVIS_TAG-openresty:alpine-fat ;
+          docker manifest create $DOCKER_ORG/openresty:alpine --amend $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-amd64 --amend $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-arm64v8 &&
+          docker manifest push $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine ;
+          docker manifest create $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-fat --amend $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-fat-amd64 --amend $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-fat-arm64v8 &&
+          docker manifest push $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-fat ;
         fi
