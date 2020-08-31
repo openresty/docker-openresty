@@ -401,7 +401,7 @@ jobs:
             docker manifest create $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-alpine-fat --amend $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-alpine-fat-amd64 --amend $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-alpine-fat-arm64v8 &&
             docker manifest push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-alpine-fat ;
           fi ;
-          docker manifest create $DOCKER_ORG/openresty:alpine --amend $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-amd64 --amend $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-arm64v8 &&
+          docker manifest create $DOCKER_ORG/$TRAVIS_TAG-openresty:alpine --amend $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-amd64 --amend $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-arm64v8 &&
           docker manifest push $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine ;
           docker manifest create $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-fat --amend $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-fat-amd64 --amend $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-fat-arm64v8 &&
           docker manifest push $DOCKER_ORG/openresty:$TRAVIS_TAG-alpine-fat ;
