@@ -1,9 +1,9 @@
 Changelog
 =========
 
-## Unreleased
+## 1.17.8.2-4
 
- * Bump `alpine` to 3.12 to address CVE-2019-2201
+ * Bump `alpine` and `alpine-apk` to 3.12 to address CVE-2019-2201
 
 ## 1.17.8.2-3
 
