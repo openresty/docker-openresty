@@ -260,7 +260,7 @@ docker build --build-arg RESTY_J=4 -f bionic/Dockerfile .
 | Key | Default | Description |
 :----- | :-----: |:----------- |
 |RESTY_IMAGE_BASE | "ubuntu" / "alpine" | The Debian or Alpine Docker image base to build `FROM`. |
-|RESTY_IMAGE_TAG  | "bionic" / "3.11" | The Debian or Alpine Docker image tag to build `FROM`. |
+|RESTY_IMAGE_TAG  | "bionic" / "3.12" | The Debian or Alpine Docker image tag to build `FROM`. |
 |RESTY_VERSION | 1.17.8.2 | The version of OpenResty to use. |
 |RESTY_LUAROCKS_VERSION | 3.3.1 | The version of LuaRocks to use. |
 |RESTY_OPENSSL_VERSION | 1.1.1g | The version of OpenSSL to use. |
@@ -379,13 +379,13 @@ This Docker image can be built and customized by cloning the repo and running `d
 The following are the available build-time options. They can be set using the `--build-arg` CLI argument, like so:
 
 ```
-docker build --build-arg RESTY_IMAGE_TAG="3.11" -f alpine-apk/Dockerfile .
+docker build --build-arg RESTY_IMAGE_TAG="3.12" -f alpine-apk/Dockerfile .
 ```
 
 | Key | Default | Description |
 :----- | :-----: |:----------- |
 |RESTY_IMAGE_BASE   | "alpine" | The Alpine Docker image base to build `FROM`. |
-|RESTY_IMAGE_TAG    | "3.11" | The Alpine Docker image tag to build `FROM`. |
+|RESTY_IMAGE_TAG    | "3.12" | The Alpine Docker image tag to build `FROM`. |
 |RESTY_APK_KEY_URL  | "http://openresty.org/package/admin@openresty.com-5ea678a6.rsa.pub" | The URL of the signing key of the `openresty` package. |
 |RESTY_APK_REPO_URL | "http://openresty.org/package/alpine/v${RESTY_IMAGE_TAG}/main" | The URL of the APK repository for `openresty` package. |
 |RESTY_APK_VERSION | "=1.17.8.2-r0" | The suffix to add to the apk instaalpackage name: `openresty${RESTY_APK_VERSION`}. |

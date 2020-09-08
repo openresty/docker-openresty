@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## Unreleased
+
+ * Bump `alpine` to 3.12 to address CVE-2019-2201
+
 ## 1.17.8.2-3
 
  * Multi-architecture builds for `alpine`, supporting `amd64` and `arm64v8` (#130, #157)
@@ -44,7 +48,7 @@ Changelog
 
 * Upgrade OpenResty to 1.15.8.3
 * Windows builds now use `servercore:ltsc2019` and `nanoserver:1809`
- 
+
 ## 1.15.8.2-7
 
  * Add `buster-nosse2` and `buster-fat-nosse2` (#103)
@@ -52,7 +56,7 @@ Changelog
 
 ## 1.15.8.2-6
 
- * Add `RESTY_YUM_REPO` and `RESTY_RPM_DIST` build args to `centos` 
+ * Add `RESTY_YUM_REPO` and `RESTY_RPM_DIST` build args to `centos`
  * Install more yum packages for `centos` builds
  * Add `amzn2` flavor, based on `centos`
 
@@ -133,8 +137,8 @@ For now (untagged release), the following only applies to built-from-source flav
  * Upgrade Openresty to 1.15.8.1rc1
  * Upgrade LuaRocks to 3.0.4
  * Upgrade OpenSSL to 1.0.2r / 1.1.0j
- 
- * Temporarily disable Travis builds of centos / stretch images 
+
+ * Temporarily disable Travis builds of centos / stretch images
    until upstream packages are available
 
 ## 1.13.6.2-2
@@ -166,7 +170,7 @@ For now (untagged release), the following only applies to built-from-source flav
 
     * `centos-rpm` renamed to `centos`.  `centos-rpm` tag works but is deprecated.
 
-    * Archive `armhf-xenial`, `centos`, `jessie`, `trusty`, `wheezy` 
+    * Archive `armhf-xenial`, `centos`, `jessie`, `trusty`, `wheezy`
 
     * `alpine-fat` is now built on top of `alpine` rather than standalone
 
