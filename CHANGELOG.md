@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.17.8.2-5
+
+ * Fix alpine manifest (#160)
+
 ## 1.17.8.2-4
 
  * Bump `alpine` and `alpine-apk` to 3.12 to address CVE-2019-2201
