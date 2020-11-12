@@ -5,6 +5,7 @@ Changelog
 
  * Upgrade OpenResty to 1.19.3.1 (#166)
  * Added some documentation to nginx.conf file
+
  * Added gitignore
 
 ## 1.17.8.2-5
