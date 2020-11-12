@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## 1.19.3.1-0 (untagged)
+
+ * Upgrade OpenResty to 1.19.3.1 (#161)
+ * Added some documentation to nginx.conf file
+ * Added gitignore
+
 ## 1.17.8.2-5
 
  * Fix alpine manifest (#160)
