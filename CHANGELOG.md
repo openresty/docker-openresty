@@ -3,7 +3,7 @@ Changelog
 
 ## 1.19.3.1-0 (untagged)
 
- * Upgrade OpenResty to 1.19.3.1 (#161)
+ * Upgrade OpenResty to 1.19.3.1 (#166)
  * Added some documentation to nginx.conf file
  * Added gitignore
 
