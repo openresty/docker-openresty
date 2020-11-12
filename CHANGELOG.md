@@ -1,6 +1,13 @@
 Changelog
 =========
 
+## 1.19.3.1-0
+
+ * Upgrade OpenResty to 1.19.3.1 (#161)
+ * Added some documentation to `nginx.conf` file
+ * Set `pcre_jit on` in `nginx.conf`
+ * Added gitignore
+
 ## 1.17.8.2-5
 
  * Fix alpine manifest (#160)
