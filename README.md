@@ -23,9 +23,9 @@ The following "flavors" are built from source and are intended for more advanced
 
 Starting with `1.13.6.1`, releases are tagged with `<openresty-version>-<image-version>-<flavor>`.  The latest `image-version` will also be tagged `<openresty-version>-<flavor>`.   The HEAD of the master branch is also labeled plainly as `<flavor>`.  The builds are managed by [Travis-CI](https://travis-ci.org/openresty/docker-openresty) and [Appveyor](https://ci.appveyor.com/project/openresty/docker-openresty) (for Windows images).
 
-Starting with `1.15.8.1`, there are also `-nosse42` image flavors for systems which do not support SSE 4.2 (e.g. older systems and embedded systems).  They are built with `-mno-sse4.2` appended to the build arg `RESTY_LUAJIT_OPTIONS`.  It is highly recommended *NOT* to use these if your system supports SSE 4.2 because the `CRC32` instruction dramatically improves large string performance.  These are only for built-from-source flavors, e.g. `1.15.8.1-3-bionic-nosse42`, `1.15.8.1-3-alpine-nosse42`, `1.15.8.1-3-alpine-fat-nosse42`.
+OpenResty supports SSE 4.2 optimizations.  Starting with the `1.19.3.1` series, the architecture is auto-detected and the optimizations enabled accordingly.  Earlier image series `1.15.8.1` and `1.17.8.2` have `-nosse42` image flavors for systems which explicitly disable SSE 4.2 support; this is useful for older systems and embedded systems.  They are built with `-mno-sse4.2` appended to the build arg `RESTY_LUAJIT_OPTIONS`.  It is highly recommended *NOT* to use these if your system supports SSE 4.2 because the `CRC32` instruction dramatically improves large string performance.  These are only for built-from-source flavors, e.g. `1.15.8.1-3-bionic-nosse42`, `1.15.8.1-3-alpine-nosse42`, `1.15.8.1-3-alpine-fat-nosse42`.
 
-It is *highly recommended* that you use the upstream-based images for best support.  For best stability, pin your images to the full tag, for example `1.17.8.1-0-bionic`.
+It is *highly recommended* that you use the upstream-based images for best support.  For best stability, pin your images to the full tag, for example `1.19.3.1-1-bionic`.
 
 At this time, the only images that are compatible with ARM64v8 are `alpine` and `alpine-fat`.  Once there are binary packages available, they can be released with the upstream packages.
 

@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.19.3.1-1
+
+ * Remove `no-sse2` images as 1.19.3.1 now auto-detects SSE 4.2 support based on architecture (#168)
+
 ## 1.19.3.1-0
 
  * Upgrade OpenResty to 1.19.3.1 (#161)
