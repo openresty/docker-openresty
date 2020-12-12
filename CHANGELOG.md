@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 1.19.3.1-2
+
+ * Upgrade OpenSSL to 1.1.1i
+ * Upstream OpenResty packages built on this tag also have OpenSSL to 1.1.1i
+
 ## 1.19.3.1-1
 
  * Remove `no-sse2` images as 1.19.3.1 now auto-detects SSE 4.2 support based on architecture (#168)
