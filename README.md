@@ -379,13 +379,13 @@ This Docker image can be built and customized by cloning the repo and running `d
 The following are the available build-time options. They can be set using the `--build-arg` CLI argument, like so:
 
 ```
-docker build --build-arg RESTY_IMAGE_TAG="3.12" -f alpine-apk/Dockerfile .
+docker build --build-arg RESTY_IMAGE_TAG="3.13" -f alpine-apk/Dockerfile .
 ```
 
 | Key | Default | Description |
 :----- | :-----: |:----------- |
 |RESTY_IMAGE_BASE   | "alpine" | The Alpine Docker image base to build `FROM`. |
-|RESTY_IMAGE_TAG    | "3.12" | The Alpine Docker image tag to build `FROM`. |
+|RESTY_IMAGE_TAG    | "3.13" | The Alpine Docker image tag to build `FROM`. |
 |RESTY_APK_KEY_URL  | "http://openresty.org/package/admin@openresty.com-5ea678a6.rsa.pub" | The URL of the signing key of the `openresty` package. |
 |RESTY_APK_REPO_URL | "http://openresty.org/package/alpine/v${RESTY_IMAGE_TAG}/main" | The URL of the APK repository for `openresty` package. |
 |RESTY_APK_VERSION | "=1.19.3.1-r0" | The suffix to add to the apk instaalpackage name: `openresty${RESTY_APK_VERSION`}. |

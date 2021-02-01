@@ -3,7 +3,7 @@ Changelog
 
 ## Untagged
 
- * Upgrade `alpine` to Alpine 3.13.   `alpine-apk` is still at Alpine 3.12.
+ * Bump `alpine` and `alpine-apk` to 3.13
  * Upgrade LuaRocks to 3.5.0
  
 ## 1.19.3.1-2
