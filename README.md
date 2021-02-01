@@ -262,7 +262,7 @@ docker build --build-arg RESTY_J=4 -f bionic/Dockerfile .
 |RESTY_IMAGE_BASE | "ubuntu" / "alpine" | The Debian or Alpine Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG  | "bionic" / "3.13" | The Debian or Alpine Docker image tag to build `FROM`. |
 |RESTY_VERSION | 1.19.3.1 | The version of OpenResty to use. |
-|RESTY_LUAROCKS_VERSION | 3.3.1 | The version of LuaRocks to use. |
+|RESTY_LUAROCKS_VERSION | 3.5.0 | The version of LuaRocks to use. |
 |RESTY_OPENSSL_VERSION | 1.1.1i | The version of OpenSSL to use. |
 |RESTY_OPENSSL_PATCH_VERSION | 1.1.1f | The version of OpenSSL to use when patching. |
 |RESTY_OPENSSL_URL_BASE |  https://www.openssl.org/source | The base of the URL to download OpenSSL from. |
@@ -330,7 +330,7 @@ docker build --build-arg RESTY_RPM_FLAVOR="-debug" -f fedora/Dockerfile .
 :----- | :-----: |:----------- |
 |RESTY_IMAGE_BASE | "centos" | The Centos Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG | "8" | The CentOS Docker image tag to build `FROM`. |
-|RESTY_LUAROCKS_VERSION | 3.3.1 | The version of LuaRocks to use. |
+|RESTY_LUAROCKS_VERSION | 3.5.0 | The version of LuaRocks to use. |
 |RESTY_YUM_REPO | "https://openresty.org/package/centos/openresty.repo" | URL for the OpenResty YUM Repository. |
 |RESTY_RPM_FLAVOR | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
 |RESTY_RPM_VERSION | "1.19.3.1-1" | The `openresty` package version to install. |

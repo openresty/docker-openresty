@@ -4,7 +4,8 @@ Changelog
 ## Untagged
 
  * Upgrade `alpine` to Alpine 3.13.   `alpine-apk` is still at Alpine 3.12.
-
+ * Upgrade LuaRocks to 3.5.0
+ 
 ## 1.19.3.1-2
 
  * Upgrade OpenSSL to 1.1.1i
