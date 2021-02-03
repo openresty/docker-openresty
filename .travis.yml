@@ -162,6 +162,35 @@ jobs:
           docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-centos-rpm ;
         fi
 
+    # aliased as `centos7-rpm`
+    - name: build docker image for flavor centos7
+      stage: build
+      script:
+        - echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin
+        - docker build -t openresty:centos7 -f centos7/Dockerfile .
+        - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+          docker tag openresty:centos7 $DOCKER_ORG/openresty:centos7 &&
+          docker push $DOCKER_ORG/openresty:centos7 ;
+          docker tag $DOCKER_ORG/openresty:centos7 $DOCKER_ORG/openresty:centos7-rpm &&
+          docker push $DOCKER_ORG/openresty:centos7-rpm ;
+          fi
+        - if [[ "$TRAVIS_TAG" ]] ; then
+          TRAVIS_TAG_BASE=$(echo -n "$TRAVIS_TAG" | sed 's/-[0-9]$//g') ;
+          if [[ ( "$TRAVIS_TAG_BASE" ) && ( "$TRAVIS_TAG_BASE" != "$TRAVIS_TAG" ) ]] ; then
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+          docker tag openresty:centos7 $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-centos7 &&
+          docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-centos7 ;
+          docker tag $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-centos7 $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-centos7-rpm &&
+          docker push $DOCKER_ORG/openresty:$TRAVIS_TAG_BASE-centos7-rpm ;
+          fi ;
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+          docker tag openresty:centos7 $DOCKER_ORG/openresty:$TRAVIS_TAG-centos7 &&
+          docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-centos7 ;
+          docker tag $DOCKER_ORG/openresty:$TRAVIS_TAG-centos7 $DOCKER_ORG/openresty:$TRAVIS_TAG-centos7-rpm &&
+          docker push $DOCKER_ORG/openresty:$TRAVIS_TAG-centos7-rpm ;
+          fi
+
     - name: build docker image for flavor Amazon Linux (amzn2)
       stage: build
       script:
