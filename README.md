@@ -8,8 +8,8 @@ The following "flavors" are available and built from [upstream OpenResty package
 
 - [`alpine-apk`, (*alpine-apk/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine-apk/Dockerfile)
 - [`centos`, `centos-rpm`, (*centos/Dockerfile* with `el8`)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
+- [`el7`, (*centos7/Dockerfile* with `el7`)](https://github.com/openresty/docker-openresty/blob/master/centos7/Dockerfile)
 - [`amzn2`, (*centos/Dockerfile* with `amzn2`)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
-- [`amzn2`, (*centos7/Dockerfile* with `amzn2`)](https://github.com/openresty/docker-openresty/blob/master/centos7/Dockerfile)
 - [`buster`, (*buster/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile)
 - [`buster-fat`, (*buster/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile.fat)
 - [`windows`, (*windows/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/windows/Dockerfile)
