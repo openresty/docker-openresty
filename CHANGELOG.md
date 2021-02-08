@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## Unreleased
+
+ * Restructure travis.yml with build scripts
+ * Add `centos7` flavor (#173)
+
 ## 1.19.3.1-3
 
  * Upgrade `alpine` to Alpine 3.13.   `alpine-apk` is still at Alpine 3.12.
