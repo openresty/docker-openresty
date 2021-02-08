@@ -84,7 +84,7 @@ jobs:
       - ./docker_build_and_push_flavor.sh buster-fat buster/Dockerfile.fat
       - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
           echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
-          docker tag openresty:$FLAVOR $DOCKER_ORG/openresty:latest &&
+          docker tag openresty:buster $DOCKER_ORG/openresty:latest &&
           docker push $DOCKER_ORG/openresty:latest ;
         fi
 
@@ -109,6 +109,6 @@ jobs:
     - name: create and push manifests for multi-arch builds
       stage: manifest
       script:
-      - ./docker_manifest.sh alpine  alpine-amd64  alpine-arm64v8
+      - ./docker_manifest.sh alpine      alpine-amd64  alpine-arm64v8
       - ./docker_manifest.sh alpine-fat  alpine-fat-amd64  alpine-fat-arm64v8
-      - ./docker_manifest.sh centos7   centos7-amd64  centos7-arm64v8
+      - ./docker_manifest.sh centos7  centos7-amd64  centos7-arm64v8
