@@ -1,10 +1,10 @@
 Changelog
 =========
 
-## Unreleased
+## 1.19.3.1-4
 
  * Restructure travis.yml with build scripts
- * Add `centos7` flavor (#173)
+ * Add `centos7` flavor (#173) supporting both `x86_64` and `aarch64`
 
 ## 1.19.3.1-3
 
