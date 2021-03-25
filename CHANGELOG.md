@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.19.3.1-6
+
+ * Upgrade OpenSSL to 1.1.1k for built-from-source images (alpine, bionic, focal)
+
 ## 1.19.3.1-5
 
  * Upgrade OpenSSL to 1.1.1j for built-from-source images (alpine, bionic, focal)
