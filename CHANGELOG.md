@@ -4,6 +4,7 @@ Changelog
 ## 1.19.3.1-6
 
  * Upgrade OpenSSL to 1.1.1k for built-from-source images (alpine, bionic, focal)
+ * Builds now happen at https://travis-ci.com/github/neomantra/docker-openresty (#169)
 
 ## 1.19.3.1-5
 

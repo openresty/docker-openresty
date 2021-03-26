@@ -2,7 +2,7 @@
 #
 # Builds docker-openresty images on Travis CI
 #
-# https://travis-ci.org/neomantra/docker-openresty
+# https://travis-ci.com/neomantra/docker-openresty
 #
 #
 # Master will build with Docker tag:

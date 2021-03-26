@@ -1,6 +1,6 @@
 # docker-openresty - Docker tooling for OpenResty
 
-[![Travis Status](https://travis-ci.org/openresty/docker-openresty.svg?branch=master)](https://travis-ci.org/openresty/docker-openresty)  [![Appveyor status](https://ci.appveyor.com/api/projects/status/github/openresty/docker-openresty?branch=master&svg=true)](https://ci.appveyor.com/project/openresty/docker-openresty)  [![](https://images.microbadger.com/badges/image/openresty/openresty.svg)](https://microbadger.com/#/images/openresty/openresty "microbadger.com")
+[![Travis Status](https://travis-ci.com/github/neomantra/docker-openresty.svg?branch=master)](https://travis-ci.com/github/neomantra/docker-openresty)  [![Appveyor status](https://ci.appveyor.com/api/projects/status/github/openresty/docker-openresty?branch=master&svg=true)](https://ci.appveyor.com/project/openresty/docker-openresty)  [![](https://images.microbadger.com/badges/image/openresty/openresty.svg)](https://microbadger.com/#/images/openresty/openresty "microbadger.com")
 
 ## Supported tags and respective `Dockerfile` links
 
@@ -22,7 +22,7 @@ The following "flavors" are built from source and are intended for more advanced
 - [`bionic`, (*bionic/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/bionic/Dockerfile)
 - [`focal`, (*focal/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/focal/Dockerfile)
 
-Starting with `1.13.6.1`, releases are tagged with `<openresty-version>-<image-version>-<flavor>`.  The latest `image-version` will also be tagged `<openresty-version>-<flavor>`.   The HEAD of the master branch is also labeled plainly as `<flavor>`.  The builds are managed by [Travis-CI](https://travis-ci.org/openresty/docker-openresty) and [Appveyor](https://ci.appveyor.com/project/openresty/docker-openresty) (for Windows images).
+Starting with `1.13.6.1`, releases are tagged with `<openresty-version>-<image-version>-<flavor>`.  The latest `image-version` will also be tagged `<openresty-version>-<flavor>`.   The HEAD of the master branch is also labeled plainly as `<flavor>`.  The builds are managed by [Travis-CI](https://travis-ci.com/github/neomantra/docker-openresty) and [Appveyor](https://ci.appveyor.com/project/openresty/docker-openresty) (for Windows images).
 
 OpenResty supports SSE 4.2 optimizations.  Starting with the `1.19.3.1` series, the architecture is auto-detected and the optimizations enabled accordingly.  Earlier image series `1.15.8.1` and `1.17.8.2` have `-nosse42` image flavors for systems which explicitly disable SSE 4.2 support; this is useful for older systems and embedded systems.  They are built with `-mno-sse4.2` appended to the build arg `RESTY_LUAJIT_OPTIONS`.  It is highly recommended *NOT* to use these if your system supports SSE 4.2 because the `CRC32` instruction dramatically improves large string performance.  These are only for built-from-source flavors, e.g. `1.15.8.1-3-bionic-nosse42`, `1.15.8.1-3-alpine-nosse42`, `1.15.8.1-3-alpine-fat-nosse42`.
 
@@ -444,7 +444,7 @@ Copyright & License
 
 `docker-openresty` is licensed under the 2-clause BSD license.
 
-Copyright (c) 2017-2020, Evan Wies <evan@neomantra.net>.
+Copyright (c) 2017-2021, Evan Wies <evan@neomantra.net>.
 
 This module is licensed under the terms of the BSD license.
 
