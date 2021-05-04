@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.19.3.1-7 (untagged)
+
+ * "Fat" images now have RESTY_FAT_IMAGE_BASE label (#179)
+
 ## 1.19.3.1-6
 
  * Upgrade OpenSSL to 1.1.1k for built-from-source images (alpine, bionic, focal)

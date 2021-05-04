@@ -193,9 +193,11 @@ $ docker inspect openresty/openresty:1.17.8.1-0-bionic | jq '.[].Config.Labels'
 |`resty_config_options`        | buildarg `RESTY_CONFIG_OPTIONS`  |
 |`resty_config_options_more`   | buildarg `RESTY_CONFIG_OPTIONS_MORE`  |
 |`resty_deb_flavor`            | buildarg `RESTY_DEB_FLAVOR`  |
-|`resty_deb_version`           | buildarg `RESTY_DEB_VERSION`  |
+|`resty_deb_version`           | buildarg `RESTY_DEB_VERSION` ([available versions](https://openresty.org/package/debian/pool/openresty/o/openresty/))  |
 |`resty_eval_post_make`        | buildarg `RESTY_EVAL_POST_MAKE`  |
 |`resty_eval_pre_configure`    | buildarg `RESTY_EVAL_PRE_CONFIGURE`  |
+|`resty_fat_image_base`        | Name of the base image to build fat images from, buildarg  `RESTY_FAT_IMAGE_BASE` |
+|`resty_fat_image_tag`         | Tag of the base image to build fat images from, buildarg `RESTY_FAT_IMAGE_TAG` |
 |`resty_image_base`            | Name of the base image to build from, buildarg  `RESTY_IMAGE_BASE` |
 |`resty_image_tag`             | Tag of the base image to build from, buildarg `RESTY_IMAGE_TAG` |
 |`resty_install_base`          | buildarg `RESTY_INSTALL_BASE` |
@@ -365,7 +367,7 @@ docker build --build-arg RESTY_DEB_FLAVOR="-debug" -f buster/Dockerfile .
 |RESTY_IMAGE_BASE  | "debian" | The Debian Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG   | "buster-slim" | The Debian Docker image tag to build `FROM`. |
 |RESTY_DEB_FLAVOR  | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
-|RESTY_DEB_VERSION | "=1.19.3.1-1~buster" | The Debian package version to use, with `=` prepended. |
+|RESTY_DEB_VERSION | "=1.19.3.1-1~buster" | The [Debian package version](https://openresty.org/package/debian/pool/openresty/o/openresty/) to use, with `=` prepended. |
 
 [Back to TOC](#table-of-contents)
 
