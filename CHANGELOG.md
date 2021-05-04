@@ -1,9 +1,10 @@
 Changelog
 =========
 
-## 1.19.3.1-7 (untagged)
+## 1.19.3.1-7
 
  * "Fat" images now have RESTY_FAT_IMAGE_BASE label (#179)
+ * Upgrade LuaRocks to 3.7.0
 
 ## 1.19.3.1-6
 
