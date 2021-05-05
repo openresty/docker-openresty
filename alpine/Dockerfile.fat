@@ -21,7 +21,7 @@ ARG RESTY_LUAROCKS_VERSION="3.7.0"
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 LABEL resty_fat_image_base="${RESTY_FAT_IMAGE_BASE}"
-LABEL resty_fat_image_tag="${RESTY_FAT_IMAGE_BASE}"
+LABEL resty_fat_image_tag="${RESTY_FAT_IMAGE_TAG}"
 LABEL resty_luarocks_version="${RESTY_LUAROCKS_VERSION}"
 
 RUN apk add --no-cache --virtual .build-deps \
