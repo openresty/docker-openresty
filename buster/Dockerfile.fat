@@ -16,8 +16,8 @@ ARG RESTY_FAT_IMAGE_BASE="openresty/openresty"
 ARG RESTY_FAT_IMAGE_TAG="buster"
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
-LABEL resty_fat_image_base="${RESTY_IMAGE_BASE}"
-LABEL resty_fat_image_tag="${RESTY_IMAGE_TAG}"
+LABEL resty_fat_image_base="${RESTY_FAT_IMAGE_BASE}"
+LABEL resty_fat_image_tag="${RESTY_FAT_IMAGE_BASE}"
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
