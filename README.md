@@ -156,7 +156,7 @@ docker build -f bionic/Dockerfile --build-arg "RESTY_LUAJIT_OPTIONS=--with-luaji
 Image Labels
 ============
 
-The image builds are labeled with various information, such as the versions of OpenRestyand its dependent libraries.  Here's an example of printing the labels using [`jq`](https://stedolan.github.io/jq/):
+The image builds are labeled with various information, such as the versions of OpenResty and its dependent libraries.  Here's an example of printing the labels using [`jq`](https://stedolan.github.io/jq/):
 
 ```
 $ docker pull openresty/openresty:1.17.8.1-0-bionic
