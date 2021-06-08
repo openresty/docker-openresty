@@ -46,27 +46,10 @@ jobs:
       - ./docker_build_and_push_flavor.sh alpine-arm64v8 alpine/Dockerfile
       - ./docker_build_and_push_flavor.sh alpine-fat-arm64v8 alpine/Dockerfile.fat
 
-    - name: build docker image for amd64 flavors alpine for OpenResty 1.19.9.1rc1
-      stage: build
-      arch: amd64
-      script:
-        - ./docker_build_and_push_flavor.sh alpine-amd64:1.19.9.1rc1 alpine/Dockerfile.1.19.9.1rc1
-
-    - name: build docker image for arm64 flavors alpine for OpenResty 1.19.9.1rc1
-      stage: build
-      arch: arm64
-      script:
-        - ./docker_build_and_push_flavor.sh alpine-arm64v8:1.19.9.1rc1 alpine/Dockerfile.1.19.9.1rc1
-
     - name: build docker image for flavor alpine-apk
       stage: build
       script:
       - ./docker_build_and_push_flavor.sh alpine-apk
-
-    - name: build docker image for flavor alpine-apk for OpenResty 1.19.9.1rc1
-      stage: build
-      script:
-        - ./docker_build_and_push_flavor.sh alpine-apk:1.19.9.1rc1 alpine-apk/Dockerfile.1.19.9.1rc1
 
     # aliased as `centos-rpm`
     - name: build docker image for flavor centos
@@ -110,20 +93,10 @@ jobs:
       script:
       - ./docker_build_and_push_flavor.sh bionic
 
-    - name: build docker image for flavor bionic for OpenResty 1.19.9.1rc1
-      stage: build
-      script:
-        - ./docker_build_and_push_flavor.sh bionic:1.19.9.1rc1 bionic/Dockerfile.1.19.9.1rc1
-
     - name: build docker image for flavor focal
       stage: build
       script:
       - ./docker_build_and_push_flavor.sh focal
-
-    - name: build docker image for flavor focal for OpenResty 1.19.9.1rc1
-      stage: build
-      script:
-        - ./docker_build_and_push_flavor.sh focal:1.19.9.1rc1 focal/Dockerfile.1.19.9.1rc1
 
     # aliased as `fedora-rpm`
     - name: build docker image for flavor fedora
