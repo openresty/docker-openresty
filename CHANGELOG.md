@@ -3,7 +3,7 @@ Changelog
 
 ## 1.19.3.2-1
 
- * Expand multi-architecture to all images
+ * Expand multi-architecture to all images except Windows and Debian Buster
  * arm64 references are now referred to as aarch64 to match upstream
  * fix build script error propagation
 

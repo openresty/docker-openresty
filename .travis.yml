@@ -85,12 +85,10 @@ jobs:
       stage: build
       script:
       - ./docker_build_and_push_flavor.sh alpine-apk-aarch64 alpine-apk/Dockerfile
-      - ./docker_build_and_push_flavor.sh amzn2-aarch64 centos/Dockerfile --build-arg RESTY_IMAGE_BASE=amazonlinux --build-arg RESTY_IMAGE_TAG=2 --build-arg RESTY_YUM_REPO="https://openresty.org/package/amazon/openresty.repo" --build-arg RESTY_RPM_DIST="amzn2"
-      - ./docker_build_and_push_flavor.sh buster-aarch64 buster/Dockerfile
-      - ./docker_build_and_push_flavor.sh buster-fat-aarch64 buster/Dockerfile.fat
-      - ./docker_build_and_push_flavor.sh centos-aarch64 centos/Dockerfile
-      - ./docker_build_and_push_flavor.sh centos7-aarch64 centos7/Dockerfile
-      - ./docker_build_and_push_flavor.sh fedora-aarch64 fedora/Dockerfile
+      - ./docker_build_and_push_flavor.sh amzn2-aarch64 centos/Dockerfile --build-arg RESTY_IMAGE_BASE=amazonlinux --build-arg RESTY_IMAGE_TAG=2 --build-arg RESTY_YUM_REPO="https://openresty.org/package/amazon/openresty.repo" --build-arg RESTY_RPM_DIST="amzn2" --build-arg RESTY_RPM_ARCH=aarch64
+      - ./docker_build_and_push_flavor.sh centos-aarch64 centos/Dockerfile --build-arg RESTY_RPM_ARCH=aarch64
+      - ./docker_build_and_push_flavor.sh centos7-aarch64 centos7/Dockerfile --build-arg RESTY_RPM_ARCH=aarch64
+      - ./docker_build_and_push_flavor.sh fedora-aarch64 fedora/Dockerfile --build-arg RESTY_RPM_ARCH=aarch64
 
     - name: Build amd64 Docker image for upstream flavors
       arch: amd64
@@ -98,11 +96,11 @@ jobs:
       script:
       - ./docker_build_and_push_flavor.sh alpine-apk-amd64 alpine-apk/Dockerfile
       - ./docker_build_and_push_flavor.sh amzn2 centos/Dockerfile --build-arg RESTY_IMAGE_BASE=amazonlinux --build-arg RESTY_IMAGE_TAG=2 --build-arg RESTY_YUM_REPO="https://openresty.org/package/amazon/openresty.repo" --build-arg RESTY_RPM_DIST="amzn2"
-      - ./docker_build_and_push_flavor.sh buster-amd64 buster/Dockerfile
-      - ./docker_build_and_push_flavor.sh buster-fat-amd64 buster/Dockerfile.fat
       - ./docker_build_and_push_flavor.sh centos-amd64 centos/Dockerfile
       - ./docker_build_and_push_flavor.sh centos7-amd64 centos7/Dockerfile
       - ./docker_build_and_push_flavor.sh fedora-amd64 fedora/Dockerfile
+      - ./docker_build_and_push_flavor.sh buster buster/Dockerfile
+      - ./docker_build_and_push_flavor.sh buster-fat buster/Dockerfile.fat
 
 ###############################################################################
 # Multi-arch manifests
@@ -117,8 +115,6 @@ jobs:
       - ./docker_manifest.sh alpine-fat  alpine-fat-amd64  alpine-fat-aarch64
       - ./docker_manifest.sh amzn2       amzn2-amd64       amzn2-aarch64
       - ./docker_manifest.sh bionic      bionic-amd64      bionic-aarch64
-      - ./docker_manifest.sh buster      buster-amd64      buster-aarch64
-      - ./docker_manifest.sh buster-fat  buster-fat-amd64  buster-fat-aarch64
       - ./docker_manifest.sh centos      centos-amd64      centos-aarch64
       - ./docker_manifest.sh centos7     centos7-amd64     centos7-aarch64
       - ./docker_manifest.sh fedora      fedora-amd64      fedora-aarch64
