@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 1.19.3.2-1
+
+ * Upgrade OpenResty to 1.19.3.2
+ * Added OpenResty to 1.19.9.1rc1 for supported distros
+
 ## 1.19.3.1-8
 
  * "Fat" images now have RESTY_FAT_IMAGE_BASE label (#179)
