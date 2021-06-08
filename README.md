@@ -1,6 +1,6 @@
 # docker-openresty - Docker tooling for OpenResty
 
-[![Travis Status](https://travis-ci.com/github/neomantra/docker-openresty.svg?branch=master)](https://travis-ci.com/github/neomantra/docker-openresty)  [![Appveyor status](https://ci.appveyor.com/api/projects/status/github/openresty/docker-openresty?branch=master&svg=true)](https://ci.appveyor.com/project/openresty/docker-openresty)  [![](https://images.microbadger.com/badges/image/openresty/openresty.svg)](https://microbadger.com/#/images/openresty/openresty "microbadger.com")
+[![Travis Status](https://api.travis-ci.com/neomantra/docker-openresty.svg?branch=master)](https://travis-ci.com/github/neomantra/docker-openresty)  [![Appveyor status](https://ci.appveyor.com/api/projects/status/github/openresty/docker-openresty?branch=master&svg=true)](https://ci.appveyor.com/project/openresty/docker-openresty)  [![](https://images.microbadger.com/badges/image/openresty/openresty.svg)](https://microbadger.com/#/images/openresty/openresty "microbadger.com")
 
 ## Supported tags and respective `Dockerfile` links
 
@@ -8,7 +8,7 @@ The following "flavors" are available and built from [upstream OpenResty package
 
 - [`alpine-apk`, (*alpine-apk/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine-apk/Dockerfile)
 - [`centos`, `centos-rpm`, (*centos/Dockerfile* with `el8`)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
-- [`centos7`, (*centos7/Dockerfile* with `el7`)](https://github.com/openresty/docker-openresty/blob/master/centos7/Dockerfile) - `x86_64` and `aarch64`
+- [`centos7`, (*centos7/Dockerfile* with `el7`)](https://github.com/openresty/docker-openresty/blob/master/centos7/Dockerfile)
 - [`amzn2`, (*centos/Dockerfile* with `amzn2`)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
 - [`buster`, (*buster/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile)
 - [`buster-fat`, (*buster/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile.fat)
@@ -17,10 +17,12 @@ The following "flavors" are available and built from [upstream OpenResty package
 
 The following "flavors" are built from source and are intended for more advanced and custom usage, caveat emptor:
 
-- [`alpine`, (*alpine/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile) - AMD64 and ARM64v8
-- [`alpine-fat`, (*alpine/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile.fat) - AMD64 and ARM64v8
+- [`alpine`, (*alpine/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile)
+- [`alpine-fat`, (*alpine/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile.fat)
 - [`bionic`, (*bionic/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/bionic/Dockerfile)
 - [`focal`, (*focal/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/focal/Dockerfile)
+
+Since `1.19.3.2-1`, all flavors support multi-architecture builds, both `amd64` and `aarch64`.
 
 Starting with `1.13.6.1`, releases are tagged with `<openresty-version>-<image-version>-<flavor>`.  The latest `image-version` will also be tagged `<openresty-version>-<flavor>`.   The HEAD of the master branch is also labeled plainly as `<flavor>`.  The builds are managed by [Travis-CI](https://travis-ci.com/github/neomantra/docker-openresty) and [Appveyor](https://ci.appveyor.com/project/openresty/docker-openresty) (for Windows images).
 
@@ -28,7 +30,7 @@ OpenResty supports SSE 4.2 optimizations.  Starting with the `1.19.3.1` series, 
 
 It is *highly recommended* that you use the upstream-based images for best support.  For best stability, pin your images to the full tag, for example `1.19.3.1-1-bionic`.
 
-At this time, the only images that are compatible with ARM64v8 are `alpine` and `alpine-fat`.  Once there are binary packages available, they can be released with the upstream packages.
+At this time, the only images that are compatible with aarch64 are `alpine` and `alpine-fat`.  Once there are binary packages available, they can be released with the upstream packages.
 
 
 Table of Contents
@@ -132,11 +134,6 @@ Tips & Pitfalls
 
  * The `envsubst` utility is included in all images except `alpine` and `windows`; this utility is also included
  in the Nginx docker image and is used to template environment variables into configuration files.
-
- * **Docker Hub** does not currently support ARM builds, thus an `armhf-bionic` image is not available (See [#26](https://github.com/openresty/docker-openresty/pull/26)). You can build an image yourself using the `RESTY_DEBIAN_BASE` build argument:
- ```
-docker build -f bionic/Dockerfile --build-arg "RESTY_DEBIAN_BASE=armv7/armhf-ubuntu" .
-```
 
  * By default, OpenResty is built with SSE4.2 optimizations if the build machine supports it.  If run on machine without SSE4.2, there will be [invalid opcode issues](https://github.com/openresty/docker-openresty/issues/39). **Thus all the Docker Hub images require SSE4.2.**  You can [build a custom image from source](#building-from-source) explicitly without SSE4.2 support, using build arguments like so:
 ```

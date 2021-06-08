@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 1.19.3.2-1
+
+ * Expand multi-architecture to all images
+ * arm64 references are now referred to as aarch64 to match upstream
+
 ## 1.19.3.2-0
 
  * Upgrade OpenResty to 1.19.3.2 (#181)

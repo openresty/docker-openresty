@@ -32,83 +32,102 @@ before_script:
 
 jobs:
   include:
-    - name: build docker image for amd64 flavors alpine and alpine-fat
+###############################################################################
+# Build From Source Flavors
+# These take longer to build and are put in their own jobs
+###############################################################################
+
+    - name: Build aarch64 Docker image for build-from-source flavors alpine and alpine-fat
+      stage: build
+      arch: arm64
+      script:
+      - ./docker_build_and_push_flavor.sh alpine-aarch64 alpine/Dockerfile
+      - ./docker_build_and_push_flavor.sh alpine-fat-aarch64 alpine/Dockerfile.fat
+
+    - name: Build amd64 Docker image for build-from-source flavors alpine and alpine-fat
       stage: build
       arch: amd64
       script:
       - ./docker_build_and_push_flavor.sh alpine-amd64 alpine/Dockerfile
       - ./docker_build_and_push_flavor.sh alpine-fat-amd64 alpine/Dockerfile.fat
 
-    - name: build docker image for arm64 flavors alpine and alpine-fat
-      stage: build
+    - name: Build aarch64 Docker image for build-from-source flavor bionic
       arch: arm64
-      script:
-      - ./docker_build_and_push_flavor.sh alpine-arm64v8 alpine/Dockerfile
-      - ./docker_build_and_push_flavor.sh alpine-fat-arm64v8 alpine/Dockerfile.fat
-
-    - name: build docker image for flavor alpine-apk
       stage: build
       script:
-      - ./docker_build_and_push_flavor.sh alpine-apk
+      - ./docker_build_and_push_flavor.sh bionic-aarch64 bionic/Dockerfile
 
-    # aliased as `centos-rpm`
-    - name: build docker image for flavor centos
-      stage: build
-      script:
-      - ./docker_build_and_push_flavor.sh centos
-      - ./docker_tag_alias.sh centos centos-rpm
-
-    - name: build docker image for amd64 flavor centos7
-      stage: build
+    - name: Build amd64 Docker image for build-from-source flavor bionic
       arch: amd64
-      script:
-      - ./docker_build_and_push_flavor.sh centos7-amd64 centos7/Dockerfile
-
-    - name: build docker image for arm64 flavor centos7
       stage: build
+      script:
+      - ./docker_build_and_push_flavor.sh bionic-amd64 bionic/Dockerfile
+
+    - name: Build aarch64 Docker image for build-from-source flavor focal
       arch: arm64
-      script:
-      - ./docker_build_and_push_flavor.sh centos7-arm64v8 centos7/Dockerfile
-
-
-    - name: build docker image for flavor Amazon Linux (amzn2)
       stage: build
       script:
+      - ./docker_build_and_push_flavor.sh focal-aarch64 focal/Dockerfile
+
+    - name: Build amd64 Docker image for build-from-source flavor focal
+      arch: amd64
+      stage: build
+      script:
+      - ./docker_build_and_push_flavor.sh focal-amd64 focal/Dockerfile
+
+###############################################################################
+# Build From OpenResty Upstream Flavors
+# These are shorter to build are put in the same job (per architecture)
+###############################################################################
+
+    - name: Build aarch64 Docker image for upstream flavors
+      arch: arm64
+      stage: build
+      script:
+      - ./docker_build_and_push_flavor.sh alpine-apk-aarch64 alpine-apk/Dockerfile
+      - ./docker_build_and_push_flavor.sh amzn2-aarch64 centos/Dockerfile --build-arg RESTY_IMAGE_BASE=amazonlinux --build-arg RESTY_IMAGE_TAG=2 --build-arg RESTY_YUM_REPO="https://openresty.org/package/amazon/openresty.repo" --build-arg RESTY_RPM_DIST="amzn2"
+      - ./docker_build_and_push_flavor.sh buster-aarch64 buster/Dockerfile
+      - ./docker_build_and_push_flavor.sh buster-fat-aarch64 buster/Dockerfile.fat
+      - ./docker_build_and_push_flavor.sh centos-aarch64 centos/Dockerfile
+      - ./docker_build_and_push_flavor.sh centos7-aarch64 centos7/Dockerfile
+      - ./docker_build_and_push_flavor.sh fedora-aarch64 fedora/Dockerfile
+
+    - name: Build amd64 Docker image for upstream flavors
+      arch: amd64
+      stage: build
+      script:
+      - ./docker_build_and_push_flavor.sh alpine-apk-amd64 alpine-apk/Dockerfile
       - ./docker_build_and_push_flavor.sh amzn2 centos/Dockerfile --build-arg RESTY_IMAGE_BASE=amazonlinux --build-arg RESTY_IMAGE_TAG=2 --build-arg RESTY_YUM_REPO="https://openresty.org/package/amazon/openresty.repo" --build-arg RESTY_RPM_DIST="amzn2"
+      - ./docker_build_and_push_flavor.sh buster-amd64 buster/Dockerfile
+      - ./docker_build_and_push_flavor.sh buster-fat-amd64 buster/Dockerfile.fat
+      - ./docker_build_and_push_flavor.sh centos-amd64 centos/Dockerfile
+      - ./docker_build_and_push_flavor.sh centos7-amd64 centos7/Dockerfile
+      - ./docker_build_and_push_flavor.sh fedora-amd64 fedora/Dockerfile
+
+###############################################################################
+# Multi-arch manifests
+###############################################################################
 
     # also master buster gets tagged "latest"
-    - name: build docker image for flavor buster and buster-fat
-      stage: build
-      script:
-      - ./docker_build_and_push_flavor.sh buster
-      - ./docker_build_and_push_flavor.sh buster-fat buster/Dockerfile.fat
-      - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
-          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
-          docker tag openresty:buster $DOCKER_ORG/openresty:latest &&
-          docker push $DOCKER_ORG/openresty:latest ;
-        fi
-
-    - name: build docker image for flavor bionic
-      stage: build
-      script:
-      - ./docker_build_and_push_flavor.sh bionic
-
-    - name: build docker image for flavor focal
-      stage: build
-      script:
-      - ./docker_build_and_push_flavor.sh focal
-
-    # aliased as `fedora-rpm`
-    - name: build docker image for flavor fedora
-      stage: build
-      script:
-      - ./docker_build_and_push_flavor.sh fedora
-      - ./docker_tag_alias.sh fedora fedora-rpm
-
-
-    - name: create and push manifests for multi-arch builds
+    - name: Create and push manifests for multi-arch images
       stage: manifest
       script:
-      - ./docker_manifest.sh alpine      alpine-amd64  alpine-arm64v8
-      - ./docker_manifest.sh alpine-fat  alpine-fat-amd64  alpine-fat-arm64v8
-      - ./docker_manifest.sh centos7  centos7-amd64  centos7-arm64v8
+      - ./docker_manifest.sh alpine      alpine-amd64      alpine-aarch64
+      - ./docker_manifest.sh alpine-apk  alpine-apk-amd64  alpine-apk-aarch64
+      - ./docker_manifest.sh alpine-fat  alpine-fat-amd64  alpine-fat-aarch64
+      - ./docker_manifest.sh amzn2       amzn2-amd64       amzn2-aarch64
+      - ./docker_manifest.sh bionic      bionic-amd64      bionic-aarch64
+      - ./docker_manifest.sh buster      buster-amd64      buster-aarch64
+      - ./docker_manifest.sh buster-fat  buster-fat-amd64  buster-fat-aarch64
+      - ./docker_manifest.sh centos      centos-amd64      centos-aarch64
+      - ./docker_manifest.sh centos7     centos7-amd64     centos7-aarch64
+      - ./docker_manifest.sh fedora      fedora-amd64      fedora-aarch64
+      - ./docker_manifest.sh focal       focal-amd64       focal-aarch64
+      - ./docker_tag_alias.sh centos centos-rpm
+      - ./docker_tag_alias.sh fedora fedora-rpm
+      - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
+          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+          docker pull $DOCKER_ORG/openresty:buster &&
+          docker tag $DOCKER_ORG/openresty:buster $DOCKER_ORG/openresty:latest &&
+          docker push $DOCKER_ORG/openresty:latest ;
+        fi
