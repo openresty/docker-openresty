@@ -7,6 +7,8 @@
 # because this script uses -x for build transparency
 # but we don't want to leak passwords
 
+set -e
+
 FLAVOR="$1"
 ALIAS="$2"
 

@@ -7,6 +7,8 @@
 # because this script uses -x for build transparency
 # but we don't want to leak passwords
 
+set -e
+
 FLAVOR="$1"
 shift
 DOCKERFILE_PATH=${1:-$FLAVOR/Dockerfile}
