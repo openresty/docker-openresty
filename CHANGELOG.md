@@ -3,7 +3,7 @@ Changelog
 
 ## 1.19.3.2-1
 
- * Upgrade OpenResty to 1.19.3.2
+ * Upgrade OpenResty to 1.19.3.2 (#181)
  * Added OpenResty to 1.19.9.1rc1 for supported distros
 
 ## 1.19.3.1-8
