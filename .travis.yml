@@ -95,7 +95,7 @@ jobs:
       stage: build
       script:
       - ./docker_build_and_push_flavor.sh alpine-apk-amd64 alpine-apk/Dockerfile
-      - ./docker_build_and_push_flavor.sh amzn2 centos/Dockerfile --build-arg RESTY_IMAGE_BASE=amazonlinux --build-arg RESTY_IMAGE_TAG=2 --build-arg RESTY_YUM_REPO="https://openresty.org/package/amazon/openresty.repo" --build-arg RESTY_RPM_DIST="amzn2"
+      - ./docker_build_and_push_flavor.sh amzn2-amd64 centos/Dockerfile --build-arg RESTY_IMAGE_BASE=amazonlinux --build-arg RESTY_IMAGE_TAG=2 --build-arg RESTY_YUM_REPO="https://openresty.org/package/amazon/openresty.repo" --build-arg RESTY_RPM_DIST="amzn2"
       - ./docker_build_and_push_flavor.sh centos-amd64 centos/Dockerfile
       - ./docker_build_and_push_flavor.sh centos7-amd64 centos7/Dockerfile
       - ./docker_build_and_push_flavor.sh fedora-amd64 fedora/Dockerfile
