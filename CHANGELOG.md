@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 1.19.3.2-0
+
+ * Upgrade OpenResty to 1.19.3.2 (#181)
+ * Upgrade `alpine-apk` to Alpine 3.13
+
 ## 1.19.3.1-8
 
  * "Fat" images now have RESTY_FAT_IMAGE_BASE label (#179)
