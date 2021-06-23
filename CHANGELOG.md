@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.19.3.2-2
+
+ * Add multi-architecture image for Debian Buster (#184)
+
 ## 1.19.3.2-1
 
  * Expand multi-architecture to all images except Windows and Debian Buster
