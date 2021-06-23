@@ -26,6 +26,8 @@ services:
 stages:
   - build
   - manifest
+  - build-fat
+  - manifest-fat
 
 before_script:
   - echo $DOCKER_PASSWORD > /tmp/docker.pass
@@ -37,19 +39,17 @@ jobs:
 # These take longer to build and are put in their own jobs
 ###############################################################################
 
-    - name: Build aarch64 Docker image for build-from-source flavors alpine and alpine-fat
+    - name: Build aarch64 Docker image for build-from-source flavors alpine
       stage: build
       arch: arm64
       script:
       - ./docker_build_and_push_flavor.sh alpine-aarch64 alpine/Dockerfile
-      - ./docker_build_and_push_flavor.sh alpine-fat-aarch64 alpine/Dockerfile.fat
 
-    - name: Build amd64 Docker image for build-from-source flavors alpine and alpine-fat
+    - name: Build amd64 Docker image for build-from-source flavors alpine
       stage: build
       arch: amd64
       script:
       - ./docker_build_and_push_flavor.sh alpine-amd64 alpine/Dockerfile
-      - ./docker_build_and_push_flavor.sh alpine-fat-amd64 alpine/Dockerfile.fat
 
     - name: Build aarch64 Docker image for build-from-source flavor bionic
       arch: arm64
@@ -90,7 +90,6 @@ jobs:
       - ./docker_build_and_push_flavor.sh centos7-aarch64 centos7/Dockerfile --build-arg RESTY_RPM_ARCH=aarch64
       - ./docker_build_and_push_flavor.sh fedora-aarch64 fedora/Dockerfile --build-arg RESTY_RPM_ARCH=aarch64
       - ./docker_build_and_push_flavor.sh buster-aarch64 buster/Dockerfile
-      - ./docker_build_and_push_flavor.sh buster-fat-aarch64 buster/Dockerfile.fat
 
     - name: Build amd64 Docker image for upstream flavors
       arch: amd64
@@ -102,7 +101,6 @@ jobs:
       - ./docker_build_and_push_flavor.sh centos7-amd64 centos7/Dockerfile
       - ./docker_build_and_push_flavor.sh fedora-amd64 fedora/Dockerfile
       - ./docker_build_and_push_flavor.sh buster-amd64 buster/Dockerfile
-      - ./docker_build_and_push_flavor.sh buster-fat-amd64 buster/Dockerfile.fat
 
 ###############################################################################
 # Multi-arch manifests
@@ -114,11 +112,9 @@ jobs:
       script:
       - ./docker_manifest.sh alpine      alpine-amd64      alpine-aarch64
       - ./docker_manifest.sh alpine-apk  alpine-apk-amd64  alpine-apk-aarch64
-      - ./docker_manifest.sh alpine-fat  alpine-fat-amd64  alpine-fat-aarch64
       - ./docker_manifest.sh amzn2       amzn2-amd64       amzn2-aarch64
       - ./docker_manifest.sh bionic      bionic-amd64      bionic-aarch64
       - ./docker_manifest.sh buster      buster-amd64      buster-aarch64
-      - ./docker_manifest.sh buster-fat  buster-fat-amd64  buster-fat-aarch64
       - ./docker_manifest.sh centos      centos-amd64      centos-aarch64
       - ./docker_manifest.sh centos7     centos7-amd64     centos7-aarch64
       - ./docker_manifest.sh fedora      fedora-amd64      fedora-aarch64
@@ -131,3 +127,28 @@ jobs:
           docker tag $DOCKER_ORG/openresty:buster $DOCKER_ORG/openresty:latest &&
           docker push $DOCKER_ORG/openresty:latest ;
         fi
+
+###############################################################################
+# Build Derived ("fat") Flavors
+# Built after other images
+###############################################################################
+
+    - name: Build aarch64 fat Docker image
+      stage: build-fat
+      arch: arm64
+      script:
+      - ./docker_build_and_push_flavor.sh buster-fat-aarch64 buster/Dockerfile.fat
+      - ./docker_build_and_push_flavor.sh alpine-fat-aarch64 alpine/Dockerfile.fat
+
+    - name: Build amd64 fat Docker image
+      arch: amd64
+      stage: build-fat
+      script:
+      - ./docker_build_and_push_flavor.sh buster-fat-amd64 buster/Dockerfile.fat
+      - ./docker_build_and_push_flavor.sh alpine-fat-amd64 alpine/Dockerfile.fat
+
+    - name: Create and push manifests for fat multi-arch images
+      stage: manifest-fat
+      script:
+      - ./docker_manifest.sh buster-fat  buster-fat-amd64  buster-fat-aarch64
+      - ./docker_manifest.sh alpine-fat  alpine-fat-amd64  alpine-fat-aarch64
