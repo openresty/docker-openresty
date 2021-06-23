@@ -4,6 +4,7 @@ Changelog
 ## 1.19.3.2-2
 
  * Add multi-architecture image for Debian Buster (#184)
+ * Builds happen again at https://travis-ci.com/github/openresty/docker-openresty
 
 ## 1.19.3.2-1
 

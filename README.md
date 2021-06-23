@@ -1,6 +1,6 @@
 # docker-openresty - Docker tooling for OpenResty
 
-[![Travis Status](https://api.travis-ci.com/neomantra/docker-openresty.svg?branch=master)](https://travis-ci.com/github/neomantra/docker-openresty)  [![Appveyor status](https://ci.appveyor.com/api/projects/status/github/openresty/docker-openresty?branch=master&svg=true)](https://ci.appveyor.com/project/openresty/docker-openresty)  [![](https://images.microbadger.com/badges/image/openresty/openresty.svg)](https://microbadger.com/#/images/openresty/openresty "microbadger.com")
+[![Travis Status](https://api.travis-ci.com/openresty/docker-openresty.svg?branch=master)](https://travis-ci.com/github/openresty/docker-openresty)  [![Appveyor status](https://ci.appveyor.com/api/projects/status/github/openresty/docker-openresty?branch=master&svg=true)](https://ci.appveyor.com/project/openresty/docker-openresty)  [![](https://images.microbadger.com/badges/image/openresty/openresty.svg)](https://microbadger.com/#/images/openresty/openresty "microbadger.com")
 
 ## Supported tags and respective `Dockerfile` links
 
