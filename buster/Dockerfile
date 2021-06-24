@@ -13,11 +13,15 @@ LABEL maintainer="Evan Wies <evan@neomantra.net>"
 # For example: "-debug" or "-valgrind"
 ARG RESTY_DEB_FLAVOR=""
 ARG RESTY_DEB_VERSION="=1.19.3.2-1~buster1"
+ARG RESTY_APT_REPO="http://openresty.org/package/debian"
+ARG RESTY_APT_PGP="https://openresty.org/package/pubkey.gpg"
 ARG RESTY_IMAGE_BASE="debian"
 ARG RESTY_IMAGE_TAG="buster-slim"
 
 LABEL resty_image_base="${RESTY_IMAGE_BASE}"
 LABEL resty_image_tag="${RESTY_IMAGE_TAG}"
+LABEL resty_apt_repo="${RESTY_APT_REPO}"
+LABEL resty_apt_pgp="${RESTY_APT_PGP}"
 LABEL resty_deb_flavor="${RESTY_DEB_FLAVOR}"
 LABEL resty_deb_version="${RESTY_DEB_VERSION}"
 
@@ -31,10 +35,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
         lsb-release \
         software-properties-common \
         wget \
-    && wget -qO /tmp/pubkey.gpg https://openresty.org/package/pubkey.gpg \
+    && wget -qO /tmp/pubkey.gpg ${RESTY_APT_PGP} \
     && DEBIAN_FRONTEND=noninteractive apt-key add /tmp/pubkey.gpg \
     && rm /tmp/pubkey.gpg \
-    && DEBIAN_FRONTEND=noninteractive add-apt-repository -y "deb http://openresty.org/package/debian $(lsb_release -sc) openresty" \
+    && DEBIAN_FRONTEND=noninteractive add-apt-repository -y "deb ${RESTY_APT_REPO} $(lsb_release -sc) openresty" \
     && DEBIAN_FRONTEND=noninteractive apt-get remove -y --purge \
         gnupg2 \
         lsb-release \

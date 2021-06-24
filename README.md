@@ -186,6 +186,8 @@ $ docker inspect openresty/openresty:1.17.8.1-0-bionic | jq '.[].Config.Labels'
 |`resty_apk_key_url`           | buildarg `RESTY_APK_KEY_URL` |
 |`resty_apk_repo_url`          | buildarg `RESTY_APK_REPO_URL` |
 |`resty_apk_version`           | buildarg `RESTY_APK_VERSION` |
+|`resty_apt_pgp`               | buildarg `RESTY_APT_PGP` |
+|`resty_apt_repo`              | buildarg `RESTY_APT_REPO` |
 |`resty_config_deps`           | buildarg `_RESTY_CONFIG_DEPS` (internal) |
 |`resty_config_options`        | buildarg `RESTY_CONFIG_OPTIONS`  |
 |`resty_config_options_more`   | buildarg `RESTY_CONFIG_OPTIONS_MORE`  |
@@ -361,10 +363,15 @@ docker build --build-arg RESTY_DEB_FLAVOR="-debug" -f buster/Dockerfile .
 
 | Key | Default | Description |
 :----- | :-----: |:----------- |
+|RESTY_APT_REPO    | "http://openresty.org/package/debian" | Apt repo to load from. |
+|RESTY_APT_PGP     | "https://openresty.org/package/pubkey.gpg" | URL to download APT PGP key from
 |RESTY_IMAGE_BASE  | "debian" | The Debian Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG   | "buster-slim" | The Debian Docker image tag to build `FROM`. |
 |RESTY_DEB_FLAVOR  | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
 |RESTY_DEB_VERSION | "=1.19.3.2-1~buster" | The [Debian package version](https://openresty.org/package/debian/pool/openresty/o/openresty/) to use, with `=` prepended. |
+
+ * For `amd64` builds, `RESTY_APT_REPO="http://openresty.org/package/debian"`
+ * For `arm64` builds, `RESTY_APT_REPO="http://openresty.org/package/arm64/debian"`
 
 [Back to TOC](#table-of-contents)
 
