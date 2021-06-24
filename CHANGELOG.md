@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.19.9.1rc1-0
+
+ * Upgrade OpenResty to 1.19.9.1rc1 for build-from-source flavors (#182)
+
 ## 1.19.3.2-2
 
  * Add multi-architecture image for Debian Buster (#184)

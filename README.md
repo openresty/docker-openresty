@@ -263,7 +263,7 @@ docker build --build-arg RESTY_J=4 -f bionic/Dockerfile .
 :----- | :-----: |:----------- |
 |RESTY_IMAGE_BASE | "ubuntu" / "alpine" | The Debian or Alpine Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG  | "bionic" / "3.13" | The Debian or Alpine Docker image tag to build `FROM`. |
-|RESTY_VERSION | 1.19.3.2 | The version of OpenResty to use. |
+|RESTY_VERSION | 1.19.9.1rc1 | The version of OpenResty to use. |
 |RESTY_LUAROCKS_VERSION | 3.7.0 | The version of LuaRocks to use. |
 |RESTY_OPENSSL_VERSION | 1.1.1k | The version of OpenSSL to use. |
 |RESTY_OPENSSL_PATCH_VERSION | 1.1.1f | The version of OpenSSL to use when patching. |
