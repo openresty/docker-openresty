@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.19.3.2-3
+
+ * Upgrade `alpine` to Alpine 3.14.   `alpine-apk` is still at Alpine 3.13.
+
 ## 1.19.3.2-2
 
  * Add multi-architecture image for Debian Buster (#184)
