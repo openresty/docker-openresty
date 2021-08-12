@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 1.19.9.1-0
+
+ * Upgrade OpenResty to 1.19.9.1 (#188)
+ * Upgrade `alpine` and `alpine-apk` to Alpine 3.14.
+
 ## 1.19.3.2-3
 
  * Upgrade `alpine` to Alpine 3.14.   `alpine-apk` is still at Alpine 3.13.
