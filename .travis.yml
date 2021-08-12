@@ -17,8 +17,8 @@
 #
 
 os: linux
-dist: bionic
-language: ruby
+dist: focal
+language: generic
 
 services:
   - docker
