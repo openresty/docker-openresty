@@ -17,7 +17,7 @@ DOCKER_BUILD_PARAMS="$@"
 
 cat /tmp/docker.pass | docker login -u="$DOCKER_USERNAME" --password-stdin
 
-docker build -t openresty:$FLAVOR -f $DOCKERFILE_PATH $DOCKER_BUILD_PARAMS .
+docker build --pull -t openresty:$FLAVOR -f $DOCKERFILE_PATH $DOCKER_BUILD_PARAMS .
 
 if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
     cat /tmp/docker.pass | docker login -u="$DOCKER_USERNAME" --password-stdin &&

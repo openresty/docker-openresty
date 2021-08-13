@@ -14,7 +14,7 @@ install:
 - ps: docker version
 
 build_script:
-- ps: docker build -t openresty:windows -f windows/Dockerfile .
+- ps: docker build --pull -t openresty:windows -f windows/Dockerfile .
 
 test_script:
 - cmd: docker run openresty:windows nginx -vt
