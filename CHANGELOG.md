@@ -4,7 +4,8 @@ Changelog
 ## 1.19.9.1-0
 
  * Upgrade OpenResty to 1.19.9.1 (#188)
- * `alpine` and `alpine-apk` are both Alpine 3.13 (#187)
+ * `alpine` and `alpine-apk` are both Alpine 3.14 (#187)
+ * Build with Ubuntu Focal and latest Docker
 
 ## 1.19.3.2-3
 
