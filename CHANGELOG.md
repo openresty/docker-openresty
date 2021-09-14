@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.19.9.1-1
+
+ * Upgrade OpenSSL to 1.1.1l for built-from-source images (alpine, bionic, focal)
+
 ## 1.19.9.1-0
 
  * Upgrade OpenResty to 1.19.9.1 (#188)
