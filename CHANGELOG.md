@@ -3,7 +3,8 @@ Changelog
 
 ## 1.19.9.1-1
 
- * Upgrade OpenSSL to 1.1.1l for built-from-source images (alpine, bionic, focal)
+ * Upgrade OpenSSL to 1.1.1l for built-from-source images (alpine, bionic, focal) (#189)
+ * Upstream flavors are rebuilt with this tag and have 1.1.1l as well
 
 ## 1.19.9.1-0
 
