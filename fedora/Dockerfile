@@ -1,20 +1,20 @@
-# Dockerfile - Fedora 32 - RPM version
+# Dockerfile - Fedora 33 - RPM version
 # https://github.com/openresty/docker-openresty
 
 ARG RESTY_IMAGE_BASE="fedora"
-ARG RESTY_IMAGE_TAG="32"
+ARG RESTY_IMAGE_TAG="33"
 
 FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
 ARG RESTY_IMAGE_BASE="fedora"
-ARG RESTY_IMAGE_TAG="32"
+ARG RESTY_IMAGE_TAG="33"
 ARG RESTY_LUAROCKS_VERSION="3.7.0"
 ARG RESTY_YUM_REPO="https://openresty.org/package/fedora/openresty.repo"
 ARG RESTY_RPM_FLAVOR=""
 ARG RESTY_RPM_VERSION="1.19.9.1-1"
-ARG RESTY_RPM_DIST="fc32"
+ARG RESTY_RPM_DIST="fc33"
 ARG RESTY_RPM_ARCH="x86_64"
 
 LABEL resty_image_base="${RESTY_IMAGE_BASE}"
