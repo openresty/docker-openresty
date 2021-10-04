@@ -4,7 +4,7 @@
 
 ## Supported tags and respective `Dockerfile` links
 
-The following "flavors" are available and built from [upstream OpenResty packages](http://openresty.org/en/linux-packages.html):
+The following "flavors" are available and built from [upstream OpenResty packages](https://openresty.org/en/linux-packages.html):
 
 - [`alpine-apk`, (*alpine-apk/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine-apk/Dockerfile)
 - [`centos`, `centos-rpm`, (*centos/Dockerfile* with `el8`)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
@@ -314,7 +314,7 @@ These built-from-source flavors include the following modules by default, but on
 Building (RPM based)
 ====================
 
-OpenResty now now has [RPMs available](http://openresty.org/en/rpm-packages.html).  The `centos` and `fedora` images use these RPMs rather than building from source.
+OpenResty now now has [RPMs available](https://openresty.org/en/rpm-packages.html).  The `centos` and `fedora` images use these RPMs rather than building from source.
 
 This Docker image can be built and customized by cloning the repo and running `docker build` with the desired Dockerfile:
 
@@ -347,7 +347,7 @@ docker build --build-arg RESTY_RPM_FLAVOR="-debug" -f fedora/Dockerfile .
 Building (DEB based)
 ====================
 
-OpenResty now now has [Debian Packages (DEBs) available](http://openresty.org/en/deb-packages.html).  The `buster` image use these DEBs rather than building from source.
+OpenResty now now has [Debian Packages (DEBs) available](https://openresty.org/en/deb-packages.html).  The `buster` image use these DEBs rather than building from source.
 
 You can derive your own Docker images from this to install your own packages.  See [Dockerfile.opm_example](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile.opm_example) and [Dockerfile.luarocks_example](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile.luarocks_example).
 
@@ -363,15 +363,15 @@ docker build --build-arg RESTY_DEB_FLAVOR="-debug" -f buster/Dockerfile .
 
 | Key | Default | Description |
 :----- | :-----: |:----------- |
-|RESTY_APT_REPO    | "http://openresty.org/package/debian" | Apt repo to load from. |
+|RESTY_APT_REPO    | "https://openresty.org/package/debian" | Apt repo to load from. |
 |RESTY_APT_PGP     | "https://openresty.org/package/pubkey.gpg" | URL to download APT PGP key from
 |RESTY_IMAGE_BASE  | "debian" | The Debian Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG   | "buster-slim" | The Debian Docker image tag to build `FROM`. |
 |RESTY_DEB_FLAVOR  | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
 |RESTY_DEB_VERSION | "=1.19.9.1-1~buster" | The [Debian package version](https://openresty.org/package/debian/pool/openresty/o/openresty/) to use, with `=` prepended. |
 
- * For `amd64` builds, `RESTY_APT_REPO="http://openresty.org/package/debian"`
- * For `arm64` builds, `RESTY_APT_REPO="http://openresty.org/package/arm64/debian"`
+ * For `amd64` builds, `RESTY_APT_REPO="https://openresty.org/package/debian"`
+ * For `arm64` builds, `RESTY_APT_REPO="https://openresty.org/package/arm64/debian"`
 
 [Back to TOC](#table-of-contents)
 
@@ -379,7 +379,7 @@ docker build --build-arg RESTY_DEB_FLAVOR="-debug" -f buster/Dockerfile .
 Building (APK based)
 ====================
 
-OpenResty now now has [Alpine Packages (APKs) available](http://openresty.org/en/apk-packages.html).  The `alpine-apk` image use these APKs rather than building from source.  You can derive your own Docker images from this to install your own packages.
+OpenResty now now has [Alpine Packages (APKs) available](https://openresty.org/en/apk-packages.html).  The `alpine-apk` image use these APKs rather than building from source.  You can derive your own Docker images from this to install your own packages.
 
 This Docker image can be built and customized by cloning the repo and running `docker build` with the desired Dockerfile:
 
@@ -395,8 +395,8 @@ docker build --build-arg RESTY_IMAGE_TAG="3.12" -f alpine-apk/Dockerfile .
 :----- | :-----: |:----------- |
 |RESTY_IMAGE_BASE   | "alpine" | The Alpine Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG    | "3.14" | The Alpine Docker image tag to build `FROM`. |
-|RESTY_APK_KEY_URL  | "http://openresty.org/package/admin@openresty.com-5ea678a6.rsa.pub" | The URL of the signing key of the `openresty` package. |
-|RESTY_APK_REPO_URL | "http://openresty.org/package/alpine/v${RESTY_IMAGE_TAG}/main" | The URL of the APK repository for `openresty` package. |
+|RESTY_APK_KEY_URL  | "https://openresty.org/package/admin@openresty.com-5ea678a6.rsa.pub" | The URL of the signing key of the `openresty` package. |
+|RESTY_APK_REPO_URL | "https://openresty.org/package/alpine/v${RESTY_IMAGE_TAG}/main" | The URL of the APK repository for `openresty` package. |
 |RESTY_APK_VERSION | "=1.19.9.1-r0" | The suffix to add to the apk install package name: `openresty${RESTY_APK_VERSION`}. |
 
 [Back to TOC](#table-of-contents)

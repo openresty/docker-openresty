@@ -12,8 +12,8 @@ LABEL maintainer="Evan Wies <evan@neomantra.net>"
 ARG RESTY_IMAGE_BASE="alpine"
 ARG RESTY_IMAGE_TAG="3.14"
 
-ARG RESTY_APK_KEY_URL="http://openresty.org/package/admin@openresty.com-5ea678a6.rsa.pub"
-ARG RESTY_APK_REPO_URL="http://openresty.org/package/alpine/v${RESTY_IMAGE_TAG}/main"
+ARG RESTY_APK_KEY_URL="https://openresty.org/package/admin@openresty.com-5ea678a6.rsa.pub"
+ARG RESTY_APK_REPO_URL="https://openresty.org/package/alpine/v${RESTY_IMAGE_TAG}/main"
 ARG RESTY_APK_VERSION="=1.19.9.1-r0"
 
 LABEL resty_image_base="${RESTY_IMAGE_BASE}"

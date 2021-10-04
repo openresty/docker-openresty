@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.19.9.1-2 (unreleased)
+
+ * Convert many http:// references to https://
+
 ## 1.19.9.1-1
 
  * Upgrade OpenSSL to 1.1.1l for built-from-source images (alpine, bionic, focal) (#189)
