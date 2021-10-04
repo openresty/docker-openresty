@@ -1,8 +1,9 @@
 Changelog
 =========
 
-## 1.19.9.1-2 (unreleased)
+## 1.19.9.1-2
 
+ * Add multi-arch upstream Debian Bullseye flavors `bullseye` and `bullseye-fat` (#191)
  * Convert many http:// references to https://
 
 ## 1.19.9.1-1

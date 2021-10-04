@@ -1,0 +1,25 @@
+# Dockerfile - Debian 11 Bullseye Fat - DEB version
+# https://github.com/openresty/docker-openresty
+#
+# This builds upon the base OpenResty Bullseye image,
+# adding useful packages and utilities.
+#
+# Currently it just adds the openresty-opm package.
+#
+
+ARG RESTY_FAT_IMAGE_BASE="openresty/openresty"
+ARG RESTY_FAT_IMAGE_TAG="bullseye"
+
+FROM ${RESTY_FAT_IMAGE_BASE}:${RESTY_FAT_IMAGE_TAG}
+
+ARG RESTY_FAT_IMAGE_BASE="openresty/openresty"
+ARG RESTY_FAT_IMAGE_TAG="bullseye"
+
+LABEL maintainer="Evan Wies <evan@neomantra.net>"
+LABEL resty_fat_image_base="${RESTY_FAT_IMAGE_BASE}"
+LABEL resty_fat_image_tag="${RESTY_FAT_IMAGE_TAG}"
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        openresty-opm \
+    && rm -rf /var/lib/apt/lists/*
