@@ -15,7 +15,7 @@ The following "flavors" are available and built from [upstream OpenResty package
 - [`buster`, (*buster/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile)
 - [`buster-fat`, (*buster/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile.fat)
 - [`windows`, (*windows/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/windows/Dockerfile)
-- [`fedora`, `fedora-rpm`, (*fedora/Dockerfile* with `fc32`)](https://github.com/openresty/docker-openresty/blob/master/fedora/Dockerfile)
+- [`fedora`, `fedora-rpm`, (*fedora/Dockerfile* with `fc34`)](https://github.com/openresty/docker-openresty/blob/master/fedora/Dockerfile)
 
 The following "flavors" are built from source and are intended for more advanced and custom usage, caveat emptor:
 
@@ -324,7 +324,7 @@ This Docker image can be built and customized by cloning the repo and running `d
 
  * [CentOS 7 RPM](https://github.com/openresty/docker-openresty/blob/master/centos7/Dockerfile) (`centos/Dockerfile`)
  * [CentOS 8 RPM](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile) (`centos/Dockerfile`)
- * [Fedora 32 RPM](https://github.com/openresty/docker-openresty/blob/master/fedora/Dockerfile) (`centos/Dockerfile`)
+ * [Fedora 34 RPM](https://github.com/openresty/docker-openresty/blob/master/fedora/Dockerfile) (`centos/Dockerfile`)
 
 The following are the available build-time options. They can be set using the `--build-arg` CLI argument, like so:
 

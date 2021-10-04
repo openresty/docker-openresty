@@ -4,6 +4,7 @@ Changelog
 ## 1.19.9.1-2
 
  * Add multi-arch upstream Debian Bullseye flavors `bullseye` and `bullseye-fat` (#191)
+ * Update `fedora` flavor to FC 34 (#190)
  * Convert many http:// references to https://
 
 ## 1.19.9.1-1
