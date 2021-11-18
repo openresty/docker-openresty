@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 1.19.9.1-3
+
+ * change ftp.pcre.org to SourceForge mirror for PCRE downloads (#193)
+ * check SHA-256 of PCRE downloads (#193)
+
 ## 1.19.9.1-2
 
  * Add multi-arch upstream Debian Bullseye flavors `bullseye` and `bullseye-fat` (#191)

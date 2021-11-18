@@ -16,6 +16,7 @@ ARG RESTY_OPENSSL_VERSION="1.1.1l"
 ARG RESTY_OPENSSL_PATCH_VERSION="1.1.1f"
 ARG RESTY_OPENSSL_URL_BASE="https://www.openssl.org/source"
 ARG RESTY_PCRE_VERSION="8.44"
+ARG RESTY_PCRE_SHA256="aecafd4af3bd0f3935721af77b889d9024b2e01d96b58471bd91a3063fb47728"
 ARG RESTY_J="1"
 ARG RESTY_CONFIG_OPTIONS="\
     --with-compat \
@@ -69,6 +70,7 @@ LABEL resty_openssl_version="${RESTY_OPENSSL_VERSION}"
 LABEL resty_openssl_patch_version="${RESTY_OPENSSL_PATCH_VERSION}"
 LABEL resty_openssl_url_base="${RESTY_OPENSSL_URL_BASE}"
 LABEL resty_pcre_version="${RESTY_PCRE_VERSION}"
+LABEL resty_pcre_sha256="${RESTY_PCRE_SHA256}"
 LABEL resty_config_options="${RESTY_CONFIG_OPTIONS}"
 LABEL resty_config_options_more="${RESTY_CONFIG_OPTIONS_MORE}"
 LABEL resty_config_deps="${_RESTY_CONFIG_DEPS}"
@@ -123,6 +125,7 @@ RUN apk add --no-cache --virtual .build-deps \
     && make -j${RESTY_J} install_sw \
     && cd /tmp \
     && curl -fSL https://downloads.sourceforge.net/project/pcre/pcre/${RESTY_PCRE_VERSION}/pcre-${RESTY_PCRE_VERSION}.tar.gz -o pcre-${RESTY_PCRE_VERSION}.tar.gz \
+    && echo "${RESTY_PCRE_SHA256}  pcre-${RESTY_PCRE_VERSION}.tar.gz" | shasum -a 256 --check \
     && tar xzf pcre-${RESTY_PCRE_VERSION}.tar.gz \
     && cd /tmp/pcre-${RESTY_PCRE_VERSION} \
     && ./configure \
