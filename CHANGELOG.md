@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.19.9.1-9
+
+ * Upgrade alpine-apk Alpine to 3.15 (#196)
+
 ## 1.19.9.1-8
 
  * Tagged rebuild for CVE-2022-0778... all flavors covered
