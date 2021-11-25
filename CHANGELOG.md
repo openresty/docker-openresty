@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.19.9.1-4
+
+ * Update `alpine` to 3.15, but not `alpine-apk` (#196)
+
 ## 1.19.9.1-3
 
  * change ftp.pcre.org to SourceForge mirror for PCRE downloads (#193)
