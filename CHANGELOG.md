@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.19.9.1-5
+
+ * Update LuaRocks to 3.8.0 (#197)
+
 ## 1.19.9.1-4
 
  * Update `alpine` to 3.15, but not `alpine-apk` (#196)
