@@ -4,6 +4,7 @@ Changelog
 ## 1.19.9.1-6
 
  * Update OpenSSL to 1.1.1n for built-from-source flavors due to CVE-2022-0778 (#200)
+ * `centos` flavor (from EOL Centos 8) now uses yum repo http://vault.centos.org
 
 ## 1.19.9.1-5
 

@@ -27,7 +27,9 @@ LABEL resty_rpm_dist="${RESTY_RPM_DIST}"
 LABEL resty_rpm_arch="${RESTY_RPM_ARCH}"
 
 
-RUN yum install -y yum-utils \
+RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-* \
+    && sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Linux-* \
+    && yum install -y yum-utils \
     && yum-config-manager --add-repo ${RESTY_YUM_REPO} \
     && yum install -y \
         gettext \
