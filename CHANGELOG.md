@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.19.9.1-6
+
+ * Update OpenSSL to 1.1.1n for built-from-source flavors due to CVE-2022-0778 (#200)
+
 ## 1.19.9.1-5
 
  * Update LuaRocks to 3.8.0 (#197)
