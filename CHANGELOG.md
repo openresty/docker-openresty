@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## 1.19.9.1-7
+
+ * Tagged rebuild for CVE-2022-0778... covered flavors are:
+    * all build-from-source flavors
+    * upstream `amd64` flavors except `alpine-apk`
+
 ## 1.19.9.1-6
 
  * Update OpenSSL to 1.1.1n for built-from-source flavors due to CVE-2022-0778 (#200)
