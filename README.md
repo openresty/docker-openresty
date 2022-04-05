@@ -2,7 +2,72 @@
 
 [![Travis Status](https://api.travis-ci.com/openresty/docker-openresty.svg?branch=master)](https://travis-ci.com/github/openresty/docker-openresty)  [![Appveyor status](https://ci.appveyor.com/api/projects/status/github/openresty/docker-openresty?branch=master&svg=true)](https://ci.appveyor.com/project/openresty/docker-openresty)  [![](https://images.microbadger.com/badges/image/openresty/openresty.svg)](https://microbadger.com/#/images/openresty/openresty "microbadger.com")
 
-## Supported tags and respective `Dockerfile` links
+`docker-openresty` is [Docker](https://www.docker.com) tooling for OpenResty (https://www.openresty.org).
+
+Docker is a container management platform. OpenResty is a full-fledged web application server by
+bundling the standard nginx core, lots of 3rd-party nginx modules, as well as most of their external dependencies.
+
+# OpenResty Image Tags
+
+It is best practice to pin your images to an explicit image tag.  The [next section](#supported-tags-and-respective-dockerfile-links) below covers the conventions in detail, but here are some common examples:
+
+| Image  | Description |
+| --- | --- |
+| `openresty/openresty:1.19.9.1-10-focal` | Built-from-source Ubuntu Focal |
+| `openresty/openresty:1.19.9.1-10-bullseye-fat` | Built-from-upstream Debian Bullseye |
+| `openresty/openresty:1.19.9.1-10-alpine` | Built-from-source Alpine |
+| `openresty/openresty:1.19.9.1-10-alpine-apk` | Built-from-upstream Alpine |
+
+These are examples of untagged image names, for reference:
+
+| Image | Description |
+| --- | --- |
+| `openresty/openresty:focal` | Latest Ubuntu Focal |
+| `openresty/openresty:alpine` | Latest Alpine |
+
+----
+
+
+Table of Contents
+=================
+
+* [OpenResty Image Tags](#openresty-image-tags)
+* [Table of Contents](#table-of-contents)
+* [Usage](#usage)
+* [Nginx Config Files](#nginx-config-files)
+* [OPM](#opm)
+* [LuaRocks](#luarocks)
+* [Tips & Pitfalls](#tips--pitfalls)
+* [Image Labels](#image-labels)
+* [Docker CMD](#docker-entrypoint)
+* [Building (from source)](#building-from-source)
+* [Building (RPM based)](#building-rpm-based)
+* [Building (DEB based)](#building-deb-based)
+* [Building (APK based)](#building-apk-based)
+* [Building (Windows based)](#building-windows-based)
+* [Feedback & Bug Reports](#feedback--bug-reports)
+* [Changelog & Authors](#changelog--authors)
+* [Copyright & License](#copyright--license)
+
+
+
+Usage
+=====
+
+If you are happy with the build defaults, then you can use the openresty image from the [Docker Hub](https://hub.docker.com/r/openresty/openresty/).  The image tags available there are listed at the top of this README.
+
+```
+docker run [options] openresty/openresty:bullseye-fat
+```
+
+*[options]* would be things like -p to map ports, -v to map volumes, and -d to daemonize.
+
+`docker-openresty` symlinks `/usr/local/openresty/nginx/logs/access.log` and `error.log` to `/dev/stdout` and `/dev/stderr` respectively, so that Docker logging works correctly.  If you change the log paths in your `nginx.conf`, you should symlink those paths as well. This is not possible with the `windows` image.
+
+Temporary directories such as `client_body_temp_path` are stored in `/var/run/openresty/`.  You may consider mounting that volume, rather than writing to a container-local directory.  This is not done for `windows`.
+
+Supported tags and respective `Dockerfile` links
+=========
 
 The following "flavors" are available and built from [upstream OpenResty packages](https://openresty.org/en/linux-packages.html):
 
@@ -30,59 +95,13 @@ Since `1.19.3.2-1`, all flavors support multi-architecture builds, both `amd64` 
 
 Starting with `1.13.6.1`, releases are tagged with `<openresty-version>-<image-version>-<flavor>`.  The latest `image-version` will also be tagged `<openresty-version>-<flavor>`.   The HEAD of the master branch is also labeled plainly as `<flavor>`.  The builds are managed by [Travis-CI](https://travis-ci.com/github/neomantra/docker-openresty) and [Appveyor](https://ci.appveyor.com/project/openresty/docker-openresty) (for Windows images).
 
+There are architecture-specific tags as well, `<openresty-version>-<image-version>-<flavor>-<arch>`, but one would generally pull from the multi-architecture name above.
+
 OpenResty supports SSE 4.2 optimizations.  Starting with the `1.19.3.1` series, the architecture is auto-detected and the optimizations enabled accordingly.  Earlier image series `1.15.8.1` and `1.17.8.2` have `-nosse42` image flavors for systems which explicitly disable SSE 4.2 support; this is useful for older systems and embedded systems.  They are built with `-mno-sse4.2` appended to the build arg `RESTY_LUAJIT_OPTIONS`.  It is highly recommended *NOT* to use these if your system supports SSE 4.2 because the `CRC32` instruction dramatically improves large string performance.  These are only for built-from-source flavors, e.g. `1.15.8.1-3-bionic-nosse42`, `1.15.8.1-3-alpine-nosse42`, `1.15.8.1-3-alpine-fat-nosse42`.
 
 It is *highly recommended* that you use the upstream-based images for best support.  For best stability, pin your images to the full tag, for example `1.19.3.1-1-bionic`.
 
 At this time, the only images that are compatible with aarch64 are `alpine` and `alpine-fat`.  Once there are binary packages available, they can be released with the upstream packages.
-
-
-Table of Contents
-=================
-
-* [Description](#description)
-* [Usage](#usage)
-* [Nginx Config Files](#nginx-config-files)
-* [OPM](#opm)
-* [LuaRocks](#luarocks)
-* [Tips & Pitfalls](#tips--pitfalls)
-* [Image Labels](#image-labels)
-* [Docker CMD](#docker-entrypoint)
-* [Building (from source)](#building-from-source)
-* [Building (RPM based)](#building-rpm-based)
-* [Building (DEB based)](#building-deb-based)
-* [Building (APK based)](#building-apk-based)
-* [Building (Windows based)](#building-windows-based)
-* [Feedback & Bug Reports](#feedback--bug-reports)
-* [Changelog & Authors](#changelog--authors)
-* [Copyright & License](#copyright--license)
-
-
-Description
-===========
-
-`docker-openresty` is [Docker](https://www.docker.com) tooling for OpenResty (https://www.openresty.org).
-
-Docker is a container management platform.
-
-OpenResty is a full-fledged web application server by bundling the standard nginx core,
-lots of 3rd-party nginx modules, as well as most of their external dependencies.
-
-
-Usage
-=====
-
-If you are happy with the build defaults, then you can use the openresty image from the [Docker Hub](https://hub.docker.com/r/openresty/openresty/).  The image tags available there are listed at the top of this README.
-
-```
-docker run [options] openresty/openresty:bullseye-fat
-```
-
-*[options]* would be things like -p to map ports, -v to map volumes, and -d to daemonize.
-
-`docker-openresty` symlinks `/usr/local/openresty/nginx/logs/access.log` and `error.log` to `/dev/stdout` and `/dev/stderr` respectively, so that Docker logging works correctly.  If you change the log paths in your `nginx.conf`, you should symlink those paths as well. This is not possible with the `windows` image.
-
-Temporary directories such as `client_body_temp_path` are stored in `/var/run/openresty/`.  You may consider mounting that volume, rather than writing to a container-local directory.  This is not done for `windows`.
 
 
 Nginx Config Files
@@ -457,7 +476,7 @@ Copyright & License
 
 `docker-openresty` is licensed under the 2-clause BSD license.
 
-Copyright (c) 2017-2021, Evan Wies <evan@neomantra.net>.
+Copyright (c) 2017-2022, Evan Wies <evan@neomantra.net>.
 
 This module is licensed under the terms of the BSD license.
 

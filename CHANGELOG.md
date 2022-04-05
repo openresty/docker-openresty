@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.19.9.1-10
+
+ * Tagged rebuild to get zlib-1.2.12 due to CVE-2018-25032 (#202)
+
 ## 1.19.9.1-9
 
  * Upgrade alpine-apk Alpine to 3.15 (#196)
