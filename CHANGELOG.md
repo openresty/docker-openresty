@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.19.9.1-11
+
+ * Update LuaRocks to 3.9.0
+
 ## 1.19.9.1-10
 
  * Tagged rebuild to get zlib-1.2.12 due to CVE-2018-25032 (#202)
