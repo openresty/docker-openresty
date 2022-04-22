@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 1.21.4.1rc3-0
+
+ * Upgrade Openresty to 1.21.4.1rc3
+   NOTE: only for build-from-source flavors `alpine`, `bionic`, `focal`, `jammy`
+
 ## 1.19.9.1-11
 
  * Update LuaRocks to 3.9.0
