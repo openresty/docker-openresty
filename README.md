@@ -13,15 +13,17 @@ It is best practice to pin your images to an explicit image tag.  The [next sect
 
 | Image  | Description |
 | --- | --- |
-| `openresty/openresty:1.19.9.1-10-focal` | Built-from-source Ubuntu Focal |
-| `openresty/openresty:1.19.9.1-10-bullseye-fat` | Built-from-upstream Debian Bullseye |
-| `openresty/openresty:1.19.9.1-10-alpine` | Built-from-source Alpine |
-| `openresty/openresty:1.19.9.1-10-alpine-apk` | Built-from-upstream Alpine |
+| `openresty/openresty:1.19.9.1-11-jammy` | Built-from-source Ubuntu Jammy |
+| `openresty/openresty:1.19.9.1-11-focal` | Built-from-source Ubuntu Focal |
+| `openresty/openresty:1.19.9.1-11-bullseye-fat` | Built-from-upstream Debian Bullseye |
+| `openresty/openresty:1.19.9.1-11-alpine` | Built-from-source Alpine |
+| `openresty/openresty:1.19.9.1-11-alpine-apk` | Built-from-upstream Alpine |
 
 These are examples of untagged image names, for reference:
 
 | Image | Description |
 | --- | --- |
+| `openresty/openresty:jammy` | Latest Ubuntu Jammy |
 | `openresty/openresty:focal` | Latest Ubuntu Focal |
 | `openresty/openresty:alpine` | Latest Alpine |
 
@@ -88,6 +90,7 @@ The following "flavors" are built from source and are intended for more advanced
 - [`alpine-fat`, (*alpine/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile.fat)
 - [`bionic`, (*bionic/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/bionic/Dockerfile)
 - [`focal`, (*focal/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/focal/Dockerfile)
+- [`jammy`, (*jammy/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/jammy/Dockerfile)
 
 The `openresty/openresty:latest` tag points to the latest `bullseye` image.
 
@@ -273,6 +276,7 @@ Dockerfiles are provided for the following base systems, selecting the Dockerfil
  * [Alpine Fat](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile.fat) (`alpine/Dockerfile.fat`)
  * [Ubuntu Bionic](https://github.com/openresty/docker-openresty/blob/master/bionic/Dockerfile) (`bionic/Dockerfile`)
  * [Ubuntu Focal](https://github.com/openresty/docker-openresty/blob/master/focal/Dockerfile) (`focal/Dockerfile`)
+ * [Ubuntu Jammy](https://github.com/openresty/docker-openresty/blob/master/jammy/Dockerfile) (`jammy/Dockerfile`)
 
 We used to support more build flavors but have trimmed that down.  Older Dockerfiles are archived in the [`archive`](https://github.com/openresty/docker-openresty/tree/master/archive) folder.
 

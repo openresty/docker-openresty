@@ -84,6 +84,18 @@ jobs:
       script:
       - ./docker_build_and_push_flavor.sh focal-amd64 focal/Dockerfile
 
+    - name: Build aarch64 Docker image for build-from-source flavor jammy
+      arch: arm64
+      stage: build
+      script:
+      - ./docker_build_and_push_flavor.sh jammy-aarch64 jammy/Dockerfile
+
+    - name: Build amd64 Docker image for build-from-source flavor jammy
+      arch: amd64
+      stage: build
+      script:
+      - ./docker_build_and_push_flavor.sh jammy-amd64 jammy/Dockerfile
+
 ###############################################################################
 # Build From OpenResty Upstream Flavors
 # These are shorter to build are put in the same job (per architecture)
@@ -131,6 +143,7 @@ jobs:
       - ./docker_manifest.sh centos7     centos7-amd64     centos7-aarch64
       - ./docker_manifest.sh fedora      fedora-amd64      fedora-aarch64
       - ./docker_manifest.sh focal       focal-amd64       focal-aarch64
+      - ./docker_manifest.sh jammy       jammy-amd64       jammy-aarch64
       - ./docker_tag_alias.sh centos centos-rpm
       - ./docker_tag_alias.sh fedora fedora-rpm
       - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then

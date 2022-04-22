@@ -4,6 +4,7 @@ Changelog
 ## 1.19.9.1-11
 
  * Update LuaRocks to 3.9.0
+ * Add `jammy` build-from-source flavor for Ubuntu Jammy Jellyfish 22.04
 
 ## 1.19.9.1-10
 
