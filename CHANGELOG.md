@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.19.9.1-12
+
+ * LuaRocks 3.9.0 depends on wget (#204)
+
 ## 1.19.9.1-11
 
  * Update LuaRocks to 3.9.0

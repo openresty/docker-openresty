@@ -13,11 +13,11 @@ It is best practice to pin your images to an explicit image tag.  The [next sect
 
 | Image  | Description |
 | --- | --- |
-| `openresty/openresty:1.19.9.1-11-jammy` | Built-from-source Ubuntu Jammy |
-| `openresty/openresty:1.19.9.1-11-focal` | Built-from-source Ubuntu Focal |
-| `openresty/openresty:1.19.9.1-11-bullseye-fat` | Built-from-upstream Debian Bullseye |
-| `openresty/openresty:1.19.9.1-11-alpine` | Built-from-source Alpine |
-| `openresty/openresty:1.19.9.1-11-alpine-apk` | Built-from-upstream Alpine |
+| `openresty/openresty:1.19.9.1-12-jammy` | Built-from-source Ubuntu Jammy |
+| `openresty/openresty:1.19.9.1-12-focal` | Built-from-source Ubuntu Focal |
+| `openresty/openresty:1.19.9.1-12-bullseye-fat` | Built-from-upstream Debian Bullseye |
+| `openresty/openresty:1.19.9.1-12-alpine` | Built-from-source Alpine |
+| `openresty/openresty:1.19.9.1-12-alpine-apk` | Built-from-upstream Alpine |
 
 These are examples of untagged image names, for reference:
 

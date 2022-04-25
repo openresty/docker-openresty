@@ -97,6 +97,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
         make \
         perl \
         unzip \
+        wget \
         zlib1g-dev \
         ${RESTY_ADD_PACKAGE_BUILDDEPS} \
         ${RESTY_ADD_PACKAGE_RUNDEPS} \
