@@ -40,6 +40,7 @@ RUN    find /etc/yum.repos.d -name 'CentOS-Linux-*' -exec sed -i 's/mirrorlist/#
         openresty-resty-${RESTY_RPM_VERSION}.${RESTY_RPM_DIST} \
         tar \
         unzip \
+        wget \
     && cd /tmp \
     && curl -fSL https://luarocks.github.io/luarocks/releases/luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz -o luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && tar xzf luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
