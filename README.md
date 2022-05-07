@@ -41,7 +41,7 @@ Table of Contents
 * [LuaRocks](#luarocks)
 * [Tips & Pitfalls](#tips--pitfalls)
 * [Image Labels](#image-labels)
-* [Docker CMD](#docker-entrypoint)
+* [Docker CMD](#docker-cmd)
 * [Building (from source)](#building-from-source)
 * [Building (RPM based)](#building-rpm-based)
 * [Building (DEB based)](#building-deb-based)
