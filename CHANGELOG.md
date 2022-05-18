@@ -5,6 +5,7 @@ Changelog
 
  * Upgrade OpenResty to 1.21.4.1
  * Upgrade PRCE to 8.45 for built-from-source flavors
+ * Bump `fedora` flavor to FC35.
 
 ## 1.21.4.1rc3-1
 
