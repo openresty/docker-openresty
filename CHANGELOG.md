@@ -1,10 +1,10 @@
 Changelog
 =========
 
-## 1.21.4.1rc3-2
+## 1.21.4.1-0
 
  * Upgrade OpenResty to 1.21.4.1
-   NOTE: only for build-from-source flavors `alpine`, `bionic`, `focal`, `jammy`
+ * Upgrade PRCE to 8.45 for built-from-source flavors
 
 ## 1.21.4.1rc3-1
 
