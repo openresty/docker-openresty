@@ -1,6 +1,21 @@
 Changelog
 =========
 
+## 1.21.4.1-0
+
+ * Upgrade OpenResty to 1.21.4.1
+ * Upgrade PRCE to 8.45 for built-from-source flavors
+ * Bump `fedora` flavor to FC35.
+
+## 1.21.4.1rc3-1
+
+ * LuaRocks 3.9.0 depends on wget (#204)
+
+## 1.21.4.1rc3-0
+
+ * Upgrade Openresty to 1.21.4.1rc3
+   NOTE: only for build-from-source flavors `alpine`, `bionic`, `focal`, `jammy`
+
 ## 1.19.9.1-12
 
  * LuaRocks 3.9.0 depends on wget (#204)
