@@ -107,7 +107,7 @@ jobs:
       script:
       - ./docker_build_and_push_flavor.sh alpine-apk-aarch64 alpine-apk/Dockerfile
       - ./docker_build_and_push_flavor.sh amzn2-aarch64 centos/Dockerfile --build-arg RESTY_IMAGE_BASE=amazonlinux --build-arg RESTY_IMAGE_TAG=2 --build-arg RESTY_YUM_REPO="https://openresty.org/package/amazon/openresty.repo" --build-arg RESTY_RPM_DIST="amzn2" --build-arg RESTY_RPM_ARCH="aarch64"
-      - ./docker_build_and_push_flavor.sh rocky-aarch64 centos/Dockerfile --build-arg RESTY_IMAGE_BASE=rockylinux --build-arg RESTY_IMAGE_TAG=8.5 --build-arg RESTY_YUM_REPO="https://openresty.org/package/rocky/openresty.repo" --build-arg RESTY_RPM_DIST="el8" --build-arg RESTY_RPM_ARCH="aarch64"
+      - ./docker_build_and_push_flavor.sh rocky-aarch64 fedora/Dockerfile --build-arg RESTY_IMAGE_BASE=rockylinux --build-arg RESTY_IMAGE_TAG=8.5 --build-arg RESTY_YUM_REPO="https://openresty.org/package/rocky/openresty.repo" --build-arg RESTY_RPM_DIST="el8" --build-arg RESTY_RPM_ARCH="aarch64"
       - ./docker_build_and_push_flavor.sh centos-aarch64 centos/Dockerfile --build-arg RESTY_RPM_ARCH=aarch64
       - ./docker_build_and_push_flavor.sh centos7-aarch64 centos7/Dockerfile --build-arg RESTY_RPM_ARCH=aarch64
       - ./docker_build_and_push_flavor.sh fedora-aarch64 fedora/Dockerfile --build-arg RESTY_RPM_ARCH=aarch64
@@ -120,7 +120,7 @@ jobs:
       script:
       - ./docker_build_and_push_flavor.sh alpine-apk-amd64 alpine-apk/Dockerfile
       - ./docker_build_and_push_flavor.sh amzn2-amd64 centos/Dockerfile --build-arg RESTY_IMAGE_BASE=amazonlinux --build-arg RESTY_IMAGE_TAG=2 --build-arg RESTY_YUM_REPO="https://openresty.org/package/amazon/openresty.repo" --build-arg RESTY_RPM_DIST="amzn2"
-      - ./docker_build_and_push_flavor.sh rocky-amd64 centos/Dockerfile --build-arg RESTY_IMAGE_BASE=rockylinux --build-arg RESTY_IMAGE_TAG=8.5 --build-arg RESTY_YUM_REPO="https://openresty.org/package/rocky/openresty.repo" --build-arg RESTY_RPM_DIST="el8" --build-arg RESTY_RPM_ARCH="amd64"
+      - ./docker_build_and_push_flavor.sh rocky-amd64 fedora/Dockerfile --build-arg RESTY_IMAGE_BASE=rockylinux --build-arg RESTY_IMAGE_TAG=8.5 --build-arg RESTY_YUM_REPO="https://openresty.org/package/rocky/openresty.repo" --build-arg RESTY_RPM_DIST="el8"
       - ./docker_build_and_push_flavor.sh centos-amd64 centos/Dockerfile
       - ./docker_build_and_push_flavor.sh centos7-amd64 centos7/Dockerfile
       - ./docker_build_and_push_flavor.sh fedora-amd64 fedora/Dockerfile
