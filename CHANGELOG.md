@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## untagged
+
+ * Add `rocky` flavor, Rocky Linux built-from-upstream 
+
 ## 1.21.4.1-0
 
  * Upgrade OpenResty to 1.21.4.1

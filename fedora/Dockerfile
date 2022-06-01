@@ -26,10 +26,9 @@ LABEL resty_rpm_version="${RESTY_RPM_VERSION}"
 LABEL resty_rpm_dist="${RESTY_RPM_DIST}"
 LABEL resty_rpm_arch="${RESTY_RPM_ARCH}"
 
-RUN dnf install -y wget
-RUN wget ${RESTY_YUM_REPO}
-
-RUN dnf install -y dnf-plugins-core \
+RUN dnf install -y wget \
+    && wget ${RESTY_YUM_REPO} \
+    && dnf install -y dnf-plugins-core \
     && dnf config-manager --add-repo ${RESTY_YUM_REPO} \
     && dnf install -y \
         gettext \
