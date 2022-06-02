@@ -1,9 +1,10 @@
 Changelog
 =========
 
-## untagged
+## 1.21.4.1-1
 
  * Add `rocky` flavor, Rocky Linux built-from-upstream 
+ * Add `s390x` architecture for built-from-source flavors, with PCRE JIT disabled
 
 ## 1.21.4.1-0
 

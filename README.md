@@ -95,7 +95,7 @@ The following "flavors" are built from source and are intended for more advanced
 
 The `openresty/openresty:latest` tag points to the latest `bullseye` image.
 
-Since `1.19.3.2-1`, all flavors support multi-architecture builds, both `amd64` and `aarch64`.
+Since `1.19.3.2-1`, all flavors support multi-architecture builds, both `amd64` and `aarch64`.  Since `1.21.4.1-1`, the `s390x` architecture is supported for build-from-source flavors, however [PCRE JIT](https://github.com/zherczeg/sljit/issues/89) is disabled.
 
 Starting with `1.13.6.1`, releases are tagged with `<openresty-version>-<image-version>-<flavor>`.  The latest `image-version` will also be tagged `<openresty-version>-<flavor>`.   The HEAD of the master branch is also labeled plainly as `<flavor>`.  The builds are managed by [Travis-CI](https://travis-ci.com/github/neomantra/docker-openresty) and [Appveyor](https://ci.appveyor.com/project/openresty/docker-openresty) (for Windows images).
 
@@ -216,8 +216,8 @@ $ docker inspect openresty/openresty:1.17.8.1-0-bionic | jq '.[].Config.Labels'
 |`resty_apt_pgp`               | buildarg `RESTY_APT_PGP` |
 |`resty_apt_repo`              | buildarg `RESTY_APT_REPO` |
 |`resty_config_deps`           | buildarg `_RESTY_CONFIG_DEPS` (internal) |
-|`resty_config_options`        | buildarg `RESTY_CONFIG_OPTIONS`  |
 |`resty_config_options_more`   | buildarg `RESTY_CONFIG_OPTIONS_MORE`  |
+|`resty_config_options`        | buildarg `RESTY_CONFIG_OPTIONS`  |
 |`resty_deb_flavor`            | buildarg `RESTY_DEB_FLAVOR`  |
 |`resty_deb_version`           | buildarg `RESTY_DEB_VERSION` ([available versions](https://openresty.org/package/debian/pool/openresty/o/openresty/))  |
 |`resty_eval_post_make`        | buildarg `RESTY_EVAL_POST_MAKE`  |
@@ -230,11 +230,13 @@ $ docker inspect openresty/openresty:1.17.8.1-0-bionic | jq '.[].Config.Labels'
 |`resty_install_tag`           | buildarg `RESTY_INSTALL_TAG` |
 |`resty_luajit_options`        | buildarg `RESTY_LUAJIT_OPTIONS` |
 |`resty_luarocks_version`      | buildarg `RESTY_LUAROCKS_VERSION` |
-|`resty_openssl_version`       | buildarg `RESTY_OPENSSL_VERSION` |
 |`resty_openssl_patch_version` | buildarg `RESTY_OPENSSL_PATCH_VERSION` |
 |`resty_openssl_url_base`      | buildarg `RESTY_OPENSSL_URL_BASE` |
-|`resty_pcre_version`          | buildarg `RESTY_PCRE_VERSION`  |
+|`resty_openssl_version`       | buildarg `RESTY_OPENSSL_VERSION` |
+|`resty_pcre_build_options`    | buildarg `RESTY_PCRE_BUILD_OPTIONS`  |
+|`resty_pcre_options`          | buildarg `RESTY_PCRE_OPTIONS`  |
 |`resty_pcre_sha256`           | buildarg `RESTY_PCRE_SHA256`  |
+|`resty_pcre_version`          | buildarg `RESTY_PCRE_VERSION`  |
 |`resty_rpm_arch`              | buildarg `RESTY_RPM_ARCH`  |
 |`resty_rpm_dist`              | buildarg `RESTY_RPM_DIST`  |
 |`resty_rpm_flavor`            | buildarg `RESTY_RPM_FLAVOR`  |
@@ -299,6 +301,8 @@ docker build --build-arg RESTY_J=4 -f bionic/Dockerfile .
 |RESTY_OPENSSL_URL_BASE |  https://www.openssl.org/source | The base of the URL to download OpenSSL from. |
 |RESTY_PCRE_VERSION | 8.45 | The version of PCRE to use. |
 |RESTY_PCRE_SHA256 | `4e6ce03e0336e8b4a3d6c2b70b1c5e18590a5673a98186da90d4f33c23defc09` | The SHA-256 checksum of the PCRE package to check. |
+|RESTY_PCRE_BUILD_OPTIONS | "--enable-jit" | Options tweak Resty's PCRE build.  | 
+|RESTY_PCRE_OPTIONS | "--with-pcre-jit" | Options to tweak Resty's build args regarding PCRE. |
 |RESTY_J | 1 | Sets the parallelism level (-jN) for the builds. |
 |RESTY_CONFIG_OPTIONS | "--with-compat --with-file-aio --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_geoip_module=dynamic --with-http_gunzip_module --with-http_gzip_static_module --with-http_image_filter_module=dynamic --with-http_mp4_module --with-http_perl_module=dynamic --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-http_xslt_module=dynamic --with-ipv6 --with-mail --with-mail_ssl_module --with-md5-asm --with-pcre-jit --with-sha1-asm --with-stream --with-stream_ssl_module --with-threads" | Options to pass to OpenResty's `./configure` script. |
 |RESTY_LUAJIT_OPTIONS | "--with-luajit-xcflags='-DLUAJIT_NUMMODE=2 -DLUAJIT_ENABLE_LUA52COMPAT'" | Options to tweak LuaJIT. |

@@ -60,6 +60,12 @@ jobs:
       script:
       - ./docker_build_and_push_flavor.sh alpine-amd64 alpine/Dockerfile
 
+    - name: Build s390x Docker image for build-from-source flavors alpine
+      stage: build
+      arch: s390x
+      script:
+      - ./docker_build_and_push_flavor.sh alpine-s390x alpine/Dockerfile --build-arg RESTY_PCRE_BUILD_OPTIONS="" --build-arg RESTY_PCRE_OPTIONS=""
+
     - name: Build aarch64 Docker image for build-from-source flavor bionic
       arch: arm64
       stage: build
@@ -71,6 +77,12 @@ jobs:
       stage: build
       script:
       - ./docker_build_and_push_flavor.sh bionic-amd64 bionic/Dockerfile
+
+    - name: Build s390x Docker image for build-from-source flavor bionic
+      arch: s390x
+      stage: build
+      script:
+      - ./docker_build_and_push_flavor.sh bionic-s390x bionic/Dockerfile --build-arg RESTY_PCRE_BUILD_OPTIONS="" --build-arg RESTY_PCRE_OPTIONS=""
 
     - name: Build aarch64 Docker image for build-from-source flavor focal
       arch: arm64
@@ -84,6 +96,12 @@ jobs:
       script:
       - ./docker_build_and_push_flavor.sh focal-amd64 focal/Dockerfile
 
+    - name: Build s390x Docker image for build-from-source flavor focal
+      arch: s390x
+      stage: build
+      script:
+      - ./docker_build_and_push_flavor.sh focal-s390x focal/Dockerfile --build-arg RESTY_PCRE_BUILD_OPTIONS="" --build-arg RESTY_PCRE_OPTIONS=""
+
     - name: Build aarch64 Docker image for build-from-source flavor jammy
       arch: arm64
       stage: build
@@ -95,6 +113,12 @@ jobs:
       stage: build
       script:
       - ./docker_build_and_push_flavor.sh jammy-amd64 jammy/Dockerfile
+
+    - name: Build s390x Docker image for build-from-source flavor jammy
+      arch: s390x
+      stage: build
+      script:
+      - ./docker_build_and_push_flavor.sh jammy-s390x jammy/Dockerfile --build-arg RESTY_PCRE_BUILD_OPTIONS="" --build-arg RESTY_PCRE_OPTIONS=""
 
 ###############################################################################
 # Build From OpenResty Upstream Flavors
@@ -135,17 +159,17 @@ jobs:
     - name: Create and push manifests for multi-arch images
       stage: manifest
       script:
-      - ./docker_manifest.sh alpine      alpine-amd64      alpine-aarch64
+      - ./docker_manifest.sh alpine      alpine-amd64      alpine-aarch64      alpine-s390x
       - ./docker_manifest.sh alpine-apk  alpine-apk-amd64  alpine-apk-aarch64
       - ./docker_manifest.sh amzn2       amzn2-amd64       amzn2-aarch64
-      - ./docker_manifest.sh bionic      bionic-amd64      bionic-aarch64
+      - ./docker_manifest.sh bionic      bionic-amd64      bionic-aarch64      bionic-s390x
       - ./docker_manifest.sh bullseye    bullseye-amd64    bullseye-aarch64
       - ./docker_manifest.sh buster      buster-amd64      buster-aarch64
       - ./docker_manifest.sh centos      centos-amd64      centos-aarch64
       - ./docker_manifest.sh centos7     centos7-amd64     centos7-aarch64
       - ./docker_manifest.sh fedora      fedora-amd64      fedora-aarch64
-      - ./docker_manifest.sh focal       focal-amd64       focal-aarch64
-      - ./docker_manifest.sh jammy       jammy-amd64       jammy-aarch64
+      - ./docker_manifest.sh focal       focal-amd64       focal-aarch64       focal-s390x
+      - ./docker_manifest.sh jammy       jammy-amd64       jammy-aarch64       jammy-s390x
       - ./docker_manifest.sh rocky       rocky-amd64       rocky-aarch64
       - ./docker_tag_alias.sh centos centos-rpm
       - ./docker_tag_alias.sh fedora fedora-rpm
@@ -177,9 +201,15 @@ jobs:
       - ./docker_build_and_push_flavor.sh buster-fat-amd64 buster/Dockerfile.fat
       - ./docker_build_and_push_flavor.sh alpine-fat-amd64 alpine/Dockerfile.fat
 
+    - name: Build s390x fat Docker image
+      arch: s390x
+      stage: build-fat
+      script:
+      - ./docker_build_and_push_flavor.sh alpine-fat-s390x alpine/Dockerfile.fat
+
     - name: Create and push manifests for fat multi-arch images
       stage: manifest-fat
       script:
       - ./docker_manifest.sh bullseye-fat  bullseye-fat-amd64  bullseye-fat-aarch64
       - ./docker_manifest.sh buster-fat  buster-fat-amd64  buster-fat-aarch64
-      - ./docker_manifest.sh alpine-fat  alpine-fat-amd64  alpine-fat-aarch64
+      - ./docker_manifest.sh alpine-fat  alpine-fat-amd64  alpine-fat-aarch64  alpine-fat-s390x

@@ -1,5 +1,5 @@
 #!/bin/bash -x
-# Creates and pushes and pushes manifests flavors
+# Creates and pushes manifests for flavors
 #
 # ./docker_manifest.sh FLAVOR TAG1 ....
 #
