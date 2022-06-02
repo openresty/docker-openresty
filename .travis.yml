@@ -48,67 +48,67 @@ jobs:
 # These take longer to build and are put in their own jobs
 ###############################################################################
 
-    - name: Build aarch64 Docker image for build-from-source flavors alpine
+    - name: Build Docker image for build-from-source flavors -- alpine / aarch64
       stage: build
       arch: arm64
       script:
       - ./docker_build_and_push_flavor.sh alpine-aarch64 alpine/Dockerfile
 
-    - name: Build amd64 Docker image for build-from-source flavors alpine
+    - name: Build Docker image for build-from-source flavors -- alpine / amd64
       stage: build
       arch: amd64
       script:
       - ./docker_build_and_push_flavor.sh alpine-amd64 alpine/Dockerfile
 
-    - name: Build aarch64 Docker image for build-from-source flavor bionic
+    - name: Build Docker image for build-from-source flavor -- bionic / aarch64
       arch: arm64
       stage: build
       script:
       - ./docker_build_and_push_flavor.sh bionic-aarch64 bionic/Dockerfile
 
-    - name: Build amd64 Docker image for build-from-source flavor bionic
+    - name: Build Docker image for build-from-source flavor -- bionic / amd64
       arch: amd64
       stage: build
       script:
       - ./docker_build_and_push_flavor.sh bionic-amd64 bionic/Dockerfile
 
-    - name: Build s390x Docker image for build-from-source flavor bionic
+    - name: Build Docker image for build-from-source flavor -- bionic / s390x
       arch: s390x
       stage: build
       script:
       - ./docker_build_and_push_flavor.sh bionic-s390x bionic/Dockerfile --build-arg RESTY_PCRE_BUILD_OPTIONS="" --build-arg RESTY_PCRE_OPTIONS=""
 
-    - name: Build aarch64 Docker image for build-from-source flavor focal
+    - name: Build Docker image for build-from-source flavor -- focal / aarch64
       arch: arm64
       stage: build
       script:
       - ./docker_build_and_push_flavor.sh focal-aarch64 focal/Dockerfile
 
-    - name: Build amd64 Docker image for build-from-source flavor focal
+    - name: Build Docker image for build-from-source flavor -- focal / amd64
       arch: amd64
       stage: build
       script:
       - ./docker_build_and_push_flavor.sh focal-amd64 focal/Dockerfile
 
-    - name: Build s390x Docker image for build-from-source flavor focal
+    - name: Build Docker image for build-from-source flavor -- focal / s390x
       arch: s390x
       stage: build
       script:
       - ./docker_build_and_push_flavor.sh focal-s390x focal/Dockerfile --build-arg RESTY_PCRE_BUILD_OPTIONS="" --build-arg RESTY_PCRE_OPTIONS=""
 
-    - name: Build aarch64 Docker image for build-from-source flavor jammy
+    - name: Build Docker image for build-from-source flavor -- jammy / aarch64
       arch: arm64
       stage: build
       script:
       - ./docker_build_and_push_flavor.sh jammy-aarch64 jammy/Dockerfile
 
-    - name: Build amd64 Docker image for build-from-source flavor jammy
+    - name: Build Docker image for build-from-source flavor -- jammy / amd64
       arch: amd64
       stage: build
       script:
       - ./docker_build_and_push_flavor.sh jammy-amd64 jammy/Dockerfile
 
-    - name: Build s390x Docker image for build-from-source flavor jammy
+    - name: Build Docker image for build-from-source flavor -- jammy / s390x
       arch: s390x
       stage: build
       script:
@@ -119,7 +119,7 @@ jobs:
 # These are shorter to build are put in the same job (per architecture)
 ###############################################################################
 
-    - name: Build aarch64 Docker image for upstream flavors
+    - name: Build Docker image for upstream flavors -- aarch64
       arch: arm64
       stage: build
       script:
@@ -132,7 +132,7 @@ jobs:
       - ./docker_build_and_push_flavor.sh bullseye-aarch64 bullseye/Dockerfile --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian"
       - ./docker_build_and_push_flavor.sh buster-aarch64 buster/Dockerfile --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian"
 
-    - name: Build amd64 Docker image for upstream flavors
+    - name: Build Docker image for upstream flavors -- amd64
       arch: amd64
       stage: build
       script:
@@ -179,7 +179,7 @@ jobs:
 # Built after other images
 ###############################################################################
 
-    - name: Build aarch64 fat Docker image
+    - name: Build fat Docker image -- aarch64
       stage: build-fat
       arch: arm64
       script:
@@ -187,7 +187,7 @@ jobs:
       - ./docker_build_and_push_flavor.sh buster-fat-aarch64 buster/Dockerfile.fat
       - ./docker_build_and_push_flavor.sh alpine-fat-aarch64 alpine/Dockerfile.fat
 
-    - name: Build amd64 fat Docker image
+    - name: Build fat Docker image -- amd64
       arch: amd64
       stage: build-fat
       script:
