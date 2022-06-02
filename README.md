@@ -287,13 +287,13 @@ We used to support more build flavors but have trimmed that down.  Older Dockerf
 The following are the available build-time options. They can be set using the `--build-arg` CLI argument, like so:
 
 ```
-docker build --build-arg RESTY_J=4 -f bionic/Dockerfile .
+docker build --build-arg RESTY_J=4 -f jammy/Dockerfile .
 ```
 
 | Key | Default | Description |
 :----- | :-----: |:----------- |
 |RESTY_IMAGE_BASE | "ubuntu" / "alpine" | The Debian or Alpine Docker image base to build `FROM`. |
-|RESTY_IMAGE_TAG  | "bionic" / "3.15" | The Debian or Alpine Docker image tag to build `FROM`. |
+|RESTY_IMAGE_TAG  | "jammy" / "3.16" | The Debian or Alpine Docker image tag to build `FROM`. |
 |RESTY_VERSION | 1.21.4.1 | The version of OpenResty to use. |
 |RESTY_LUAROCKS_VERSION | 3.9.0 | The version of LuaRocks to use. |
 |RESTY_OPENSSL_VERSION | 1.1.1n | The version of OpenSSL to use. |
