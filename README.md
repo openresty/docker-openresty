@@ -95,7 +95,7 @@ The following "flavors" are built from source and are intended for more advanced
 
 The `openresty/openresty:latest` tag points to the latest `bullseye` image.
 
-Since `1.19.3.2-1`, all flavors support multi-architecture builds, both `amd64` and `aarch64`.  Since `1.21.4.1-1`, the `s390x` architecture is supported for build-from-source flavors, however [PCRE JIT](https://github.com/zherczeg/sljit/issues/89) is disabled.
+Since `1.19.3.2-1`, all flavors support multi-architecture builds, both `amd64` and `aarch64`.  Since `1.21.4.1-1`, the `s390x` architecture is supported for build-from-source Ubuntu flavors (like `jammy`), however [PCRE JIT](https://github.com/zherczeg/sljit/issues/89) is disabled.
 
 Starting with `1.13.6.1`, releases are tagged with `<openresty-version>-<image-version>-<flavor>`.  The latest `image-version` will also be tagged `<openresty-version>-<flavor>`.   The HEAD of the master branch is also labeled plainly as `<flavor>`.  The builds are managed by [Travis-CI](https://travis-ci.com/github/neomantra/docker-openresty) and [Appveyor](https://ci.appveyor.com/project/openresty/docker-openresty) (for Windows images).
 
