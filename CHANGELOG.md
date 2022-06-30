@@ -4,6 +4,7 @@ Changelog
 ## 1.21.4.1-2
 
  * Update OpenSSL to 1.1.1p for built-from-source flavors due to CVE-2022-2068
+ * Remove `jammy` flavor on `s390x` architecture because the build rarely succeeds (#209)
 
 ## 1.21.4.1-1
 

@@ -108,11 +108,12 @@ jobs:
       script:
       - ./docker_build_and_push_flavor.sh jammy-amd64 jammy/Dockerfile
 
-    - name: Build Docker image for build-from-source flavor -- jammy / s390x
-      arch: s390x
-      stage: build
-      script:
-      - ./docker_build_and_push_flavor.sh jammy-s390x jammy/Dockerfile --build-arg RESTY_PCRE_BUILD_OPTIONS="" --build-arg RESTY_PCRE_OPTIONS=""
+# jammy / s390x disabled due to build issues (#209)
+#   - name: Build Docker image for build-from-source flavor -- jammy / s390x
+#     arch: s390x
+#     stage: build
+#     script:
+#     - ./docker_build_and_push_flavor.sh jammy-s390x jammy/Dockerfile --build-arg RESTY_PCRE_BUILD_OPTIONS="" --build-arg RESTY_PCRE_OPTIONS=""
 
 ###############################################################################
 # Build From OpenResty Upstream Flavors
@@ -163,7 +164,7 @@ jobs:
       - ./docker_manifest.sh centos7     centos7-amd64     centos7-aarch64
       - ./docker_manifest.sh fedora      fedora-amd64      fedora-aarch64
       - ./docker_manifest.sh focal       focal-amd64       focal-aarch64       focal-s390x
-      - ./docker_manifest.sh jammy       jammy-amd64       jammy-aarch64       jammy-s390x
+      - ./docker_manifest.sh jammy       jammy-amd64       jammy-aarch64      #jammy-s309x
       - ./docker_manifest.sh rocky       rocky-amd64       rocky-aarch64
       - ./docker_tag_alias.sh centos centos-rpm
       - ./docker_tag_alias.sh fedora fedora-rpm
