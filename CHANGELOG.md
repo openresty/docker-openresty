@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 1.19.9.1-13
+
+ * Upgrade PRCE to 8.45 for built-from-source flavors
+ * Bump `fedora` flavor to FC35.
+
 ## 1.19.9.1-12
 
  * LuaRocks 3.9.0 depends on wget (#204)
