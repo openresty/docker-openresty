@@ -3,7 +3,9 @@ Changelog
 
 ## 1.19.9.1-13
 
+ * Update OpenSSL to 1.1.1p for built-from-source flavors due to CVE-2022-2068
  * Upgrade PRCE to 8.45 for built-from-source flavors
+ * Upgrade built-from-source `alpine` to Alpine `3.16`
  * Bump `fedora` flavor to FC35.
 
 ## 1.19.9.1-12
