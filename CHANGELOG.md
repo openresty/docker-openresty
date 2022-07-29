@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.21.4.1-3
+
+ * Update OpenSSL to 1.1.1q for built-from-source flavors (#212)
+
 ## 1.21.4.1-2
 
  * Update OpenSSL to 1.1.1p for built-from-source flavors due to CVE-2022-2068
