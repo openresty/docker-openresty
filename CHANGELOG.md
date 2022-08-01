@@ -5,6 +5,7 @@ Changelog
 
  * Update OpenSSL to 1.1.1q for built-from-source flavors (#212)
  * Ensure "fat" images are built from the correct RESTY_IMAGE_TAG_BASE (#211)
+ * "Fat" Debian images now install the `resty` utility
 
 ## 1.19.9.1-13
   NOTE!!! The "fat" images for 1.19.9.1-13 are accidentally based on OpenResty 1.21.4.1.

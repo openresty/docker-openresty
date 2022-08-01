@@ -221,6 +221,8 @@ $ docker inspect openresty/openresty:1.17.8.1-0-bionic | jq '.[].Config.Labels'
 |`resty_deb_version`           | buildarg `RESTY_DEB_VERSION` ([available versions](https://openresty.org/package/debian/pool/openresty/o/openresty/))  |
 |`resty_eval_post_make`        | buildarg `RESTY_EVAL_POST_MAKE`  |
 |`resty_eval_pre_configure`    | buildarg `RESTY_EVAL_PRE_CONFIGURE`  |
+|`resty_fat_deb_flavor`        | buildarg  `RESTY_FAT_DEB_FLAVOR` |
+|`resty_fat_deb_version`       | buildarg `RESTY_FAT_DEB_VERSION` |
 |`resty_fat_image_base`        | Name of the base image to build fat images from, buildarg  `RESTY_FAT_IMAGE_BASE` |
 |`resty_fat_image_tag`         | Tag of the base image to build fat images from, buildarg `RESTY_FAT_IMAGE_TAG` |
 |`resty_image_base`            | Name of the base image to build from, buildarg  `RESTY_IMAGE_BASE` |
@@ -399,6 +401,8 @@ docker build --build-arg RESTY_DEB_FLAVOR="-debug" -f bullseye/Dockerfile .
 |RESTY_IMAGE_TAG   | "bullseye-slim" | The Debian Docker image tag to build `FROM`. |
 |RESTY_DEB_FLAVOR  | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
 |RESTY_DEB_VERSION | "=1.19.9.1-1~bullseye" | The [Debian package version](https://openresty.org/package/debian/pool/openresty/o/openresty/) to use, with `=` prepended. |
+|RESTY_FAT_DEB_FLAVOR  | "" | The `openresty` package flavor to use to install "fat" packages.  Possibly `"-debug"` or `"-valgrind"`. |
+|RESTY_DEB_VERSION | "=1.19.9.1-1~bullseye1" | The [Debian package version](https://openresty.org/package/debian/pool/openresty/o/openresty/) to use to install "fat" packages, with `=` prepended. |
 
  * For `amd64` builds, `RESTY_APT_REPO="https://openresty.org/package/debian"`
  * For `arm64` builds, `RESTY_APT_REPO="https://openresty.org/package/arm64/debian"`
