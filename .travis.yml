@@ -184,17 +184,17 @@ jobs:
       stage: build-fat
       arch: arm64
       script:
-      - ./docker_build_and_push_flavor.sh bullseye-fat-aarch64 bullseye/Dockerfile.fat
-      - ./docker_build_and_push_flavor.sh buster-fat-aarch64 buster/Dockerfile.fat
-      - ./docker_build_and_push_flavor.sh alpine-fat-aarch64 alpine/Dockerfile.fat
+      - ./docker_build_and_push_flavor_fat.sh bullseye-fat-aarch64 bullseye/Dockerfile.fat
+      - ./docker_build_and_push_flavor_fat.sh buster-fat-aarch64 buster/Dockerfile.fat
+      - ./docker_build_and_push_flavor_fat.sh alpine-fat-aarch64 alpine/Dockerfile.fat
 
     - name: Build fat Docker image -- amd64
       arch: amd64
       stage: build-fat
       script:
-      - ./docker_build_and_push_flavor.sh bullseye-fat-amd64 bullseye/Dockerfile.fat
-      - ./docker_build_and_push_flavor.sh buster-fat-amd64 buster/Dockerfile.fat
-      - ./docker_build_and_push_flavor.sh alpine-fat-amd64 alpine/Dockerfile.fat
+      - ./docker_build_and_push_flavor_fat.sh bullseye-fat-amd64 bullseye/Dockerfile.fat
+      - ./docker_build_and_push_flavor_fat.sh buster-fat-amd64 buster/Dockerfile.fat
+      - ./docker_build_and_push_flavor_fat.sh alpine-fat-amd64 alpine/Dockerfile.fat
 
     - name: Create and push manifests for fat multi-arch images
       stage: manifest-fat

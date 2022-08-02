@@ -4,6 +4,8 @@ Changelog
 ## 1.21.4.1-3
 
  * Update OpenSSL to 1.1.1q for built-from-source flavors (#212)
+ * Ensure "fat" images are built from the correct RESTY_IMAGE_TAG_BASE (#211)
+ * "Fat" Debian images now install the `resty` utility
 
 ## 1.21.4.1-2
 
@@ -30,6 +32,21 @@ Changelog
 
  * Upgrade Openresty to 1.21.4.1rc3
    NOTE: only for build-from-source flavors `alpine`, `bionic`, `focal`, `jammy`
+
+## 1.19.9.1-14
+
+ * Update OpenSSL to 1.1.1q for built-from-source flavors (#212)
+ * Ensure "fat" images are built from the correct RESTY_IMAGE_TAG_BASE (#211)
+ * "Fat" Debian images now install the `resty` utility
+
+## 1.19.9.1-13
+  NOTE!!! The "fat" images for 1.19.9.1-13 are accidentally based on OpenResty 1.21.4.1.
+          Other version tags are OK.
+
+ * Update OpenSSL to 1.1.1p for built-from-source flavors due to CVE-2022-2068
+ * Upgrade PRCE to 8.45 for built-from-source flavors
+ * Upgrade built-from-source `alpine` to Alpine `3.16`
+ * Bump `fedora` flavor to FC35.
 
 ## 1.19.9.1-12
 
