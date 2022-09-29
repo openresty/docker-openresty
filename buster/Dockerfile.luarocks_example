@@ -1,4 +1,4 @@
-# Derived Dockerfile Example using `LuaRocks`
+# Derived Dockerfile Example using `luarocks`
 # https://github.com/openresty/docker-openresty
 #
 # Installs LuaRocks and then uses LuaRocks to install ljsyscall.
