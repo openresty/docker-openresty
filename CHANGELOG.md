@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.21.4.1-4
+
+ * Tag to update CI/CD with latest base images, 2022-11-30.
+
 ## 1.21.4.1-3
 
  * Update OpenSSL to 1.1.1q for built-from-source flavors (#212)
