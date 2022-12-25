@@ -14,9 +14,6 @@ ARG RESTY_FAT_IMAGE_TAG="alpine"
 
 FROM ${RESTY_FAT_IMAGE_BASE}:${RESTY_FAT_IMAGE_TAG}
 
-ARG RESTY_FAT_IMAGE_BASE="openresty/openresty"
-ARG RESTY_FAT_IMAGE_TAG="alpine"
-
 ARG RESTY_LUAROCKS_VERSION="3.9.0"
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"

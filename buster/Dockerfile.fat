@@ -12,9 +12,6 @@ ARG RESTY_FAT_IMAGE_TAG="buster"
 
 FROM ${RESTY_FAT_IMAGE_BASE}:${RESTY_FAT_IMAGE_TAG}
 
-ARG RESTY_FAT_IMAGE_BASE="openresty/openresty"
-ARG RESTY_FAT_IMAGE_TAG="buster"
-
 # RESTY_FAT_DEB_FLAVOR build argument is used to select other
 # OpenResty Debian package variants.
 # For example: "-debug" or "-valgrind"

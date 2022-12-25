@@ -9,9 +9,6 @@ FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
 # Docker Build Arguments
-ARG RESTY_IMAGE_BASE="alpine"
-ARG RESTY_IMAGE_TAG="3.15"
-
 ARG RESTY_APK_KEY_URL="https://openresty.org/package/admin@openresty.com-5ea678a6.rsa.pub"
 ARG RESTY_APK_REPO_URL="https://openresty.org/package/alpine/v${RESTY_IMAGE_TAG}/main"
 ARG RESTY_APK_VERSION="=1.21.4.1-r0"

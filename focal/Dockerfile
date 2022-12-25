@@ -9,8 +9,6 @@ FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
 # Docker Build Arguments
-ARG RESTY_IMAGE_BASE="ubuntu"
-ARG RESTY_IMAGE_TAG="focal"
 ARG RESTY_VERSION="1.21.4.1"
 ARG RESTY_LUAROCKS_VERSION="3.9.0"
 ARG RESTY_OPENSSL_VERSION="1.1.1q"

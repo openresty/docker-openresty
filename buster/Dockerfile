@@ -15,8 +15,6 @@ ARG RESTY_DEB_FLAVOR=""
 ARG RESTY_DEB_VERSION="=1.21.4.1-1~buster1"
 ARG RESTY_APT_REPO="https://openresty.org/package/debian"
 ARG RESTY_APT_PGP="https://openresty.org/package/pubkey.gpg"
-ARG RESTY_IMAGE_BASE="debian"
-ARG RESTY_IMAGE_TAG="buster-slim"
 
 LABEL resty_image_base="${RESTY_IMAGE_BASE}"
 LABEL resty_image_tag="${RESTY_IMAGE_TAG}"
