@@ -194,6 +194,7 @@ $ docker inspect openresty/openresty:1.17.8.1-0-bionic | jq '.[].Config.Labels'
   "resty_config_options_more": "",
   "resty_eval_post_make": "",
   "resty_eval_pre_configure": "",
+  "resty_eval_post_download_pre_configure": "",
   "resty_image_base": "ubuntu",
   "resty_image_tag": "bionic",
   "resty_luarocks_version": "3.3.1",
@@ -205,46 +206,47 @@ $ docker inspect openresty/openresty:1.17.8.1-0-bionic | jq '.[].Config.Labels'
 }
 ```
 
-| Label Name                   | Description             |
-:----------------------------- |:----------------------- |
-|`maintainer`                  | Maintainer of the image |
-|`resty_add_package_builddeps` | buildarg `RESTY_ADD_PACKAGE_BUILDDEPS` |
-|`resty_add_package_rundeps`   | buildarg `RESTY_ADD_PACKAGE_RUNDEPS` |
-|`resty_apk_key_url`           | buildarg `RESTY_APK_KEY_URL` |
-|`resty_apk_repo_url`          | buildarg `RESTY_APK_REPO_URL` |
-|`resty_apk_version`           | buildarg `RESTY_APK_VERSION` |
-|`resty_apt_pgp`               | buildarg `RESTY_APT_PGP` |
-|`resty_apt_repo`              | buildarg `RESTY_APT_REPO` |
-|`resty_config_deps`           | buildarg `_RESTY_CONFIG_DEPS` (internal) |
-|`resty_config_options_more`   | buildarg `RESTY_CONFIG_OPTIONS_MORE`  |
-|`resty_config_options`        | buildarg `RESTY_CONFIG_OPTIONS`  |
-|`resty_deb_flavor`            | buildarg `RESTY_DEB_FLAVOR`  |
-|`resty_deb_version`           | buildarg `RESTY_DEB_VERSION` ([available versions](https://openresty.org/package/debian/pool/openresty/o/openresty/))  |
-|`resty_eval_post_make`        | buildarg `RESTY_EVAL_POST_MAKE`  |
-|`resty_eval_pre_configure`    | buildarg `RESTY_EVAL_PRE_CONFIGURE`  |
-|`resty_fat_deb_flavor`        | buildarg `RESTY_FAT_DEB_FLAVOR` |
-|`resty_fat_deb_version`       | buildarg `RESTY_FAT_DEB_VERSION` |
-|`resty_fat_image_base`        | Name of the base image to build fat images from, buildarg  `RESTY_FAT_IMAGE_BASE` |
-|`resty_fat_image_tag`         | Tag of the base image to build fat images from, buildarg `RESTY_FAT_IMAGE_TAG` |
-|`resty_image_base`            | Name of the base image to build from, buildarg  `RESTY_IMAGE_BASE` |
-|`resty_image_tag`             | Tag of the base image to build from, buildarg `RESTY_IMAGE_TAG` |
-|`resty_install_base`          | buildarg `RESTY_INSTALL_BASE` |
-|`resty_install_tag`           | buildarg `RESTY_INSTALL_TAG` |
-|`resty_luajit_options`        | buildarg `RESTY_LUAJIT_OPTIONS` |
-|`resty_luarocks_version`      | buildarg `RESTY_LUAROCKS_VERSION` |
-|`resty_openssl_patch_version` | buildarg `RESTY_OPENSSL_PATCH_VERSION` |
-|`resty_openssl_url_base`      | buildarg `RESTY_OPENSSL_URL_BASE` |
-|`resty_openssl_version`       | buildarg `RESTY_OPENSSL_VERSION` |
-|`resty_pcre_build_options`    | buildarg `RESTY_PCRE_BUILD_OPTIONS`  |
-|`resty_pcre_options`          | buildarg `RESTY_PCRE_OPTIONS`  |
-|`resty_pcre_sha256`           | buildarg `RESTY_PCRE_SHA256`  |
-|`resty_pcre_version`          | buildarg `RESTY_PCRE_VERSION`  |
-|`resty_rpm_arch`              | buildarg `RESTY_RPM_ARCH`  |
-|`resty_rpm_dist`              | buildarg `RESTY_RPM_DIST`  |
-|`resty_rpm_flavor`            | buildarg `RESTY_RPM_FLAVOR`  |
-|`resty_rpm_version`           | buildarg `RESTY_RPM_VERSION`  |
-|`resty_version`               | buildarg `RESTY_VERSION`  |
-|`resty_yum_repo`              | buildarg `RESTY_YUM_REPO`  |
+| Label Name                               | Description                                                                                                           |
+:-----------------------------------------|:----------------------------------------------------------------------------------------------------------------------|
+| `maintainer`                             | Maintainer of the image                                                                                               |
+| `resty_add_package_builddeps`            | buildarg `RESTY_ADD_PACKAGE_BUILDDEPS`                                                                                |
+| `resty_add_package_rundeps`              | buildarg `RESTY_ADD_PACKAGE_RUNDEPS`                                                                                  |
+| `resty_apk_key_url`                      | buildarg `RESTY_APK_KEY_URL`                                                                                          |
+| `resty_apk_repo_url`                     | buildarg `RESTY_APK_REPO_URL`                                                                                         |
+| `resty_apk_version`                      | buildarg `RESTY_APK_VERSION`                                                                                          |
+| `resty_apt_pgp`                          | buildarg `RESTY_APT_PGP`                                                                                              |
+| `resty_apt_repo`                         | buildarg `RESTY_APT_REPO`                                                                                             |
+| `resty_config_deps`                      | buildarg `_RESTY_CONFIG_DEPS` (internal)                                                                              |
+| `resty_config_options_more`              | buildarg `RESTY_CONFIG_OPTIONS_MORE`                                                                                  |
+| `resty_config_options`                   | buildarg `RESTY_CONFIG_OPTIONS`                                                                                       |
+| `resty_deb_flavor`                       | buildarg `RESTY_DEB_FLAVOR`                                                                                           |
+| `resty_deb_version`                      | buildarg `RESTY_DEB_VERSION` ([available versions](https://openresty.org/package/debian/pool/openresty/o/openresty/)) |
+| `resty_eval_post_make`                   | buildarg `RESTY_EVAL_POST_MAKE`                                                                                       |
+| `resty_eval_pre_configure`               | buildarg `RESTY_EVAL_PRE_CONFIGURE`                                                                                   |
+| `resty_eval_post_download_pre_configure` | buildarg `RESTY_EVAL_POST_DOWNLOAD_PRE_CONFIGURE`                                                                     |
+| `resty_fat_deb_flavor`                   | buildarg `RESTY_FAT_DEB_FLAVOR`                                                                                       |
+| `resty_fat_deb_version`                  | buildarg `RESTY_FAT_DEB_VERSION`                                                                                      |
+| `resty_fat_image_base`                   | Name of the base image to build fat images from, buildarg  `RESTY_FAT_IMAGE_BASE`                                     |
+| `resty_fat_image_tag`                    | Tag of the base image to build fat images from, buildarg `RESTY_FAT_IMAGE_TAG`                                        |
+| `resty_image_base`                       | Name of the base image to build from, buildarg  `RESTY_IMAGE_BASE`                                                    |
+| `resty_image_tag`                        | Tag of the base image to build from, buildarg `RESTY_IMAGE_TAG`                                                       |
+| `resty_install_base`                     | buildarg `RESTY_INSTALL_BASE`                                                                                         |
+| `resty_install_tag`                      | buildarg `RESTY_INSTALL_TAG`                                                                                          |
+| `resty_luajit_options`                   | buildarg `RESTY_LUAJIT_OPTIONS`                                                                                       |
+| `resty_luarocks_version`                 | buildarg `RESTY_LUAROCKS_VERSION`                                                                                     |
+| `resty_openssl_patch_version`            | buildarg `RESTY_OPENSSL_PATCH_VERSION`                                                                                |
+| `resty_openssl_url_base`                 | buildarg `RESTY_OPENSSL_URL_BASE`                                                                                     |
+| `resty_openssl_version`                  | buildarg `RESTY_OPENSSL_VERSION`                                                                                      |
+| `resty_pcre_build_options`               | buildarg `RESTY_PCRE_BUILD_OPTIONS`                                                                                   |
+| `resty_pcre_options`                     | buildarg `RESTY_PCRE_OPTIONS`                                                                                         |
+| `resty_pcre_sha256`                      | buildarg `RESTY_PCRE_SHA256`                                                                                          |
+| `resty_pcre_version`                     | buildarg `RESTY_PCRE_VERSION`                                                                                         |
+| `resty_rpm_arch`                         | buildarg `RESTY_RPM_ARCH`                                                                                             |
+| `resty_rpm_dist`                         | buildarg `RESTY_RPM_DIST`                                                                                             |
+| `resty_rpm_flavor`                       | buildarg `RESTY_RPM_FLAVOR`                                                                                           |
+| `resty_rpm_version`                      | buildarg `RESTY_RPM_VERSION`                                                                                          |
+| `resty_version`                          | buildarg `RESTY_VERSION`                                                                                              |
+| `resty_yum_repo`                         | buildarg `RESTY_YUM_REPO`                                                                                             |
 
 
 Docker CMD
@@ -292,27 +294,28 @@ The following are the available build-time options. They can be set using the `-
 docker build --build-arg RESTY_J=4 -f jammy/Dockerfile .
 ```
 
-| Key | Default | Description |
-:----- | :-----: |:----------- |
-|RESTY_IMAGE_BASE | "ubuntu" / "alpine" | The Debian or Alpine Docker image base to build `FROM`. |
-|RESTY_IMAGE_TAG  | "jammy" / "3.16" | The Debian or Alpine Docker image tag to build `FROM`. |
-|RESTY_VERSION | 1.21.4.1 | The version of OpenResty to use. |
-|RESTY_LUAROCKS_VERSION | 3.9.0 | The version of LuaRocks to use. |
-|RESTY_OPENSSL_VERSION | 1.1.1q | The version of OpenSSL to use. |
-|RESTY_OPENSSL_PATCH_VERSION | 1.1.1f | The version of OpenSSL to use when patching. |
-|RESTY_OPENSSL_URL_BASE |  https://www.openssl.org/source | The base of the URL to download OpenSSL from. |
-|RESTY_PCRE_VERSION | 8.45 | The version of PCRE to use. |
-|RESTY_PCRE_SHA256 | `4e6ce03e0336e8b4a3d6c2b70b1c5e18590a5673a98186da90d4f33c23defc09` | The SHA-256 checksum of the PCRE package to check. |
-|RESTY_PCRE_BUILD_OPTIONS | "--enable-jit" | Options tweak Resty's PCRE build.  | 
-|RESTY_PCRE_OPTIONS | "--with-pcre-jit" | Options to tweak Resty's build args regarding PCRE. |
-|RESTY_J | 1 | Sets the parallelism level (-jN) for the builds. |
-|RESTY_CONFIG_OPTIONS | "--with-compat --with-file-aio --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_geoip_module=dynamic --with-http_gunzip_module --with-http_gzip_static_module --with-http_image_filter_module=dynamic --with-http_mp4_module --with-http_perl_module=dynamic --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-http_xslt_module=dynamic --with-ipv6 --with-mail --with-mail_ssl_module --with-md5-asm --with-pcre-jit --with-sha1-asm --with-stream --with-stream_ssl_module --with-threads" | Options to pass to OpenResty's `./configure` script. |
-|RESTY_LUAJIT_OPTIONS | "--with-luajit-xcflags='-DLUAJIT_NUMMODE=2 -DLUAJIT_ENABLE_LUA52COMPAT'" | Options to tweak LuaJIT. |
-|RESTY_CONFIG_OPTIONS_MORE | "" | More options to pass to OpenResty's `./configure` script. |
-|RESTY_ADD_PACKAGE_BUILDDEPS | "" | Additional packages to install with package manager required by build only (removed after installation) |
-|RESTY_ADD_PACKAGE_RUNDEPS | "" | Additional packages to install with package manager required at runtime (not removed after installation) |
-|RESTY_EVAL_PRE_CONFIGURE | "" | Command(s) to run prior to executing OpenResty's `./configure` script. (this can be used to clone a github repo of an extension you want to add to OpenResty, for example.  In that case, dont forget to add the appropriate argument to the RESTY_CONFIG_OPTIONS_MORE argument as described above). |
-|RESTY_EVAL_POST_MAKE | "" | Command(s) to run after running make install.  |
+| Key                                     | Default | Description |
+:-----------------------------------------| :-----: |:----------- |
+| RESTY_IMAGE_BASE                        | "ubuntu" / "alpine" | The Debian or Alpine Docker image base to build `FROM`. |
+| RESTY_IMAGE_TAG                         | "jammy" / "3.16" | The Debian or Alpine Docker image tag to build `FROM`. |
+| RESTY_VERSION                           | 1.21.4.1 | The version of OpenResty to use. |
+| RESTY_LUAROCKS_VERSION                  | 3.9.0 | The version of LuaRocks to use. |
+| RESTY_OPENSSL_VERSION                   | 1.1.1q | The version of OpenSSL to use. |
+| RESTY_OPENSSL_PATCH_VERSION             | 1.1.1f | The version of OpenSSL to use when patching. |
+| RESTY_OPENSSL_URL_BASE                  |  https://www.openssl.org/source | The base of the URL to download OpenSSL from. |
+| RESTY_PCRE_VERSION                      | 8.45 | The version of PCRE to use. |
+| RESTY_PCRE_SHA256                       | `4e6ce03e0336e8b4a3d6c2b70b1c5e18590a5673a98186da90d4f33c23defc09` | The SHA-256 checksum of the PCRE package to check. |
+| RESTY_PCRE_BUILD_OPTIONS                | "--enable-jit" | Options tweak Resty's PCRE build.  | 
+| RESTY_PCRE_OPTIONS                      | "--with-pcre-jit" | Options to tweak Resty's build args regarding PCRE. |
+| RESTY_J                                 | 1 | Sets the parallelism level (-jN) for the builds. |
+| RESTY_CONFIG_OPTIONS                    | "--with-compat --with-file-aio --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_geoip_module=dynamic --with-http_gunzip_module --with-http_gzip_static_module --with-http_image_filter_module=dynamic --with-http_mp4_module --with-http_perl_module=dynamic --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-http_xslt_module=dynamic --with-ipv6 --with-mail --with-mail_ssl_module --with-md5-asm --with-pcre-jit --with-sha1-asm --with-stream --with-stream_ssl_module --with-threads" | Options to pass to OpenResty's `./configure` script. |
+| RESTY_LUAJIT_OPTIONS                    | "--with-luajit-xcflags='-DLUAJIT_NUMMODE=2 -DLUAJIT_ENABLE_LUA52COMPAT'" | Options to tweak LuaJIT. |
+| RESTY_CONFIG_OPTIONS_MORE               | "" | More options to pass to OpenResty's `./configure` script. |
+| RESTY_ADD_PACKAGE_BUILDDEPS             | "" | Additional packages to install with package manager required by build only (removed after installation) |
+| RESTY_ADD_PACKAGE_RUNDEPS               | "" | Additional packages to install with package manager required at runtime (not removed after installation) |
+| RESTY_EVAL_PRE_CONFIGURE                | "" | Command(s) to run prior to executing OpenResty's `./configure` script. (this can be used to clone a github repo of an extension you want to add to OpenResty, for example.  In that case, dont forget to add the appropriate argument to the RESTY_CONFIG_OPTIONS_MORE argument as described above). |
+| RESTY_EVAL_POST_DOWNLOAD_PRE_CONFIGURE  | "" | Command(s) to run after downloading and extracting OpenResty's source tarball, but prior to executing OpenResty's `./configure` script. Working directory will be the extracted OpenResty source directory. |
+| RESTY_EVAL_POST_MAKE                    | "" | Command(s) to run after running make install.  |
 
 These built-from-source flavors include the following modules by default, but one can easily increase or decrease that with the custom build options above:
 
