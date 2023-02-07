@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 1.21.4.1-5
+
+ * Adds `RESTY_EVAL_POST_DOWNLOAD_PRE_CONFIGURE` build argument to run patches
+   against OpenResty source download (#219).
+
 ## 1.21.4.1-4
 
  * Tag to update CI/CD with latest base images, 2022-11-30.
