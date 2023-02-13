@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## untagged
+
+ * Added `centos/Dockerfile.expat_example` of installing expat from source (#221)
+
 ## 1.21.4.1-5
 
  * Adds `RESTY_EVAL_POST_DOWNLOAD_PRE_CONFIGURE` build argument to run patches

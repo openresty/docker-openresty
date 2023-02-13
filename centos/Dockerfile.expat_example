@@ -1,0 +1,32 @@
+ARG OPENRESTY_VERSION="1.21.4.1-5"
+FROM "openresty/openresty:${OPENRESTY_VERSION}-centos"  # locally I needed to add "-aarch64"
+ARG OPENRESTY_VERSION="1.21.4.1-5"
+
+# Install dependencies
+RUN yum -y install gcc
+
+# Download and install Expat from source
+ARG EXPAT_VERSION="2.5.0"
+RUN cd /tmp && \
+    curl -fSL "https://github.com/libexpat/libexpat/releases/download/R_$(echo -n ${EXPAT_VERSION} | sed 's/\./_/g')/expat-${EXPAT_VERSION}.tar.gz" -o expat.tar.gz && \
+    tar xzf expat.tar.gz && \
+    cd expat-${EXPAT_VERSION} && \
+    ./configure && \
+    make && \
+    make install && \
+    cd /tmp && \
+    rm -rf expat-${EXPAT_VERSION} expat.tar.gz
+
+# Download and install LuaExpat module from source
+ARG LUAEXPAT_VERSION="1.5.1"
+RUN cd /tmp && \
+    curl -fSL "https://github.com/lunarmodules/luaexpat/archive/refs/tags/${LUAEXPAT_VERSION}.tar.gz" -o luaexpat.tar.gz && \
+    tar xzf luaexpat.tar.gz && \
+    cd luaexpat-${LUAEXPAT_VERSION} && \
+    make -e LUA_INC=-I/usr/local/openresty/luajit/include/luajit-2.1 && \
+    make -e LUA_INC=-I/usr/local/openresty/luajit/include/luajit-2.1 \
+         -e LUA_LDIR=/usr/local/openresty/lualib \
+         -e LUA_CDIR=/usr/local/openresty/lualib \
+         install && \
+    cd /tmp && \
+    rm -rf luaexpat-${LUAEXPAT_VERSION} luaexpat.tar.gz
