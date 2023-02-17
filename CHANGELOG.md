@@ -5,6 +5,7 @@ Changelog
 
  * Added `centos/Dockerfile.expat_example` of installing expat from source (#221)
  * Upgraded Alpine to `3.17` for `alpine` not `alpine-apk` (#224)
+ * Update OpenSSL to 1.1.1t for built-from-source flavors
 
 ## 1.21.4.1-5
 
