@@ -4,6 +4,7 @@ Changelog
 ## untagged
 
  * Added `centos/Dockerfile.expat_example` of installing expat from source (#221)
+ * Upgraded Alpine to `3.17` for `alpine` not `alpine-apk` (#224)
 
 ## 1.21.4.1-5
 
