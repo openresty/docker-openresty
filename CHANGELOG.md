@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.21.4.1-7
+
+ * Tagged rebuild to catch latest Alpine.
+
 ## 1.21.4.1-6
 
  * Added `centos/Dockerfile.expat_example` of installing expat from source (#221)
