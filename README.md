@@ -298,7 +298,7 @@ docker build --build-arg RESTY_J=4 -f jammy/Dockerfile .
 :-----------------------------------------| :-----: |:----------- |
 | RESTY_IMAGE_BASE                        | "ubuntu" / "alpine" | The Debian or Alpine Docker image base to build `FROM`. |
 | RESTY_IMAGE_TAG                         | "jammy" / "3.17" | The Debian or Alpine Docker image tag to build `FROM`. |
-| RESTY_VERSION                           | 1.21.4.1 | The version of OpenResty to use. |
+| RESTY_VERSION                           | 1.21.4.2rc1 | The version of OpenResty to use. |
 | RESTY_LUAROCKS_VERSION                  | 3.9.0 | The version of LuaRocks to use. |
 | RESTY_OPENSSL_VERSION                   | 1.1.1t | The version of OpenSSL to use. |
 | RESTY_OPENSSL_PATCH_VERSION             | 1.1.1f | The version of OpenSSL to use when patching. |
@@ -463,7 +463,7 @@ docker build --build-arg RESTY_VERSION="1.13.6.2" -f windows/Dockerfile .
 |RESTY_INSTALL_TAG  | "ltsc2019" | The Windows Server Docker image name to download and install OpenResty with. |
 |RESTY_IMAGE_BASE   | "mcr.microsoft.com/windows/nanoserver" | The Windows Server Docker image name to build `FROM` for final image. |
 |RESTY_IMAGE_TAG    | "1809" | The Windows Server Docker image tag to build `FROM` for final image. |
-|RESTY_VERSION      | 1.21.4.1 | The version of OpenResty to use. |
+|RESTY_VERSION      | 1.21.4.2rc1 | The version of OpenResty to use. |
 
 [Back to TOC](#table-of-contents)
 

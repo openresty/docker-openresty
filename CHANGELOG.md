@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 1.21.4.2rc1-0
+
+ * Upgrade OpenResty to 1.21.4.2rc1
+   NOTE: only for `windows` and build-from-source flavors `alpine`, `bionic`, `focal`, `jammy`
+
 ## 1.21.4.1-7
 
  * Tagged rebuild to catch latest Alpine.

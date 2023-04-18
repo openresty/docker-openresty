@@ -120,31 +120,31 @@ jobs:
 # These are shorter to build are put in the same job (per architecture)
 ###############################################################################
 
-    - name: Build Docker image for upstream flavors -- aarch64
-      arch: arm64
-      stage: build
-      script:
-      - ./docker_build_and_push_flavor.sh alpine-apk-aarch64 alpine-apk/Dockerfile
-      - ./docker_build_and_push_flavor.sh amzn2-aarch64 centos/Dockerfile --build-arg RESTY_IMAGE_BASE=amazonlinux --build-arg RESTY_IMAGE_TAG=2 --build-arg RESTY_YUM_REPO="https://openresty.org/package/amazon/openresty.repo" --build-arg RESTY_RPM_DIST="amzn2" --build-arg RESTY_RPM_ARCH="aarch64"
-      - ./docker_build_and_push_flavor.sh rocky-aarch64 fedora/Dockerfile --build-arg RESTY_IMAGE_BASE=rockylinux --build-arg RESTY_IMAGE_TAG=8.5 --build-arg RESTY_YUM_REPO="https://openresty.org/package/rocky/openresty.repo" --build-arg RESTY_RPM_DIST="el8" --build-arg RESTY_RPM_ARCH="aarch64"
-      - ./docker_build_and_push_flavor.sh centos-aarch64 centos/Dockerfile --build-arg RESTY_RPM_ARCH=aarch64
-      - ./docker_build_and_push_flavor.sh centos7-aarch64 centos7/Dockerfile --build-arg RESTY_RPM_ARCH=aarch64
-      - ./docker_build_and_push_flavor.sh fedora-aarch64 fedora/Dockerfile --build-arg RESTY_RPM_ARCH=aarch64
-      - ./docker_build_and_push_flavor.sh bullseye-aarch64 bullseye/Dockerfile --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian"
-      - ./docker_build_and_push_flavor.sh buster-aarch64 buster/Dockerfile --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian"
+    # - name: Build Docker image for upstream flavors -- aarch64
+    #   arch: arm64
+    #   stage: build
+    #   script:
+    #   - ./docker_build_and_push_flavor.sh alpine-apk-aarch64 alpine-apk/Dockerfile
+    #   - ./docker_build_and_push_flavor.sh amzn2-aarch64 centos/Dockerfile --build-arg RESTY_IMAGE_BASE=amazonlinux --build-arg RESTY_IMAGE_TAG=2 --build-arg RESTY_YUM_REPO="https://openresty.org/package/amazon/openresty.repo" --build-arg RESTY_RPM_DIST="amzn2" --build-arg RESTY_RPM_ARCH="aarch64"
+    #   - ./docker_build_and_push_flavor.sh rocky-aarch64 fedora/Dockerfile --build-arg RESTY_IMAGE_BASE=rockylinux --build-arg RESTY_IMAGE_TAG=8.5 --build-arg RESTY_YUM_REPO="https://openresty.org/package/rocky/openresty.repo" --build-arg RESTY_RPM_DIST="el8" --build-arg RESTY_RPM_ARCH="aarch64"
+    #   - ./docker_build_and_push_flavor.sh centos-aarch64 centos/Dockerfile --build-arg RESTY_RPM_ARCH=aarch64
+    #   - ./docker_build_and_push_flavor.sh centos7-aarch64 centos7/Dockerfile --build-arg RESTY_RPM_ARCH=aarch64
+    #   - ./docker_build_and_push_flavor.sh fedora-aarch64 fedora/Dockerfile --build-arg RESTY_RPM_ARCH=aarch64
+    #   - ./docker_build_and_push_flavor.sh bullseye-aarch64 bullseye/Dockerfile --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian"
+    #   - ./docker_build_and_push_flavor.sh buster-aarch64 buster/Dockerfile --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian"
 
-    - name: Build Docker image for upstream flavors -- amd64
-      arch: amd64
-      stage: build
-      script:
-      - ./docker_build_and_push_flavor.sh alpine-apk-amd64 alpine-apk/Dockerfile
-      - ./docker_build_and_push_flavor.sh amzn2-amd64 centos/Dockerfile --build-arg RESTY_IMAGE_BASE=amazonlinux --build-arg RESTY_IMAGE_TAG=2 --build-arg RESTY_YUM_REPO="https://openresty.org/package/amazon/openresty.repo" --build-arg RESTY_RPM_DIST="amzn2"
-      - ./docker_build_and_push_flavor.sh rocky-amd64 fedora/Dockerfile --build-arg RESTY_IMAGE_BASE=rockylinux --build-arg RESTY_IMAGE_TAG=8.5 --build-arg RESTY_YUM_REPO="https://openresty.org/package/rocky/openresty.repo" --build-arg RESTY_RPM_DIST="el8"
-      - ./docker_build_and_push_flavor.sh centos-amd64 centos/Dockerfile
-      - ./docker_build_and_push_flavor.sh centos7-amd64 centos7/Dockerfile
-      - ./docker_build_and_push_flavor.sh fedora-amd64 fedora/Dockerfile
-      - ./docker_build_and_push_flavor.sh bullseye-amd64 bullseye/Dockerfile
-      - ./docker_build_and_push_flavor.sh buster-amd64 buster/Dockerfile
+    # - name: Build Docker image for upstream flavors -- amd64
+    #   arch: amd64
+    #   stage: build
+    #   script:
+    #   - ./docker_build_and_push_flavor.sh alpine-apk-amd64 alpine-apk/Dockerfile
+    #   - ./docker_build_and_push_flavor.sh amzn2-amd64 centos/Dockerfile --build-arg RESTY_IMAGE_BASE=amazonlinux --build-arg RESTY_IMAGE_TAG=2 --build-arg RESTY_YUM_REPO="https://openresty.org/package/amazon/openresty.repo" --build-arg RESTY_RPM_DIST="amzn2"
+    #   - ./docker_build_and_push_flavor.sh rocky-amd64 fedora/Dockerfile --build-arg RESTY_IMAGE_BASE=rockylinux --build-arg RESTY_IMAGE_TAG=8.5 --build-arg RESTY_YUM_REPO="https://openresty.org/package/rocky/openresty.repo" --build-arg RESTY_RPM_DIST="el8"
+    #   - ./docker_build_and_push_flavor.sh centos-amd64 centos/Dockerfile
+    #   - ./docker_build_and_push_flavor.sh centos7-amd64 centos7/Dockerfile
+    #   - ./docker_build_and_push_flavor.sh fedora-amd64 fedora/Dockerfile
+    #   - ./docker_build_and_push_flavor.sh bullseye-amd64 bullseye/Dockerfile
+    #   - ./docker_build_and_push_flavor.sh buster-amd64 buster/Dockerfile
 
 ###############################################################################
 # Multi-arch manifests
@@ -155,25 +155,25 @@ jobs:
       stage: manifest
       script:
       - ./docker_manifest.sh alpine      alpine-amd64      alpine-aarch64
-      - ./docker_manifest.sh alpine-apk  alpine-apk-amd64  alpine-apk-aarch64
-      - ./docker_manifest.sh amzn2       amzn2-amd64       amzn2-aarch64
+      # - ./docker_manifest.sh alpine-apk  alpine-apk-amd64  alpine-apk-aarch64
+      # - ./docker_manifest.sh amzn2       amzn2-amd64       amzn2-aarch64
       - ./docker_manifest.sh bionic      bionic-amd64      bionic-aarch64      bionic-s390x
-      - ./docker_manifest.sh bullseye    bullseye-amd64    bullseye-aarch64
-      - ./docker_manifest.sh buster      buster-amd64      buster-aarch64
-      - ./docker_manifest.sh centos      centos-amd64      centos-aarch64
-      - ./docker_manifest.sh centos7     centos7-amd64     centos7-aarch64
-      - ./docker_manifest.sh fedora      fedora-amd64      fedora-aarch64
+      # - ./docker_manifest.sh bullseye    bullseye-amd64    bullseye-aarch64
+      # - ./docker_manifest.sh buster      buster-amd64      buster-aarch64
+      # - ./docker_manifest.sh centos      centos-amd64      centos-aarch64
+      # - ./docker_manifest.sh centos7     centos7-amd64     centos7-aarch64
+      # - ./docker_manifest.sh fedora      fedora-amd64      fedora-aarch64
       - ./docker_manifest.sh focal       focal-amd64       focal-aarch64       focal-s390x
       - ./docker_manifest.sh jammy       jammy-amd64       jammy-aarch64      #jammy-s309x
-      - ./docker_manifest.sh rocky       rocky-amd64       rocky-aarch64
-      - ./docker_tag_alias.sh centos centos-rpm
-      - ./docker_tag_alias.sh fedora fedora-rpm
-      - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
-          echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
-          docker pull $DOCKER_ORG/openresty:bullseye &&
-          docker tag $DOCKER_ORG/openresty:bullseye $DOCKER_ORG/openresty:latest &&
-          docker push $DOCKER_ORG/openresty:latest ;
-        fi
+      # - ./docker_manifest.sh rocky       rocky-amd64       rocky-aarch64
+      # - ./docker_tag_alias.sh centos centos-rpm
+      # - ./docker_tag_alias.sh fedora fedora-rpm
+      # - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
+      #     echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
+      #     docker pull $DOCKER_ORG/openresty:bullseye &&
+      #     docker tag $DOCKER_ORG/openresty:bullseye $DOCKER_ORG/openresty:latest &&
+      #     docker push $DOCKER_ORG/openresty:latest ;
+      #   fi
 
 ###############################################################################
 # Build Derived ("fat") Flavors
@@ -184,21 +184,21 @@ jobs:
       stage: build-fat
       arch: arm64
       script:
-      - ./docker_build_and_push_flavor_fat.sh bullseye-fat-aarch64 bullseye/Dockerfile.fat
-      - ./docker_build_and_push_flavor_fat.sh buster-fat-aarch64 buster/Dockerfile.fat
+      # - ./docker_build_and_push_flavor_fat.sh bullseye-fat-aarch64 bullseye/Dockerfile.fat
+      # - ./docker_build_and_push_flavor_fat.sh buster-fat-aarch64 buster/Dockerfile.fat
       - ./docker_build_and_push_flavor_fat.sh alpine-fat-aarch64 alpine/Dockerfile.fat
 
     - name: Build fat Docker image -- amd64
       arch: amd64
       stage: build-fat
       script:
-      - ./docker_build_and_push_flavor_fat.sh bullseye-fat-amd64 bullseye/Dockerfile.fat
-      - ./docker_build_and_push_flavor_fat.sh buster-fat-amd64 buster/Dockerfile.fat
+      # - ./docker_build_and_push_flavor_fat.sh bullseye-fat-amd64 bullseye/Dockerfile.fat
+      # - ./docker_build_and_push_flavor_fat.sh buster-fat-amd64 buster/Dockerfile.fat
       - ./docker_build_and_push_flavor_fat.sh alpine-fat-amd64 alpine/Dockerfile.fat
 
     - name: Create and push manifests for fat multi-arch images
       stage: manifest-fat
       script:
-      - ./docker_manifest.sh bullseye-fat  bullseye-fat-amd64  bullseye-fat-aarch64
-      - ./docker_manifest.sh buster-fat  buster-fat-amd64  buster-fat-aarch64
+      # - ./docker_manifest.sh bullseye-fat  bullseye-fat-amd64  bullseye-fat-aarch64
+      # - ./docker_manifest.sh buster-fat  buster-fat-amd64  buster-fat-aarch64
       - ./docker_manifest.sh alpine-fat  alpine-fat-amd64  alpine-fat-aarch64
