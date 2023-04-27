@@ -3,7 +3,8 @@ Changelog
 
 ## 1.21.4.1-7
 
- * Tagged rebuild to catch latest Alpine.
+ * Tagged rebuild to catch latest Alpine and more.
+ * Remove Fedora aarch64 build (#229)
 
 ## 1.21.4.1-6
 

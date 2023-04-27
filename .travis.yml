@@ -129,7 +129,7 @@ jobs:
       - ./docker_build_and_push_flavor.sh rocky-aarch64 fedora/Dockerfile --build-arg RESTY_IMAGE_BASE=rockylinux --build-arg RESTY_IMAGE_TAG=8.5 --build-arg RESTY_YUM_REPO="https://openresty.org/package/rocky/openresty.repo" --build-arg RESTY_RPM_DIST="el8" --build-arg RESTY_RPM_ARCH="aarch64"
       - ./docker_build_and_push_flavor.sh centos-aarch64 centos/Dockerfile --build-arg RESTY_RPM_ARCH=aarch64
       - ./docker_build_and_push_flavor.sh centos7-aarch64 centos7/Dockerfile --build-arg RESTY_RPM_ARCH=aarch64
-      - ./docker_build_and_push_flavor.sh fedora-aarch64 fedora/Dockerfile --build-arg RESTY_RPM_ARCH=aarch64
+    # - ./docker_build_and_push_flavor.sh fedora-aarch64 fedora/Dockerfile --build-arg RESTY_RPM_ARCH=aarch64
       - ./docker_build_and_push_flavor.sh bullseye-aarch64 bullseye/Dockerfile --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian"
       - ./docker_build_and_push_flavor.sh buster-aarch64 buster/Dockerfile --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian"
 
@@ -162,7 +162,7 @@ jobs:
       - ./docker_manifest.sh buster      buster-amd64      buster-aarch64
       - ./docker_manifest.sh centos      centos-amd64      centos-aarch64
       - ./docker_manifest.sh centos7     centos7-amd64     centos7-aarch64
-      - ./docker_manifest.sh fedora      fedora-amd64      fedora-aarch64
+      - ./docker_manifest.sh fedora      fedora-amd64      # fedora-aarch64
       - ./docker_manifest.sh focal       focal-amd64       focal-aarch64       focal-s390x
       - ./docker_manifest.sh jammy       jammy-amd64       jammy-aarch64      #jammy-s309x
       - ./docker_manifest.sh rocky       rocky-amd64       rocky-aarch64
