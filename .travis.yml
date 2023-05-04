@@ -60,6 +60,12 @@ jobs:
       script:
       - ./docker_build_and_push_flavor.sh alpine-amd64 alpine/Dockerfile
 
+    - name: Build Docker image for build-from-source flavors -- alpine / armv7
+      stage: build
+      arch: armv7
+      script:
+        - ./docker_build_and_push_flavor.sh alpine-armv7 alpine/Dockerfile
+
     - name: Build Docker image for build-from-source flavor -- bionic / aarch64
       arch: arm64
       stage: build
