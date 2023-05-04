@@ -13,9 +13,13 @@ set -e
 
 FLAVOR="$1"
 shift
+PLATFORMS="$1"
+shift
 DOCKERFILE_PATH=${1:-$FLAVOR/Dockerfile}
 shift
 DOCKER_BUILD_PARAMS="$@"
+
+docker buildx create --use
 
 # Compute RESTY_FAT_IMAGE_TAG
 FATLESS_FLAVOR=$(echo -n "$FLAVOR" | sed 's/-fat//g')
@@ -31,9 +35,12 @@ fi
 
 cat /tmp/docker.pass | docker login -u="$DOCKER_USERNAME" --password-stdin
 
+docker buildx create --use
+
 docker pull "$RESTY_FAT_IMAGE_BASE:$RESTY_FAT_IMAGE_TAG" || true
 
 docker build --pull -t openresty:$FLAVOR -f $DOCKERFILE_PATH \
+    --platform "${PLATFORMS}" \
     --build-arg "RESTY_FAT_IMAGE_BASE=$RESTY_FAT_IMAGE_BASE" \
     --build-arg "RESTY_FAT_IMAGE_TAG=$RESTY_FAT_IMAGE_TAG" \
     $DOCKER_BUILD_PARAMS .
