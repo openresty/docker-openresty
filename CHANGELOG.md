@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.21.4.1-8
+
+ * Add Policies to README to clarify how we operate
+
 ## 1.21.4.1-7
 
  * Tagged rebuild to catch latest Alpine and more.

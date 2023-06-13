@@ -36,6 +36,7 @@ Table of Contents
 * [OpenResty Image Tags](#openresty-image-tags)
 * [Table of Contents](#table-of-contents)
 * [Usage](#usage)
+* [Policies](#policies)
 * [Nginx Config Files](#nginx-config-files)
 * [OPM](#opm)
 * [LuaRocks](#luarocks)
@@ -107,6 +108,30 @@ It is *highly recommended* that you use the upstream-based images for best suppo
 
 At this time, the only images that are compatible with aarch64 are `alpine` and `alpine-fat`.  Once there are binary packages available, they can be released with the upstream packages.
 
+Policies
+========
+
+The [Maintainers](#changelog--authors) of this OpenResty Docker Tooling operate under the following policies:
+
+ * We track [OpenResty releases](https://openresty.org/en/linux-packages.html) for build-from-upstream
+
+ * We track [Alpine `stable`]https://www.alpinelinux.org/releases/) for build-from-source
+
+ * We track [Debian `stable`](https://www.debian.org/releases/stable/) for build-from-source
+
+ * We track [Ubuntu "LTS"](https://wiki.ubuntu.com/Releases) for build-from-source
+
+ * We will try to have Windows releases for build-fom-upstream
+
+ * We try to include popular architectures (`x86_64`, `aarch64`, `s390x`)
+
+ * If an image fails CI/CD too much, we will remove it.
+
+ * We operate in English and PRs must be English as well, unless for localization purposes.
+ 
+ * We will accept issues in any language.  We will provide our translations to English for clarity.
+
+ * All are welcome to particpate, but must show mutual respect to the community.
 
 Nginx Config Files
 ==================
