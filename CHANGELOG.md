@@ -4,6 +4,7 @@ Changelog
 ## 1.21.4.1-8
 
  * Add Policies to README to clarify how we operate
+ * Upgraded Alpine to `3.18` for `alpine` not `alpine-apk`
 
 ## 1.21.4.1-7
 
