@@ -5,6 +5,7 @@ Changelog
 
  * Add Policies to README to clarify how we operate
  * Upgraded Alpine to `3.18` for `alpine` not `alpine-apk`
+ * Update OpenSSL to `1.1.1u` for built-from-source flavors (#233)
 
 ## 1.21.4.1-7
 

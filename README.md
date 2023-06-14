@@ -325,7 +325,7 @@ docker build --build-arg RESTY_J=4 -f jammy/Dockerfile .
 | RESTY_IMAGE_TAG                         | "jammy" / "3.18" | The Debian or Alpine Docker image tag to build `FROM`. |
 | RESTY_VERSION                           | 1.21.4.1 | The version of OpenResty to use. |
 | RESTY_LUAROCKS_VERSION                  | 3.9.0 | The version of LuaRocks to use. |
-| RESTY_OPENSSL_VERSION                   | 1.1.1t | The version of OpenSSL to use. |
+| RESTY_OPENSSL_VERSION                   | 1.1.1u | The version of OpenSSL to use. |
 | RESTY_OPENSSL_PATCH_VERSION             | 1.1.1f | The version of OpenSSL to use when patching. |
 | RESTY_OPENSSL_URL_BASE                  |  https://www.openssl.org/source | The base of the URL to download OpenSSL from. |
 | RESTY_PCRE_VERSION                      | 8.45 | The version of PCRE to use. |
@@ -431,7 +431,7 @@ docker build --build-arg RESTY_DEB_FLAVOR="-debug" -f bullseye/Dockerfile .
 |RESTY_APT_REPO    | "https://openresty.org/package/debian" | Apt repo to load from. |
 |RESTY_APT_PGP     | "https://openresty.org/package/pubkey.gpg" | URL to download APT PGP key from
 |RESTY_IMAGE_BASE  | "debian" | The Debian Docker image base to build `FROM`. |
-|RESTY_IMAGE_TAG   | "bullseye-slim" | The Debian Docker image tag to build `FROM`. |
+|RESTY_IMAGE_TAG   | "bookworm-slim" | The Debian Docker image tag to build `FROM`. |
 |RESTY_DEB_FLAVOR  | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
 |RESTY_DEB_VERSION | "=1.21.4.1-1~buster1" | The [Debian package version](https://openresty.org/package/debian/pool/openresty/o/openresty/) to use, with `=` prepended. |
 |RESTY_FAT_DEB_FLAVOR  | "" | The `openresty` package flavor to use to install "fat" packages.  Possibly `"-debug"` or `"-valgrind"`. |
