@@ -113,17 +113,28 @@ Policies
 
 The [Maintainers](#changelog--authors) of this OpenResty Docker Tooling operate under the following policies:
 
- * We track [OpenResty releases](https://openresty.org/en/linux-packages.html) for build-from-upstream
+ * We track [OpenResty releases](https://openresty.org/en/linux-packages.html) for build-from-upstream and will continue to add new upstream releases:
 
- * We track [Alpine `stable`]https://www.alpinelinux.org/releases/) for build-from-source
+    * [`alpine-apk`, (*alpine-apk/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine-apk/Dockerfile)
+    * [`amzn2`, (*centos/Dockerfile* with `amzn2`)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
+    * [`bullseye-fat`, (*bullseye/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/bullseye/Dockerfile.fat)
+    * [`bullseye`, (*bullseye/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/bullseye/Dockerfile)
+    * [`buster-fat`, (*buster/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile.fat)
+    * [`buster`, (*buster/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile)
+    * [`centos`, `centos-rpm`, (*centos/Dockerfile* with `el8`)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
+    * [`centos7`, (*centos7/Dockerfile* with `el7`)](https://github.com/openresty/docker-openresty/blob/master/centos7/Dockerfile)
+    * [`fedora`, `fedora-rpm`, (*fedora/Dockerfile* with `fc35`)](https://github.com/openresty/docker-openresty/blob/master/fedora/Dockerfile)
+    * [`rocky`, (*fedora/Dockerfile* with `rockylinux`)](https://github.com/openresty/docker-openresty/blob/master/fedora/Dockerfile)
+    * [`windows`, (*windows/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/windows/Dockerfile)
 
- * We track [Debian `stable`](https://www.debian.org/releases/stable/) for build-from-source
-
- * We track [Ubuntu "LTS"](https://wiki.ubuntu.com/Releases) for build-from-source
-
- * We will try to have Windows releases for build-fom-upstream
+ * We track build-from-source images as follows:
+ 
+    * [Alpine `stable`](https://www.alpinelinux.org/releases/)
+    * [Ubuntu "LTS"](https://wiki.ubuntu.com/Releases)
 
  * We try to include popular architectures (`x86_64`, `aarch64`, `s390x`)
+
+ * RC versions of upstream releases will be made available on tags
 
  * If an image fails CI/CD too much, we will remove it.
 
