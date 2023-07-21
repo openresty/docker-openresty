@@ -36,7 +36,7 @@ ARG RESTY_INSTALL_BASE="mcr.microsoft.com/windows/servercore"
 ARG RESTY_INSTALL_TAG="ltsc2019"
 ARG RESTY_IMAGE_BASE="mcr.microsoft.com/windows/nanoserver"
 ARG RESTY_IMAGE_TAG="1809"
-ARG RESTY_VERSION="1.21.4.1"
+ARG RESTY_VERSION="1.21.4.2"
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 LABEL resty_install_base="${RESTY_INSTALL_BASE}"
