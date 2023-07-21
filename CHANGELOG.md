@@ -5,6 +5,7 @@ Changelog
 
  * Upgrade OpenResty to 1.21.4.2
  * Bump `fedora` flavor to FC36.
+ * Upgrade LuaRocks to 3.9.2
 
 ## 1.21.4.1-8
 

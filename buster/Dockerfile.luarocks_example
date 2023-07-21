@@ -8,7 +8,7 @@ FROM openresty/openresty:bionic
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
-ARG RESTY_LUAROCKS_VERSION="3.9.0"
+ARG RESTY_LUAROCKS_VERSION="3.9.2"
 
 
 # install LuaRocks
