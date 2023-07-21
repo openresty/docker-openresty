@@ -9,7 +9,7 @@ ARG RESTY_IMAGE_TAG="1809"
 
 FROM "${RESTY_INSTALL_BASE}:${RESTY_INSTALL_TAG}" AS downloader
 
-ARG RESTY_VERSION="1.21.4.1"
+ARG RESTY_VERSION="1.21.4.2"
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue'; $env:chocolateyUseWindowsCompression = 'true'; "]
 

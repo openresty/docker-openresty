@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 1.21.4.2-0
+
+ * Upgrade OpenResty to 1.21.4.2
+ * Bump `fedora` flavor to FC36.
+
 ## 1.21.4.1-8
 
  * Add Policies to README to clarify how we operate

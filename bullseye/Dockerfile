@@ -12,7 +12,7 @@ LABEL maintainer="Evan Wies <evan@neomantra.net>"
 # OpenResty Debian package variants.
 # For example: "-debug" or "-valgrind"
 ARG RESTY_DEB_FLAVOR=""
-ARG RESTY_DEB_VERSION="=1.21.4.1-1~bullseye1"
+ARG RESTY_DEB_VERSION="=1.21.4.2-1~bullseye1"
 ARG RESTY_APT_REPO="https://openresty.org/package/debian"
 ARG RESTY_APT_PGP="https://openresty.org/package/pubkey.gpg"
 ARG RESTY_IMAGE_BASE="debian"
