@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.21.4.2-1
+
+ * Update OpenSSL to `1.1.1w` for built-from-source flavors (#237)
+
 ## 1.21.4.2-0
 
  * Upgrade OpenResty to 1.21.4.2
