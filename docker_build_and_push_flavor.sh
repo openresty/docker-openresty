@@ -11,13 +11,17 @@ set -e
 
 FLAVOR="$1"
 shift
+PLATFORMS="$1"
+shift
 DOCKERFILE_PATH=${1:-$FLAVOR/Dockerfile}
 shift
 DOCKER_BUILD_PARAMS="$@"
 
 cat /tmp/docker.pass | docker login -u="$DOCKER_USERNAME" --password-stdin
 
-docker build --pull -t openresty:$FLAVOR -f $DOCKERFILE_PATH $DOCKER_BUILD_PARAMS .
+docker buildx create --use
+
+docker buildx build --pull -t openresty:$FLAVOR --platform "${PLATFORMS}" -f $DOCKERFILE_PATH $DOCKER_BUILD_PARAMS .
 
 if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
     cat /tmp/docker.pass | docker login -u="$DOCKER_USERNAME" --password-stdin &&
