@@ -1,6 +1,6 @@
-ARG OPENRESTY_VERSION="1.21.4.2-0"
+ARG OPENRESTY_VERSION="1.21.4.3-0"
 FROM "openresty/openresty:${OPENRESTY_VERSION}-centos"  # locally I needed to add "-aarch64"
-ARG OPENRESTY_VERSION="1.21.4.2-0"
+ARG OPENRESTY_VERSION="1.21.4.3-0"
 
 # Install dependencies
 RUN yum -y install gcc

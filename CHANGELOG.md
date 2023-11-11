@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 1.21.4.3-0
+
+ * Upgrade OpenResty to 1.21.4.3.  Addresses CVE-2023-44487 (#238)
+ * Restore fedora aarch64 build
+
 ## 1.21.4.2-1
 
  * Update OpenSSL to `1.1.1w` for built-from-source flavors (#237)

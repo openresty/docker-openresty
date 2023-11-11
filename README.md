@@ -13,11 +13,11 @@ It is best practice to pin your images to an explicit image tag.  The [next sect
 
 | Image  | Description |
 | --- | --- |
-| `openresty/openresty:1.21.4.2-0-jammy` | Built-from-source Ubuntu Jammy |
-| `openresty/openresty:1.21.4.2-0-focal` | Built-from-source Ubuntu Focal |
-| `openresty/openresty:1.21.4.2-0-bullseye-fat` | Built-from-upstream Debian Bullseye |
-| `openresty/openresty:1.21.4.2-0-alpine` | Built-from-source Alpine |
-| `openresty/openresty:1.21.4.2-0-alpine-apk` | Built-from-upstream Alpine |
+| `openresty/openresty:1.21.4.3-0-jammy` | Built-from-source Ubuntu Jammy |
+| `openresty/openresty:1.21.4.3-0-focal` | Built-from-source Ubuntu Focal |
+| `openresty/openresty:1.21.4.3-0-bullseye-fat` | Built-from-upstream Debian Bullseye |
+| `openresty/openresty:1.21.4.3-0-alpine` | Built-from-source Alpine |
+| `openresty/openresty:1.21.4.3-0-alpine-apk` | Built-from-upstream Alpine |
 
 These are examples of untagged image names, for reference:
 
@@ -334,7 +334,7 @@ docker build --build-arg RESTY_J=4 -f jammy/Dockerfile .
 :-----------------------------------------| :-----: |:----------- |
 | RESTY_IMAGE_BASE                        | "ubuntu" / "alpine" | The Debian or Alpine Docker image base to build `FROM`. |
 | RESTY_IMAGE_TAG                         | "jammy" / "3.18" | The Debian or Alpine Docker image tag to build `FROM`. |
-| RESTY_VERSION                           | 1.21.4.2 | The version of OpenResty to use. |
+| RESTY_VERSION                           | 1.21.4.3 | The version of OpenResty to use. |
 | RESTY_LUAROCKS_VERSION                  | 3.9.2 | The version of LuaRocks to use. |
 | RESTY_OPENSSL_VERSION                   | 1.1.1w | The version of OpenSSL to use. |
 | RESTY_OPENSSL_PATCH_VERSION             | 1.1.1f | The version of OpenSSL to use when patching. |
@@ -412,7 +412,7 @@ docker build --build-arg RESTY_RPM_FLAVOR="-debug" -f fedora/Dockerfile .
 |RESTY_LUAROCKS_VERSION | 3.9.2 | The version of LuaRocks to use. |
 |RESTY_YUM_REPO | "https://openresty.org/package/centos/openresty.repo" | URL for the OpenResty YUM Repository. |
 |RESTY_RPM_FLAVOR | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
-|RESTY_RPM_VERSION | "1.21.4.2-1" | The `openresty` package version to install. |
+|RESTY_RPM_VERSION | "1.21.4.3-1" | The `openresty` package version to install. |
 |RESTY_RPM_DIST | "el8" | The `openresty` package distribution to install. |
 |RESTY_RPM_ARCH | "x86_64" | The `openresty` package architecture to install. |
 
@@ -444,9 +444,9 @@ docker build --build-arg RESTY_DEB_FLAVOR="-debug" -f bullseye/Dockerfile .
 |RESTY_IMAGE_BASE  | "debian" | The Debian Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG   | "bullseye-slim" | The Debian Docker image tag to build `FROM`. |
 |RESTY_DEB_FLAVOR  | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
-|RESTY_DEB_VERSION | "=1.21.4.2-1~buster1" | The [Debian package version](https://openresty.org/package/debian/pool/openresty/o/openresty/) to use, with `=` prepended. |
+|RESTY_DEB_VERSION | "=1.21.4.3-1~buster1" | The [Debian package version](https://openresty.org/package/debian/pool/openresty/o/openresty/) to use, with `=` prepended. |
 |RESTY_FAT_DEB_FLAVOR  | "" | The `openresty` package flavor to use to install "fat" packages.  Possibly `"-debug"` or `"-valgrind"`. |
-|RESTY_FAT_DEB_VERSION | "=1.21.4.2-1~bullseye1" | The [Debian package version](https://openresty.org/package/debian/pool/openresty/o/openresty/) to use to "fat" packages, with `=` prepended. |
+|RESTY_FAT_DEB_VERSION | "=1.21.4.3-1~bullseye1" | The [Debian package version](https://openresty.org/package/debian/pool/openresty/o/openresty/) to use to "fat" packages, with `=` prepended. |
 
  * For `amd64` builds, `RESTY_APT_REPO="https://openresty.org/package/debian"`
  * For `arm64` builds, `RESTY_APT_REPO="https://openresty.org/package/arm64/debian"`
@@ -475,7 +475,7 @@ docker build --build-arg RESTY_IMAGE_TAG="3.12" -f alpine-apk/Dockerfile .
 |RESTY_IMAGE_TAG    | "3.15" | The Alpine Docker image tag to build `FROM`. |
 |RESTY_APK_KEY_URL  | "https://openresty.org/package/admin@openresty.com-5ea678a6.rsa.pub" | The URL of the signing key of the `openresty` package. |
 |RESTY_APK_REPO_URL | "https://openresty.org/package/alpine/v${RESTY_IMAGE_TAG}/main" | The URL of the APK repository for `openresty` package. |
-|RESTY_APK_VERSION | "=1.21.4.2-r0" | The suffix to add to the apk install package name: `openresty${RESTY_APK_VERSION`}. |
+|RESTY_APK_VERSION | "=1.21.4.3-r0" | The suffix to add to the apk install package name: `openresty${RESTY_APK_VERSION`}. |
 
 [Back to TOC](#table-of-contents)
 
@@ -499,7 +499,7 @@ docker build --build-arg RESTY_VERSION="1.13.6.2" -f windows/Dockerfile .
 |RESTY_INSTALL_TAG  | "ltsc2019" | The Windows Server Docker image name to download and install OpenResty with. |
 |RESTY_IMAGE_BASE   | "mcr.microsoft.com/windows/nanoserver" | The Windows Server Docker image name to build `FROM` for final image. |
 |RESTY_IMAGE_TAG    | "1809" | The Windows Server Docker image tag to build `FROM` for final image. |
-|RESTY_VERSION      | 1.21.4.2 | The version of OpenResty to use. |
+|RESTY_VERSION      | 1.21.4.3 | The version of OpenResty to use. |
 
 [Back to TOC](#table-of-contents)
 
