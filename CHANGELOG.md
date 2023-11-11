@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.21.4.3-1
+
+ * Add Debian `bookworm` built-from-upstream flavor (#232)
+
 ## 1.21.4.3-0
 
  * Upgrade OpenResty to 1.21.4.3.  Addresses CVE-2023-44487 (#238)

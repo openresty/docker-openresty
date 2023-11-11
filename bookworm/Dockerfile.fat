@@ -1,0 +1,34 @@
+# Dockerfile - Debian 12 Bookworm Fat - DEB version
+# https://github.com/openresty/docker-openresty
+#
+# This builds upon the base OpenResty Bookworm image,
+# adding useful packages and utilities.
+#
+# Currently it just adds the openresty-opm package.
+#
+
+ARG RESTY_FAT_IMAGE_BASE="openresty/openresty"
+ARG RESTY_FAT_IMAGE_TAG="bookworm"
+
+FROM ${RESTY_FAT_IMAGE_BASE}:${RESTY_FAT_IMAGE_TAG}
+
+ARG RESTY_FAT_IMAGE_BASE="openresty/openresty"
+ARG RESTY_FAT_IMAGE_TAG="bookworm"
+
+# RESTY_FAT_DEB_FLAVOR build argument is used to select other
+# OpenResty Debian package variants.
+# For example: "-debug" or "-valgrind"
+ARG RESTY_FAT_DEB_FLAVOR=""
+ARG RESTY_FAT_DEB_VERSION="=1.21.4.3-1~bookworm1"
+
+LABEL maintainer="Evan Wies <evan@neomantra.net>"
+LABEL resty_fat_deb_flavor="${RESTY_FAT_DEB_FLAVOR}"
+LABEL resty_fat_deb_version="${RESTY_FAT_DEB_VERSION}"
+LABEL resty_fat_image_base="${RESTY_FAT_IMAGE_BASE}"
+LABEL resty_fat_image_tag="${RESTY_FAT_IMAGE_TAG}"
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        openresty-resty${RESTY_FAT_DEB_FLAVOR}${RESTY_FAT_DEB_VERSION} \
+        openresty-opm${RESTY_FAT_DEB_FLAVOR}${RESTY_FAT_DEB_VERSION} \
+    && rm -rf /var/lib/apt/lists/*

@@ -13,11 +13,11 @@ It is best practice to pin your images to an explicit image tag.  The [next sect
 
 | Image  | Description |
 | --- | --- |
-| `openresty/openresty:1.21.4.3-0-jammy` | Built-from-source Ubuntu Jammy |
-| `openresty/openresty:1.21.4.3-0-focal` | Built-from-source Ubuntu Focal |
-| `openresty/openresty:1.21.4.3-0-bullseye-fat` | Built-from-upstream Debian Bullseye |
-| `openresty/openresty:1.21.4.3-0-alpine` | Built-from-source Alpine |
-| `openresty/openresty:1.21.4.3-0-alpine-apk` | Built-from-upstream Alpine |
+| `openresty/openresty:1.21.4.3-1-jammy` | Built-from-source Ubuntu Jammy |
+| `openresty/openresty:1.21.4.3-1-focal` | Built-from-source Ubuntu Focal |
+| `openresty/openresty:1.21.4.3-1-bookworm-fat` | Built-from-upstream Debian Bookworm |
+| `openresty/openresty:1.21.4.3-1-alpine` | Built-from-source Alpine |
+| `openresty/openresty:1.21.4.3-1-alpine-apk` | Built-from-upstream Alpine |
 
 These are examples of untagged image names, for reference:
 
@@ -76,6 +76,8 @@ The following "flavors" are available and built from [upstream OpenResty package
 
 - [`alpine-apk`, (*alpine-apk/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine-apk/Dockerfile)
 - [`amzn2`, (*centos/Dockerfile* with `amzn2`)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
+- [`bookworm-fat`, (*bookworm-fat/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/bookworm-fat/Dockerfile.fat)
+- [`bookworm`, (*bookworm/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/bookworm/Dockerfile)
 - [`bullseye-fat`, (*bullseye/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/bullseye/Dockerfile.fat)
 - [`bullseye`, (*bullseye/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/bullseye/Dockerfile)
 - [`buster-fat`, (*buster/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile.fat)
@@ -252,6 +254,7 @@ $ docker inspect openresty/openresty:1.17.8.1-0-bionic | jq '.[].Config.Labels'
 | `resty_apk_version`                      | buildarg `RESTY_APK_VERSION`                                                                                          |
 | `resty_apt_pgp`                          | buildarg `RESTY_APT_PGP`                                                                                              |
 | `resty_apt_repo`                         | buildarg `RESTY_APT_REPO`                                                                                             |
+| `resty_apt_arch`                         | buildarg `RESTY_APT_ARCH`                                                                                             |
 | `resty_config_deps`                      | buildarg `_RESTY_CONFIG_DEPS` (internal)                                                                              |
 | `resty_config_options_more`              | buildarg `RESTY_CONFIG_OPTIONS_MORE`                                                                                  |
 | `resty_config_options`                   | buildarg `RESTY_CONFIG_OPTIONS`                                                                                       |
@@ -440,7 +443,8 @@ docker build --build-arg RESTY_DEB_FLAVOR="-debug" -f bullseye/Dockerfile .
 | Key | Default | Description |
 :----- | :-----: |:----------- |
 |RESTY_APT_REPO    | "https://openresty.org/package/debian" | Apt repo to load from. |
-|RESTY_APT_PGP     | "https://openresty.org/package/pubkey.gpg" | URL to download APT PGP key from
+|RESTY_APT_PGP     | "https://openresty.org/package/pubkey.gpg" | URL to download APT PGP key from |
+|RESTY_APT_ARCH    | `amd64` | Architecture for APT lookups |
 |RESTY_IMAGE_BASE  | "debian" | The Debian Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG   | "bullseye-slim" | The Debian Docker image tag to build `FROM`. |
 |RESTY_DEB_FLAVOR  | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
