@@ -197,6 +197,7 @@ jobs:
       stage: build-fat
       script:
       - ./docker_build_and_push_flavor_fat.sh bookworm-fat-amd64 bookworm/Dockerfile.fat
+      - ./docker_build_and_push_flavor_fat.sh bullseye-fat-amd64 bullseye/Dockerfile.fat
       - ./docker_build_and_push_flavor_fat.sh buster-fat-amd64 buster/Dockerfile.fat
       - ./docker_build_and_push_flavor_fat.sh alpine-fat-amd64 alpine/Dockerfile.fat
 
