@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.21.4.3-2
+
+ * Upgrade `alpine-apk` flavor to Alpine 3.18 (#235)
+
 ## 1.21.4.3-1
 
  * Add Debian `bookworm` built-from-upstream flavor (#232)
