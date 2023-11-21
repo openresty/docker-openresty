@@ -1,7 +1,7 @@
-# Derived Dockerfile Example using `opm`
+# Derived Dockerfile Example using `luarocks`
 # https://github.com/openresty/docker-openresty
 #
-# Installs openresty-opm and then uses opm to install pgmoon.
+# Installs LuaRocks and then uses LuaRocks to install ljsyscall.
 #
 
 FROM openresty/openresty:bionic
