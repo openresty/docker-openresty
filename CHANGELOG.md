@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.21.4.3-3
+
+ * Upgrade `alpine-apk` flavor to Alpine 3.19
+
 ## 1.21.4.3-2
 
  * Upgrade `alpine-apk` flavor to Alpine 3.18 (#235)
