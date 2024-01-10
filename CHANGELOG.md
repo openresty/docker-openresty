@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.25.3.1-1
+
+ * Add `--with-http_v3_module` to build-from-source flavors
+
 ## 1.25.3.1-0
 
  * Upgrade OpenResty to 1.25.3.1 (#243)
