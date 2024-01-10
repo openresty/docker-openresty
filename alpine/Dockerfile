@@ -86,25 +86,25 @@ LABEL resty_luajit_options="${RESTY_LUAJIT_OPTIONS}"
 LABEL resty_pcre_options="${RESTY_PCRE_OPTIONS}"
 
 RUN apk add --no-cache --virtual .build-deps \
-    build-base \
-    coreutils \
-    curl \
-    gd-dev \
-    geoip-dev \
-    libxslt-dev \
-    linux-headers \
-    make \
-    perl-dev \
-    readline-dev \
-    zlib-dev \
-    ${RESTY_ADD_PACKAGE_BUILDDEPS} \
+        build-base \
+        coreutils \
+        curl \
+        gd-dev \
+        geoip-dev \
+        libxslt-dev \
+        linux-headers \
+        make \
+        perl-dev \
+        readline-dev \
+        zlib-dev \
+        ${RESTY_ADD_PACKAGE_BUILDDEPS} \
     && apk add --no-cache \
-    gd \
-    geoip \
-    libgcc \
-    libxslt \
-    zlib \
-    ${RESTY_ADD_PACKAGE_RUNDEPS} \
+        gd \
+        geoip \
+        libgcc \
+        libxslt \
+        zlib \
+        ${RESTY_ADD_PACKAGE_RUNDEPS} \
     && cd /tmp \
     && if [ -n "${RESTY_EVAL_PRE_CONFIGURE}" ]; then eval $(echo ${RESTY_EVAL_PRE_CONFIGURE}); fi \
     && cd /tmp \
@@ -112,20 +112,20 @@ RUN apk add --no-cache --virtual .build-deps \
     && tar xzf openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
     && cd openssl-${RESTY_OPENSSL_VERSION} \
     && if [ $(echo ${RESTY_OPENSSL_VERSION} | cut -c 1-5) = "1.1.1" ] ; then \
-    echo 'patching OpenSSL 1.1.1 for OpenResty' \
-    && curl -s https://raw.githubusercontent.com/openresty/openresty/master/patches/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch | patch -p1 ; \
+        echo 'patching OpenSSL 1.1.1 for OpenResty' \
+        && curl -s https://raw.githubusercontent.com/openresty/openresty/master/patches/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch | patch -p1 ; \
     fi \
     && if [ $(echo ${RESTY_OPENSSL_VERSION} | cut -c 1-5) = "1.1.0" ] ; then \
-    echo 'patching OpenSSL 1.1.0 for OpenResty' \
-    && curl -s https://raw.githubusercontent.com/openresty/openresty/ed328977028c3ec3033bc25873ee360056e247cd/patches/openssl-1.1.0j-parallel_build_fix.patch | patch -p1 \
-    && curl -s https://raw.githubusercontent.com/openresty/openresty/master/patches/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch | patch -p1 ; \
+        echo 'patching OpenSSL 1.1.0 for OpenResty' \
+        && curl -s https://raw.githubusercontent.com/openresty/openresty/ed328977028c3ec3033bc25873ee360056e247cd/patches/openssl-1.1.0j-parallel_build_fix.patch | patch -p1 \
+        && curl -s https://raw.githubusercontent.com/openresty/openresty/master/patches/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch | patch -p1 ; \
     fi \
     && ./config \
-    no-threads shared zlib -g \
-    enable-ssl3 enable-ssl3-method \
-    --prefix=/usr/local/openresty/openssl \
-    --libdir=lib \
-    -Wl,-rpath,/usr/local/openresty/openssl/lib \
+      no-threads shared zlib -g \
+      enable-ssl3 enable-ssl3-method \
+      --prefix=/usr/local/openresty/openssl \
+      --libdir=lib \
+      -Wl,-rpath,/usr/local/openresty/openssl/lib \
     && make -j${RESTY_J} \
     && make -j${RESTY_J} install_sw \
     && cd /tmp \
@@ -134,11 +134,11 @@ RUN apk add --no-cache --virtual .build-deps \
     && tar xzf pcre-${RESTY_PCRE_VERSION}.tar.gz \
     && cd /tmp/pcre-${RESTY_PCRE_VERSION} \
     && ./configure \
-    --prefix=/usr/local/openresty/pcre \
-    --disable-cpp \
-    --enable-utf \
-    --enable-unicode-properties \
-    ${RESTY_PCRE_BUILD_OPTIONS} \
+        --prefix=/usr/local/openresty/pcre \
+        --disable-cpp \
+        --enable-utf \
+        --enable-unicode-properties \
+        ${RESTY_PCRE_BUILD_OPTIONS} \
     && make -j${RESTY_J} \
     && make -j${RESTY_J} install \
     && cd /tmp \
@@ -152,9 +152,9 @@ RUN apk add --no-cache --virtual .build-deps \
     && cd /tmp \
     && if [ -n "${RESTY_EVAL_POST_MAKE}" ]; then eval $(echo ${RESTY_EVAL_POST_MAKE}); fi \
     && rm -rf \
-    openssl-${RESTY_OPENSSL_VERSION}.tar.gz openssl-${RESTY_OPENSSL_VERSION} \
-    pcre-${RESTY_PCRE_VERSION}.tar.gz pcre-${RESTY_PCRE_VERSION} \
-    openresty-${RESTY_VERSION}.tar.gz openresty-${RESTY_VERSION} \
+        openssl-${RESTY_OPENSSL_VERSION}.tar.gz openssl-${RESTY_OPENSSL_VERSION} \
+        pcre-${RESTY_PCRE_VERSION}.tar.gz pcre-${RESTY_PCRE_VERSION} \
+        openresty-${RESTY_VERSION}.tar.gz openresty-${RESTY_VERSION} \
     && apk del .build-deps \
     && mkdir -p /var/run/openresty \
     && ln -sf /dev/stdout /usr/local/openresty/nginx/logs/access.log \
