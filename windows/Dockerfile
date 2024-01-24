@@ -2,8 +2,8 @@
 # Dockerfile - Windows
 # https://github.com/openresty/docker-openresty
 
-ARG RESTY_INSTALL_BASE="mcr.microsoft.com/windows/servercore"
-ARG RESTY_INSTALL_TAG="ltsc2019"
+ARG RESTY_INSTALL_BASE="mcr.microsoft.com/dotnet/framework/runtime"
+ARG RESTY_INSTALL_TAG="4.8-windowsservercore-ltsc2019"
 ARG RESTY_IMAGE_BASE="mcr.microsoft.com/windows/nanoserver"
 ARG RESTY_IMAGE_TAG="1809"
 
@@ -32,8 +32,8 @@ RUN [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tl
 
 FROM "${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}"
 
-ARG RESTY_INSTALL_BASE="mcr.microsoft.com/windows/servercore"
-ARG RESTY_INSTALL_TAG="ltsc2019"
+ARG RESTY_INSTALL_BASE="mcr.microsoft.com/dotnet/framework/runtime"
+ARG RESTY_INSTALL_TAG="4.8-windowsservercore-ltsc2019"
 ARG RESTY_IMAGE_BASE="mcr.microsoft.com/windows/nanoserver"
 ARG RESTY_IMAGE_TAG="1809"
 ARG RESTY_VERSION="1.25.3.1"
@@ -52,7 +52,7 @@ USER ContainerAdministrator
 RUN setx /M PATH "%PATH%;C:\Strawberry\perl\bin;C:\openresty"
 USER ContainerUser
 
-CMD [ "nginx", "-g", "`"daemon off;`""]
+CMD ["nginx", "-g", "daemon off;"]
 
 COPY --from=downloader C:/dl/ C:/
 

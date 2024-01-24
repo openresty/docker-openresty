@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## 1.25.3.1-2
+
+ * Update `windows` tag to `openresty/openresty:windows-2019`
+ * Change base install image of `windows` to dotnet image
+ * Fix syntax error in command instruction of `windows` build
+
 ## 1.25.3.1-1
 
  * Add `--with-http_v3_module` to build-from-source flavors
