@@ -341,7 +341,7 @@ docker build --build-arg RESTY_J=4 -f jammy/Dockerfile .
 | RESTY_LUAROCKS_VERSION                  | 3.9.2 | The version of LuaRocks to use. |
 | RESTY_OPENSSL_VERSION                   | 1.1.1w | The version of OpenSSL to use. |
 | RESTY_OPENSSL_PATCH_VERSION             | 1.1.1f | The version of OpenSSL to use when patching. |
-| RESTY_OPENSSL_URL_BASE                  |  https://www.openssl.org/source | The base of the URL to download OpenSSL from. |
+| RESTY_OPENSSL_URL_BASE                  | https://www.openssl.org/source/old/1.1.1 | The base of the URL to download OpenSSL from. |
 | RESTY_PCRE_VERSION                      | 8.45 | The version of PCRE to use. |
 | RESTY_PCRE_SHA256                       | `4e6ce03e0336e8b4a3d6c2b70b1c5e18590a5673a98186da90d4f33c23defc09` | The SHA-256 checksum of the PCRE package to check. |
 | RESTY_PCRE_BUILD_OPTIONS                | "--enable-jit" | Options tweak Resty's PCRE build.  | 
