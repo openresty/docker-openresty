@@ -4,7 +4,8 @@ Changelog
 ## 1.25.3.1-3
 
  * Update `RESTY_OPENSSL_URL_BASE` to `https://www.openssl.org/source/old/1.1.1`
-
+ * Update LuaRocks to `3.11.0`
+ * Remove obsolete `--lua-suffix` from LuaRocks build command
 
 ## 1.25.3.1-2
 

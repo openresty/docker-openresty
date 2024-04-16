@@ -17,7 +17,7 @@ FROM ${RESTY_FAT_IMAGE_BASE}:${RESTY_FAT_IMAGE_TAG}
 ARG RESTY_FAT_IMAGE_BASE="openresty/openresty"
 ARG RESTY_FAT_IMAGE_TAG="alpine"
 
-ARG RESTY_LUAROCKS_VERSION="3.9.2"
+ARG RESTY_LUAROCKS_VERSION="3.11.0"
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 LABEL resty_fat_image_base="${RESTY_FAT_IMAGE_BASE}"
@@ -45,7 +45,6 @@ RUN apk add --no-cache --virtual .build-deps \
     && ./configure \
         --prefix=/usr/local/openresty/luajit \
         --with-lua=/usr/local/openresty/luajit \
-        --lua-suffix=jit-2.1.0-beta3 \
         --with-lua-include=/usr/local/openresty/luajit/include/luajit-2.1 \
     && make build \
     && make install \
