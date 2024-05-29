@@ -1,0 +1,32 @@
+# https://taskfile.dev/installation 
+
+version: '3'
+
+tasks:
+  default:
+    cmds:
+      - task --list-all
+  
+  build-all-arm64:
+    deps:
+      - build-all-upstream-arm64
+      - build-all-source-arm64
+
+  build-all-upstream-arm64:
+    cmds:
+      - docker build -t alpine-apk-aarch64 -f alpine-apk/Dockerfile .
+      - docker build -t amzn2-aarch64      -f centos/Dockerfile     --build-arg RESTY_IMAGE_BASE=amazonlinux --build-arg RESTY_IMAGE_TAG=2 --build-arg RESTY_YUM_REPO="https://openresty.org/package/amazon/openresty.repo" --build-arg RESTY_RPM_DIST="amzn2" --build-arg RESTY_RPM_ARCH="aarch64" .
+      - docker build -t rocky-aarch64      -f fedora/Dockerfile     --build-arg RESTY_IMAGE_BASE=rockylinux --build-arg RESTY_IMAGE_TAG=8.5 --build-arg RESTY_YUM_REPO="https://openresty.org/package/rocky/openresty.repo" --build-arg RESTY_RPM_DIST="el8" --build-arg RESTY_RPM_ARCH="aarch64" .
+      - docker build -t centos-aarch64     -f centos/Dockerfile     --build-arg RESTY_RPM_ARCH=aarch64 .
+      - docker build -t centos7-aarch64    -f centos7/Dockerfile    --build-arg RESTY_RPM_ARCH=aarch64 .
+      - docker build -t fedora-aarch64     -f fedora/Dockerfile     --build-arg RESTY_RPM_ARCH=aarch64 .
+      - docker build -t bookworm-aarch64   -f bookworm/Dockerfile   --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian" --build-arg RESTY_APT_ARCH="arm64" .
+      - docker build -t bullseye-aarch64   -f bullseye/Dockerfile   --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian" .
+      - docker build -t buster-aarch64     -f buster/Dockerfile     --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian" .
+
+  build-all-source-arm64:
+    cmds:
+      - docker build -t alpine-aarch64 -f alpine/Dockerfile .
+      - docker build -t bionic-aarch64 -f bionic/Dockerfile .
+      - docker build -t focal-aarch64  -f focal/Dockerfile .
+      - docker build -t jammy-aarch64  -f jammy/Dockerfile .

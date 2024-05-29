@@ -13,11 +13,11 @@ It is best practice to pin your images to an explicit image tag.  The [next sect
 
 | Image  | Description |
 | --- | --- |
-| `openresty/openresty:1.21.4.3-1-jammy` | Built-from-source Ubuntu Jammy |
-| `openresty/openresty:1.21.4.3-1-focal` | Built-from-source Ubuntu Focal |
-| `openresty/openresty:1.21.4.3-1-bookworm-fat` | Built-from-upstream Debian Bookworm |
-| `openresty/openresty:1.21.4.3-1-alpine` | Built-from-source Alpine |
-| `openresty/openresty:1.21.4.3-1-alpine-apk` | Built-from-upstream Alpine |
+| `openresty/openresty:1.25.3.1-0-jammy` | Built-from-source Ubuntu Jammy |
+| `openresty/openresty:1.25.3.1-0-focal` | Built-from-source Ubuntu Focal |
+| `openresty/openresty:1.25.3.1-0-bookworm-fat` | Built-from-upstream Debian Bookworm |
+| `openresty/openresty:1.25.3.1-0-alpine` | Built-from-source Alpine |
+| `openresty/openresty:1.25.3.1-0-alpine-apk` | Built-from-upstream Alpine |
 
 These are examples of untagged image names, for reference:
 
@@ -228,7 +228,7 @@ $ docker inspect openresty/openresty:1.17.8.1-0-bionic | jq '.[].Config.Labels'
   "resty_add_package_builddeps": "",
   "resty_add_package_rundeps": "",
   "resty_config_deps": "--with-pcre     --with-cc-opt='-DNGX_LUA_ABORT_AT_PANIC -I/usr/local/openresty/pcre/include -I/usr/local/openresty/openssl/include'     --with-ld-opt='-L/usr/local/openresty/pcre/lib -L/usr/local/openresty/openssl/lib -Wl,-rpath,/usr/local/openresty/pcre/lib:/usr/local/openresty/openssl/lib'     ",
-  "resty_config_options": "    --with-compat     --with-file-aio     --with-http_addition_module     --with-http_auth_request_module     --with-http_dav_module     --with-http_flv_module     --with-http_geoip_module=dynamic     --with-http_gunzip_module     --with-http_gzip_static_module     --with-http_image_filter_module=dynamic     --with-http_mp4_module     --with-http_random_index_module     --with-http_realip_module     --with-http_secure_link_module     --with-http_slice_module     --with-http_ssl_module     --with-http_stub_status_module     --with-http_sub_module     --with-http_v2_module     --with-http_xslt_module=dynamic     --with-ipv6     --with-mail     --with-mail_ssl_module     --with-md5-asm     --with-pcre-jit     --with-sha1-asm     --with-stream     --with-stream_ssl_module     --with-threads     ",
+  "resty_config_options": "    --with-compat     --with-file-aio     --with-http_addition_module     --with-http_auth_request_module     --with-http_dav_module     --with-http_flv_module     --with-http_geoip_module=dynamic     --with-http_gunzip_module     --with-http_gzip_static_module     --with-http_image_filter_module=dynamic     --with-http_mp4_module     --with-http_random_index_module     --with-http_realip_module     --with-http_secure_link_module     --with-http_slice_module     --with-http_ssl_module     --with-http_stub_status_module     --with-http_sub_module     --with-http_v2_module     --with-http_v3_module     --with-http_xslt_module=dynamic     --with-ipv6     --with-mail     --with-mail_ssl_module     --with-md5-asm     --with-pcre-jit     --with-sha1-asm     --with-stream     --with-stream_ssl_module     --with-threads     ",
   "resty_config_options_more": "",
   "resty_eval_post_make": "",
   "resty_eval_pre_configure": "",
@@ -336,12 +336,12 @@ docker build --build-arg RESTY_J=4 -f jammy/Dockerfile .
 | Key                                     | Default | Description |
 :-----------------------------------------| :-----: |:----------- |
 | RESTY_IMAGE_BASE                        | "ubuntu" / "alpine" | The Debian or Alpine Docker image base to build `FROM`. |
-| RESTY_IMAGE_TAG                         | "jammy" / "3.18" | The Debian or Alpine Docker image tag to build `FROM`. |
-| RESTY_VERSION                           | 1.21.4.3 | The version of OpenResty to use. |
-| RESTY_LUAROCKS_VERSION                  | 3.9.2 | The version of LuaRocks to use. |
+| RESTY_IMAGE_TAG                         | "jammy" / "3.19" | The Debian or Alpine Docker image tag to build `FROM`. |
+| RESTY_VERSION                           | 1.25.3.1 | The version of OpenResty to use. |
+| RESTY_LUAROCKS_VERSION                  | 3.11.0 | The version of LuaRocks to use. |
 | RESTY_OPENSSL_VERSION                   | 1.1.1w | The version of OpenSSL to use. |
 | RESTY_OPENSSL_PATCH_VERSION             | 1.1.1f | The version of OpenSSL to use when patching. |
-| RESTY_OPENSSL_URL_BASE                  |  https://www.openssl.org/source | The base of the URL to download OpenSSL from. |
+| RESTY_OPENSSL_URL_BASE                  | https://www.openssl.org/source/old/1.1.1 | The base of the URL to download OpenSSL from. |
 | RESTY_PCRE_VERSION                      | 8.45 | The version of PCRE to use. |
 | RESTY_PCRE_SHA256                       | `4e6ce03e0336e8b4a3d6c2b70b1c5e18590a5673a98186da90d4f33c23defc09` | The SHA-256 checksum of the PCRE package to check. |
 | RESTY_PCRE_BUILD_OPTIONS                | "--enable-jit" | Options tweak Resty's PCRE build.  | 
@@ -412,7 +412,7 @@ docker build --build-arg RESTY_RPM_FLAVOR="-debug" -f fedora/Dockerfile .
 :----- | :-----: |:----------- |
 |RESTY_IMAGE_BASE | "centos" | The Centos Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG | "8" | The CentOS Docker image tag to build `FROM`. |
-|RESTY_LUAROCKS_VERSION | 3.9.2 | The version of LuaRocks to use. |
+|RESTY_LUAROCKS_VERSION | 3.11.0 | The version of LuaRocks to use. |
 |RESTY_YUM_REPO | "https://openresty.org/package/centos/openresty.repo" | URL for the OpenResty YUM Repository. |
 |RESTY_RPM_FLAVOR | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
 |RESTY_RPM_VERSION | "1.21.4.3-1" | The `openresty` package version to install. |
@@ -448,9 +448,9 @@ docker build --build-arg RESTY_DEB_FLAVOR="-debug" -f bullseye/Dockerfile .
 |RESTY_IMAGE_BASE  | "debian" | The Debian Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG   | "bullseye-slim" | The Debian Docker image tag to build `FROM`. |
 |RESTY_DEB_FLAVOR  | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
-|RESTY_DEB_VERSION | "=1.21.4.3-1~buster1" | The [Debian package version](https://openresty.org/package/debian/pool/openresty/o/openresty/) to use, with `=` prepended. |
+|RESTY_DEB_VERSION | "=1.25.3.1-2~bookworm1" | The [Debian package version](https://openresty.org/package/debian/pool/openresty/o/openresty/) to use, with `=` prepended. |
 |RESTY_FAT_DEB_FLAVOR  | "" | The `openresty` package flavor to use to install "fat" packages.  Possibly `"-debug"` or `"-valgrind"`. |
-|RESTY_FAT_DEB_VERSION | "=1.21.4.3-1~bullseye1" | The [Debian package version](https://openresty.org/package/debian/pool/openresty/o/openresty/) to use to "fat" packages, with `=` prepended. |
+|RESTY_FAT_DEB_VERSION | "=1.25.3.1-2~bookworm1" | The [Debian package version](https://openresty.org/package/debian/pool/openresty/o/openresty/) to use to "fat" packages, with `=` prepended. |
 
  * For `amd64` builds, `RESTY_APT_REPO="https://openresty.org/package/debian"`
  * For `arm64` builds, `RESTY_APT_REPO="https://openresty.org/package/arm64/debian"`
@@ -461,7 +461,7 @@ docker build --build-arg RESTY_DEB_FLAVOR="-debug" -f bullseye/Dockerfile .
 Building (APK based)
 ====================
 
-OpenResty now now has [Alpine Packages (APKs) available](https://openresty.org/en/apk-packages.html).  The `alpine-apk` image use these APKs rather than building from source.  You can derive your own Docker images from this to install your own packages.
+OpenResty now now has [Alpine Packagesx-5q (APKs) available](https://openresty.org/en/apk-packages.html).  The `alpine-apk` image use these APKs rather than building from source.  You can derive your own Docker images from this to install your own packages.
 
 This Docker image can be built and customized by cloning the repo and running `docker build` with the desired Dockerfile:
 
@@ -479,7 +479,7 @@ docker build --build-arg RESTY_IMAGE_TAG="3.12" -f alpine-apk/Dockerfile .
 |RESTY_IMAGE_TAG    | "3.18" | The Alpine Docker image tag to build `FROM`. |
 |RESTY_APK_KEY_URL  | "https://openresty.org/package/admin@openresty.com-5ea678a6.rsa.pub" | The URL of the signing key of the `openresty` package. |
 |RESTY_APK_REPO_URL | "https://openresty.org/package/alpine/v${RESTY_IMAGE_TAG}/main" | The URL of the APK repository for `openresty` package. |
-|RESTY_APK_VERSION | "=1.21.4.3-r0" | The suffix to add to the apk install package name: `openresty${RESTY_APK_VERSION`}. |
+|RESTY_APK_VERSION | "=1.25.3.1-r0" | The suffix to add to the apk install package name: `openresty${RESTY_APK_VERSION`}. |
 
 [Back to TOC](#table-of-contents)
 
@@ -499,11 +499,11 @@ docker build --build-arg RESTY_VERSION="1.13.6.2" -f windows/Dockerfile .
 
 | Key | Default | Description |
 :----- | :-----: |:----------- |
-|RESTY_INSTALL_BASE | "mcr.microsoft.com/windows/servercore" | The Windows Server Docker image name to download and install OpenResty with. |
-|RESTY_INSTALL_TAG  | "ltsc2019" | The Windows Server Docker image name to download and install OpenResty with. |
+|RESTY_INSTALL_BASE | "mcr.microsoft.com/dotnet/framework/runtime" | The Windows Server Docker image name to download and install OpenResty with. |
+|RESTY_INSTALL_TAG  | "4.8-windowsservercore-ltsc2019" | The Windows Server Docker image name to download and install OpenResty with. |
 |RESTY_IMAGE_BASE   | "mcr.microsoft.com/windows/nanoserver" | The Windows Server Docker image name to build `FROM` for final image. |
 |RESTY_IMAGE_TAG    | "1809" | The Windows Server Docker image tag to build `FROM` for final image. |
-|RESTY_VERSION      | 1.21.4.3 | The version of OpenResty to use. |
+|RESTY_VERSION      | 1.25.3.1 | The version of OpenResty to use. |
 
 [Back to TOC](#table-of-contents)
 
@@ -532,7 +532,7 @@ Copyright & License
 
 `docker-openresty` is licensed under the 2-clause BSD license.
 
-Copyright (c) 2017-2022, Evan Wies <evan@neomantra.net>.
+Copyright (c) 2017-2024, Evan Wies <evan@neomantra.net>.
 
 This module is licensed under the terms of the BSD license.
 

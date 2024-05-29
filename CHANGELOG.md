@@ -1,6 +1,31 @@
 Changelog
 =========
 
+## 1.25.3.1-3
+
+ * Fix `LUA_PATH` for recent `luajit` installs (#249)
+ * Update `RESTY_OPENSSL_URL_BASE` to `https://www.openssl.org/source/old/1.1.1`
+ * Update LuaRocks to `3.11.0`
+ * Remove obsolete `--lua-suffix` from LuaRocks build command
+
+## 1.25.3.1-2
+
+ * Update `windows` tag to `openresty/openresty:windows-2019`
+ * Change base install image of `windows` to dotnet image
+ * Fix syntax error in command instruction of `windows` build
+
+## 1.25.3.1-1
+
+ * Add `--with-http_v3_module` to build-from-source flavors
+
+## 1.25.3.1-0
+
+ * Upgrade OpenResty to 1.25.3.1 (#243)
+
+## 1.21.4.3-3
+
+ * Upgrade `alpine` built-from-source flavor to Alpine 3.19 (#244)
+
 ## 1.21.4.3-2
 
  * Upgrade `alpine-apk` flavor to Alpine 3.18 (#235)

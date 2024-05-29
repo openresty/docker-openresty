@@ -19,7 +19,7 @@ ARG RESTY_FAT_IMAGE_TAG="buster"
 # OpenResty Debian package variants.
 # For example: "-debug" or "-valgrind"
 ARG RESTY_FAT_DEB_FLAVOR=""
-ARG RESTY_FAT_DEB_VERSION="=1.21.4.3-1~buster1"
+ARG RESTY_FAT_DEB_VERSION="=1.25.3.1-2~buster1"
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 LABEL resty_fat_deb_flavor="${RESTY_FAT_DEB_FLAVOR}"
