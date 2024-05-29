@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.25.3.1-4
+
+ * Upgrade `alpine` built-from-source flavor to Alpine 3.20
+
 ## 1.25.3.1-3
 
  * Fix `LUA_PATH` for recent `luajit` installs (#249)
