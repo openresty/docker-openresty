@@ -1,4 +1,4 @@
-# Dockerfile - Ubuntu Jammy
+# Dockerfile - Ubuntu Noble
 # https://github.com/openresty/docker-openresty
 
 ARG RESTY_IMAGE_BASE="ubuntu"
@@ -10,7 +10,7 @@ LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
 # Docker Build Arguments
 ARG RESTY_IMAGE_BASE="ubuntu"
-ARG RESTY_IMAGE_TAG="jammy"
+ARG RESTY_IMAGE_TAG="noble"
 ARG RESTY_VERSION="1.25.3.1"
 ARG RESTY_LUAROCKS_VERSION="3.11.0"
 ARG RESTY_OPENSSL_VERSION="1.1.1w"
