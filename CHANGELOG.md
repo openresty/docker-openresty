@@ -4,6 +4,7 @@ Changelog
 ## 1.25.3.1-5
 
  * Add `noble` build-from-source flavor for Ubuntu Noble Numbat 24.04 (#253)
+ * Restore `s390x` architecture for `jammy` and `noble` flavors (#209)
 
 ## 1.25.3.1-4
 
