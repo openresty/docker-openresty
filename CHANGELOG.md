@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.25.3.1-5
+
+ * Add `noble` build-from-source flavor for Ubuntu Noble Numbat 24.04 (#253)
+
 ## 1.25.3.1-4
 
  * Upgrade `alpine` built-from-source flavor to Alpine 3.20

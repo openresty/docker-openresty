@@ -23,8 +23,8 @@ These are examples of untagged image names, for reference:
 
 | Image | Description |
 | --- | --- |
+| `openresty/openresty:noble` | Latest Ubuntu Noble |
 | `openresty/openresty:jammy` | Latest Ubuntu Jammy |
-| `openresty/openresty:focal` | Latest Ubuntu Focal |
 | `openresty/openresty:alpine` | Latest Alpine |
 
 ----
@@ -95,6 +95,7 @@ The following "flavors" are built from source and are intended for more advanced
 - [`bionic`, (*bionic/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/bionic/Dockerfile)
 - [`focal`, (*focal/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/focal/Dockerfile)
 - [`jammy`, (*jammy/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/jammy/Dockerfile)
+- [`noble`, (*noble/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/noble/Dockerfile)
 
 The `openresty/openresty:latest` tag points to the latest `bullseye` image.
 
@@ -323,6 +324,7 @@ Dockerfiles are provided for the following base systems, selecting the Dockerfil
  * [Ubuntu Bionic](https://github.com/openresty/docker-openresty/blob/master/bionic/Dockerfile) (`bionic/Dockerfile`)
  * [Ubuntu Focal](https://github.com/openresty/docker-openresty/blob/master/focal/Dockerfile) (`focal/Dockerfile`)
  * [Ubuntu Jammy](https://github.com/openresty/docker-openresty/blob/master/jammy/Dockerfile) (`jammy/Dockerfile`)
+ * [Ubuntu Noble](https://github.com/openresty/docker-openresty/blob/master/noble/Dockerfile) (`noble/Dockerfile`)
 
 We used to support more build flavors but have trimmed that down.  Older Dockerfiles are archived in the [`archive`](https://github.com/openresty/docker-openresty/tree/master/archive) folder.
 
@@ -336,7 +338,7 @@ docker build --build-arg RESTY_J=4 -f jammy/Dockerfile .
 | Key                                     | Default | Description |
 :-----------------------------------------| :-----: |:----------- |
 | RESTY_IMAGE_BASE                        | "ubuntu" / "alpine" | The Debian or Alpine Docker image base to build `FROM`. |
-| RESTY_IMAGE_TAG                         | "jammy" / "3.20" | The Debian or Alpine Docker image tag to build `FROM`. |
+| RESTY_IMAGE_TAG                         | "noble" / "3.20" | The Debian or Alpine Docker image tag to build `FROM`. |
 | RESTY_VERSION                           | 1.25.3.1 | The version of OpenResty to use. |
 | RESTY_LUAROCKS_VERSION                  | 3.11.0 | The version of LuaRocks to use. |
 | RESTY_OPENSSL_VERSION                   | 1.1.1w | The version of OpenSSL to use. |

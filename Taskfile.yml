@@ -30,3 +30,4 @@ tasks:
       - docker build -t bionic-aarch64 -f bionic/Dockerfile .
       - docker build -t focal-aarch64  -f focal/Dockerfile .
       - docker build -t jammy-aarch64  -f jammy/Dockerfile .
+      - docker build -t noble-aarch64  -f noble/Dockerfile .

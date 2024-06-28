@@ -115,6 +115,18 @@ jobs:
 #     script:
 #     - ./docker_build_and_push_flavor.sh jammy-s390x jammy/Dockerfile --build-arg RESTY_PCRE_BUILD_OPTIONS="" --build-arg RESTY_PCRE_OPTIONS=""
 
+    - name: Build Docker image for build-from-source flavor -- noble / aarch64
+      arch: arm64
+      stage: build
+      script:
+      - ./docker_build_and_push_flavor.sh noble-aarch64 noble/Dockerfile
+
+    - name: Build Docker image for build-from-source flavor -- noble / amd64
+      arch: amd64
+      stage: build
+      script:
+      - ./docker_build_and_push_flavor.sh noble-amd64 noble/Dockerfile
+
 ###############################################################################
 # Build From OpenResty Upstream Flavors
 # These are shorter to build are put in the same job (per architecture)
@@ -167,7 +179,8 @@ jobs:
       - ./docker_manifest.sh centos7     centos7-amd64     centos7-aarch64
       - ./docker_manifest.sh fedora      fedora-amd64      # fedora-aarch64
       - ./docker_manifest.sh focal       focal-amd64       focal-aarch64       focal-s390x
-      - ./docker_manifest.sh jammy       jammy-amd64       jammy-aarch64      #jammy-s309x
+      - ./docker_manifest.sh jammy       jammy-amd64       jammy-aarch64      #jammy-s390x
+      - ./docker_manifest.sh noble       noble-amd64       noble-aarch64      #noble-s390x
       - ./docker_manifest.sh rocky       rocky-amd64       rocky-aarch64
       - ./docker_tag_alias.sh centos centos-rpm
       - ./docker_tag_alias.sh fedora fedora-rpm
