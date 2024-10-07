@@ -5,6 +5,7 @@ Changelog
 
     * Add `tzdata` and `zlib` packages to Alpine flavors (#263)
     * Add `bullseye-debug` and `bullseye-valgrind` flavors (#259)
+    * Install envsubst (part of gettext-base) in Debian Bookworm (#261)
 
 ## 1.25.3.2-0
 
