@@ -31,6 +31,7 @@ LABEL resty_deb_version="${RESTY_DEB_VERSION}"
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         ca-certificates \
+        gettext-base \
         gnupg \
         wget \
     && wget -qO - ${RESTY_APT_PGP} | gpg --dearmor > /etc/apt/trusted.gpg.d/openresty-keyring.gpg \
