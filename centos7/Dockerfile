@@ -13,7 +13,7 @@ ARG RESTY_IMAGE_TAG="7"
 ARG RESTY_LUAROCKS_VERSION="3.9.2"
 ARG RESTY_YUM_REPO="https://openresty.org/package/centos/openresty.repo"
 ARG RESTY_RPM_FLAVOR=""
-ARG RESTY_RPM_VERSION="1.21.4.3-1"
+ARG RESTY_RPM_VERSION="1.21.4.4-1"
 ARG RESTY_RPM_DIST="el7"
 ARG RESTY_RPM_ARCH="x86_64"
 
@@ -27,7 +27,10 @@ LABEL resty_rpm_dist="${RESTY_RPM_DIST}"
 LABEL resty_rpm_arch="${RESTY_RPM_ARCH}"
 
 
-RUN yum install -y yum-utils \
+RUN sed -i s/mirror.centos.org/vault.centos.org/g /etc/yum.repos.d/*.repo \
+    && sed -i s/^#.*baseurl=http/baseurl=http/g /etc/yum.repos.d/*.repo \
+    && sed -i s/^mirrorlist=http/#mirrorlist=http/g /etc/yum.repos.d/*.repo \
+    && yum install -y yum-utils \
     && yum-config-manager --add-repo ${RESTY_YUM_REPO} \
     && yum install -y \
         gettext \

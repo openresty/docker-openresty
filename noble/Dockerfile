@@ -1,8 +1,8 @@
-# Dockerfile - Ubuntu Jammy
+# Dockerfile - Ubuntu Noble
 # https://github.com/openresty/docker-openresty
 
 ARG RESTY_IMAGE_BASE="ubuntu"
-ARG RESTY_IMAGE_TAG="jammy"
+ARG RESTY_IMAGE_TAG="noble"
 
 FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
 
@@ -10,7 +10,7 @@ LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
 # Docker Build Arguments
 ARG RESTY_IMAGE_BASE="ubuntu"
-ARG RESTY_IMAGE_TAG="jammy"
+ARG RESTY_IMAGE_TAG="noble"
 ARG RESTY_VERSION="1.21.4.4"
 ARG RESTY_LUAROCKS_VERSION="3.9.2"
 ARG RESTY_OPENSSL_VERSION="1.1.1w"
@@ -161,7 +161,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && ./configure \
         --prefix=/usr/local/openresty/luajit \
         --with-lua=/usr/local/openresty/luajit \
-        --lua-suffix=jit-2.1.0-beta3 \
         --with-lua-include=/usr/local/openresty/luajit/include/luajit-2.1 \
     && make build \
     && make install \

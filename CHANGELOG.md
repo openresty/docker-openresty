@@ -1,6 +1,21 @@
 Changelog
 =========
 
+## 1.21.4.4-0  (unreleased)
+
+ * Upgrade OpenResty to 1.21.4.4 (#258)
+ * Backport:
+    * Added Taskfile
+    * Upgrade `alpine` built-from-source flavor to Alpine 3.20
+    * Update `windows` tag to `openresty/openresty:windows-2019`
+    * Change base install image of `windows` to dotnet image
+    * Fix syntax error in command instruction of `windows` build
+    * Update `RESTY_OPENSSL_URL_BASE` to `https://www.openssl.org/source/old/1.1.1`
+    * `centos7` now uses `yum` from `vault.centos.org` as it is now EOL
+    * Add `noble` build-from-source flavor for Ubuntu Noble Numbat 24.04 (#253)
+    * Restore `s390x` architecture for `jammy` and `noble` flavors (#209)
+    * Add `tzdata` package to `alpine` and `alpine-fat` flavors (#263)
+
 ## 1.21.4.3-3
 
  * Upgrade `alpine` built-from-source flavor to Alpine 3.19 (#244)

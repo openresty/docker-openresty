@@ -26,13 +26,13 @@ deploy_script:
     if (${env:APPVEYOR_REPO_BRANCH} -eq "master") {
         docker tag ${env:DOCKER_ORG}:windows ${env:DOCKER_ORG}/openresty:windows
         docker push ${env:DOCKER_ORG}/openresty:windows
-        docker tag ${env:DOCKER_ORG}:windows ${env:DOCKER_ORG}/openresty:windows-2016
-        docker push ${env:DOCKER_ORG}/openresty:windows-2016
+        docker tag ${env:DOCKER_ORG}:windows ${env:DOCKER_ORG}/openresty:windows-2019
+        docker push ${env:DOCKER_ORG}/openresty:windows-2019
     }
 
     if (${env:APPVEYOR_REPO_TAG_NAME}) {
         docker tag ${env:DOCKER_ORG}:windows ${env:DOCKER_ORG}/openresty:${env:APPVEYOR_REPO_TAG_NAME}-windows
         docker push ${env:DOCKER_ORG}/openresty:${env:APPVEYOR_REPO_TAG_NAME}-windows
-        docker tag ${env:DOCKER_ORG}:windows ${env:DOCKER_ORG}/openresty:${env:APPVEYOR_REPO_TAG_NAME}-windows-2016
-        docker push ${env:DOCKER_ORG}/openresty:${env:APPVEYOR_REPO_TAG_NAME}-windows-2016
+        docker tag ${env:DOCKER_ORG}:windows ${env:DOCKER_ORG}/openresty:${env:APPVEYOR_REPO_TAG_NAME}-windows-2019
+        docker push ${env:DOCKER_ORG}/openresty:${env:APPVEYOR_REPO_TAG_NAME}-windows-2019
     }
