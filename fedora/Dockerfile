@@ -10,7 +10,7 @@ LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
 ARG RESTY_IMAGE_BASE="fedora"
 ARG RESTY_IMAGE_TAG="36"
-ARG RESTY_LUAROCKS_VERSION="3.11.0"
+ARG RESTY_LUAROCKS_VERSION="3.11.1"
 ARG RESTY_YUM_REPO="https://openresty.org/package/fedora/openresty.repo"
 ARG RESTY_RPM_FLAVOR=""
 ARG RESTY_RPM_VERSION="1.25.3.2-1"

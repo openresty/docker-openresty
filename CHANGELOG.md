@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.25.3.2-2 (unreleased)
+
+ * Update LuaRocks to `3.11.1`
+
 ## 1.25.3.2-1 (2024-10-18)
 
     * Add `tzdata` and `zlib` packages to Alpine flavors (#263)
