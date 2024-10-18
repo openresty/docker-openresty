@@ -25,6 +25,9 @@ LABEL resty_apk_version="${RESTY_APK_VERSION}"
 RUN wget -O "/etc/apk/keys/$(basename ${RESTY_APK_KEY_URL})" "${RESTY_APK_KEY_URL}" \
     && echo "${RESTY_APK_REPO_URL}" >> /etc/apk/repositories \
     && apk update \
+    && apk add --no-cache \
+      tzdata \
+      zlib \
     && apk add "openresty${RESTY_APK_VERSION}" \
     && mkdir -p /var/run/openresty \
     && ln -sf /dev/stdout /usr/local/openresty/nginx/logs/access.log \

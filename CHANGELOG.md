@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.25.3.2-1 (unreleased)
+
+    * Add `tzdata` and `zlib` packages to Alpine flavors (#263)
+
 ## 1.25.3.2-0
 
  * Upgrade OpenResty to 1.25.3.2 (#256)
