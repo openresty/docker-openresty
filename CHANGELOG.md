@@ -14,7 +14,8 @@ Changelog
     * `centos7` now uses `yum` from `vault.centos.org` as it is now EOL
     * Add `noble` build-from-source flavor for Ubuntu Noble Numbat 24.04 (#253)
     * Restore `s390x` architecture for `jammy` and `noble` flavors (#209)
-    * Add `tzdata` package to `alpine` and `alpine-fat` flavors (#263)
+    * Add `tzdata` and `zlib` packages to `alpine` and `alpine-apk` flavors (#263)
+    * Install `envsubst` in Debian Bookworm via `gettext-base` (#261)
 
 ## 1.21.4.3-3
 
