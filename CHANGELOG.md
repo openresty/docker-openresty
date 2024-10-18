@@ -1,7 +1,7 @@
 Changelog
 =========
 
-## 1.25.3.2-1 (unreleased)
+## 1.25.3.2-1 (2024-10-18)
 
     * Add `tzdata` and `zlib` packages to Alpine flavors (#263)
     * Add `bullseye-debug` and `bullseye-valgrind` flavors (#259)
@@ -42,6 +42,22 @@ Changelog
 
  * Upgrade OpenResty to 1.25.3.1 (#243)
 
+## 1.21.4.4-0 (2024-10-17)
+
+ * Upgrade OpenResty to 1.21.4.4 (#258)
+ * Backport:
+    * Added Taskfile
+    * Upgrade `alpine` built-from-source flavor to Alpine 3.20
+    * Update `windows` tag to `openresty/openresty:windows-2019`
+    * Change base install image of `windows` to dotnet image
+    * Fix syntax error in command instruction of `windows` build
+    * Update `RESTY_OPENSSL_URL_BASE` to `https://www.openssl.org/source/old/1.1.1`
+    * `centos7` now uses `yum` from `vault.centos.org` as it is now EOL
+    * Add `noble` build-from-source flavor for Ubuntu Noble Numbat 24.04 (#253)
+    * Restore `s390x` architecture for `jammy` and `noble` flavors (#209)
+    * Add `tzdata` and `zlib` packages to `alpine` and `alpine-apk` flavors (#263)
+    * Install `envsubst` in Debian Bookworm via `gettext-base` (#261)
+    
 ## 1.21.4.3-3
 
  * Upgrade `alpine` built-from-source flavor to Alpine 3.19 (#244)
