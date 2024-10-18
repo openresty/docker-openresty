@@ -1,7 +1,7 @@
 Changelog
 =========
 
-## 1.21.4.4-0  (unreleased)
+## 1.21.4.4-0 (2024-10-17)
 
  * Upgrade OpenResty to 1.21.4.4 (#258)
  * Backport:
