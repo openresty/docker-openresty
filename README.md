@@ -27,6 +27,14 @@ These are examples of untagged image names, for reference:
 | `openresty/openresty:jammy` | Latest Ubuntu Jammy |
 | `openresty/openresty:alpine` | Latest Alpine |
 
+There are also specific tags for [Debug](https://openresty.org/en/deb-packages.html#openresty-debug) and [Valgrind](https://openresty.org/en/deb-packages.html#openresty-valgrind) OpenResty variants:
+| Image | Description |
+| --- | --- |
+| `openresty/openresty:bullseye-debug` | Bullseye flavor with `openresty-debug` |
+| `openresty/openresty:bullseye-valgrind` | Bullseye flavor with `openresty-valgrind` |
+| `openresty/openresty:bullseye-fat-debug` | Bullseye FAT flavor with `openresty-debug` |
+| `openresty/openresty:bullseye-fat-valgrind` | Bullseye FAT flavor with `openresty-valgrind` |
+
 ----
 
 

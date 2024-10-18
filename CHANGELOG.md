@@ -4,6 +4,7 @@ Changelog
 ## 1.25.3.2-1 (unreleased)
 
     * Add `tzdata` and `zlib` packages to Alpine flavors (#263)
+    * Add `bullseye-debug` and `bullseye-valgrind` flavors (#259)
 
 ## 1.25.3.2-0
 

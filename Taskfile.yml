@@ -73,9 +73,9 @@ tasks:
       - docker build  -f noble/Dockerfile .
 
   build-debug-arm64:
-      - docker build -t bullseye-debug-aarch64    -f bullseye/Dockerfile   --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian" --build-arg RESTY_DEB_FLAVOR="-debug"    .
-      - docker build -t bullseye-valgrind-aarch64 -f bullseye/Dockerfile   --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian" --build-arg RESTY_DEB_FLAVOR="-valgrind" .
+      - docker build -t bullseye-debug-aarch64    -f bullseye/Dockerfile.debug    --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian" .
+      - docker build -t bullseye-valgrind-aarch64 -f bullseye/Dockerfile.valgrind --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian" .
 
   build-debug-amd64:
-      - docker build -t bullseye-debug-amd64    -f bullseye/Dockerfile --build-arg RESTY_DEB_FLAVOR="-debug"    .
-      - docker build -t bullseye-valgrind-amd64 -f bullseye/Dockerfile --build-arg RESTY_DEB_FLAVOR="-valgrind" .
+      - docker build -t bullseye-debug-amd64    -f bullseye/Dockerfile.debug    .
+      - docker build -t bullseye-valgrind-amd64 -f bullseye/Dockerfile.valgrind .
