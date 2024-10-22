@@ -162,6 +162,8 @@ The Docker tooling installs its own [`nginx.conf` file](https://github.com/openr
 
 For the Linux images, that `nginx.conf` has the directive `include /etc/nginx/conf.d/*.conf;` so all nginx configurations in that directory will be included.  The [default virtual host configuration](https://github.com/openresty/docker-openresty/blob/master/nginx.vh.default.conf) has the original OpenResty configuration and is copied to `/etc/nginx/conf.d/default.conf`.
 
+Since `1.25.3.2-2`, the `nginx.conf` also contains `include /etc/nginx/conf.d/*.main;` at the `main` stanza level (rather than the `http` level of `*.conf`).   `stream` and other `main` level directives can be included there; see [issue 257](https://github.com/openresty/docker-openresty/issues/257) for an example.
+
 You can override that `default.conf` directly or volume bind-mount the `/etc/nginx/conf.d` directory to your own set of configurations:
 
 ```

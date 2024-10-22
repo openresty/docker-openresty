@@ -1,15 +1,16 @@
 Changelog
 =========
 
-## 1.25.3.2-2 (unreleased)
+## 1.25.3.2-2 (2024-10-22)
 
  * Update LuaRocks to `3.11.1`
+ * Add `include /etc/nginx/conf.d/*.conf;` to `nginx.conf` for injecting config into main stanza (#257).  **NOTE:** This may be a **breaking change** for those bind-mounting existing files named `*.main`.
 
 ## 1.25.3.2-1 (2024-10-18)
 
-    * Add `tzdata` and `zlib` packages to Alpine flavors (#263)
-    * Add `bullseye-debug` and `bullseye-valgrind` flavors (#259)
-    * Install envsubst (part of gettext-base) in Debian Bookworm (#261)
+  * Add `tzdata` and `zlib` packages to Alpine flavors (#263)
+  * Add `bullseye-debug` and `bullseye-valgrind` flavors (#259)
+  * Install envsubst (part of gettext-base) in Debian Bookworm (#261)
 
 ## 1.25.3.2-0
 
