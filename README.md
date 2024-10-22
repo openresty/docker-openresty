@@ -13,11 +13,11 @@ It is best practice to pin your images to an explicit image tag.  The [next sect
 
 | Image  | Description |
 | --- | --- |
-| `openresty/openresty:1.25.3.2-0-jammy` | Built-from-source Ubuntu Jammy |
-| `openresty/openresty:1.25.3.2-0-focal` | Built-from-source Ubuntu Focal |
-| `openresty/openresty:1.25.3.2-0-bookworm-fat` | Built-from-upstream Debian Bookworm |
-| `openresty/openresty:1.25.3.2-0-alpine` | Built-from-source Alpine |
-| `openresty/openresty:1.25.3.2-0-alpine-apk` | Built-from-upstream Alpine |
+| `openresty/openresty:1.27.1.1-0-jammy` | Built-from-source Ubuntu Jammy |
+| `openresty/openresty:1.27.1.1-0-focal` | Built-from-source Ubuntu Focal |
+| `openresty/openresty:1.27.1.1-0-bookworm-fat` | Built-from-upstream Debian Bookworm |
+| `openresty/openresty:1.27.1.1-0-alpine` | Built-from-source Alpine |
+| `openresty/openresty:1.27.1.1-0-alpine-apk` | Built-from-upstream Alpine |
 
 These are examples of untagged image names, for reference:
 
@@ -59,7 +59,6 @@ Table of Contents
 * [Feedback & Bug Reports](#feedback--bug-reports)
 * [Changelog & Authors](#changelog--authors)
 * [Copyright & License](#copyright--license)
-
 
 
 Usage
@@ -287,6 +286,7 @@ $ docker inspect openresty/openresty:1.17.8.1-0-bionic | jq '.[].Config.Labels'
 | `resty_openssl_patch_version`            | buildarg `RESTY_OPENSSL_PATCH_VERSION`                                                                                |
 | `resty_openssl_url_base`                 | buildarg `RESTY_OPENSSL_URL_BASE`                                                                                     |
 | `resty_openssl_version`                  | buildarg `RESTY_OPENSSL_VERSION`                                                                                      |
+| `resty_openssl_build_options`            | buildarg `RESTY_OPENSSL_BUILD_OPTIONS`                                                                                |
 | `resty_pcre_build_options`               | buildarg `RESTY_PCRE_BUILD_OPTIONS`                                                                                   |
 | `resty_pcre_options`                     | buildarg `RESTY_PCRE_OPTIONS`                                                                                         |
 | `resty_pcre_sha256`                      | buildarg `RESTY_PCRE_SHA256`                                                                                          |
@@ -349,17 +349,21 @@ docker build --build-arg RESTY_J=4 -f jammy/Dockerfile .
 :-----------------------------------------| :-----: |:----------- |
 | RESTY_IMAGE_BASE                        | "ubuntu" / "alpine" | The Debian or Alpine Docker image base to build `FROM`. |
 | RESTY_IMAGE_TAG                         | "noble" / "3.20" | The Debian or Alpine Docker image tag to build `FROM`. |
-| RESTY_VERSION                           | 1.25.3.2 | The version of OpenResty to use. |
+| RESTY_VERSION                           | 1.27.1.1 | The version of OpenResty to use. |
 | RESTY_LUAROCKS_VERSION                  | 3.11.1 | The version of LuaRocks to use. |
-| RESTY_OPENSSL_VERSION                   | 1.1.1w | The version of OpenSSL to use. |
-| RESTY_OPENSSL_PATCH_VERSION             | 1.1.1f | The version of OpenSSL to use when patching. |
-| RESTY_OPENSSL_URL_BASE                  | https://www.openssl.org/source/old/1.1.1 | The base of the URL to download OpenSSL from. |
-| RESTY_PCRE_VERSION                      | 8.45 | The version of PCRE to use. |
-| RESTY_PCRE_SHA256                       | `4e6ce03e0336e8b4a3d6c2b70b1c5e18590a5673a98186da90d4f33c23defc09` | The SHA-256 checksum of the PCRE package to check. |
-| RESTY_PCRE_BUILD_OPTIONS                | "--enable-jit" | Options tweak Resty's PCRE build.  | 
+| RESTY_OPENSSL_VERSION                   | 3.0.15 | The version of OpenSSL to use. |
+| RESTY_OPENSSL_PATCH_VERSION             | 3.0.15 | The version of OpenSSL to use when patching. |
+| RESTY_OPENSSL_URL_BASE                  | "https://github.com/openssl/openssl/releases/download/openssl-${RESTY_OPENSSL_VERSION}" | The base of the URL to download OpenSSL from. |
+| RESTY_OPENSSL_BUILD_OPTIONS             | "enable-camellia enable-seed enable-rfc3779 enable-cms enable-md2 enable-rc5 enable-weak-ssl-ciphers enable-ssl3 enable-ssl3-method enable-md2 enable-ktls enable-fips" | Options to tweak Resty's OpenSSL build. |
+| RESTY_PCRE_VERSION                      | 10.44 | The version of PCRE2 to use. |
+| RESTY_PCRE_SHA256                       | `86b9cb0aa3bcb7994faa88018292bc704cdbb708e785f7c74352ff6ea7d3175b` | The SHA-256 checksum of the PCRE2 package to check. |
+| RESTY_PCRE_BUILD_OPTIONS                | "--enable-jit --enable-pcre2grep-jit --disable-bsr-anycrlf --disable-coverage --disable-ebcdic --disable-fuzz-support \
+    --disable-jit-sealloc --disable-never-backslash-C --enable-newline-is-lf --enable-pcre2-8 --enable-pcre2-16 --enable-pcre2-32 \
+    --enable-pcre2grep-callout --enable-pcre2grep-callout-fork --disable-pcre2grep-libbz2 --disable-pcre2grep-libz --disable-pcre2test-libedit \
+    --enable-percent-zt --disable-rebuild-chartables --enable-shared --disable-static --disable-silent-rules --enable-unicode --disable-valgrind" | Options to tweak Resty's PCRE build.  | 
 | RESTY_PCRE_OPTIONS                      | "--with-pcre-jit" | Options to tweak Resty's build args regarding PCRE. |
 | RESTY_J                                 | 1 | Sets the parallelism level (-jN) for the builds. |
-| RESTY_CONFIG_OPTIONS                    | "--with-compat --with-file-aio --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_geoip_module=dynamic --with-http_gunzip_module --with-http_gzip_static_module --with-http_image_filter_module=dynamic --with-http_mp4_module --with-http_perl_module=dynamic --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-http_xslt_module=dynamic --with-ipv6 --with-mail --with-mail_ssl_module --with-md5-asm --with-pcre-jit --with-sha1-asm --with-stream --with-stream_ssl_module --with-threads" | Options to pass to OpenResty's `./configure` script. |
+| RESTY_CONFIG_OPTIONS                    | "--with-compat --without-http_rds_json_module --without-http_rds_csv_module --without-lua_rds_parser --without-mail_pop3_module --without-mail_imap_module --without-mail_smtp_module --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_geoip_module=dynamic --with-http_gunzip_module --with-http_gzip_static_module --with-http_image_filter_module=dynamic --with-http_mp4_module --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-http_v3_module --with-http_xslt_module=dynamic --with-ipv6 --with-mail --with-mail_ssl_module --with-md5-asm --with-sha1-asm --with-stream --with-stream_ssl_module --with-stream_ssl_preread_module --with-threads" | Options to pass to OpenResty's `./configure` script. |
 | RESTY_LUAJIT_OPTIONS                    | "--with-luajit-xcflags='-DLUAJIT_NUMMODE=2 -DLUAJIT_ENABLE_LUA52COMPAT'" | Options to tweak LuaJIT. |
 | RESTY_CONFIG_OPTIONS_MORE               | "" | More options to pass to OpenResty's `./configure` script. |
 | RESTY_ADD_PACKAGE_BUILDDEPS             | "" | Additional packages to install with package manager required by build only (removed after installation) |
@@ -370,7 +374,6 @@ docker build --build-arg RESTY_J=4 -f jammy/Dockerfile .
 
 These built-from-source flavors include the following modules by default, but one can easily increase or decrease that with the custom build options above:
 
- * file-aio
  * http_addition_module
  * http_auth_request_module
  * http_dav_module
@@ -388,6 +391,7 @@ These built-from-source flavors include the following modules by default, but on
  * http_stub_status_module
  * http_sub_module
  * http_v2_module
+ * http_v3_module
  * http_xslt_module=dynamic
  * ipv6
  * mail
@@ -397,7 +401,9 @@ These built-from-source flavors include the following modules by default, but on
  * sha1-asm
  * stream
  * stream_ssl_module
+ * stream_ssl_preread_module
  * threads
+
 [Back to TOC](#table-of-contents)
 
 
@@ -427,7 +433,7 @@ docker build --build-arg RESTY_RPM_FLAVOR="-debug" -f fedora/Dockerfile .
 |RESTY_LUAROCKS_VERSION | 3.11.1 | The version of LuaRocks to use. |
 |RESTY_YUM_REPO | "https://openresty.org/package/centos/openresty.repo" | URL for the OpenResty YUM Repository. |
 |RESTY_RPM_FLAVOR | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
-|RESTY_RPM_VERSION | "1.21.4.3-1" | The `openresty` package version to install. |
+|RESTY_RPM_VERSION | "1.27.1.1-1" | The `openresty` package version to install. |
 |RESTY_RPM_DIST | "el8" | The `openresty` package distribution to install. |
 |RESTY_RPM_ARCH | "x86_64" | The `openresty` package architecture to install. |
 
@@ -460,9 +466,9 @@ docker build --build-arg RESTY_DEB_FLAVOR="-debug" -f bullseye/Dockerfile .
 |RESTY_IMAGE_BASE  | "debian" | The Debian Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG   | "bullseye-slim" | The Debian Docker image tag to build `FROM`. |
 |RESTY_DEB_FLAVOR  | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
-|RESTY_DEB_VERSION | "=1.25.3.2-1~bookworm1" | The [Debian package version](https://openresty.org/package/debian/pool/openresty/o/openresty/) to use, with `=` prepended. |
+|RESTY_DEB_VERSION | "=1.27.1.1-1~bookworm1" | The [Debian package version](https://openresty.org/package/debian/pool/openresty/o/openresty/) to use, with `=` prepended. |
 |RESTY_FAT_DEB_FLAVOR  | "" | The `openresty` package flavor to use to install "fat" packages.  Possibly `"-debug"` or `"-valgrind"`. |
-|RESTY_FAT_DEB_VERSION | "=1.25.3.2-1~bookworm1" | The [Debian package version](https://openresty.org/package/debian/pool/openresty/o/openresty/) to use to "fat" packages, with `=` prepended. |
+|RESTY_FAT_DEB_VERSION | "=1.27.1.1-1~bookworm1" | The [Debian package version](https://openresty.org/package/debian/pool/openresty/o/openresty/) to use to "fat" packages, with `=` prepended. |
 
  * For `amd64` builds, `RESTY_APT_REPO="https://openresty.org/package/debian"`
  * For `arm64` builds, `RESTY_APT_REPO="https://openresty.org/package/arm64/debian"`
@@ -491,7 +497,7 @@ docker build --build-arg RESTY_IMAGE_TAG="3.12" -f alpine-apk/Dockerfile .
 |RESTY_IMAGE_TAG    | "3.18" | The Alpine Docker image tag to build `FROM`. |
 |RESTY_APK_KEY_URL  | "https://openresty.org/package/admin@openresty.com-5ea678a6.rsa.pub" | The URL of the signing key of the `openresty` package. |
 |RESTY_APK_REPO_URL | "https://openresty.org/package/alpine/v${RESTY_IMAGE_TAG}/main" | The URL of the APK repository for `openresty` package. |
-|RESTY_APK_VERSION | "=1.25.3.2-r0" | The suffix to add to the apk install package name: `openresty${RESTY_APK_VERSION`}. |
+|RESTY_APK_VERSION | "=1.27.1.1-r0" | The suffix to add to the apk install package name: `openresty${RESTY_APK_VERSION`}. |
 
 [Back to TOC](#table-of-contents)
 
@@ -506,7 +512,7 @@ This Docker image can be built and customized by cloning the repo and running `d
 The following are the available build-time options. They can be set using the `--build-arg` CLI argument, like so:
 
 ```
-docker build --build-arg RESTY_VERSION="1.25.3.2" -f windows/Dockerfile .
+docker build --build-arg RESTY_VERSION="1.27.1.1" -f windows/Dockerfile .
 ```
 
 | Key | Default | Description |
@@ -515,7 +521,7 @@ docker build --build-arg RESTY_VERSION="1.25.3.2" -f windows/Dockerfile .
 |RESTY_INSTALL_TAG  | "4.8-windowsservercore-ltsc2019" | The Windows Server Docker image name to download and install OpenResty with. |
 |RESTY_IMAGE_BASE   | "mcr.microsoft.com/windows/nanoserver" | The Windows Server Docker image name to build `FROM` for final image. |
 |RESTY_IMAGE_TAG    | "1809" | The Windows Server Docker image tag to build `FROM` for final image. |
-|RESTY_VERSION      | 1.25.3.2 | The version of OpenResty to use. |
+|RESTY_VERSION      | 1.27.1.1 | The version of OpenResty to use. |
 
 [Back to TOC](#table-of-contents)
 

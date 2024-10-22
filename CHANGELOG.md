@@ -1,9 +1,13 @@
 Changelog
 =========
 
-## 1.27.1.1-0 (unreleased)
+## 1.27.1.1-0 (2024-10-22)
 
- * Upgrade OpenResty to 1.27.1.1 for upstream flavors (#264)
+ * Upgrade OpenResty to 1.27.1.1 (#264)
+ * Upgrade OpenSSL to 3.0.15
+ * Upgrade PCRE to 10.44
+
+ * **BREAKING:** For parity with upstream, built-from-source also removes `--with-aio` [to improve startup performance](https://github.com/openresty/openresty-packaging/commit/81bd2facc9c725bc92c440200ed7cb7e355e510e).
 
 ## 1.25.3.2-2 (2024-10-22)
 
