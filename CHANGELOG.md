@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.27.1.1-0 (unreleased)
+
+ * Upgrade OpenResty to 1.27.1.1 for upstream flavors (#264)
+
 ## 1.25.3.2-2 (2024-10-22)
 
  * Update LuaRocks to `3.11.1`
