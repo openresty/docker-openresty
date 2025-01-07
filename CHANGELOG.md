@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.27.1.1-1 (2025-01-07)
+
+ * Upgrade `alpine` built-from source flavor to Alpine 3.21
+ 
 ## 1.27.1.1-0 (2024-10-22)
 
  * Upgrade OpenResty to 1.27.1.1 (#264)
