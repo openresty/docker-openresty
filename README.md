@@ -256,10 +256,11 @@ $ docker inspect openresty/openresty:1.17.8.1-0-bionic | jq '.[].Config.Labels'
 ```
 
 | Label Name                               | Description                                                                                                           |
-:-----------------------------------------|:----------------------------------------------------------------------------------------------------------------------|
+|:-----------------------------------------|:----------------------------------------------------------------------------------------------------------------------|
 | `maintainer`                             | Maintainer of the image                                                                                               |
 | `resty_add_package_builddeps`            | buildarg `RESTY_ADD_PACKAGE_BUILDDEPS`                                                                                |
 | `resty_add_package_rundeps`              | buildarg `RESTY_ADD_PACKAGE_RUNDEPS`                                                                                  |
+| `resty_apk_alpine_version`               | buildarg `RESTY_APK_ALPINE_VERSION`                                                                                   |
 | `resty_apk_key_url`                      | buildarg `RESTY_APK_KEY_URL`                                                                                          |
 | `resty_apk_repo_url`                     | buildarg `RESTY_APK_REPO_URL`                                                                                         |
 | `resty_apk_version`                      | buildarg `RESTY_APK_VERSION`                                                                                          |
@@ -489,8 +490,9 @@ docker build --build-arg RESTY_IMAGE_TAG="3.12" -f alpine-apk/Dockerfile .
 :----- | :-----: |:----------- |
 |RESTY_IMAGE_BASE   | "alpine" | The Alpine Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG    | "3.18.12" | The Alpine Docker image tag to build `FROM`. |
+|RESTY_APK_ALPINE_VERSION | "3.18" | The Alpine version for RESTY_APK_REPO_URL. |
 |RESTY_APK_KEY_URL  | "https://openresty.org/package/admin@openresty.com-5ea678a6.rsa.pub" | The URL of the signing key of the `openresty` package. |
-|RESTY_APK_REPO_URL | "https://openresty.org/package/alpine/v${RESTY_IMAGE_TAG}/main" | The URL of the APK repository for `openresty` package. |
+|RESTY_APK_REPO_URL | "https://openresty.org/package/alpine/v${RESTY_APK_ALPINE_VERSION}/main" | The URL of the APK repository for `openresty` package. |
 |RESTY_APK_VERSION | "=1.25.3.2-r0" | The suffix to add to the apk install package name: `openresty${RESTY_APK_VERSION`}. |
 
 [Back to TOC](#table-of-contents)
