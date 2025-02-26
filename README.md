@@ -257,10 +257,11 @@ $ docker inspect openresty/openresty:1.17.8.1-0-bionic | jq '.[].Config.Labels'
 ```
 
 | Label Name                               | Description                                                                                                           |
-:-----------------------------------------|:----------------------------------------------------------------------------------------------------------------------|
+|:-----------------------------------------|:----------------------------------------------------------------------------------------------------------------------|
 | `maintainer`                             | Maintainer of the image                                                                                               |
 | `resty_add_package_builddeps`            | buildarg `RESTY_ADD_PACKAGE_BUILDDEPS`                                                                                |
 | `resty_add_package_rundeps`              | buildarg `RESTY_ADD_PACKAGE_RUNDEPS`                                                                                  |
+| `resty_apk_alpine_version`               | buildarg `RESTY_APK_ALPINE_VERSION`                                                                                   |
 | `resty_apk_key_url`                      | buildarg `RESTY_APK_KEY_URL`                                                                                          |
 | `resty_apk_repo_url`                     | buildarg `RESTY_APK_REPO_URL`                                                                                         |
 | `resty_apk_version`                      | buildarg `RESTY_APK_VERSION`                                                                                          |
@@ -348,7 +349,7 @@ docker build --build-arg RESTY_J=4 -f jammy/Dockerfile .
 ```
 
 | Key                                     | Default | Description |
-:-----------------------------------------| :-----: |:----------- |
+|:-----------------------------------------| :-----: |:----------- |
 | RESTY_IMAGE_BASE                        | "ubuntu" / "alpine" | The Debian or Alpine Docker image base to build `FROM`. |
 | RESTY_IMAGE_TAG                         | "noble" / "3.21.3" | The Debian or Alpine Docker image tag to build `FROM`. |
 | RESTY_VERSION                           | 1.27.1.1 | The version of OpenResty to use. |
@@ -429,7 +430,7 @@ docker build --build-arg RESTY_RPM_FLAVOR="-debug" -f fedora/Dockerfile .
 ```
 
 | Key | Default | Description |
-:----- | :-----: |:----------- |
+|:----- | :-----: |:----------- |
 |RESTY_IMAGE_BASE | "centos" | The Centos Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG | "8" | The CentOS Docker image tag to build `FROM`. |
 |RESTY_LUAROCKS_VERSION | 3.11.1 | The version of LuaRocks to use. |
@@ -494,11 +495,12 @@ docker build --build-arg RESTY_IMAGE_TAG="3.12" -f alpine-apk/Dockerfile .
 ```
 
 | Key | Default | Description |
-:----- | :-----: |:----------- |
+|:----- | :-----: |:----------- |
 |RESTY_IMAGE_BASE   | "alpine" | The Alpine Docker image base to build `FROM`. |
 |RESTY_IMAGE_TAG    | "3.18.12" | The Alpine Docker image tag to build `FROM`. |
+|RESTY_APK_ALPINE_VERSION | "3.18" | The Alpine version for RESTY_APK_REPO_URL. |
 |RESTY_APK_KEY_URL  | "https://openresty.org/package/admin@openresty.com-5ea678a6.rsa.pub" | The URL of the signing key of the `openresty` package. |
-|RESTY_APK_REPO_URL | "https://openresty.org/package/alpine/v${RESTY_IMAGE_TAG}/main" | The URL of the APK repository for `openresty` package. |
+|RESTY_APK_REPO_URL | "https://openresty.org/package/alpine/v${RESTY_APK_ALPINE_VERSION}/main" | The URL of the APK repository for `openresty` package. |
 |RESTY_APK_VERSION | "=1.27.1.1-r0" | The suffix to add to the apk install package name: `openresty${RESTY_APK_VERSION`}. |
 
 [Back to TOC](#table-of-contents)
@@ -518,7 +520,7 @@ docker build --build-arg RESTY_VERSION="1.27.1.1" -f windows/Dockerfile .
 ```
 
 | Key | Default | Description |
-:----- | :-----: |:----------- |
+|:----- | :-----: |:----------- |
 |RESTY_INSTALL_BASE | "mcr.microsoft.com/dotnet/framework/runtime" | The Windows Server Docker image name to download and install OpenResty with. |
 |RESTY_INSTALL_TAG  | "4.8-windowsservercore-ltsc2019" | The Windows Server Docker image name to download and install OpenResty with. |
 |RESTY_IMAGE_BASE   | "mcr.microsoft.com/windows/nanoserver" | The Windows Server Docker image name to build `FROM` for final image. |
