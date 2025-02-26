@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 1.25.3.2-3 (2025-02-25)
+
+ * Update `alpine-apk` flavor to Alpine 3.18.12
+ * Update `alpine` flavor to Alpine 3.20.6
+
 ## 1.25.3.2-2 (2024-10-22)
 
  * Update LuaRocks to `3.11.1`
