@@ -2,7 +2,7 @@
 # https://github.com/openresty/docker-openresty
 
 ARG RESTY_IMAGE_BASE="alpine"
-ARG RESTY_IMAGE_TAG="3.21"
+ARG RESTY_IMAGE_TAG="3.21.3"
 
 FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
 
@@ -10,11 +10,11 @@ LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
 # Docker Build Arguments
 ARG RESTY_IMAGE_BASE="alpine"
-ARG RESTY_IMAGE_TAG="3.21"
+ARG RESTY_IMAGE_TAG="3.21.3"
 ARG RESTY_VERSION="1.27.1.1"
 
 # https://github.com/openresty/openresty-packaging/blob/master/alpine/openresty-openssl3/APKBUILD
-ARG RESTY_OPENSSL_VERSION="3.0.15"
+ARG RESTY_OPENSSL_VERSION="3.0.16"
 ARG RESTY_OPENSSL_PATCH_VERSION="3.0.15"
 ARG RESTY_OPENSSL_URL_BASE="https://github.com/openssl/openssl/releases/download/openssl-${RESTY_OPENSSL_VERSION}"
 # LEGACY:  "https://www.openssl.org/source/old/1.1.1"
@@ -135,7 +135,7 @@ RUN apk add --no-cache --virtual .build-deps \
     && curl -fSL "${RESTY_OPENSSL_URL_BASE}/openssl-${RESTY_OPENSSL_VERSION}.tar.gz" -o openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
     && tar xzf openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
     && cd openssl-${RESTY_OPENSSL_VERSION} \
-    && if [ $(echo ${RESTY_OPENSSL_VERSION} | cut -c 1-5) = "3.0.15" ] ; then \
+    && if [ $(echo ${RESTY_OPENSSL_VERSION} | cut -c 1-4) = "3.0." ] ; then \
         echo 'patching OpenSSL 3.0.15 for OpenResty' \
         && curl -s https://raw.githubusercontent.com/openresty/openresty/master/patches/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch | patch -p1 ; \
     fi \

@@ -350,10 +350,10 @@ docker build --build-arg RESTY_J=4 -f jammy/Dockerfile .
 | Key                                     | Default | Description |
 :-----------------------------------------| :-----: |:----------- |
 | RESTY_IMAGE_BASE                        | "ubuntu" / "alpine" | The Debian or Alpine Docker image base to build `FROM`. |
-| RESTY_IMAGE_TAG                         | "noble" / "3.21" | The Debian or Alpine Docker image tag to build `FROM`. |
+| RESTY_IMAGE_TAG                         | "noble" / "3.21.3" | The Debian or Alpine Docker image tag to build `FROM`. |
 | RESTY_VERSION                           | 1.27.1.1 | The version of OpenResty to use. |
 | RESTY_LUAROCKS_VERSION                  | 3.11.1 | The version of LuaRocks to use. |
-| RESTY_OPENSSL_VERSION                   | 3.0.15 | The version of OpenSSL to use. |
+| RESTY_OPENSSL_VERSION                   | 3.0.16 | The version of OpenSSL to use. |
 | RESTY_OPENSSL_PATCH_VERSION             | 3.0.15 | The version of OpenSSL to use when patching. |
 | RESTY_OPENSSL_URL_BASE                  | "https://github.com/openssl/openssl/releases/download/openssl-${RESTY_OPENSSL_VERSION}" | The base of the URL to download OpenSSL from. |
 | RESTY_OPENSSL_BUILD_OPTIONS             | "enable-camellia enable-seed enable-rfc3779 enable-cms enable-md2 enable-rc5 enable-weak-ssl-ciphers enable-ssl3 enable-ssl3-method enable-md2 enable-ktls enable-fips" | Options to tweak Resty's OpenSSL build. |

@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## 1.27.1.1-2 (2025-02-25)
+
+ * Update `alpine` built-from-source flavor to Alpine 3.21.3 (#268)
+ * Update `RESTY_OPENSSL_VERSION` to 3.0.16
+ * Fix `RESTY_OPENSSL_VERSION` patching -- broken since `1.27.1.1-0`
+
 ## 1.27.1.1-1 (2025-01-10)
 
  * Upgrade `alpine` built-from source flavor to Alpine 3.21
