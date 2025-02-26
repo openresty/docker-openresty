@@ -1,6 +1,20 @@
 Changelog
 =========
 
+## 1.27.1.1-3 (2025-02-25)
+
+ * Update `alpine-apk` flavor to Alpine 3.18.12
+
+## 1.25.3.2-3 (2025-02-25)
+
+ * Update `alpine-apk` flavor to Alpine 3.18.12
+ * Update `alpine` flavor to Alpine 3.20.6
+
+## 1.21.4.4-1 (2025-02-25)
+
+ * Update `alpine-apk` flavor to Alpine 3.18.12
+ * Update `alpine` flavor to Alpine 3.20.6
+
 ## 1.27.1.1-2 (2025-02-25)
 
  * Update `alpine` built-from-source flavor to Alpine 3.21.3 (#268)
