@@ -2,7 +2,7 @@
 # https://github.com/openresty/docker-openresty
 
 ARG RESTY_IMAGE_BASE="alpine"
-ARG RESTY_IMAGE_TAG="3.20"
+ARG RESTY_IMAGE_TAG="3.20.6"
 
 FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
 
@@ -10,7 +10,7 @@ LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
 # Docker Build Arguments
 ARG RESTY_IMAGE_BASE="alpine"
-ARG RESTY_IMAGE_TAG="3.20"
+ARG RESTY_IMAGE_TAG="3.20.6"
 ARG RESTY_VERSION="1.21.4.4"
 ARG RESTY_OPENSSL_VERSION="1.1.1w"
 ARG RESTY_OPENSSL_PATCH_VERSION="1.1.1f"

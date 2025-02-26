@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 1.21.4.4-1 (2025-02-25)
+
+ * Update `alpine-apk` flavor to Alpine 3.18.12
+ * Update `alpine` flavor to Alpine 3.20.6
+
 ## 1.21.4.4-0 (2024-10-17)
 
  * Upgrade OpenResty to 1.21.4.4 (#258)
