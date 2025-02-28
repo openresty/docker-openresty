@@ -1,9 +1,9 @@
 Changelog
 =========
 
-## 1.27.1.1-3 (2025-02-25)
+## 1.27.1.1-4 (unreleased)
 
- * Update `alpine-apk` flavor to Alpine 3.18.12
+ * Add `bookworm-buildpack` flavor. ([#267](https://github.com/openresty/docker-openresty/issues/267))
 
 ## 1.25.3.2-3 (2025-02-25)
 

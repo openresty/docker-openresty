@@ -148,6 +148,7 @@ jobs:
       - ./docker_build_and_push_flavor.sh centos7-aarch64 centos7/Dockerfile --build-arg RESTY_RPM_ARCH=aarch64
       - ./docker_build_and_push_flavor.sh fedora-aarch64 fedora/Dockerfile --build-arg RESTY_RPM_ARCH=aarch64
       - ./docker_build_and_push_flavor.sh bookworm-aarch64 bookworm/Dockerfile --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian" --build-arg RESTY_APT_ARCH="arm64"
+      - ./docker_build_and_push_flavor.sh bookworm-buildpack-aarch64 bookworm/Dockerfile.buildpack --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian" --build-arg RESTY_APT_ARCH="arm64"
       - ./docker_build_and_push_flavor.sh bullseye-aarch64 bullseye/Dockerfile --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian"
       - ./docker_build_and_push_flavor.sh bullseye-debug-aarch64 bullseye/Dockerfile.debug --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian"
       - ./docker_build_and_push_flavor.sh bullseye-valgrind-aarch64 bullseye/Dockerfile.valgrind --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian"
@@ -164,6 +165,7 @@ jobs:
       - ./docker_build_and_push_flavor.sh centos7-amd64 centos7/Dockerfile
       - ./docker_build_and_push_flavor.sh fedora-amd64 fedora/Dockerfile
       - ./docker_build_and_push_flavor.sh bookworm-amd64 bookworm/Dockerfile
+      - ./docker_build_and_push_flavor.sh bookworm-buildpack-amd64 bookworm/Dockerfile.buildpack
       - ./docker_build_and_push_flavor.sh bullseye-amd64 bullseye/Dockerfile
       - ./docker_build_and_push_flavor.sh bullseye-debug-amd64 bullseye/Dockerfile.debug
       - ./docker_build_and_push_flavor.sh bullseye-valgrind-amd64 bullseye/Dockerfile.valgrind
@@ -182,6 +184,7 @@ jobs:
       - ./docker_manifest.sh amzn2       amzn2-amd64       amzn2-aarch64
       - ./docker_manifest.sh bionic      bionic-amd64      bionic-aarch64      bionic-s390x
       - ./docker_manifest.sh bookworm    bookworm-amd64    bookworm-aarch64
+      - ./docker_manifest.sh bookworm-buildpack    bookworm-buildpack-amd64    bookworm-buildpack-aarch64
       - ./docker_manifest.sh bullseye    bullseye-amd64    bullseye-aarch64
       - ./docker_manifest.sh bullseye-debug    bullseye-debug-amd64    bullseye-debug-aarch64
       - ./docker_manifest.sh bullseye-valgrind bullseye-valgrind-amd64 bullseye-valgrind-aarch64
