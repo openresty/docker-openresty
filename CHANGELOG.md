@@ -1,9 +1,10 @@
 Changelog
 =========
 
-## 1.27.1.1-4 (unreleased)
+## 1.27.1.1-4 (2025-03-31)
 
  * Add `bookworm-buildpack` flavor. ([#267](https://github.com/openresty/docker-openresty/issues/267))
+ * Tagged build for Alpine CVE-2025-27113 ([#272](https://github.com/openresty/docker-openresty/issues/272))
 
 ## 1.25.3.2-3 (2025-02-25)
 
