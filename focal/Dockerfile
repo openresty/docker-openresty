@@ -11,12 +11,12 @@ LABEL maintainer="Evan Wies <evan@neomantra.net>"
 # Docker Build Arguments
 ARG RESTY_IMAGE_BASE="ubuntu"
 ARG RESTY_IMAGE_TAG="focal"
-ARG RESTY_VERSION="1.27.1.1"
+ARG RESTY_VERSION="1.27.1.2"
 ARG RESTY_LUAROCKS_VERSION="3.11.1"
 
 # https://github.com/openresty/openresty-packaging/blob/master/deb/openresty-openssl3/debian/rules
-ARG RESTY_OPENSSL_VERSION="3.0.16"
-ARG RESTY_OPENSSL_PATCH_VERSION="3.0.15"
+ARG RESTY_OPENSSL_VERSION="3.4.1"
+ARG RESTY_OPENSSL_PATCH_VERSION="3.4.1"
 ARG RESTY_OPENSSL_URL_BASE="https://github.com/openssl/openssl/releases/download/openssl-${RESTY_OPENSSL_VERSION}"
 # LEGACY:  "https://www.openssl.org/source/old/1.1.1"
 ARG RESTY_OPENSSL_BUILD_OPTIONS="enable-camellia enable-seed enable-rfc3779 enable-cms enable-md2 enable-rc5 \
@@ -135,8 +135,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && curl -fSL "${RESTY_OPENSSL_URL_BASE}/openssl-${RESTY_OPENSSL_VERSION}.tar.gz" -o openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
     && tar xzf openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
     && cd openssl-${RESTY_OPENSSL_VERSION} \
-    && if [ $(echo ${RESTY_OPENSSL_VERSION} | cut -c 1-4) = "3.0." ] ; then \
-        echo 'patching OpenSSL 3.0.15 for OpenResty' \
+    && if [ $(echo ${RESTY_OPENSSL_VERSION} | cut -c 1-2) = "3." ] ; then \
+        echo 'patching OpenSSL 3.x for OpenResty' \
         && curl -s https://raw.githubusercontent.com/openresty/openresty/master/patches/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch | patch -p1 ; \
     fi \
     && if [ $(echo ${RESTY_OPENSSL_VERSION} | cut -c 1-5) = "1.1.1" ] ; then \

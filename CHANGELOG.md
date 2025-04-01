@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 1.27.1.2-0 (2025-03-31)
+
+ * Upgrade OpenResty to 1.27.1.2
+ * Upgrade OpenSSL to 3.4.1
+
 ## 1.27.1.1-4 (2025-03-31)
 
  * Add `bookworm-buildpack` flavor. ([#267](https://github.com/openresty/docker-openresty/issues/267))
