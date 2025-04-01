@@ -39,8 +39,8 @@ RUN wget -qO - ${RESTY_APT_PGP} | gpg --dearmor > /etc/apt/trusted.gpg.d/openres
     && DEBIAN_FRONTEND=noninteractive apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         openresty${RESTY_DEB_FLAVOR}${RESTY_DEB_VERSION} \
-        openresty-resty${RESTY_FAT_DEB_FLAVOR}${RESTY_FAT_DEB_VERSION} \
-        openresty-opm${RESTY_FAT_DEB_FLAVOR}${RESTY_FAT_DEB_VERSION} \
+        openresty-resty${RESTY_DEB_FLAVOR}${RESTY_DEB_VERSION} \
+        openresty-opm${RESTY_DEB_FLAVOR}${RESTY_DEB_VERSION} \
     && mkdir -p /var/run/openresty \
     && ln -sf /dev/stdout /usr/local/openresty${RESTY_DEB_FLAVOR}/nginx/logs/access.log \
     && ln -sf /dev/stderr /usr/local/openresty${RESTY_DEB_FLAVOR}/nginx/logs/error.log
