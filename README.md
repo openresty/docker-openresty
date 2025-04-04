@@ -90,8 +90,6 @@ The following "flavors" are available and built from [upstream OpenResty package
 - [`bookworm`, (*bookworm/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/bookworm/Dockerfile)
 - [`bullseye-fat`, (*bullseye/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/bullseye/Dockerfile.fat)
 - [`bullseye`, (*bullseye/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/bullseye/Dockerfile)
-- [`buster-fat`, (*buster/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile.fat)
-- [`buster`, (*buster/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile)
 - [`centos`, `centos-rpm`, (*centos/Dockerfile* with `el8`)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
 - [`centos7`, (*centos7/Dockerfile* with `el7`)](https://github.com/openresty/docker-openresty/blob/master/centos7/Dockerfile)
 - [`fedora`, `fedora-rpm`, (*fedora/Dockerfile* with `fc36`)](https://github.com/openresty/docker-openresty/blob/master/fedora/Dockerfile)
@@ -107,7 +105,7 @@ The following "flavors" are built from source and are intended for more advanced
 - [`jammy`, (*jammy/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/jammy/Dockerfile)
 - [`noble`, (*noble/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/noble/Dockerfile)
 
-The `openresty/openresty:latest` tag points to the latest `bullseye` image.
+The `openresty/openresty:latest` tag points to the latest `bookworm` image.
 
 Since `1.19.3.2-1`, all flavors support multi-architecture builds, both `amd64` and `aarch64`.  Since `1.21.4.1-1`, the `s390x` architecture is supported for build-from-source Ubuntu flavors (like `jammy`), however [PCRE JIT](https://github.com/zherczeg/sljit/issues/89) is disabled.
 
@@ -130,8 +128,6 @@ The [Maintainers](#changelog--authors) of this OpenResty Docker Tooling operate 
     * [`amzn2`, (*centos/Dockerfile* with `amzn2`)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
     * [`bullseye-fat`, (*bullseye/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/bullseye/Dockerfile.fat)
     * [`bullseye`, (*bullseye/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/bullseye/Dockerfile)
-    * [`buster-fat`, (*buster/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile.fat)
-    * [`buster`, (*buster/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile)
     * [`centos`, `centos-rpm`, (*centos/Dockerfile* with `el8`)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
     * [`centos7`, (*centos7/Dockerfile* with `el7`)](https://github.com/openresty/docker-openresty/blob/master/centos7/Dockerfile)
     * [`fedora`, `fedora-rpm`, (*fedora/Dockerfile* with `fc36`)](https://github.com/openresty/docker-openresty/blob/master/fedora/Dockerfile)
@@ -186,11 +182,11 @@ OPM
 
 Starting at version 1.11.2.2, OpenResty for Linux includes a [package manager called `opm`](https://github.com/openresty/opm#readme), which can be found at `/usr/local/openresty/bin/opm`.
 
-`opm` is built in all the images except `alpine` and `buster` and `bullseye`.
+`opm` is built in all the images except `alpine` and `bullseye` and `bookworm`.
 
 To use `opm` in the `alpine` image, you must also install the `curl` and `perl` packages; they are not included by default because they double the image size.  You may install them like so: `apk add --no-cache curl perl`.
 
-To use `opm` within the `bullseye` image, you can either use the `bullseye-fat` image or install the `openresty-opm` package in a custom build (which you would need to do to install your own `opm` packages anyway), as shown in [this buster example](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile.opm_example).
+To use `opm` within the `bullseye` image, you can either use the `bullseye-fat` image or install the `openresty-opm` package in a custom build (which you would need to do to install your own `opm` packages anyway), as shown in [this buster example](https://github.com/openresty/docker-openresty/blob/master/archive/buster/Dockerfile.opm_example).
 
 
 LuaRocks
@@ -447,12 +443,12 @@ Building (DEB based)
 
 OpenResty now now has [Debian Packages (DEBs) available](https://openresty.org/en/deb-packages.html).  The `bullseye` image use these DEBs rather than building from source.
 
-You can derive your own Docker images from this to install your own packages.  See [buster/Dockerfile.opm_example](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile.opm_example) and [buster/Dockerfile.luarocks_example](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile.luarocks_example).
+You can derive your own Docker images from this to install your own packages.  See [bookworm/Dockerfile.fat](https://github.com/openresty/docker-openresty/blob/master/bookworm/Dockerfile.fat) and [buster/Dockerfile.luarocks_example](https://github.com/openresty/docker-openresty/blob/master/archive/buster/Dockerfile.luarocks_example).
 
 This Docker image can be built and customized by cloning the repo and running `docker build` with the desired Dockerfile:
 
- * [Debian Buster 10 DEB](https://github.com/openresty/docker-openresty/blob/master/buster/Dockerfile) (`buster/Dockerfile`)
- * [Debian Buster 11 DEB](https://github.com/openresty/docker-openresty/blob/master/bullseye/Dockerfile) (`bullseye/Dockerfile`)
+ * [Debian Bookworm 12 DEB](https://github.com/openresty/docker-openresty/blob/master/bookworm/Dockerfile) (`bookworm/Dockerfile`)
+ * [Debian Bullseye 11 DEB](https://github.com/openresty/docker-openresty/blob/master/bullseye/Dockerfile) (`bullseye/Dockerfile`)
 
 The following are the available build-time options. They can be set using the `--build-arg` CLI argument, like so:
 

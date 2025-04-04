@@ -29,7 +29,6 @@ tasks:
       - docker build -t fedora-aarch64     -f fedora/Dockerfile     --build-arg RESTY_RPM_ARCH=aarch64 .
       - docker build -t bookworm-aarch64   -f bookworm/Dockerfile   --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian" --build-arg RESTY_APT_ARCH="arm64" .
       - docker build -t bullseye-aarch64   -f bullseye/Dockerfile   --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian" .
-      - docker build -t buster-aarch64     -f buster/Dockerfile     --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian" .
 
   build-all-upstream-amd64:
     cmds:
@@ -41,7 +40,6 @@ tasks:
       - docker build -t fedora-amd64     -f fedora/Dockerfile     --build-arg RESTY_RPM_ARCH=x86_64 .
       - docker build -t bookworm-amd64   -f bookworm/Dockerfile   --build-arg RESTY_APT_ARCH=amd64 .
       - docker build -t bullseye-amd64   -f bullseye/Dockerfile   --build-arg RESTY_APT_ARCH=amd64 .
-      - docker build -t buster-amd64     -f buster/Dockerfile     --build-arg RESTY_APT_ARCH=amd64 .
 
   # Just uses host arch with aarch64 tags...
   # TODO: Should fail if arch is wrong, perhaps add pre-flight check

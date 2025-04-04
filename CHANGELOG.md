@@ -1,10 +1,12 @@
 Changelog
 =========
 
-## 1.27.1.2-0 (2025-03-31)
+## 1.27.1.2-0 (2025-04-04)
 
  * Upgrade OpenResty to 1.27.1.2
  * Upgrade OpenSSL to 3.4.1
+ * Move `buster` to archive as [upstream no longer supports it](https://github.com/openresty/openresty-packaging/issues/148)
+ * `latest` tags now point to `bookworm` flavor
 
 ## 1.27.1.1-4 (2025-03-31)
 
