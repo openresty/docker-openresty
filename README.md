@@ -271,6 +271,7 @@ $ docker inspect openresty/openresty:1.17.8.1-0-bionic | jq '.[].Config.Labels'
 | `resty_config_options`                   | buildarg `RESTY_CONFIG_OPTIONS`                                                                                       |
 | `resty_deb_flavor`                       | buildarg `RESTY_DEB_FLAVOR`                                                                                           |
 | `resty_deb_version`                      | buildarg `RESTY_DEB_VERSION` ([available versions](https://openresty.org/package/debian/pool/openresty/o/openresty/)) |
+| `resty_eval_pre_make`                    | buildarg `RESTY_EVAL_PRE_MAKE`                                                                                        |
 | `resty_eval_post_make`                   | buildarg `RESTY_EVAL_POST_MAKE`                                                                                       |
 | `resty_eval_pre_configure`               | buildarg `RESTY_EVAL_PRE_CONFIGURE`                                                                                   |
 | `resty_eval_post_download_pre_configure` | buildarg `RESTY_EVAL_POST_DOWNLOAD_PRE_CONFIGURE`                                                                     |
@@ -371,7 +372,8 @@ docker build --build-arg RESTY_J=4 -f jammy/Dockerfile .
 | RESTY_ADD_PACKAGE_RUNDEPS               | "" | Additional packages to install with package manager required at runtime (not removed after installation) |
 | RESTY_EVAL_PRE_CONFIGURE                | "" | Command(s) to run prior to executing OpenResty's `./configure` script. (this can be used to clone a github repo of an extension you want to add to OpenResty, for example.  In that case, dont forget to add the appropriate argument to the RESTY_CONFIG_OPTIONS_MORE argument as described above). |
 | RESTY_EVAL_POST_DOWNLOAD_PRE_CONFIGURE  | "" | Command(s) to run after downloading and extracting OpenResty's source tarball, but prior to executing OpenResty's `./configure` script. Working directory will be the extracted OpenResty source directory. |
-| RESTY_EVAL_POST_MAKE                    | "" | Command(s) to run after running make install.  |
+| RESTY_EVAL_PRE_MAKE                     | "" | Command(s) to run before running `make install`.  |
+| RESTY_EVAL_POST_MAKE                    | "" | Command(s) to run after running `make install`.  |
 
 These built-from-source flavors include the following modules by default, but one can easily increase or decrease that with the custom build options above:
 
