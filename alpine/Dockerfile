@@ -196,7 +196,7 @@ RUN apk add --no-cache --virtual .build-deps \
         && find /usr/local/openresty/pcre2 -type f -perm -u+x -exec strip --strip-unneeded '{}' \; \
         && rm -Rf /usr/local/openresty/luajit/lib/*.a /usr/local/openresty/luajit/share/man \
         && find /usr/local/openresty/luajit -type f -perm -u+x -exec strip --strip-unneeded '{}' \; \
-        && find /usr/local/openresty/nginx -type f -perm -u+x -exec strip --strip-unneeded '{}' \; \
+        && find /usr/local/openresty/nginx -type f -perm -u+x -exec strip --strip-unneeded '{}' \; ; \ 
     fi \
     && apk del .build-deps \
     && mkdir -p /var/run/openresty \
