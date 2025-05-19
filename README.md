@@ -298,6 +298,7 @@ $ docker inspect openresty/openresty:1.17.8.1-0-bionic | jq '.[].Config.Labels'
 | `resty_rpm_dist`                         | buildarg `RESTY_RPM_DIST`                                                                                             |
 | `resty_rpm_flavor`                       | buildarg `RESTY_RPM_FLAVOR`                                                                                           |
 | `resty_rpm_version`                      | buildarg `RESTY_RPM_VERSION`                                                                                          |
+| `resty_strip_binaries`                   | buildarg `RESTY_STRIP_BINARIES`                                                                                       |
 | `resty_version`                          | buildarg `RESTY_VERSION`                                                                                              |
 | `resty_yum_repo`                         | buildarg `RESTY_YUM_REPO`                                                                                             |
 
@@ -375,7 +376,7 @@ docker build --build-arg RESTY_J=4 -f jammy/Dockerfile .
 | RESTY_EVAL_POST_DOWNLOAD_PRE_CONFIGURE  | "" | Command(s) to run after downloading and extracting OpenResty's source tarball, but prior to executing OpenResty's `./configure` script. Working directory will be the extracted OpenResty source directory. |
 | RESTY_EVAL_PRE_MAKE                     | "" | Command(s) to run before running `make install`.  |
 | RESTY_EVAL_POST_MAKE                    | "" | Command(s) to run after running `make install`.  |
-
+| RESTY_STRIP_BINARIES                    | "" | Set to non-zero to strip binaries in Alpine images. |
 These built-from-source flavors include the following modules by default, but one can easily increase or decrease that with the custom build options above:
 
  * http_addition_module
