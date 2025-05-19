@@ -66,6 +66,11 @@ cat /tmp/docker_mirror.pass | docker login -u="$DOCKER_MIRROR_USERNAME" --passwo
 
 DOCKER_MIRROR="$DOCKER_MIRROR_REGISTRY/$DOCKER_MIRROR_ORG"
 
+AMENDS=""
+for TAG in "$@"; do
+    AMENDS="$AMENDS --amend $DOCKER_MIRROR/openresty:$TAG"
+done
+
 if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
     docker manifest create $DOCKER_MIRROR/openresty:$FLAVOR $AMENDS &&
         docker manifest push $DOCKER_MIRROR/openresty:$FLAVOR ;
