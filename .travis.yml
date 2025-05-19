@@ -59,7 +59,35 @@ jobs:
       stage: build
       arch: amd64
       script:
-      - ./docker_build_and_push_flavor.sh alpine-amd64 alpine/Dockerfile
+      - ./docker_build_and_push_flavor.sh alpine-amd64 alpine/Dockerfile --build-arg RESTY_ADD_PACKAGE_BUILDDEPS="binutils" --build-arg RESTY_EVAL_POST_MAKE="\
+        rm -Rf /usr/local/openresty/openssl3/bin/c_rehash /usr/local/openresty/openssl3/lib/*.a /usr/local/openresty/openssl3/include \
+        && find /usr/local/openresty/openssl3 -type f -perm -u+x -exec strip --strip-unneeded '{}' \; \
+        && rm -Rf /usr/local/openresty/pcre2/bin /usr/local/openresty/pcre2/share \
+        && find /usr/local/openresty/pcre2 -type f -perm -u+x -exec strip --strip-unneeded '{}' \; \
+        && rm -Rf /usr/local/openresty/luajit/lib/*.a /usr/local/openresty/luajit/share/man \
+        && find /usr/local/openresty/luajit -type f -perm -u+x -exec strip --strip-unneeded '{}' \; \
+        && find /usr/local/openresty/nginx -type f -perm -u+x -exec strip --strip-unneeded '{}' \; \
+        "
+
+    - name: Build Docker image for build-from-source flavors -- alpine-slim / aarch64
+      stage: build
+      arch: arm64
+      script:
+      - ./docker_build_and_push_flavor.sh alpine-slim-aarch64 alpine/Dockerfile --build-arg RESTY_ADD_PACKAGE_BUILDDEPS="binutils" --build-arg RESTY_EVAL_POST_MAKE="\
+        rm -Rf /usr/local/openresty/openssl3/bin/c_rehash /usr/local/openresty/openssl3/lib/*.a /usr/local/openresty/openssl3/include \
+        && find /usr/local/openresty/openssl3 -type f -perm -u+x -exec strip --strip-unneeded '{}' \; \
+        && rm -Rf /usr/local/openresty/pcre2/bin /usr/local/openresty/pcre2/share \
+        && find /usr/local/openresty/pcre2 -type f -perm -u+x -exec strip --strip-unneeded '{}' \; \
+        && rm -Rf /usr/local/openresty/luajit/lib/*.a /usr/local/openresty/luajit/share/man \
+        && find /usr/local/openresty/luajit -type f -perm -u+x -exec strip --strip-unneeded '{}' \; \
+        && find /usr/local/openresty/nginx -type f -perm -u+x -exec strip --strip-unneeded '{}' \; \
+        "
+
+    - name: Build Docker image for build-from-source flavors -- alpine-slim / amd64
+      stage: build
+      arch: amd64
+      script:
+      - ./docker_build_and_push_flavor.sh alpine-slim-amd64 alpine/Dockerfile
 
     - name: Build Docker image for build-from-source flavor -- bionic / aarch64
       arch: arm64
@@ -179,6 +207,7 @@ jobs:
       stage: manifest
       script:
       - ./docker_manifest.sh alpine      alpine-amd64      alpine-aarch64
+      - ./docker_manifest.sh alpine-slim alpine-slim-amd64 alpine-slim-aarch64
       - ./docker_manifest.sh alpine-apk  alpine-apk-amd64  alpine-apk-aarch64
       - ./docker_manifest.sh amzn2       amzn2-amd64       amzn2-aarch64
       - ./docker_manifest.sh bionic      bionic-amd64      bionic-aarch64      bionic-s390x

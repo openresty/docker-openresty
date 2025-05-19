@@ -5,6 +5,7 @@ Changelog
 
  * Mirror images to GitHub Container Registry, using image prefix `ghcr.io/` (#270)
  * Allow custom script before make command with `RESTY_EVAL_PRE_MAKE` (#275)
+ * Add stripped `alpine-slim` flavor (#273)
 
 ## 1.27.1.2-0 (2025-04-04)
 
