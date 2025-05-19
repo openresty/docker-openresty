@@ -37,8 +37,11 @@ There are also specific tags for [Debug](https://openresty.org/en/deb-packages.h
 | `openresty/openresty:bullseye-fat-debug` | Bullseye FAT flavor with `openresty-debug` |
 | `openresty/openresty:bullseye-fat-valgrind` | Bullseye FAT flavor with `openresty-valgrind` |
 
-----
+As of `1.27.1.2-1`, we also mirror to the GitHub Container Registry.  Simply prefix the registry path with `ghcr.io/`:
 
+ * `ghcr.io/openresty/openresty:1.27.1.2-1-bullseye`
+
+----
 
 Table of Contents
 =================

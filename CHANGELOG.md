@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.27.1.2-1 (2025-05-19)
+
+ * Mirror images to GitHub Container Registry, using image prefix `ghcr.io/` (#270)
+
 ## 1.27.1.2-0 (2025-04-04)
 
  * Upgrade OpenResty to 1.27.1.2
