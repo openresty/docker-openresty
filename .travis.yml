@@ -40,6 +40,7 @@ stages:
 
 before_script:
   - echo $DOCKER_PASSWORD > /tmp/docker.pass
+  - echo $DOCKER_MIRROR_PASSWORD > /tmp/docker_mirror.pass
 
 jobs:
   include:
@@ -180,7 +181,7 @@ jobs:
       - ./docker_manifest.sh alpine      alpine-amd64      alpine-aarch64
       - ./docker_manifest.sh alpine-apk  alpine-apk-amd64  alpine-apk-aarch64
       - ./docker_manifest.sh amzn2       amzn2-amd64       amzn2-aarch64
-      - ./docker_manifest.sh bionic      bionic-amd64      bionic-aarch64      bionic-s390x
+      - ./docker_manifest.sh bionic      bionic-amd64      bionic-aarch64      bionic-s390x
       - ./docker_manifest.sh bookworm    bookworm-amd64    bookworm-aarch64
       - ./docker_manifest.sh bullseye    bullseye-amd64    bullseye-aarch64
       - ./docker_manifest.sh bullseye-debug    bullseye-debug-amd64    bullseye-debug-aarch64
