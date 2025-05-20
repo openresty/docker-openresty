@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.21.4.4-2 (2025-05-19)
+
+ * Mirror images to GitHub Container Registry, using image prefix `ghcr.io/` (#270)
+
 ## 1.21.4.4-1 (2025-02-25)
 
  * Update `alpine-apk` flavor to Alpine 3.18.12
