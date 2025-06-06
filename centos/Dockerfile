@@ -10,7 +10,7 @@ LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
 ARG RESTY_IMAGE_BASE="centos"
 ARG RESTY_IMAGE_TAG="8"
-ARG RESTY_LUAROCKS_VERSION="3.9.2"
+ARG RESTY_LUAROCKS_VERSION="3.12.0"
 ARG RESTY_YUM_REPO="https://openresty.org/package/centos/openresty.repo"
 ARG RESTY_RPM_FLAVOR=""
 ARG RESTY_RPM_VERSION="1.21.4.4-1"

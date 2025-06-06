@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.21.4.4-3 (2025-06-06)
+
+ * Update LuaRocks to `3.12.0` (#276, #277)
+
 ## 1.21.4.4-2 (2025-05-19)
 
  * Mirror images to GitHub Container Registry, using image prefix `ghcr.io/` (#270)
