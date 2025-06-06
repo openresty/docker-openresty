@@ -12,7 +12,7 @@ LABEL maintainer="Evan Wies <evan@neomantra.net>"
 ARG RESTY_IMAGE_BASE="ubuntu"
 ARG RESTY_IMAGE_TAG="focal"
 ARG RESTY_VERSION="1.27.1.2"
-ARG RESTY_LUAROCKS_VERSION="3.11.1"
+ARG RESTY_LUAROCKS_VERSION="3.12.0"
 
 # https://github.com/openresty/openresty-packaging/blob/master/deb/openresty-openssl3/debian/rules
 ARG RESTY_OPENSSL_VERSION="3.4.1"
