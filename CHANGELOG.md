@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.27.1.2-2 (2025-06-16)
+
+ * Update LuaRocks to `3.12.0`, which is a critical change once LuaRocks reached 2^16 packages! (#276)
+
 ## 1.27.1.2-1 (2025-05-19)
 
  * Mirror images to GitHub Container Registry, using image prefix `ghcr.io/` (#270)
