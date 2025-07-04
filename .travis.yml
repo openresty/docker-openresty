@@ -89,7 +89,7 @@ jobs:
       arch: s390x
       stage: build
       script:
-      - ./docker_build_and_push_flavor.sh bionic-s390x bionic/Dockerfile --build-arg RESTY_PCRE_BUILD_OPTIONS="" --build-arg RESTY_PCRE_OPTIONS=""
+      - ./docker_build_and_push_flavor.sh bionic-s390x bionic/Dockerfile
 
     - name: Build Docker image for build-from-source flavor -- focal / aarch64
       arch: arm64
@@ -107,7 +107,7 @@ jobs:
       arch: s390x
       stage: build
       script:
-      - ./docker_build_and_push_flavor.sh focal-s390x focal/Dockerfile --build-arg RESTY_PCRE_BUILD_OPTIONS="" --build-arg RESTY_PCRE_OPTIONS=""
+      - ./docker_build_and_push_flavor.sh focal-s390x focal/Dockerfile
 
     - name: Build Docker image for build-from-source flavor -- jammy / aarch64
       arch: arm64
@@ -125,7 +125,7 @@ jobs:
       arch: s390x
       stage: build
       script:
-      - ./docker_build_and_push_flavor.sh jammy-s390x jammy/Dockerfile --build-arg RESTY_PCRE_BUILD_OPTIONS="" --build-arg RESTY_PCRE_OPTIONS=""
+      - ./docker_build_and_push_flavor.sh jammy-s390x jammy/Dockerfile
 
     - name: Build Docker image for build-from-source flavor -- noble / aarch64
       arch: arm64
@@ -143,7 +143,7 @@ jobs:
       arch: s390x
       stage: build
       script:
-      - ./docker_build_and_push_flavor.sh noble-s390x noble/Dockerfile --build-arg RESTY_PCRE_BUILD_OPTIONS="" --build-arg RESTY_PCRE_OPTIONS=""
+      - ./docker_build_and_push_flavor.sh noble-s390x noble/Dockerfile
 
 ###############################################################################
 # Build From OpenResty Upstream Flavors
