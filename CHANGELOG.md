@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.27.1.2-3 (2025-07-29)
+
+ * Update LuaRocks to `3.12.2` (#276)
+
 ## 1.27.1.2-2 (2025-06-16)
 
  * Update LuaRocks to `3.12.0`, which is a critical change once LuaRocks reached 2^16 packages! (#276)
