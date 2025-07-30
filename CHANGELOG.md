@@ -1,9 +1,11 @@
 Changelog
 =========
 
-## 1.27.1.2-3 (2025-07-29)
+## 1.27.1.2-3 (2025-07-30)
 
  * Update LuaRocks to `3.12.2` (#276)
+ * Enable PCRE JIT on `s390x` platform. (#208, #278, [upstream [#834](https://github.com/openresty/openresty/issues/834))
+   * This was possible with OpenResty `1.27`, as it adopted PCRE `10`. The prior PCRE `8` did not support JIT on `s390x`.
 
 ## 1.27.1.2-2 (2025-06-16)
 
