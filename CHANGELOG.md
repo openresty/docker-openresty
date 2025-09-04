@@ -1,6 +1,6 @@
 Changelog
 =========
-## 1.27.1.2-4 (2025-91-03)
+## 1.27.1.2-4 (2025-09-03)
 
  * Upgrade `alpine` built-from source flavor to Alpine 3.22
 
