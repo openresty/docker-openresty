@@ -1,5 +1,9 @@
 Changelog
 =========
+## 1.27.1.2-5 (2025-10-29)
+
+ * Upgrade OpenSSL to 3.4.3
+
 ## 1.27.1.2-4 (2025-09-03)
 
  * Upgrade `alpine` built-from source flavor to Alpine 3.22.1

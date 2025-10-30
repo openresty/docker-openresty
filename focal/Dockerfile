@@ -15,7 +15,7 @@ ARG RESTY_VERSION="1.27.1.2"
 ARG RESTY_LUAROCKS_VERSION="3.12.2"
 
 # https://github.com/openresty/openresty-packaging/blob/master/deb/openresty-openssl3/debian/rules
-ARG RESTY_OPENSSL_VERSION="3.4.1"
+ARG RESTY_OPENSSL_VERSION="3.4.3"
 ARG RESTY_OPENSSL_PATCH_VERSION="3.4.1"
 ARG RESTY_OPENSSL_URL_BASE="https://github.com/openssl/openssl/releases/download/openssl-${RESTY_OPENSSL_VERSION}"
 # LEGACY:  "https://www.openssl.org/source/old/1.1.1"
