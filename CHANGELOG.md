@@ -3,6 +3,7 @@
 
 ## 1.27.1.2-6 (2025-11-08)
 
+* Images are now mirrored to `ghcr.io/neomantra/openresty` (#270)
 * Install `-dev` libraries in `bookworm-buildpack` flavor ([#283](https://github.com/openresty/docker-openresty/issues/283))
 * Extracted custom image build documentation to [`BUILDING.md`](./BUILDING.md)
 

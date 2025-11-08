@@ -18,8 +18,9 @@ You can learn more about building your own custom and derived images in [`BUILDI
 Table of Contents
 =================
 
-* [OpenResty Image Tags](#openresty-image-tags)
 * [Table of Contents](#table-of-contents)
+* [OpenResty Image Tags](#openresty-image-tags)
+* [Image Mirror](#image-mirror)
 * [Usage](#usage)
 * [Policies](#policies)
 * [Nginx Config Files](#nginx-config-files)
@@ -62,9 +63,12 @@ There are also specific tags for [Debug](https://openresty.org/en/deb-packages.h
 | `openresty/openresty:bullseye-fat-debug` | Bullseye FAT flavor with `openresty-debug` |
 | `openresty/openresty:bullseye-fat-valgrind` | Bullseye FAT flavor with `openresty-valgrind` |
 
-As of `1.27.1.2-1`, we also mirror to the GitHub Container Registry.  Simply prefix the registry path with `ghcr.io/`:
+## Image Mirror
 
- * `ghcr.io/openresty/openresty:1.27.1.2-1-bullseye`
+As of `1.27.1.2-6`, we also mirror to the [GitHub Container Registry](https://github.com/users/neomantra/packages/container/package/openresty).  Note this is under the image maintainer's GitHub account and not the OpenResty GitHub account.  To use it, rather than specifying the image`openresty/openresty`, 
+use the full GHCR image path of `ghcr.io/neomantra/openresty`.  For example:
+
+ * `ghcr.io/neomantra/openresty:1.27.1.2-6-bullseye`
 
 ----
 
