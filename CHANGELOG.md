@@ -4,6 +4,7 @@
 ## 1.27.1.2-6 (2025-11-08)
 
 * Install `-dev` libraries in `bookworm-buildpack` flavor ([#283](https://github.com/openresty/docker-openresty/issues/283))
+* Extracted custom image build documentation to [`BUILDING.md`](./BUILDING.md)
 
 ## 1.27.1.2-5 (2025-10-30)
 
