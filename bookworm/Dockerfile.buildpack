@@ -41,6 +41,9 @@ RUN wget -qO - ${RESTY_APT_PGP} | gpg --dearmor > /etc/apt/trusted.gpg.d/openres
         openresty${RESTY_DEB_FLAVOR}${RESTY_DEB_VERSION} \
         openresty-resty${RESTY_DEB_FLAVOR}${RESTY_DEB_VERSION} \
         openresty-opm${RESTY_DEB_FLAVOR}${RESTY_DEB_VERSION} \
+        openresty-openssl3${RESTY_DEB_FLAVOR}-dev \
+        openresty-pcre2${RESTY_DEB_FLAVOR}-dev \
+        openresty-zlib${RESTY_DEB_FLAVOR}-dev \
     && mkdir -p /var/run/openresty \
     && ln -sf /dev/stdout /usr/local/openresty${RESTY_DEB_FLAVOR}/nginx/logs/access.log \
     && ln -sf /dev/stderr /usr/local/openresty${RESTY_DEB_FLAVOR}/nginx/logs/error.log

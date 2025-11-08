@@ -121,6 +121,9 @@ OpenResty supports SSE 4.2 optimizations.  Starting with the `1.19.3.1` series, 
 
 It is *highly recommended* that you use the upstream-based images for best support.  For best stability, pin your images to the full tag, for example `1.21.4.1-0-bionic`.
 
+`-fat` images are ones that have [LuaRocks and OPM](#opm) installed in them. `-buildpack` images are based on [`buildpack-deps` images](https://hub.docker.com/_/buildpack-deps#what-is-buildpack-deps); they might be useful when more build scaffolding is required in your application.
+
+
 Policies
 ========
 
