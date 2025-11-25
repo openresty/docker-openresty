@@ -2,7 +2,7 @@
 # https://github.com/openresty/docker-openresty
 
 ARG RESTY_IMAGE_BASE="buildpack-deps"
-ARG RESTY_IMAGE_TAG="bookworm"
+ARG RESTY_IMAGE_TAG="trixie"
 
 FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
 
@@ -35,7 +35,7 @@ RUN wget -qO - ${RESTY_APT_PGP} | gpg --dearmor > /etc/apt/trusted.gpg.d/openres
     && chown root:root /etc/apt/trusted.gpg.d/openresty-keyring.gpg \
     && chmod ugo+r /etc/apt/trusted.gpg.d/openresty-keyring.gpg \
     && chmod go-w /etc/apt/trusted.gpg.d/openresty-keyring.gpg \
-    && echo "deb [arch=$RESTY_APT_ARCH signed-by=/etc/apt/trusted.gpg.d/openresty-keyring.gpg] $RESTY_APT_REPO $(grep -Po 'VERSION="[0-9]+ \(\K[^)]+' /etc/os-release) openresty" | tee /etc/apt/sources.list.d/openresty.list \
+    && echo "\nTypes: deb\nURIs: $RESTY_APT_REPO\nSuites: $RESTY_IMAGE_TAG\nComponents: openresty\nEnabled: yes\nArchitectures: $RESTY_APT_ARCH\nSigned-By: /etc/apt/trusted.gpg.d/openresty-keyring.gpg" >> /etc/apt/sources.list.d/debian.sources \
     && DEBIAN_FRONTEND=noninteractive apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         openresty${RESTY_DEB_FLAVOR}${RESTY_DEB_VERSION} \
