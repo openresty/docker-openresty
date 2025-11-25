@@ -1,4 +1,4 @@
-# Dockerfile - Debian 12 Bookworm - DEB version
+# Dockerfile - Debian 13 Trixie - DEB version
 # https://github.com/openresty/docker-openresty
 
 ARG RESTY_IMAGE_BASE="debian"
