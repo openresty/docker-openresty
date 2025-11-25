@@ -160,8 +160,6 @@ jobs:
       - ./docker_build_and_push_flavor.sh centos-aarch64 centos/Dockerfile --build-arg RESTY_RPM_ARCH=aarch64
       - ./docker_build_and_push_flavor.sh centos7-aarch64 centos7/Dockerfile --build-arg RESTY_RPM_ARCH=aarch64
       - ./docker_build_and_push_flavor.sh fedora-aarch64 fedora/Dockerfile --build-arg RESTY_RPM_ARCH=aarch64
-      - ./docker_build_and_push_flavor.sh trixie-aarch64 trixie/Dockerfile --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian" --build-arg RESTY_APT_ARCH="arm64"
-      - ./docker_build_and_push_flavor.sh trixie-buildpack-aarch64 trixie/Dockerfile.buildpack --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian" --build-arg RESTY_APT_ARCH="arm64"
       - ./docker_build_and_push_flavor.sh bookworm-aarch64 bookworm/Dockerfile --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian" --build-arg RESTY_APT_ARCH="arm64"
       - ./docker_build_and_push_flavor.sh bookworm-buildpack-aarch64 bookworm/Dockerfile.buildpack --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian" --build-arg RESTY_APT_ARCH="arm64"
       - ./docker_build_and_push_flavor.sh bullseye-aarch64 bullseye/Dockerfile --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian"
@@ -178,8 +176,6 @@ jobs:
       - ./docker_build_and_push_flavor.sh centos-amd64 centos/Dockerfile
       - ./docker_build_and_push_flavor.sh centos7-amd64 centos7/Dockerfile
       - ./docker_build_and_push_flavor.sh fedora-amd64 fedora/Dockerfile
-      - ./docker_build_and_push_flavor.sh trixie-amd64 trixie/Dockerfile
-      - ./docker_build_and_push_flavor.sh trixie-buildpack-amd64 trixie/Dockerfile.buildpack
       - ./docker_build_and_push_flavor.sh bookworm-amd64 bookworm/Dockerfile
       - ./docker_build_and_push_flavor.sh bookworm-buildpack-amd64 bookworm/Dockerfile.buildpack
       - ./docker_build_and_push_flavor.sh bullseye-amd64 bullseye/Dockerfile
@@ -190,7 +186,7 @@ jobs:
 # Multi-arch manifests
 ###############################################################################
 
-    # also master trixie gets tagged "latest"
+    # also master bookworm gets tagged "latest"
     - name: Create and push manifests for multi-arch images
       stage: manifest
       script:
@@ -211,14 +207,12 @@ jobs:
       - ./docker_manifest.sh jammy       jammy-amd64       jammy-aarch64       jammy-s390x
       - ./docker_manifest.sh noble       noble-amd64       noble-aarch64       noble-s390x
       - ./docker_manifest.sh rocky       rocky-amd64       rocky-aarch64
-      - ./docker_manifest.sh trixie      trixie-amd64      trixie-aarch64
-      - ./docker_manifest.sh trixie-buildpack      trixie-buildpack-amd64      trixie-buildpack-aarch64
       - ./docker_tag_alias.sh centos centos-rpm
       - ./docker_tag_alias.sh fedora fedora-rpm
       - if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
           echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin &&
-          docker pull $DOCKER_ORG/openresty:trixie &&
-          docker tag $DOCKER_ORG/openresty:trixie $DOCKER_ORG/openresty:latest &&
+          docker pull $DOCKER_ORG/openresty:bookworm &&
+          docker tag $DOCKER_ORG/openresty:bookworm $DOCKER_ORG/openresty:latest &&
           docker push $DOCKER_ORG/openresty:latest ;
         fi
 
@@ -231,7 +225,6 @@ jobs:
       stage: build-fat
       arch: arm64
       script:
-      - ./docker_build_and_push_flavor_fat.sh trixie-fat-aarch64 trixie/Dockerfile.fat
       - ./docker_build_and_push_flavor_fat.sh bookworm-fat-aarch64 bookworm/Dockerfile.fat
       - ./docker_build_and_push_flavor_fat.sh bullseye-fat-aarch64 bullseye/Dockerfile.fat
       - ./docker_build_and_push_flavor_fat.sh alpine-fat-aarch64 alpine/Dockerfile.fat
@@ -240,7 +233,6 @@ jobs:
       arch: amd64
       stage: build-fat
       script:
-      - ./docker_build_and_push_flavor_fat.sh trixie-fat-amd64 trixie/Dockerfile.fat
       - ./docker_build_and_push_flavor_fat.sh bookworm-fat-amd64 bookworm/Dockerfile.fat
       - ./docker_build_and_push_flavor_fat.sh bullseye-fat-amd64 bullseye/Dockerfile.fat
       - ./docker_build_and_push_flavor_fat.sh alpine-fat-amd64 alpine/Dockerfile.fat
@@ -248,7 +240,6 @@ jobs:
     - name: Create and push manifests for fat multi-arch images
       stage: manifest-fat
       script:
-      - ./docker_manifest.sh trixie-fat  trixie-fat-amd64  trixie-fat-aarch64
       - ./docker_manifest.sh bookworm-fat  bookworm-fat-amd64  bookworm-fat-aarch64
       - ./docker_manifest.sh bullseye-fat  bullseye-fat-amd64  bullseye-fat-aarch64
       - ./docker_manifest.sh alpine-fat  alpine-fat-amd64  alpine-fat-aarch64

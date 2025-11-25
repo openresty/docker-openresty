@@ -144,7 +144,6 @@ You can derive your own Docker images from this to install your own packages.  S
 
 This Docker image can be built and customized by cloning the repo and running `docker build` with the desired Dockerfile:
 
- * [Debian Trixie 13 DEB](https://github.com/openresty/docker-openresty/blob/master/trixie/Dockerfile) (`trixie/Dockerfile`)
  * [Debian Bookworm 12 DEB](https://github.com/openresty/docker-openresty/blob/master/bookworm/Dockerfile) (`bookworm/Dockerfile`)
  * [Debian Bullseye 11 DEB](https://github.com/openresty/docker-openresty/blob/master/bullseye/Dockerfile) (`bullseye/Dockerfile`)
 
