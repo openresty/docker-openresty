@@ -103,6 +103,9 @@ The following "flavors" are available and built from [upstream OpenResty package
 - [`centos7`, (*centos7/Dockerfile* with `el7`)](https://github.com/openresty/docker-openresty/blob/master/centos7/Dockerfile)
 - [`fedora`, `fedora-rpm`, (*fedora/Dockerfile* with `fc36`)](https://github.com/openresty/docker-openresty/blob/master/fedora/Dockerfile)
 - [`rocky`, (*fedora/Dockerfile* with `rockylinux`)](https://github.com/openresty/docker-openresty/blob/master/fedora/Dockerfile)
+- [`trixie-buildpack`, (*trixie/Dockerfile.buildpack*)](https://github.com/openresty/docker-openresty/blob/master/trixie/Dockerfile.buildpack)
+- [`trixie-fat`, (*trixie/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/trixie/Dockerfile.fat)
+- [`trixie`, (*trixie/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/trixie/Dockerfile)
 - [`windows`, (*windows/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/windows/Dockerfile)
 
 The following "flavors" are built from source and are intended for more advanced and custom usage, caveat emptor:
@@ -115,7 +118,7 @@ The following "flavors" are built from source and are intended for more advanced
 - [`jammy`, (*jammy/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/jammy/Dockerfile)
 - [`noble`, (*noble/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/noble/Dockerfile)
 
-The `openresty/openresty:latest` tag points to the latest `bookworm` image.
+The `openresty/openresty:latest` tag points to the latest `trixie` image.
 
 Since `1.19.3.2-1`, all flavors support multi-architecture builds, both `amd64` and `aarch64`.  Since `1.21.4.1-1`, the `s390x` architecture is supported for build-from-source Ubuntu flavors (like `jammy`); prior to version `1.27.1.2-3`, [PCRE JIT](https://github.com/zherczeg/sljit/issues/89) is disabled for `s390x`.
 
@@ -195,7 +198,7 @@ OPM
 
 Starting at version 1.11.2.2, OpenResty for Linux includes a [package manager called `opm`](https://github.com/openresty/opm#readme), which can be found at `/usr/local/openresty/bin/opm`.
 
-`opm` is built in all the images except `alpine` and `bullseye` and `bookworm`.
+`opm` is built in all the images except `alpine` and `bullseye` and `bookworm` and `trixie`.
 
 To use `opm` in the `alpine` image, you must also install the `curl` and `perl` packages; they are not included by default because they double the image size.  You may install them like so: `apk add --no-cache curl perl`.
 
