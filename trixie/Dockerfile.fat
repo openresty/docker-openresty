@@ -1,14 +1,14 @@
-# Dockerfile - Debian 12 Bookworm Fat - DEB version
+# Dockerfile - Debian 13 Trixie Fat - DEB version
 # https://github.com/openresty/docker-openresty
 #
-# This builds upon the base OpenResty Bookworm image,
+# This builds upon the base OpenResty Trixie image,
 # adding useful packages and utilities.
 #
 # Currently it just adds the openresty-opm package.
 #
 
 ARG RESTY_FAT_IMAGE_BASE="openresty/openresty"
-ARG RESTY_FAT_IMAGE_TAG="bookworm"
+ARG RESTY_FAT_IMAGE_TAG="trixie"
 
 FROM ${RESTY_FAT_IMAGE_BASE}:${RESTY_FAT_IMAGE_TAG}
 
