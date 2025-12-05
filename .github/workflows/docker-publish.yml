@@ -1,0 +1,537 @@
+name: Docker Build and Publish
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - '*'
+  workflow_dispatch:
+
+env:
+  DOCKER_ORG: openresty
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # --- Alpine ---
+          - flavor: alpine
+            arch: amd64
+            dockerfile: alpine/Dockerfile
+            platforms: linux/amd64
+          - flavor: alpine
+            arch: arm64
+            dockerfile: alpine/Dockerfile
+            platforms: linux/arm64
+          
+          # --- Alpine Slim ---
+          - flavor: alpine-slim
+            arch: amd64
+            dockerfile: alpine/Dockerfile
+            platforms: linux/amd64
+            build-args: RESTY_STRIP_BINARIES=1
+          - flavor: alpine-slim
+            arch: arm64
+            dockerfile: alpine/Dockerfile
+            platforms: linux/arm64
+            build-args: RESTY_STRIP_BINARIES=1
+
+          # --- Alpine APK ---
+          - flavor: alpine-apk
+            arch: amd64
+            dockerfile: alpine-apk/Dockerfile
+            platforms: linux/amd64
+          - flavor: alpine-apk
+            arch: arm64
+            dockerfile: alpine-apk/Dockerfile
+            platforms: linux/arm64
+
+          # --- Amazon Linux 2 ---
+          - flavor: amzn2
+            arch: amd64
+            dockerfile: centos/Dockerfile
+            platforms: linux/amd64
+            build-args: |
+              RESTY_IMAGE_BASE=amazonlinux
+              RESTY_IMAGE_TAG=2
+              RESTY_YUM_REPO=https://openresty.org/package/amazon/openresty.repo
+              RESTY_RPM_DIST=amzn2
+          - flavor: amzn2
+            arch: arm64
+            dockerfile: centos/Dockerfile
+            platforms: linux/arm64
+            build-args: |
+              RESTY_IMAGE_BASE=amazonlinux
+              RESTY_IMAGE_TAG=2
+              RESTY_YUM_REPO=https://openresty.org/package/amazon/openresty.repo
+              RESTY_RPM_DIST=amzn2
+              RESTY_RPM_ARCH=aarch64
+
+          # --- Rocky Linux ---
+          - flavor: rocky
+            arch: amd64
+            dockerfile: fedora/Dockerfile
+            platforms: linux/amd64
+            build-args: |
+              RESTY_IMAGE_BASE=rockylinux
+              RESTY_IMAGE_TAG=8.5
+              RESTY_YUM_REPO=https://openresty.org/package/rocky/openresty.repo
+              RESTY_RPM_DIST=el8
+          - flavor: rocky
+            arch: arm64
+            dockerfile: fedora/Dockerfile
+            platforms: linux/arm64
+            build-args: |
+              RESTY_IMAGE_BASE=rockylinux
+              RESTY_IMAGE_TAG=8.5
+              RESTY_YUM_REPO=https://openresty.org/package/rocky/openresty.repo
+              RESTY_RPM_DIST=el8
+              RESTY_RPM_ARCH=aarch64
+
+          # --- CentOS ---
+          - flavor: centos
+            arch: amd64
+            dockerfile: centos/Dockerfile
+            platforms: linux/amd64
+          - flavor: centos
+            arch: arm64
+            dockerfile: centos/Dockerfile
+            platforms: linux/arm64
+            build-args: RESTY_RPM_ARCH=aarch64
+
+          # --- CentOS 7 ---
+          - flavor: centos7
+            arch: amd64
+            dockerfile: centos7/Dockerfile
+            platforms: linux/amd64
+          - flavor: centos7
+            arch: arm64
+            dockerfile: centos7/Dockerfile
+            platforms: linux/arm64
+            build-args: RESTY_RPM_ARCH=aarch64
+
+          # --- Fedora ---
+          # Note: fedora-aarch64 is commented out in Travis CI
+          - flavor: fedora
+            arch: amd64
+            dockerfile: fedora/Dockerfile
+            platforms: linux/amd64
+
+          # --- Debian Bookworm ---
+          - flavor: bookworm
+            arch: amd64
+            dockerfile: bookworm/Dockerfile
+            platforms: linux/amd64
+          - flavor: bookworm
+            arch: arm64
+            dockerfile: bookworm/Dockerfile
+            platforms: linux/arm64
+            build-args: |
+              RESTY_APT_REPO=https://openresty.org/package/arm64/debian
+              RESTY_APT_ARCH=arm64
+
+          # --- Debian Bookworm Buildpack ---
+          - flavor: bookworm-buildpack
+            arch: amd64
+            dockerfile: bookworm/Dockerfile.buildpack
+            platforms: linux/amd64
+          - flavor: bookworm-buildpack
+            arch: arm64
+            dockerfile: bookworm/Dockerfile.buildpack
+            platforms: linux/arm64
+            build-args: |
+              RESTY_APT_REPO=https://openresty.org/package/arm64/debian
+              RESTY_APT_ARCH=arm64
+
+          # --- Debian Bullseye ---
+          - flavor: bullseye
+            arch: amd64
+            dockerfile: bullseye/Dockerfile
+            platforms: linux/amd64
+          - flavor: bullseye
+            arch: arm64
+            dockerfile: bullseye/Dockerfile
+            platforms: linux/arm64
+            build-args: RESTY_APT_REPO=https://openresty.org/package/arm64/debian
+
+          # --- Debian Bullseye Debug ---
+          - flavor: bullseye-debug
+            arch: amd64
+            dockerfile: bullseye/Dockerfile.debug
+            platforms: linux/amd64
+          - flavor: bullseye-debug
+            arch: arm64
+            dockerfile: bullseye/Dockerfile.debug
+            platforms: linux/arm64
+            build-args: RESTY_APT_REPO=https://openresty.org/package/arm64/debian
+
+          # --- Debian Bullseye Valgrind ---
+          - flavor: bullseye-valgrind
+            arch: amd64
+            dockerfile: bullseye/Dockerfile.valgrind
+            platforms: linux/amd64
+          - flavor: bullseye-valgrind
+            arch: arm64
+            dockerfile: bullseye/Dockerfile.valgrind
+            platforms: linux/arm64
+            build-args: RESTY_APT_REPO=https://openresty.org/package/arm64/debian
+
+          # --- Ubuntu Bionic ---
+          - flavor: bionic
+            arch: amd64
+            dockerfile: bionic/Dockerfile
+            platforms: linux/amd64
+          - flavor: bionic
+            arch: arm64
+            dockerfile: bionic/Dockerfile
+            platforms: linux/arm64
+          - flavor: bionic
+            arch: s390x
+            dockerfile: bionic/Dockerfile
+            platforms: linux/s390x
+
+          # --- Ubuntu Focal ---
+          - flavor: focal
+            arch: amd64
+            dockerfile: focal/Dockerfile
+            platforms: linux/amd64
+          - flavor: focal
+            arch: arm64
+            dockerfile: focal/Dockerfile
+            platforms: linux/arm64
+          - flavor: focal
+            arch: s390x
+            dockerfile: focal/Dockerfile
+            platforms: linux/s390x
+
+          # --- Ubuntu Jammy ---
+          - flavor: jammy
+            arch: amd64
+            dockerfile: jammy/Dockerfile
+            platforms: linux/amd64
+          - flavor: jammy
+            arch: arm64
+            dockerfile: jammy/Dockerfile
+            platforms: linux/arm64
+          - flavor: jammy
+            arch: s390x
+            dockerfile: jammy/Dockerfile
+            platforms: linux/s390x
+
+          # --- Ubuntu Noble ---
+          - flavor: noble
+            arch: amd64
+            dockerfile: noble/Dockerfile
+            platforms: linux/amd64
+          - flavor: noble
+            arch: arm64
+            dockerfile: noble/Dockerfile
+            platforms: linux/arm64
+          - flavor: noble
+            arch: s390x
+            dockerfile: noble/Dockerfile
+            platforms: linux/s390x
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Login to Docker Mirror
+        if: vars.ENABLE_MIRROR == 'true'
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.DOCKER_MIRROR_REGISTRY }}
+          username: ${{ secrets.DOCKER_MIRROR_USERNAME }}
+          password: ${{ secrets.DOCKER_MIRROR_PASSWORD }}
+
+      - name: Extract metadata (tags, labels)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ env.DOCKER_ORG }}/openresty
+          tags: |
+            type=raw,value=${{ matrix.flavor }}-${{ matrix.arch }},enable=${{ github.ref == 'refs/heads/master' }}
+            type=ref,event=tag,suffix=-${{ matrix.flavor }}-${{ matrix.arch }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ${{ matrix.dockerfile }}
+          platforms: ${{ matrix.platforms }}
+          build-args: ${{ matrix.build-args }}
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      # Mirror registry push - separate step
+      - name: Tag and Push to Mirror
+        if: vars.ENABLE_MIRROR == 'true'
+        run: |
+          for TAG in ${{ steps.meta.outputs.tags }}; do
+            MIRROR_TAG=$(echo "$TAG" | sed "s|${{ env.DOCKER_ORG }}/openresty|${{ secrets.DOCKER_MIRROR_REGISTRY }}/${{ secrets.DOCKER_MIRROR_ORG }}/openresty|")
+            docker buildx imagetools create -t "$MIRROR_TAG" "$TAG"
+          done
+
+  manifest:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        flavor: [alpine, alpine-slim, alpine-apk, amzn2, rocky, centos, centos7, fedora, bookworm, bookworm-buildpack, bullseye, bullseye-debug, bullseye-valgrind, bionic, focal, jammy, noble]
+    steps:
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Login to Docker Mirror
+        if: vars.ENABLE_MIRROR == 'true'
+        uses: docker/login-action@v3
+        with:
+          registry: ${{secrets.DOCKER_MIRROR_REGISTRY }}
+          username: ${{ secrets.DOCKER_MIRROR_USERNAME }}
+          password: ${{ secrets.DOCKER_MIRROR_PASSWORD }}
+
+      - name: Create and Push Manifest
+        run: |
+          # Define architectures for each flavor
+          ARCHS="amd64 arm64"
+          
+          # Add s390x for Ubuntu flavors
+          if [[ "${{ matrix.flavor }}" == "bionic" || "${{ matrix.flavor }}" == "focal" || "${{ matrix.flavor }}" == "jammy" || "${{ matrix.flavor }}" == "noble" ]]; then
+            ARCHS="$ARCHS s390x"
+          fi
+          
+          # Fedora only amd64
+          if [[ "${{ matrix.flavor }}" == "fedora" ]]; then
+            ARCHS="amd64"
+          fi
+          
+          # Construct source tags
+          SOURCES=""
+          MIRROR_SOURCES=""
+          
+          TAG_PREFIX=""
+          if [[ "${{ github.ref_type }}" == "tag" ]]; then
+             TAG_PREFIX="${{ github.ref_name }}-"
+          fi
+
+          for ARCH in $ARCHS; do
+            SOURCES="$SOURCES ${{ env.DOCKER_ORG }}/openresty:${TAG_PREFIX}${{ matrix.flavor }}-$ARCH"
+            if [[ "${{ vars.ENABLE_MIRROR }}" == "true" ]]; then
+               MIRROR_SOURCES="$MIRROR_SOURCES ${{ secrets.DOCKER_MIRROR_REGISTRY }}/${{ secrets.DOCKER_MIRROR_ORG }}/openresty:${TAG_PREFIX}${{ matrix.flavor }}-$ARCH"
+            fi
+          done
+
+          # Target Manifest Tag
+          TARGET_TAG="${TAG_PREFIX}${{ matrix.flavor }}"
+          
+          echo "Creating manifest $TARGET_TAG from $SOURCES"
+          docker buildx imagetools create -t "${{ env.DOCKER_ORG }}/openresty:$TARGET_TAG" $SOURCES
+          
+          if [[ "${{ vars.ENABLE_MIRROR }}" == "true" ]]; then
+             echo "Creating mirror manifest $TARGET_TAG"
+             docker buildx imagetools create -t "${{ secrets.DOCKER_MIRROR_REGISTRY }}/${{ secrets.DOCKER_MIRROR_ORG }}/openresty:$TARGET_TAG" $MIRROR_SOURCES
+          fi
+
+          # Handle "latest" tag for bookworm on master
+          if [[ "${{ matrix.flavor }}" == "bookworm" && "${{ github.ref }}" == "refs/heads/master" ]]; then
+             echo "Tagging bookworm as latest"
+             docker buildx imagetools create -t "${{ env.DOCKER_ORG }}/openresty:latest" "${{ env.DOCKER_ORG }}/openresty:bookworm"
+             if [[ "${{ vars.ENABLE_MIRROR }}" == "true" ]]; then
+                docker buildx imagetools create -t "${{ secrets.DOCKER_MIRROR_REGISTRY }}/${{ secrets.DOCKER_MIRROR_ORG }}/openresty:latest" "${{ secrets.DOCKER_MIRROR_REGISTRY }}/${{ secrets.DOCKER_MIRROR_ORG }}/openresty:bookworm"
+             fi
+          fi
+
+          # Create tag aliases (centos-rpm -> centos, fedora-rpm -> fedora)
+          if [[ "${{ matrix.flavor }}" == "centos" ]]; then
+             echo "Creating centos-rpm alias"
+             docker buildx imagetools create -t "${{ env.DOCKER_ORG }}/openresty:${TAG_PREFIX}centos-rpm" "${{ env.DOCKER_ORG }}/openresty:$TARGET_TAG"
+             if [[ "${{ vars.ENABLE_MIRROR }}" == "true" ]]; then
+                docker buildx imagetools create -t "${{ secrets.DOCKER_MIRROR_REGISTRY }}/${{ secrets.DOCKER_MIRROR_ORG }}/openresty:${TAG_PREFIX}centos-rpm" "${{ secrets.DOCKER_MIRROR_REGISTRY }}/${{ secrets.DOCKER_MIRROR_ORG }}/openresty:$TARGET_TAG"
+             fi
+          fi
+
+          if [[ "${{ matrix.flavor }}" == "fedora" ]]; then
+             echo "Creating fedora-rpm alias"
+             docker buildx imagetools create -t "${{ env.DOCKER_ORG }}/openresty:${TAG_PREFIX}fedora-rpm" "${{ env.DOCKER_ORG }}/openresty:$TARGET_TAG"
+             if [[ "${{ vars.ENABLE_MIRROR }}" == "true" ]]; then
+                docker buildx imagetools create -t "${{ secrets.DOCKER_MIRROR_REGISTRY }}/${{ secrets.DOCKER_MIRROR_ORG }}/openresty:${TAG_PREFIX}fedora-rpm" "${{ secrets.DOCKER_MIRROR_REGISTRY }}/${{ secrets.DOCKER_MIRROR_ORG }}/openresty:$TARGET_TAG"
+             fi
+          fi
+
+  build-fat:
+    needs: manifest
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - flavor: bookworm-fat
+            base_flavor: bookworm
+            arch: amd64
+            dockerfile: bookworm/Dockerfile.fat
+            platforms: linux/amd64
+          - flavor: bookworm-fat
+            base_flavor: bookworm
+            arch: arm64
+            dockerfile: bookworm/Dockerfile.fat
+            platforms: linux/arm64
+          
+          - flavor: bullseye-fat
+            base_flavor: bullseye
+            arch: amd64
+            dockerfile: bullseye/Dockerfile.fat
+            platforms: linux/amd64
+          - flavor: bullseye-fat
+            base_flavor: bullseye
+            arch: arm64
+            dockerfile: bullseye/Dockerfile.fat
+            platforms: linux/arm64
+
+          - flavor: alpine-fat
+            base_flavor: alpine
+            arch: amd64
+            dockerfile: alpine/Dockerfile.fat
+            platforms: linux/amd64
+          - flavor: alpine-fat
+            base_flavor: alpine
+            arch: arm64
+            dockerfile: alpine/Dockerfile.fat
+            platforms: linux/arm64
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Login to Docker Mirror
+        if: vars.ENABLE_MIRROR == 'true'
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.DOCKER_MIRROR_REGISTRY }}
+          username: ${{ secrets.DOCKER_MIRROR_USERNAME }}
+          password: ${{ secrets.DOCKER_MIRROR_PASSWORD }}
+
+      - name: Determine Fat Base Image
+        id: fat-base
+        run: |
+          TAG_PREFIX=""
+          if [[ "${{ github.ref_type }}" == "tag" ]]; then
+             TAG_PREFIX="${{ github.ref_name }}-"
+          fi
+          
+          BASE_TAG="${TAG_PREFIX}${{ matrix.base_flavor }}"
+          echo "RESTY_FAT_IMAGE_TAG=$BASE_TAG" >> $GITHUB_ENV
+          echo "RESTY_FAT_IMAGE_BASE=${{ env.DOCKER_ORG }}/openresty" >> $GITHUB_ENV
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ env.DOCKER_ORG }}/openresty
+          tags: |
+            type=raw,value=${{ matrix.flavor }}-${{ matrix.arch }},enable=${{ github.ref == 'refs/heads/master' }}
+            type=ref,event=tag,suffix=-${{ matrix.flavor }}-${{ matrix.arch }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ${{ matrix.dockerfile }}
+          platforms: ${{ matrix.platforms }}
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            RESTY_FAT_IMAGE_BASE=${{ env.RESTY_FAT_IMAGE_BASE }}
+            RESTY_FAT_IMAGE_TAG=${{ env.RESTY_FAT_IMAGE_TAG }}
+
+      # Mirror registry push
+      - name: Tag and Push to Mirror
+        if: vars.ENABLE_MIRROR == 'true'
+        run: |
+          for TAG in ${{ steps.meta.outputs.tags }}; do
+            MIRROR_TAG=$(echo "$TAG" | sed "s|${{ env.DOCKER_ORG }}/openresty|${{ secrets.DOCKER_MIRROR_REGISTRY }}/${{ secrets.DOCKER_MIRROR_ORG }}/openresty|")
+            docker buildx imagetools create -t "$MIRROR_TAG" "$TAG"
+          done
+
+  manifest-fat:
+    needs: build-fat
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        flavor: [bookworm-fat, bullseye-fat, alpine-fat]
+    steps:
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Login to Docker Mirror
+        if: vars.ENABLE_MIRROR == 'true'
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.DOCKER_MIRROR_REGISTRY }}
+          username: ${{ secrets.DOCKER_MIRROR_USERNAME }}
+          password: ${{ secrets.DOCKER_MIRROR_PASSWORD }}
+
+      - name: Create and Push Manifest
+        run: |
+          ARCHS="amd64 arm64"
+          
+          TAG_PREFIX=""
+          if [[ "${{ github.ref_type }}" == "tag" ]]; then
+             TAG_PREFIX="${{ github.ref_name }}-"
+          fi
+
+          SOURCES=""
+          MIRROR_SOURCES=""
+          for ARCH in $ARCHS; do
+            SOURCES="$SOURCES ${{ env.DOCKER_ORG }}/openresty:${TAG_PREFIX}${{ matrix.flavor }}-$ARCH"
+            if [[ "${{ vars.ENABLE_MIRROR }}" == "true" ]]; then
+               MIRROR_SOURCES="$MIRROR_SOURCES ${{ secrets.DOCKER_MIRROR_REGISTRY }}/${{ secrets.DOCKER_MIRROR_ORG }}/openresty:${TAG_PREFIX}${{ matrix.flavor }}-$ARCH"
+            fi
+          done
+
+          TARGET_TAG="${TAG_PREFIX}${{ matrix.flavor }}"
+          
+          echo "Creating manifest $TARGET_TAG from $SOURCES"
+          docker buildx imagetools create -t "${{ env.DOCKER_ORG }}/openresty:$TARGET_TAG" $SOURCES
+          
+          if [[ "${{ vars.ENABLE_MIRROR }}" == "true" ]]; then
+             echo "Creating mirror manifest $TARGET_TAG"
+             docker buildx imagetools create -t "${{ secrets.DOCKER_MIRROR_REGISTRY }}/${{ secrets.DOCKER_MIRROR_ORG }}/openresty:$TARGET_TAG" $MIRROR_SOURCES
+          fi
