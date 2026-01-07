@@ -1,13 +1,13 @@
 # docker-openresty - Docker tooling for OpenResty
 
-[![Travis Status](https://api.travis-ci.com/openresty/docker-openresty.svg?branch=master)](https://travis-ci.com/github/openresty/docker-openresty)  [![Appveyor status](https://ci.appveyor.com/api/projects/status/github/openresty/docker-openresty?branch=master&svg=true)](https://ci.appveyor.com/project/openresty/docker-openresty)  [![](https://images.microbadger.com/badges/image/openresty/openresty.svg)](https://microbadger.com/#/images/openresty/openresty "microbadger.com")
+[![Build Status](https://github.com/openresty/docker-openresty/actions/workflows/docker-publish.yml/badge.svg?branch=master)](https://github.com/openresty/docker-openresty/actions/workflows/docker-publish.yml)  [![Appveyor status](https://ci.appveyor.com/api/projects/status/github/openresty/docker-openresty?branch=master&svg=true)](https://ci.appveyor.com/project/openresty/docker-openresty)  [![](https://images.microbadger.com/badges/image/openresty/openresty.svg)](https://microbadger.com/#/images/openresty/openresty "microbadger.com")
 
 `docker-openresty` is [Docker](https://www.docker.com) tooling for OpenResty (https://www.openresty.org).
 
 Docker is a container management platform. OpenResty is a full-fledged web application server by
 bundling the standard nginx core, lots of 3rd-party nginx modules, as well as most of their external dependencies.
 
-Thank you to [Travis CI](https://www.travis-ci.com) for donating their build infrastructure to this project for over seven years!
+Thank you to [Travis CI](https://www.travis-ci.com) for donating their build infrastructure to this project for over seven years!  We have since migrated to GitHub Actions.
 
 We provide a series of [pre-built images](#openresty-image-tags) for various operating systems. Some are built-from the upstream OpenResty pre-built images and some are built from source.
 
@@ -63,12 +63,16 @@ There are also specific tags for [Debug](https://openresty.org/en/deb-packages.h
 | `openresty/openresty:bullseye-fat-debug` | Bullseye FAT flavor with `openresty-debug` |
 | `openresty/openresty:bullseye-fat-valgrind` | Bullseye FAT flavor with `openresty-valgrind` |
 
-## Image Mirror
+## Image Registries
+ 
+ The CI/CD pipeline builds images to the [GitHub Container Registry](https://github.com/openresty/docker-openresty/pkgs/container/openresty) (GHCR) as the primary source.
+ 
+ * `ghcr.io/neomantra/openresty`
+ 
+ The images are then mirrored to [Docker Hub](https://hub.docker.com/r/openresty/openresty/) for convenience and backward compatibility.
+ 
+ * `openresty/openresty` (or `docker.io/openresty/openresty`)
 
-As of `1.27.1.2-6`, we also mirror to the [GitHub Container Registry](https://github.com/users/neomantra/packages/container/package/openresty).  Note this is under the image maintainer's GitHub account and not the OpenResty GitHub account.  To use it, rather than specifying the image`openresty/openresty`, 
-use the full GHCR image path of `ghcr.io/neomantra/openresty`.  For example:
-
- * `ghcr.io/neomantra/openresty:1.27.1.2-6-bullseye`
 
 ----
 
@@ -119,7 +123,7 @@ The `openresty/openresty:latest` tag points to the latest `bookworm` image.
 
 Since `1.19.3.2-1`, all flavors support multi-architecture builds, both `amd64` and `aarch64`.  Since `1.21.4.1-1`, the `s390x` architecture is supported for build-from-source Ubuntu flavors (like `jammy`); prior to version `1.27.1.2-3`, [PCRE JIT](https://github.com/zherczeg/sljit/issues/89) is disabled for `s390x`.
 
-Starting with `1.13.6.1`, releases are tagged with `<openresty-version>-<image-version>-<flavor>`.  The latest `image-version` will also be tagged `<openresty-version>-<flavor>`.   The HEAD of the master branch is also labeled plainly as `<flavor>`.  The builds are managed by [Travis-CI](https://travis-ci.com/github/neomantra/docker-openresty) and [Appveyor](https://ci.appveyor.com/project/openresty/docker-openresty) (for Windows images).
+Starting with `1.13.6.1`, releases are tagged with `<openresty-version>-<image-version>-<flavor>`.  The latest `image-version` will also be tagged `<openresty-version>-<flavor>`.   The HEAD of the master branch is also labeled plainly as `<flavor>`.  The builds are managed by [GitHub Actions](https://github.com/openresty/docker-openresty/actions) and [Appveyor](https://ci.appveyor.com/project/openresty/docker-openresty) (for Windows images).
 
 There are architecture-specific tags as well, `<openresty-version>-<image-version>-<flavor>-<arch>`, but one would generally pull from the multi-architecture name above.
 
