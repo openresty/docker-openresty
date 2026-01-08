@@ -335,85 +335,8 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Create and Push Manifest
-        run: |
-          # Define architectures for each flavor
-          ARCHS="amd64 arm64"
-          
-          # Add s390x for Ubuntu flavors
-          if [[ "${{ matrix.flavor }}" == "bionic" || "${{ matrix.flavor }}" == "focal" || "${{ matrix.flavor }}" == "jammy" || "${{ matrix.flavor }}" == "noble" ]]; then
-            ARCHS="$ARCHS s390x"
-          fi
-          
-          # Fedora only amd64
-          if [[ "${{ matrix.flavor }}" == "fedora" ]]; then
-            ARCHS="amd64"
-          fi
-          
-          # Construct source tags
-          # We need to handle potential aliases (e.g. 1.2.3-1 -> 1.2.3)
-          # The build job produces both tags for the images if the pattern matches.
-          
-          declare -a PREFIXES=()
-          if [[ "${{ github.ref_type }}" == "tag" ]]; then
-             PREFIXES+=("${{ github.ref_name }}-")
-             # Alias logic: Matches tags ending in single digit revision (e.g. -1)
-             TAG_BASE=$(echo "${{ github.ref_name }}" | sed 's/-[0-9]$//')
-             if [[ "$TAG_BASE" != "${{ github.ref_name }}" ]]; then
-                PREFIXES+=("$TAG_BASE-")
-             fi
-          else
-             # For master branch or other non-tags
-             PREFIXES+=("")
-          fi
+        run: ./scripts/create-manifest.sh "${{ matrix.flavor }}" "${{ env.GHCR_IMAGE }}" "${{ env.DOCKERHUB_IMAGE }}" "${{ vars.ENABLE_DOCKERHUB_MIRROR }}"
 
-          for TAG_PREFIX in "${PREFIXES[@]}"; do
-            SOURCES=""
-            MIRROR_SOURCES=""
-            
-            for ARCH in $ARCHS; do
-              SOURCES="$SOURCES ${{ env.GHCR_IMAGE }}:${TAG_PREFIX}${{ matrix.flavor }}-$ARCH"
-              if [[ "${{ vars.ENABLE_DOCKERHUB_MIRROR }}" == "true" ]]; then
-                 MIRROR_SOURCES="$MIRROR_SOURCES ${{ env.DOCKERHUB_IMAGE }}:${TAG_PREFIX}${{ matrix.flavor }}-$ARCH"
-              fi
-            done
-  
-            # Target Manifest Tag
-            TARGET_TAG="${TAG_PREFIX}${{ matrix.flavor }}"
-            
-            echo "Creating manifest $TARGET_TAG from $SOURCES"
-            docker buildx imagetools create -t "${{ env.GHCR_IMAGE }}:$TARGET_TAG" $SOURCES
-            
-            if [[ "${{ vars.ENABLE_DOCKERHUB_MIRROR }}" == "true" ]]; then
-               echo "Creating mirror manifest $TARGET_TAG"
-               docker buildx imagetools create -t "${{ env.DOCKERHUB_IMAGE }}:$TARGET_TAG" $MIRROR_SOURCES
-            fi
-            
-            # Handle "latest" tag for bookworm on master
-            if [[ "${{ matrix.flavor }}" == "bookworm" && "${{ github.ref }}" == "refs/heads/master" && "$TAG_PREFIX" == "" ]]; then
-               echo "Tagging bookworm as latest"
-               docker buildx imagetools create -t "${{ env.GHCR_IMAGE }}:latest" "${{ env.GHCR_IMAGE }}:bookworm"
-               if [[ "${{ vars.ENABLE_DOCKERHUB_MIRROR }}" == "true" ]]; then
-                  docker buildx imagetools create -t "${{ env.DOCKERHUB_IMAGE }}:latest" "${{ env.DOCKERHUB_IMAGE }}:bookworm"
-               fi
-            fi
-            
-            # Create tag aliases (centos-rpm -> centos, fedora-rpm -> fedora)
-            if [[ "${{ matrix.flavor }}" == "centos" ]]; then
-               echo "Creating centos-rpm alias"
-               docker buildx imagetools create -t "${{ env.GHCR_IMAGE }}:${TAG_PREFIX}centos-rpm" "${{ env.GHCR_IMAGE }}:$TARGET_TAG"
-               if [[ "${{ vars.ENABLE_DOCKERHUB_MIRROR }}" == "true" ]]; then
-                  docker buildx imagetools create -t "${{ env.DOCKERHUB_IMAGE }}:${TAG_PREFIX}centos-rpm" "${{ env.DOCKERHUB_IMAGE }}:$TARGET_TAG"
-               fi
-            fi
-  
-            if [[ "${{ matrix.flavor }}" == "fedora" ]]; then
-               echo "Creating fedora-rpm alias"
-               docker buildx imagetools create -t "${{ env.GHCR_IMAGE }}:${TAG_PREFIX}fedora-rpm" "${{ env.GHCR_IMAGE }}:$TARGET_TAG"
-               if [[ "${{ vars.ENABLE_DOCKERHUB_MIRROR }}" == "true" ]]; then
-                  docker buildx imagetools create -t "${{ env.DOCKERHUB_IMAGE }}:${TAG_PREFIX}fedora-rpm" "${{ env.DOCKERHUB_IMAGE }}:$TARGET_TAG"
-               fi
-            fi
-          done
 
   build-fat:
     needs: manifest
@@ -546,39 +469,5 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Create and Push Manifest
-        run: |
-          ARCHS="amd64 arm64"
-          
-          declare -a PREFIXES=()
-          if [[ "${{ github.ref_type }}" == "tag" ]]; then
-             PREFIXES+=("${{ github.ref_name }}-")
-             # Alias logic: Matches tags ending in single digit revision (e.g. -1)
-             TAG_BASE=$(echo "${{ github.ref_name }}" | sed 's/-[0-9]$//')
-             if [[ "$TAG_BASE" != "${{ github.ref_name }}" ]]; then
-                PREFIXES+=("$TAG_BASE-")
-             fi
-          else
-             # For master branch or other non-tags
-             PREFIXES+=("")
-          fi
+        run: ./scripts/create-manifest.sh "${{ matrix.flavor }}" "${{ env.GHCR_IMAGE }}" "${{ env.DOCKERHUB_IMAGE }}" "${{ vars.ENABLE_DOCKERHUB_MIRROR }}"
 
-          for TAG_PREFIX in "${PREFIXES[@]}"; do
-            SOURCES=""
-            MIRROR_SOURCES=""
-            for ARCH in $ARCHS; do
-              SOURCES="$SOURCES ${{ env.GHCR_IMAGE }}:${TAG_PREFIX}${{ matrix.flavor }}-$ARCH"
-              if [[ "${{ vars.ENABLE_DOCKERHUB_MIRROR }}" == "true" ]]; then
-                 MIRROR_SOURCES="$MIRROR_SOURCES ${{ env.DOCKERHUB_IMAGE }}:${TAG_PREFIX}${{ matrix.flavor }}-$ARCH"
-              fi
-            done
-  
-            TARGET_TAG="${TAG_PREFIX}${{ matrix.flavor }}"
-            
-            echo "Creating manifest $TARGET_TAG from $SOURCES"
-            docker buildx imagetools create -t "${{ env.GHCR_IMAGE }}:$TARGET_TAG" $SOURCES
-            
-            if [[ "${{ vars.ENABLE_DOCKERHUB_MIRROR }}" == "true" ]]; then
-               echo "Creating mirror manifest $TARGET_TAG"
-               docker buildx imagetools create -t "${{ env.DOCKERHUB_IMAGE }}:$TARGET_TAG" $MIRROR_SOURCES
-            fi
-          done

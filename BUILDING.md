@@ -242,5 +242,5 @@ The GitHub Actions to build is located in the [`.github/workflows/docker-publish
 End-To-End Tests
 ================
 
-The script [`./e2e/run-test.sh`](./e2e/run-test.sh) will stand up two local container registries and attempt to build all the images.
+The script [`./tests/e2e/run-test.sh`](./tests/e2e/run-test.sh) will stand up two local container registries and attempt to build all the images.
 
