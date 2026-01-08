@@ -1,8 +1,11 @@
 #!/bin/bash
-set -e
-
+# Creates and pushes manifests for flavors
+#
 # Usage: ./create-manifest.sh <flavor> <registry_image> <mirror_image> <mirror_enable_bool>
 # Example: ./create-manifest.sh alpine ghcr.io/owner/repo docker.io/owner/repo true
+
+set -e
+
 
 FLAVOR="$1"
 REGISTRY_IMAGE="$2"
@@ -25,9 +28,13 @@ fi
 ARCHS="amd64 arm64"
 
 # Add s390x for Ubuntu flavors
-if [[ "$FLAVOR" == "bionic" || "$FLAVOR" == "focal" || "$FLAVOR" == "jammy" || "$FLAVOR" == "noble" ]]; then
-  ARCHS="$ARCHS s390x"
-fi
+UBUNTU_FLAVORS=("bionic" "focal" "jammy" "noble")
+for ub_flavor in "${UBUNTU_FLAVORS[@]}"; do
+    if [[ "$FLAVOR" == "$ub_flavor" ]]; then
+        ARCHS="$ARCHS s390x"
+        break
+    fi
+done
 
 # Fedora only supports amd64 in this setup
 if [[ "$FLAVOR" == "fedora" ]]; then
