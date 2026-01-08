@@ -1,3 +1,19 @@
+# Builds and publishes the OpenResty Docker image matrix
+#
+# Copyright (c) 2026 Evan Wies 
+#
+#
+# env:
+#   GHCR_IMAGE: GitHub Container Registry image
+#   DOCKERHUB_IMAGE: Docker Hub image
+#
+# secrets:
+#   GHCR_USERNAME: GitHub Container Registry username
+#   GHCR_PASSWORD: GitHub Container Registry password
+#   DOCKERHUB_USERNAME: Docker Hub username
+#   DOCKERHUB_PASSWORD: Docker Hub password
+#
+
 name: Docker Build and Publish
 
 on:
@@ -251,6 +267,13 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.GHCR_USERNAME }}
+          password: ${{ secrets.GHCR_PASSWORD }}
+
       - name: Login to Docker Mirror
         if: vars.ENABLE_DOCKERHUB_MIRROR == 'true'
         uses: docker/login-action@v3
@@ -301,8 +324,8 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: ${{ secrets.GHCR_USERNAME }}
+          password: ${{ secrets.GHCR_PASSWORD }}
 
       - name: Login to Docker Hub (Mirror)
         if: vars.ENABLE_DOCKERHUB_MIRROR == 'true'
@@ -446,8 +469,8 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: ${{ secrets.GHCR_USERNAME }}
+          password: ${{ secrets.GHCR_PASSWORD }}
 
       - name: Login to Docker Hub (Mirror)
         if: vars.ENABLE_DOCKERHUB_MIRROR == 'true'
@@ -512,8 +535,8 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: ${{ secrets.GHCR_USERNAME }}
+          password: ${{ secrets.GHCR_PASSWORD }}
 
       - name: Login to Docker Hub (Mirror)
         if: vars.ENABLE_DOCKERHUB_MIRROR == 'true'

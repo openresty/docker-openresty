@@ -220,3 +220,27 @@ docker build --build-arg RESTY_VERSION="1.27.1.2" -f windows/Dockerfile .
 |RESTY_VERSION      | 1.27.1.2 | The version of OpenResty to use. |
 
 [Back to TOC](#table-of-contents)
+
+GitHub Actions
+==============
+
+The GitHub Actions to build is located in the [`.github/workflows/docker-publish.yml`](./.github/workflows/docker-publish.yml) file.
+
+| Environment Variable | Description |
+|:---------------------|:----------- |
+| GHCR_IMAGE | GitHub Container Registry image |
+| DOCKERHUB_IMAGE | Docker Hub image |
+
+| Secrets | Description |
+|:---------------------|:----------- |
+| GHCR_USERNAME | GitHub Container Registry username |
+| GHCR_PASSWORD | GitHub Container Registry password |
+| DOCKERHUB_USERNAME | Docker Hub username |
+| DOCKERHUB_PASSWORD | Docker Hub password |
+
+
+End-To-End Tests
+================
+
+The script [`./e2e/run-test.sh`](./e2e/run-test.sh) will stand up two local container registries and attempt to build all the images.
+
