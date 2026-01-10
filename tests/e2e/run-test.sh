@@ -17,7 +17,7 @@ act workflow_dispatch \
     --network host
 
 echo "Test complete. Verifying images..."
-docker pull localhost:5001/neomantra/openresty:alpine-apk-test-amd64
-docker pull localhost:5002/openresty/openresty:alpine-apk-test-amd64
+docker pull --platform linux/amd64 localhost:5001/neomantra/openresty:alpine-apk-test-amd64
+docker pull --platform linux/amd64 localhost:5002/openresty/openresty:alpine-apk-test-amd64
 
 echo "✅ verification successful!"

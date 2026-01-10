@@ -320,6 +320,9 @@ jobs:
       matrix:
         flavor: [alpine, alpine-slim, alpine-apk, amzn2, rocky, centos, centos7, fedora, bookworm, bookworm-buildpack, bullseye, bullseye-debug, bullseye-valgrind, bionic, focal, jammy, noble]
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
@@ -454,6 +457,9 @@ jobs:
       matrix:
         flavor: [bookworm-fat, bullseye-fat, alpine-fat]
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:

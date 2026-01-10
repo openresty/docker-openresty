@@ -24,8 +24,8 @@ if [[ -z "$REGISTRY_IMAGE" ]]; then
 fi
 
 # Define architectures for each flavor
-# Default to amd64 and arm64
-ARCHS="amd64 arm64"
+# Default to amd64 and arm64, can be overridden by RESTY_ARCHS env var
+ARCHS="${RESTY_ARCHS:-amd64 arm64}"
 
 # Add s390x for Ubuntu flavors
 UBUNTU_FLAVORS=("bionic" "focal" "jammy" "noble")
