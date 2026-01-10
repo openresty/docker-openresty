@@ -25,7 +25,7 @@ on:
   workflow_dispatch:
 
 env:
-  GHCR_IMAGE: ghcr.io/${{ github.repository_owner }}/openresty
+  GHCR_IMAGE: ${{ vars.GHCR_IMAGE || format('ghcr.io/{0}/openresty', github.repository_owner) }}
   DOCKERHUB_IMAGE: openresty/openresty
 
 permissions:
