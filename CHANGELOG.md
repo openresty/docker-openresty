@@ -1,6 +1,12 @@
 `docker-openresty` Changelog
 ============================
 
+## 1.27.1.2-7 (2026-01-11)
+
+ * Migrate from Travis to GitHub Actions.  
+
+Thank you [Travis](https://travis-ci.com) for all your years of service!
+
 ## 1.27.1.2-6 (2025-11-08)
 
 * Images are now mirrored to `ghcr.io/neomantra/openresty` (#270)

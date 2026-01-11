@@ -356,7 +356,7 @@ Copyright & License
 
 `docker-openresty` is licensed under the 2-clause BSD license.
 
-Copyright (c) 2017-2024, Evan Wies <evan@neomantra.net>.
+Copyright (c) 2017-2026, Evan Wies <evan@neomantra.net>.
 
 This module is licensed under the terms of the BSD license.
 
