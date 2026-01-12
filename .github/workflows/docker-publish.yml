@@ -26,7 +26,7 @@ on:
 
 env:
   GHCR_IMAGE: ${{ vars.GHCR_IMAGE || format('ghcr.io/{0}/openresty', github.repository_owner) }}
-  DOCKERHUB_IMAGE: $${{ vars.DOCKERHUB_IMAGE || 'openresty/openresty' }}
+  DOCKERHUB_IMAGE: ${{ vars.DOCKERHUB_IMAGE || 'docker.io/openresty/openresty' }}
 
 permissions:
   contents: read
