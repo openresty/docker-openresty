@@ -1,6 +1,16 @@
 `docker-openresty` Changelog
 ============================
 
+## 1.27.1.2-8 (2026-01-11)
+
+ * ci: Resolved Docker Hub mirroring issues
+
+Here are the image bases:
+
+ * `openresty/openresty`
+ * `docker.io/openresty/openresty` (fully qualified name of above)
+ * `ghcr.io/neomantra/openresty`
+
 ## 1.27.1.2-7 (2026-01-11)
 
  * Migrate from Travis to GitHub Actions.  
