@@ -1,7 +1,11 @@
 `docker-openresty` Changelog
 ============================
 
-## 1.27.1.2-8 (2026-01-11)
+## 1.27.1.2-9 (2026-01-30)
+
+ * ci: Resolve tagged-release issue
+ 
+ ## 1.27.1.2-8 (2026-01-11)
 
  * ci: Resolved Docker Hub mirroring issues
 

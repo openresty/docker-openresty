@@ -309,9 +309,11 @@ jobs:
       - name: Tag and Push to Docker Hub Mirror
         if: vars.ENABLE_DOCKERHUB_MIRROR == 'true'
         run: |
-          for TAG in ${{ steps.meta.outputs.tags }}; do
-            DOCKERHUB_TAG=$(echo "$TAG" | sed "s|${{ env.GHCR_IMAGE }}|${{ env.DOCKERHUB_IMAGE }}|")
-            docker buildx imagetools create -t "$DOCKERHUB_TAG" "$TAG"
+          echo "${{ steps.meta.outputs.tags }}" | while read -r TAG; do
+            if [ -n "$TAG" ]; then
+              DOCKERHUB_TAG=$(echo "$TAG" | sed "s|${{ env.GHCR_IMAGE }}|${{ env.DOCKERHUB_IMAGE }}|")
+              docker buildx imagetools create -t "$DOCKERHUB_TAG" "$TAG"
+            fi
           done
 
   manifest:
@@ -448,9 +450,11 @@ jobs:
       - name: Tag and Push to Mirror
         if: vars.ENABLE_DOCKERHUB_MIRROR == 'true'
         run: |
-          for TAG in ${{ steps.meta.outputs.tags }}; do
-            MIRROR_TAG=$(echo "$TAG" | sed "s|${{ env.GHCR_IMAGE }}|${{ env.DOCKERHUB_IMAGE }}|")
-            docker buildx imagetools create -t "$MIRROR_TAG" "$TAG"
+          echo "${{ steps.meta.outputs.tags }}" | while read -r TAG; do
+            if [ -n "$TAG" ]; then
+              MIRROR_TAG=$(echo "$TAG" | sed "s|${{ env.GHCR_IMAGE }}|${{ env.DOCKERHUB_IMAGE }}|")
+              docker buildx imagetools create -t "$MIRROR_TAG" "$TAG"
+            fi
           done
 
   manifest-fat:
