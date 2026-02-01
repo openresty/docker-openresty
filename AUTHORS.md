@@ -14,3 +14,4 @@ We'd like to thank the following people for their commits:
 - Joel Linn <jl@conductive.de>
 - Kshitij Joshi <kshitijmjoshi@gmail.com>
 - Duncan Schulze <duschulze@gmail.com>
+- Adam Delarosa <gojiradam@gmail.com>
