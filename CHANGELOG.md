@@ -1,6 +1,11 @@
 `docker-openresty` Changelog
 ============================
 
+## 1.27.1.2-9 (TBD)
+
+ * Upgrade OpenSSL to 3.5.5 (fixes CVE-2025-15467)
+ * Skip OpenResty OpenSSL patch for 3.5.5 (patch not yet available)
+
 ## 1.27.1.2-8 (2026-01-11)
 
  * ci: Resolved Docker Hub mirroring issues
