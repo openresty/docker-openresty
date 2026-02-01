@@ -112,6 +112,7 @@ LABEL resty_eval_post_make="${RESTY_EVAL_POST_MAKE}"
 LABEL resty_luajit_options="${RESTY_LUAJIT_OPTIONS}"
 LABEL resty_pcre_options="${RESTY_PCRE_OPTIONS}"
 
+COPY patches /tmp/patches
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
@@ -137,9 +138,14 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && curl -fSL "${RESTY_OPENSSL_URL_BASE}/openssl-${RESTY_OPENSSL_VERSION}.tar.gz" -o openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
     && tar xzf openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
     && cd openssl-${RESTY_OPENSSL_VERSION} \
-    && if [ $(echo ${RESTY_OPENSSL_VERSION} | cut -c 1-2) = "3." ] && [ "${RESTY_OPENSSL_VERSION}" != "3.5.5" ] ; then \
-        echo 'patching OpenSSL 3.x for OpenResty' \
-        && curl -s https://raw.githubusercontent.com/openresty/openresty/master/patches/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch | patch -p1 ; \
+    && if [ $(echo ${RESTY_OPENSSL_VERSION} | cut -c 1-2) = "3." ] ; then \
+        if [ "${RESTY_OPENSSL_VERSION}" = "3.5.5" ] ; then \
+            echo 'patching OpenSSL 3.5.5 for OpenResty (using local patch)' \
+            && patch -p1 < /tmp/patches/openssl-${RESTY_OPENSSL_VERSION}-sess_set_get_cb_yield.patch ; \
+        else \
+            echo 'patching OpenSSL 3.x for OpenResty' \
+            && curl -s https://raw.githubusercontent.com/openresty/openresty/master/patches/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch | patch -p1 ; \
+        fi \
     fi \
     && if [ $(echo ${RESTY_OPENSSL_VERSION} | cut -c 1-5) = "1.1.1" ] ; then \
         echo 'patching OpenSSL 1.1.1 for OpenResty' \

@@ -4,7 +4,7 @@
 ## 1.27.1.2-9 (TBD)
 
  * Upgrade OpenSSL to 3.5.5 (fixes CVE-2025-15467)
- * Skip OpenResty OpenSSL patch for 3.5.5 (patch not yet available)
+ * Add fixed OpenResty OpenSSL patch for 3.5.5
 
 ## 1.27.1.2-8 (2026-01-11)
 
