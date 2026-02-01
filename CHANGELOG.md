@@ -1,7 +1,12 @@
 `docker-openresty` Changelog
 ============================
 
-## 1.27.1.2-9 (2026-01-30)
+## 1.27.1.2-9 (2026-02-03)
+
+ * Upgrade OpenSSL to 3.5.5 (fixes CVE-2025-15467) (#291)
+ * ci: Resolve tagged-release issue
+
+## 1.27.1.2-8 (2026-01-11)
 
  * ci: Resolve tagged-release issue
  
