@@ -1,6 +1,10 @@
 `docker-openresty` Changelog
 ============================
 
+## 1.27.1.2-10 (2026-02-05)
+
+ * Upgrade `alpine` built-from source flavor to Alpine 3.22.3 (#291)
+
 ## 1.27.1.2-9 (2026-02-03)
 
  * Upgrade OpenSSL to 3.5.5 (fixes CVE-2025-15467) (#291)
