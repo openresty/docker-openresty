@@ -292,7 +292,7 @@ jobs:
           tags: |
             type=raw,value=${{ matrix.flavor }}-${{ matrix.arch }},enable=${{ github.ref == 'refs/heads/master' }}
             type=ref,event=tag,suffix=-${{ matrix.flavor }}-${{ matrix.arch }}
-            type=match,pattern=^(.*)-[0-9]$,group=1,suffix=-${{ matrix.flavor }}-${{ matrix.arch }}
+            type=match,pattern=^(.*)-[0-9]+$,group=1,suffix=-${{ matrix.flavor }}-${{ matrix.arch }}
 
       - name: Build and push
         uses: docker/build-push-action@v5
@@ -431,7 +431,7 @@ jobs:
           tags: |
             type=raw,value=${{ matrix.flavor }}-${{ matrix.arch }},enable=${{ github.ref == 'refs/heads/master' }}
             type=ref,event=tag,suffix=-${{ matrix.flavor }}-${{ matrix.arch }}
-            type=match,pattern=^(.*)-[0-9]$,group=1,suffix=-${{ matrix.flavor }}-${{ matrix.arch }}
+            type=match,pattern=^(.*)-[0-9]+$,group=1,suffix=-${{ matrix.flavor }}-${{ matrix.arch }}
 
       - name: Build and push
         uses: docker/build-push-action@v5
