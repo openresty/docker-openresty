@@ -2,7 +2,7 @@
 # https://github.com/openresty/docker-openresty
 
 ARG RESTY_IMAGE_BASE="alpine"
-ARG RESTY_IMAGE_TAG="3.18.12"
+ARG RESTY_IMAGE_TAG="3.22.3"
 
 FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
 
@@ -10,12 +10,12 @@ LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
 # Docker Build Arguments
 ARG RESTY_IMAGE_BASE="alpine"
-ARG RESTY_IMAGE_TAG="3.18.12"
+ARG RESTY_IMAGE_TAG="3.22.3"
 
-ARG RESTY_APK_ALPINE_VERSION="3.18"
+ARG RESTY_APK_ALPINE_VERSION="3.22"
 ARG RESTY_APK_KEY_URL="https://openresty.org/package/admin@openresty.com-5ea678a6.rsa.pub"
 ARG RESTY_APK_REPO_URL="https://openresty.org/package/alpine/v${RESTY_APK_ALPINE_VERSION}/main"
-ARG RESTY_APK_VERSION="=1.27.1.2-r0"
+ARG RESTY_APK_VERSION="=1.29.1.2-r0"
 
 LABEL resty_image_base="${RESTY_IMAGE_BASE}"
 LABEL resty_image_tag="${RESTY_IMAGE_TAG}"

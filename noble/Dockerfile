@@ -11,7 +11,7 @@ LABEL maintainer="Evan Wies <evan@neomantra.net>"
 # Docker Build Arguments
 ARG RESTY_IMAGE_BASE="ubuntu"
 ARG RESTY_IMAGE_TAG="noble"
-ARG RESTY_VERSION="1.27.1.2"
+ARG RESTY_VERSION="1.29.2.1"
 ARG RESTY_LUAROCKS_VERSION="3.12.2"
 
 # https://github.com/openresty/openresty-packaging/blob/master/deb/openresty-openssl3/debian/rules

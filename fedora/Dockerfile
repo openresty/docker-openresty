@@ -2,19 +2,19 @@
 # https://github.com/openresty/docker-openresty
 
 ARG RESTY_IMAGE_BASE="fedora"
-ARG RESTY_IMAGE_TAG="36"
+ARG RESTY_IMAGE_TAG="42"
 
 FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
 ARG RESTY_IMAGE_BASE="fedora"
-ARG RESTY_IMAGE_TAG="36"
+ARG RESTY_IMAGE_TAG="42"
 ARG RESTY_LUAROCKS_VERSION="3.12.2"
 ARG RESTY_YUM_REPO="https://openresty.org/package/fedora/openresty.repo"
 ARG RESTY_RPM_FLAVOR=""
-ARG RESTY_RPM_VERSION="1.27.1.2-1"
-ARG RESTY_RPM_DIST="fc36"
+ARG RESTY_RPM_VERSION="1.29.2.1-1"
+ARG RESTY_RPM_DIST="fc42"
 ARG RESTY_RPM_ARCH="x86_64"
 
 LABEL resty_image_base="${RESTY_IMAGE_BASE}"

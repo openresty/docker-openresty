@@ -3,6 +3,7 @@
 
 ## 1.29.2.1-0 (2026-03-02)
 
+ * Upgrade OpenResty to 1.29.2.1
  * Archive `bionic` and `focal` as they are vanilla EOL
  * Archive `amzn2`, `centos`, and `centos7` as they are EOL.
 
