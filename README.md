@@ -97,14 +97,11 @@ Supported tags and respective `Dockerfile` links
 The following "flavors" are available and built from [upstream OpenResty packages](https://openresty.org/en/linux-packages.html):
 
 - [`alpine-apk`, (*alpine-apk/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine-apk/Dockerfile)
-- [`amzn2`, (*centos/Dockerfile* with `amzn2`)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
 - [`bookworm-buildpack`, (*bookworm/Dockerfile.buildpack*)](https://github.com/openresty/docker-openresty/blob/master/bookworm/Dockerfile.buildpack)
 - [`bookworm-fat`, (*bookworm/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/bookworm/Dockerfile.fat)
 - [`bookworm`, (*bookworm/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/bookworm/Dockerfile)
 - [`bullseye-fat`, (*bullseye/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/bullseye/Dockerfile.fat)
 - [`bullseye`, (*bullseye/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/bullseye/Dockerfile)
-- [`centos`, `centos-rpm`, (*centos/Dockerfile* with `el8`)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
-- [`centos7`, (*centos7/Dockerfile* with `el7`)](https://github.com/openresty/docker-openresty/blob/master/centos7/Dockerfile)
 - [`fedora`, `fedora-rpm`, (*fedora/Dockerfile* with `fc36`)](https://github.com/openresty/docker-openresty/blob/master/fedora/Dockerfile)
 - [`rocky`, (*fedora/Dockerfile* with `rockylinux`)](https://github.com/openresty/docker-openresty/blob/master/fedora/Dockerfile)
 - [`windows`, (*windows/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/windows/Dockerfile)
@@ -114,8 +111,6 @@ The following "flavors" are built from source and are intended for more advanced
 - [`alpine-fat`, (*alpine/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile.fat)
 - [`alpine`, (*alpine/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile)
 - [`alpine-slim`, (*alpine/Dockerfile*](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile), stripped Alpine image)
-- [`bionic`, (*bionic/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/bionic/Dockerfile)
-- [`focal`, (*focal/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/focal/Dockerfile)
 - [`jammy`, (*jammy/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/jammy/Dockerfile)
 - [`noble`, (*noble/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/noble/Dockerfile)
 
@@ -321,12 +316,12 @@ Docker CMD
 
 The `-g "daemon off;"` directive is used in the Dockerfile CMD to keep the Nginx daemon running after container creation. If this directive is added to the nginx.conf, then the `docker run` should explicitly invoke `openresty` (or `nginx` for `windows` images):
 ```
-docker run [options] openresty/openresty:bionic openresty
+docker run [options] openresty/openresty:noble openresty
 ```
 
 Invoke another CMD, for example the `resty` utility, like so:
 ```
-docker run [options] openresty/openresty:bionic resty [script.lua]
+docker run [options] openresty/openresty:noble resty [script.lua]
 ```
 
 *NOTE* The `alpine` images do not include the packages `perl` and `ncurses`, which is needed by the `resty` utility.

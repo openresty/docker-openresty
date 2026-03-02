@@ -72,27 +72,6 @@ jobs:
             dockerfile: alpine-apk/Dockerfile
             platforms: linux/arm64
 
-          # --- Amazon Linux 2 ---
-          - flavor: amzn2
-            arch: amd64
-            dockerfile: centos/Dockerfile
-            platforms: linux/amd64
-            build-args: |
-              RESTY_IMAGE_BASE=amazonlinux
-              RESTY_IMAGE_TAG=2
-              RESTY_YUM_REPO=https://openresty.org/package/amazon/openresty.repo
-              RESTY_RPM_DIST=amzn2
-          - flavor: amzn2
-            arch: arm64
-            dockerfile: centos/Dockerfile
-            platforms: linux/arm64
-            build-args: |
-              RESTY_IMAGE_BASE=amazonlinux
-              RESTY_IMAGE_TAG=2
-              RESTY_YUM_REPO=https://openresty.org/package/amazon/openresty.repo
-              RESTY_RPM_DIST=amzn2
-              RESTY_RPM_ARCH=aarch64
-
           # --- Rocky Linux ---
           - flavor: rocky
             arch: amd64
@@ -113,28 +92,6 @@ jobs:
               RESTY_YUM_REPO=https://openresty.org/package/rocky/openresty.repo
               RESTY_RPM_DIST=el8
               RESTY_RPM_ARCH=aarch64
-
-          # --- CentOS ---
-          - flavor: centos
-            arch: amd64
-            dockerfile: centos/Dockerfile
-            platforms: linux/amd64
-          - flavor: centos
-            arch: arm64
-            dockerfile: centos/Dockerfile
-            platforms: linux/arm64
-            build-args: RESTY_RPM_ARCH=aarch64
-
-          # --- CentOS 7 ---
-          - flavor: centos7
-            arch: amd64
-            dockerfile: centos7/Dockerfile
-            platforms: linux/amd64
-          - flavor: centos7
-            arch: arm64
-            dockerfile: centos7/Dockerfile
-            platforms: linux/arm64
-            build-args: RESTY_RPM_ARCH=aarch64
 
           # --- Fedora ---
           # Note: fedora-aarch64 is commented out in Travis CI
@@ -201,34 +158,6 @@ jobs:
             dockerfile: bullseye/Dockerfile.valgrind
             platforms: linux/arm64
             build-args: RESTY_APT_REPO=https://openresty.org/package/arm64/debian
-
-          # --- Ubuntu Bionic ---
-          - flavor: bionic
-            arch: amd64
-            dockerfile: bionic/Dockerfile
-            platforms: linux/amd64
-          - flavor: bionic
-            arch: arm64
-            dockerfile: bionic/Dockerfile
-            platforms: linux/arm64
-          - flavor: bionic
-            arch: s390x
-            dockerfile: bionic/Dockerfile
-            platforms: linux/s390x
-
-          # --- Ubuntu Focal ---
-          - flavor: focal
-            arch: amd64
-            dockerfile: focal/Dockerfile
-            platforms: linux/amd64
-          - flavor: focal
-            arch: arm64
-            dockerfile: focal/Dockerfile
-            platforms: linux/arm64
-          - flavor: focal
-            arch: s390x
-            dockerfile: focal/Dockerfile
-            platforms: linux/s390x
 
           # --- Ubuntu Jammy ---
           - flavor: jammy
@@ -323,7 +252,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        flavor: [alpine, alpine-slim, alpine-apk, amzn2, rocky, centos, centos7, fedora, bookworm, bookworm-buildpack, bullseye, bullseye-debug, bullseye-valgrind, bionic, focal, jammy, noble]
+        flavor: [alpine, alpine-slim, alpine-apk, rocky, fedora, bookworm, bookworm-buildpack, bullseye, bullseye-debug, bullseye-valgrind, jammy, noble]
     steps:
       - name: Checkout
         uses: actions/checkout@v4

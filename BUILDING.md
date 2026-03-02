@@ -17,7 +17,7 @@ This Docker image can be built and customized by cloning the repo and running `d
 ```
 git clone https://github.com/openresty/docker-openresty.git
 cd docker-openresty
-docker build -t myopenresty -f bionic/Dockerfile .
+docker build -t myopenresty -f noble/Dockerfile .
 docker run myopenresty
 ```
 
@@ -25,8 +25,6 @@ Dockerfiles are provided for the following base systems, selecting the Dockerfil
 
  * [Alpine](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile) (`alpine/Dockerfile`)
  * [Alpine Fat](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile.fat) (`alpine/Dockerfile.fat`)
- * [Ubuntu Bionic](https://github.com/openresty/docker-openresty/blob/master/bionic/Dockerfile) (`bionic/Dockerfile`)
- * [Ubuntu Focal](https://github.com/openresty/docker-openresty/blob/master/focal/Dockerfile) (`focal/Dockerfile`)
  * [Ubuntu Jammy](https://github.com/openresty/docker-openresty/blob/master/jammy/Dockerfile) (`jammy/Dockerfile`)
  * [Ubuntu Noble](https://github.com/openresty/docker-openresty/blob/master/noble/Dockerfile) (`noble/Dockerfile`)
 
@@ -109,15 +107,11 @@ OpenResty now now has [RPMs available](https://openresty.org/en/rpm-packages.htm
 
 This Docker image can be built and customized by cloning the repo and running `docker build` with the desired Dockerfile:
 
- * [CentOS 7 RPM](https://github.com/openresty/docker-openresty/blob/master/centos7/Dockerfile) (`centos/Dockerfile`)
- * [CentOS 8 RPM](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile) (`centos/Dockerfile`)
  * [Fedora 35 RPM](https://github.com/openresty/docker-openresty/blob/master/fedora/Dockerfile) (`centos/Dockerfile`)
 
 The following are the available build-time options. They can be set using the `--build-arg` CLI argument, like so:
 
 ```
-docker build --build-arg RESTY_RPM_FLAVOR="-debug" centos7/Dockerfile .
-docker build --build-arg RESTY_RPM_FLAVOR="-debug" centos/Dockerfile .
 docker build --build-arg RESTY_RPM_FLAVOR="-debug" -f fedora/Dockerfile .
 ```
 

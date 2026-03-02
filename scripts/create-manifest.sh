@@ -28,14 +28,14 @@ fi
 if [[ -f "LATEST_SERIES" ]]; then
     RESTY_LATEST_SERIES=$(cat LATEST_SERIES | head -n 1 | tr -d '[:space:]')
 fi
-RESTY_LATEST_SERIES="${RESTY_LATEST_SERIES:-1.27}"
+RESTY_LATEST_SERIES="${RESTY_LATEST_SERIES:-1.29}"
 
 # Define architectures for each flavor
 # Default to amd64 and arm64, can be overridden by RESTY_ARCHS env var
 ARCHS="${RESTY_ARCHS:-amd64 arm64}"
 
 # Add s390x for Ubuntu flavors
-UBUNTU_FLAVORS=("bionic" "focal" "jammy" "noble")
+UBUNTU_FLAVORS=("jammy" "noble")
 for ub_flavor in "${UBUNTU_FLAVORS[@]}"; do
     if [[ "$FLAVOR" == "$ub_flavor" ]]; then
         ARCHS="$ARCHS s390x"

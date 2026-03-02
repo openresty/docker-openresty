@@ -1,6 +1,11 @@
 `docker-openresty` Changelog
 ============================
 
+## 1.29.2.1-0 (2026-03-02)
+
+ * Archive `bionic` and `focal` as they are vanilla EOL
+ * Archive `amzn2`, `centos`, and `centos7` as they are EOL.
+
 ## 1.27.1.2-11 (2026-02-09)
 
  * `latest` tag matches latest tagged `bookworm` release (#294)
