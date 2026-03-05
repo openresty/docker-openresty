@@ -1,9 +1,13 @@
 `docker-openresty` Changelog
 ============================
 
-## 1.29.2.1-0 (2026-03-02)
+## 1.29.2.1-0 (2026-03-05)
+
+**This release only includes build-from-source flavors:
+ `alpine`, `alpine-fat`, `alpine-slim`, `jammy`, `noble`**
 
  * Upgrade OpenResty to 1.29.2.1
+ * Exclude build-from-upstream until they are available
  * Archive `bionic` and `focal` as they are vanilla EOL
  * Archive `amzn2`, `centos`, and `centos7` as they are EOL.
 
