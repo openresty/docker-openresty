@@ -6,8 +6,9 @@
 **This release only includes build-from-source flavors:
  `alpine`, `alpine-fat`, `alpine-slim`, `jammy`, `noble`**
 
- * Upgrade OpenResty to 1.29.2.1
+ * Upgrade OpenResty to `1.29.2.1` ([#280](https://github.com/openresty/docker-openresty/issues/280))
  * Exclude build-from-upstream until they are available
+ * Update LuaRocks to `3.13.0`
  * Archive `bionic` and `focal` as they are vanilla EOL
  * Archive `amzn2`, `centos`, and `centos7` as they are EOL.
 
