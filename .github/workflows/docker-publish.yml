@@ -49,7 +49,7 @@ jobs:
             arch: arm64
             dockerfile: alpine/Dockerfile
             platforms: linux/arm64
-          
+
           # --- Alpine Slim ---
           - flavor: alpine-slim
             arch: amd64
@@ -62,103 +62,104 @@ jobs:
             platforms: linux/arm64
             build-args: RESTY_STRIP_BINARIES=1
 
-          # --- Alpine APK ---
-          #- flavor: alpine-apk
-          #  arch: amd64
-          #  dockerfile: alpine-apk/Dockerfile
-          #  platforms: linux/amd64
-          #- flavor: alpine-apk
-          #  arch: arm64
-          #  dockerfile: alpine-apk/Dockerfile
-          #  platforms: linux/arm64
+          # -- Alpine APK ---
+          - flavor: alpine-apk
+            arch: amd64
+            dockerfile: alpine-apk/Dockerfile
+            platforms: linux/amd64
+          - flavor: alpine-apk
+            arch: arm64
+            dockerfile: alpine-apk/Dockerfile
+            platforms: linux/arm64
 
           # --- Rocky Linux ---
-          #- flavor: rocky
-          #  arch: amd64
-          #  dockerfile: fedora/Dockerfile
-          #  platforms: linux/amd64
-          #  build-args: |
-          #    RESTY_IMAGE_BASE=rockylinux
-          #    RESTY_IMAGE_TAG=8.5
-          #    RESTY_YUM_REPO=https://openresty.org/package/rocky/openresty.repo
-          #    RESTY_RPM_DIST=el8
-          #- flavor: rocky
-          #  arch: arm64
-          #  dockerfile: fedora/Dockerfile
-          #  platforms: linux/arm64
-          #  build-args: |
-          #    RESTY_IMAGE_BASE=rockylinux
-          #    RESTY_IMAGE_TAG=8.5
-          #    RESTY_YUM_REPO=https://openresty.org/package/rocky/openresty.repo
-          #    RESTY_RPM_DIST=el8
-          #    RESTY_RPM_ARCH=aarch64
+          - flavor: rocky
+            arch: amd64
+            dockerfile: fedora/Dockerfile
+            platforms: linux/amd64
+            build-args: |
+              RESTY_IMAGE_BASE=rockylinux/rockylinux
+              RESTY_IMAGE_TAG=9.6
+              RESTY_YUM_REPO=https://openresty.org/package/rocky/openresty2.repo
+              RESTY_RPM_DIST=el9
+              RESTY_DNF_NO_REPOFILE=1
+          - flavor: rocky
+            arch: arm64
+            dockerfile: fedora/Dockerfile
+            platforms: linux/arm64
+            build-args: |
+              RESTY_IMAGE_BASE=rockylinux/rockylinux
+              RESTY_IMAGE_TAG=9.6
+              RESTY_YUM_REPO=https://openresty.org/package/rocky/openresty2.repo
+              RESTY_RPM_DIST=el9
+              RESTY_RPM_ARCH=aarch64
+              RESTY_DNF_NO_REPOFILE=1
 
           # --- Fedora ---
           # Note: fedora-aarch64 is commented out in Travis CI
-          #- flavor: fedora
-          #  arch: amd64
-          #  dockerfile: fedora/Dockerfile
-          #  platforms: linux/amd64
+          - flavor: fedora
+            arch: amd64
+            dockerfile: fedora/Dockerfile
+            platforms: linux/amd64
 
           # --- Debian Bookworm ---
-          #- flavor: bookworm
-          #  arch: amd64
-          #  dockerfile: bookworm/Dockerfile
-          #  platforms: linux/amd64
-          #- flavor: bookworm
-          #  arch: arm64
-          #  dockerfile: bookworm/Dockerfile
-          #  platforms: linux/arm64
-          #  build-args: |
-          #    RESTY_APT_REPO=https://openresty.org/package/arm64/debian
-          #    RESTY_APT_ARCH=arm64
+          - flavor: bookworm
+            arch: amd64
+            dockerfile: bookworm/Dockerfile
+            platforms: linux/amd64
+          - flavor: bookworm
+            arch: arm64
+            dockerfile: bookworm/Dockerfile
+            platforms: linux/arm64
+            build-args: |
+              RESTY_APT_REPO=https://openresty.org/package/arm64/debian
+              RESTY_APT_ARCH=arm64
 
           # --- Debian Bookworm Buildpack ---
-          #- flavor: bookworm-buildpack
-          #  arch: amd64
-          #  dockerfile: bookworm/Dockerfile.buildpack
-          #  platforms: linux/amd64
-          #- flavor: bookworm-buildpack
-          #  arch: arm64
-          #  dockerfile: bookworm/Dockerfile.buildpack
-          #  platforms: linux/arm64
-          #  build-args: |
-          #    RESTY_APT_REPO=https://openresty.org/package/arm64/debian
-          #    RESTY_APT_ARCH=arm64
-
+          - flavor: bookworm-buildpack
+            arch: amd64
+            dockerfile: bookworm/Dockerfile.buildpack
+            platforms: linux/amd64
+          - flavor: bookworm-buildpack
+            arch: arm64
+            dockerfile: bookworm/Dockerfile.buildpack
+            platforms: linux/arm64
+            build-args: |
+              RESTY_APT_REPO=https://openresty.org/package/arm64/debian
+              RESTY_APT_ARCH=arm64
+  
           # --- Debian Bullseye ---
-          #- flavor: bullseye
-          #  arch: amd64
-          #  dockerfile: bullseye/Dockerfile
-          #  platforms: linux/amd64
-          #- flavor: bullseye
-          #  arch: arm64
-          #  dockerfile: bullseye/Dockerfile
-          #  platforms: linux/arm64
-          #  build-args: RESTY_APT_REPO=https://openresty.org/package/arm64/debian
-
+          - flavor: bullseye
+            arch: amd64
+            dockerfile: bullseye/Dockerfile
+            platforms: linux/amd64
+          - flavor: bullseye
+            arch: arm64
+            dockerfile: bullseye/Dockerfile
+            platforms: linux/arm64
+            build-args: RESTY_APT_REPO=https://openresty.org/package/arm64/debian
           # --- Debian Bullseye Debug ---
-          #- flavor: bullseye-debug
-          #  arch: amd64
-          #  dockerfile: bullseye/Dockerfile.debug
-          #  platforms: linux/amd64
-          #- flavor: bullseye-debug
-          #  arch: arm64
-          #  dockerfile: bullseye/Dockerfile.debug
-          #  platforms: linux/arm64
-          #  build-args: RESTY_APT_REPO=https://openresty.org/package/arm64/debian
-
+          - flavor: bullseye-debug
+            arch: amd64
+            dockerfile: bullseye/Dockerfile.debug
+            platforms: linux/amd64
+          - flavor: bullseye-debug
+            arch: arm64
+            dockerfile: bullseye/Dockerfile.debug
+            platforms: linux/arm64
+            build-args: RESTY_APT_REPO=https://openresty.org/package/arm64/debian
+  
           # --- Debian Bullseye Valgrind ---
-          #- flavor: bullseye-valgrind
-          #  arch: amd64
-          #  dockerfile: bullseye/Dockerfile.valgrind
-          #  platforms: linux/amd64
-          #- flavor: bullseye-valgrind
-          #  arch: arm64
-          #  dockerfile: bullseye/Dockerfile.valgrind
-          #  platforms: linux/arm64
-          #  build-args: RESTY_APT_REPO=https://openresty.org/package/arm64/debian
-
+          - flavor: bullseye-valgrind
+            arch: amd64
+            dockerfile: bullseye/Dockerfile.valgrind
+            platforms: linux/amd64
+          - flavor: bullseye-valgrind
+            arch: arm64
+            dockerfile: bullseye/Dockerfile.valgrind
+            platforms: linux/arm64
+            build-args: RESTY_APT_REPO=https://openresty.org/package/arm64/debian
+  
           # --- Ubuntu Jammy ---
           - flavor: jammy
             arch: amd64
@@ -285,27 +286,27 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          #- flavor: bookworm-fat
-          #  base_flavor: bookworm
-          #  arch: amd64
-          #  dockerfile: bookworm/Dockerfile.fat
-          #  platforms: linux/amd64
-          #- flavor: bookworm-fat
-          #  base_flavor: bookworm
-          #  arch: arm64
-          #  dockerfile: bookworm/Dockerfile.fat
-          #  platforms: linux/arm64
+          - flavor: bookworm-fat
+            base_flavor: bookworm
+            arch: amd64
+            dockerfile: bookworm/Dockerfile.fat
+            platforms: linux/amd64
+          - flavor: bookworm-fat
+            base_flavor: bookworm
+            arch: arm64
+            dockerfile: bookworm/Dockerfile.fat
+            platforms: linux/arm64
           
-          #- flavor: bullseye-fat
-          #  base_flavor: bullseye
-          #  arch: amd64
-          #  dockerfile: bullseye/Dockerfile.fat
-          #  platforms: linux/amd64
-          #- flavor: bullseye-fat
-          #  base_flavor: bullseye
-          #  arch: arm64
-          #  dockerfile: bullseye/Dockerfile.fat
-          #  platforms: linux/arm64
+          - flavor: bullseye-fat
+            base_flavor: bullseye
+            arch: amd64
+            dockerfile: bullseye/Dockerfile.fat
+            platforms: linux/amd64
+          - flavor: bullseye-fat
+            base_flavor: bullseye
+            arch: arm64
+            dockerfile: bullseye/Dockerfile.fat
+            platforms: linux/arm64
 
           - flavor: alpine-fat
             base_flavor: alpine

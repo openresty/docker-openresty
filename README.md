@@ -41,11 +41,11 @@ It is best practice to pin your images to an explicit image tag.  The [next sect
 
 | Image  | Description |
 | --- | --- |
-| `openresty/openresty:1.27.1.2-0-jammy` | Built-from-source Ubuntu Jammy |
-| `openresty/openresty:1.27.1.2-0-focal` | Built-from-source Ubuntu Focal |
-| `openresty/openresty:1.27.1.2-0-bookworm-fat` | Built-from-upstream Debian Bookworm |
-| `openresty/openresty:1.27.1.2-0-alpine` | Built-from-source Alpine |
-| `openresty/openresty:1.27.1.2-0-alpine-apk` | Built-from-upstream Alpine |
+| `openresty/openresty:1.29.2.1-0-noble` | Built-from-source Ubuntu Noble |
+| `openresty/openresty:1.29.2.1-0-jammy` | Built-from-source Ubuntu Jammy |
+| `openresty/openresty:1.29.2.1-0-bookworm-fat` | Built-from-upstream Debian Bookworm |
+| `openresty/openresty:1.29.2.1-0-alpine` | Built-from-source Alpine |
+| `openresty/openresty:1.29.2.1-0-alpine-apk` | Built-from-upstream Alpine |
 
 These are examples of untagged image names, for reference:
 

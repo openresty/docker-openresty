@@ -22,7 +22,7 @@ tasks:
   build-all-upstream-arm64:
     cmds:
       - docker build -t alpine-apk-aarch64 -f alpine-apk/Dockerfile .
-      - docker build -t rocky-aarch64      -f fedora/Dockerfile     --build-arg RESTY_IMAGE_BASE=rockylinux --build-arg RESTY_IMAGE_TAG=8.5 --build-arg RESTY_YUM_REPO="https://openresty.org/package/rocky/openresty.repo" --build-arg RESTY_RPM_DIST="el8" --build-arg RESTY_RPM_ARCH="aarch64" .
+      - docker build -t rocky-aarch64      -f fedora/Dockerfile     --build-arg RESTY_IMAGE_BASE=rockylinux/rockylinux --build-arg RESTY_IMAGE_TAG=9.6 --build-arg RESTY_YUM_REPO="https://openresty.org/package/rocky/openresty2.repo" --build-arg RESTY_RPM_DIST="el9" --build-arg RESTY_DNF_NO_REPOFILE="1" --build-arg RESTY_RPM_ARCH="aarch64" .
       - docker build -t fedora-aarch64     -f fedora/Dockerfile     --build-arg RESTY_RPM_ARCH=aarch64 .
       - docker build -t bookworm-aarch64   -f bookworm/Dockerfile   --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian" --build-arg RESTY_APT_ARCH="arm64" .
       - docker build -t bullseye-aarch64   -f bullseye/Dockerfile   --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian" .
@@ -30,7 +30,7 @@ tasks:
   build-all-upstream-amd64:
     cmds:
       - docker build -t alpine-apk-amd64 -f alpine-apk/Dockerfile .
-      - docker build -t rocky-amd64      -f fedora/Dockerfile     --build-arg RESTY_IMAGE_BASE=rockylinux --build-arg RESTY_IMAGE_TAG=8.5 --build-arg RESTY_YUM_REPO="https://openresty.org/package/rocky/openresty.repo" --build-arg RESTY_RPM_DIST="el8" --build-arg RESTY_RPM_ARCH="x86_64" .
+      - docker build -t rocky-amd64      -f fedora/Dockerfile     --build-arg RESTY_IMAGE_BASE=rockylinux/rockylinux --build-arg RESTY_IMAGE_TAG=9.6 --build-arg RESTY_YUM_REPO="https://openresty.org/package/rocky/openresty2.repo" --build-arg RESTY_RPM_DIST="el9" --build-arg RESTY_DNF_NO_REPOFILE="1" --build-arg RESTY_RPM_ARCH="x86_64" .
       - docker build -t fedora-amd64     -f fedora/Dockerfile     --build-arg RESTY_RPM_ARCH=x86_64 .
       - docker build -t bookworm-amd64   -f bookworm/Dockerfile   --build-arg RESTY_APT_ARCH=amd64 .
       - docker build -t bullseye-amd64   -f bullseye/Dockerfile   --build-arg RESTY_APT_ARCH=amd64 .

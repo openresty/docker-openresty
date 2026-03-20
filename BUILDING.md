@@ -125,7 +125,7 @@ docker build --build-arg RESTY_RPM_FLAVOR="-debug" -f fedora/Dockerfile .
 |RESTY_RPM_VERSION | "1.27.1.2-1" | The `openresty` package version to install. |
 |RESTY_RPM_DIST | "el8" | The `openresty` package distribution to install. |
 |RESTY_RPM_ARCH | "x86_64" | The `openresty` package architecture to install. |
-
+|RESTY_DNF_NO_REPOFILE | "" | Set to `1` if there is no `
 [Back to TOC](#table-of-contents)
 
 

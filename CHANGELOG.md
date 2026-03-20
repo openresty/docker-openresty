@@ -1,6 +1,16 @@
 `docker-openresty` Changelog
 ============================
 
+## 1.29.2.1-1 (2026-03-20)
+
+ * Enable build-from-upstream flavors:
+    * `alpine-apk`, `bookworm`, `bullseye`, `fedora`, `rocky`
+
+ * Upgrade Fedora Linux to `fedora:43`
+ * Upgrade Rocky Linux to `9.7 el9` and use `rockylinux/rockylinux` instead of `docker/rockylinux`
+ * Fix `alpine-apk` and downgrade it to the highest supported upsream version of `3.18` serios
+ * Fix builds between Rocky and Fedora with `RESTY_DNF_NO_REPOFILE` build arg
+
 ## 1.29.2.1-0 (2026-03-05)
 
 **This release only includes build-from-source flavors:

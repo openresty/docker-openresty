@@ -2,20 +2,21 @@
 # https://github.com/openresty/docker-openresty
 
 ARG RESTY_IMAGE_BASE="fedora"
-ARG RESTY_IMAGE_TAG="42"
+ARG RESTY_IMAGE_TAG="43"
 
 FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
 ARG RESTY_IMAGE_BASE="fedora"
-ARG RESTY_IMAGE_TAG="42"
+ARG RESTY_IMAGE_TAG="43"
 ARG RESTY_LUAROCKS_VERSION="3.13.0"
 ARG RESTY_YUM_REPO="https://openresty.org/package/fedora/openresty.repo"
 ARG RESTY_RPM_FLAVOR=""
 ARG RESTY_RPM_VERSION="1.29.2.1-1"
-ARG RESTY_RPM_DIST="fc42"
+ARG RESTY_RPM_DIST="fc36"
 ARG RESTY_RPM_ARCH="x86_64"
+ARG RESTY_DNF_NO_REPOFILE=""
 
 LABEL resty_image_base="${RESTY_IMAGE_BASE}"
 LABEL resty_image_tag="${RESTY_IMAGE_TAG}"
@@ -26,10 +27,14 @@ LABEL resty_rpm_version="${RESTY_RPM_VERSION}"
 LABEL resty_rpm_dist="${RESTY_RPM_DIST}"
 LABEL resty_rpm_arch="${RESTY_RPM_ARCH}"
 
-RUN dnf install -y wget \
-    && wget ${RESTY_YUM_REPO} \
-    && dnf install -y dnf-plugins-core \
-    && dnf config-manager --add-repo ${RESTY_YUM_REPO} \
+RUN if [ -n "${RESTY_DNF_NO_REPOFILE}" ]; then \
+        echo "HELLO" && dnf install -y wget \
+            && wget ${RESTY_YUM_REPO} \
+            && dnf install -y dnf-plugins-core \
+            && dnf config-manager --add-repo ${RESTY_YUM_REPO} ; \
+    else \
+        echo "WORLD" && dnf install -y dnf-plugins-core && dnf config-manager addrepo --from-repofile="${RESTY_YUM_REPO}" ; \
+    fi \
     && dnf install -y \
         gettext \
         make \
