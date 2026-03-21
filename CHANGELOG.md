@@ -1,7 +1,9 @@
 `docker-openresty` Changelog
 ============================
 
-## 1.29.2.1-1 (2026-03-20)
+## 1.29.2.2-0 (2026-03-21)
+
+ * Upgrade OpenResty to `1.29.2.2`
 
  * Enable build-from-upstream flavors:
     * `alpine-apk`, `bookworm`, `bullseye`, `fedora`, `rocky`
