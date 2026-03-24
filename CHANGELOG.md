@@ -1,7 +1,7 @@
 `docker-openresty` Changelog
 ============================
 
-## 1.29.2.2-0 (2026-03-21)
+## 1.29.2.2-0 (2026-03-24)
 
  * Upgrade OpenResty to `1.29.2.2`
 
@@ -12,6 +12,7 @@
  * Upgrade Rocky Linux to `9.7 el9` and use `rockylinux/rockylinux` instead of `docker/rockylinux`
  * Fix `alpine-apk` and downgrade it to the highest supported upsream version of `3.18` serios
  * Fix builds between Rocky and Fedora with `RESTY_DNF_NO_REPOFILE` build arg
+ * ci: Upgrade GitHub actions
 
 ## 1.29.2.1-0 (2026-03-05)
 
