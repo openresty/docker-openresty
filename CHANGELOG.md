@@ -1,6 +1,10 @@
 `docker-openresty` Changelog
 ============================
 
+## 1.29.2.2-1 (2026-03-25)
+
+ * Fix manifest for CI.  `1.29.2.2-0` was never properly released.
+
 ## 1.29.2.2-0 (2026-03-24)
 
  * Upgrade OpenResty to `1.29.2.2`
