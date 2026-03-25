@@ -253,8 +253,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        flavor: [alpine, alpine-slim, jammy, noble]
-        #flavor: [alpine, alpine-slim, alpine-apk, rocky, fedora, bookworm, bookworm-buildpack, bullseye, bullseye-debug, bullseye-valgrind, jammy, noble]
+        flavor: [alpine, alpine-slim, alpine-apk, rocky, fedora, bookworm, bookworm-buildpack, bullseye, bullseye-debug, bullseye-valgrind, jammy, noble]
 
     steps:
       - name: Checkout
@@ -398,8 +397,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        flavor: [alpine-fat]
-        #flavor: [bookworm-fat, bullseye-fat, alpine-fat]
+        flavor: [bookworm-fat, bullseye-fat, alpine-fat]
     steps:
       - name: Checkout
         uses: actions/checkout@v5
