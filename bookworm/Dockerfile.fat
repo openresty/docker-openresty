@@ -21,15 +21,35 @@ ARG RESTY_FAT_IMAGE_TAG="bookworm"
 ARG RESTY_FAT_DEB_FLAVOR=""
 ARG RESTY_FAT_DEB_VERSION="=1.29.2.2-1~bookworm1"
 
+ARG RESTY_LUAROCKS_VERSION="3.13.0"
+
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 LABEL resty_fat_deb_flavor="${RESTY_FAT_DEB_FLAVOR}"
 LABEL resty_fat_deb_version="${RESTY_FAT_DEB_VERSION}"
 LABEL resty_fat_image_base="${RESTY_FAT_IMAGE_BASE}"
 LABEL resty_fat_image_tag="${RESTY_FAT_IMAGE_TAG}"
+LABEL resty_luarocks_version="${RESTY_LUAROCKS_VERSION}"
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         -o Dpkg::Options::="--force-confold" \
         openresty-resty${RESTY_FAT_DEB_FLAVOR}${RESTY_FAT_DEB_VERSION} \
         openresty-opm${RESTY_FAT_DEB_FLAVOR}${RESTY_FAT_DEB_VERSION} \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        build-essential \
+        ca-certificates \
+        curl \
+        make \
+        unzip \
+    && curl -fSL https://luarocks.github.io/luarocks/releases/luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz -o luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
+    && tar xzf luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
+    && cd luarocks-${RESTY_LUAROCKS_VERSION} \
+    && ./configure \
+        --prefix=/usr/local/openresty/luajit \
+        --with-lua=/usr/local/openresty/luajit \
+        --with-lua-include=/usr/local/openresty/luajit/include/luajit-2.1 \
+    && make build \
+    && make install \
+    && cd /tmp \
+    && rm -rf luarocks-${RESTY_LUAROCKS_VERSION} luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && rm -rf /var/lib/apt/lists/*

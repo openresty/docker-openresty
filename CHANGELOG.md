@@ -1,6 +1,10 @@
 `docker-openresty` Changelog
 ============================
 
+## 1.29.2.2-2 (2026-03-26)
+
+ * `bookwork-fat` and `bullseye-fat` flavors now include build systems and LuaRocks (#295)
+
 ## 1.29.2.2-1 (2026-03-25)
 
  * Fix manifest for CI.  `1.29.2.2-0` was never properly released.

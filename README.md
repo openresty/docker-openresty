@@ -7,7 +7,7 @@
 Docker is a container management platform. OpenResty is a full-fledged web application server by
 bundling the standard nginx core, lots of 3rd-party nginx modules, as well as most of their external dependencies.
 
-Thank you to [Travis CI](https://www.travis-ci.com) for donating their build infrastructure to this project for over seven years!  We have since migrated to GitHub Actions.
+Thank you to [Travis CI](https://www.travis-ci.com) for donating their build infrastructure to this project for over seven years!  We have since migrated to [GitHub Actions](https://github.com/openresty/docker-openresty/actions).
 
 We provide a series of [pre-built images](#openresty-image-tags) for various operating systems. Some are built-from the upstream OpenResty pre-built images and some are built from source.
 
