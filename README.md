@@ -1,6 +1,6 @@
 # docker-openresty - Docker tooling for OpenResty
 
-[![Build Status](https://github.com/openresty/docker-openresty/actions/workflows/docker-publish.yml/badge.svg?branch=master)](https://github.com/openresty/docker-openresty/actions/workflows/docker-publish.yml)  [![Appveyor status](https://ci.appveyor.com/api/projects/status/github/openresty/docker-openresty?branch=master&svg=true)](https://ci.appveyor.com/project/openresty/docker-openresty)  [![](https://images.microbadger.com/badges/image/openresty/openresty.svg)](https://microbadger.com/#/images/openresty/openresty "microbadger.com")
+[![Build Status](https://github.com/openresty/docker-openresty/actions/workflows/docker-publish.yml/badge.svg?branch=master)](https://github.com/openresty/docker-openresty/actions/workflows/docker-publish.yml)  [![](https://images.microbadger.com/badges/image/openresty/openresty.svg)](https://microbadger.com/#/images/openresty/openresty "microbadger.com")
 
 `docker-openresty` is [Docker](https://www.docker.com) tooling for OpenResty (https://www.openresty.org).
 
@@ -118,7 +118,7 @@ The `openresty/openresty:latest` tag points to the latest `bookworm` image.
 
 Since `1.19.3.2-1`, all flavors support multi-architecture builds, both `amd64` and `aarch64`.  Since `1.21.4.1-1`, the `s390x` architecture is supported for build-from-source Ubuntu flavors (like `jammy`); prior to version `1.27.1.2-3`, [PCRE JIT](https://github.com/zherczeg/sljit/issues/89) is disabled for `s390x`.
 
-Starting with `1.13.6.1`, releases are tagged with `<openresty-version>-<image-version>-<flavor>`.  The latest `image-version` will also be tagged `<openresty-version>-<flavor>`.   The HEAD of the master branch is also labeled plainly as `<flavor>`.  The builds are managed by [GitHub Actions](https://github.com/openresty/docker-openresty/actions) and [Appveyor](https://ci.appveyor.com/project/openresty/docker-openresty) (for Windows images).
+Starting with `1.13.6.1`, releases are tagged with `<openresty-version>-<image-version>-<flavor>`.  The latest `image-version` will also be tagged `<openresty-version>-<flavor>`.   The HEAD of the master branch is also labeled plainly as `<flavor>`.  The builds are managed by [GitHub Actions](https://github.com/openresty/docker-openresty/actions).
 
 There are architecture-specific tags as well, `<openresty-version>-<image-version>-<flavor>-<arch>`, but one would generally pull from the multi-architecture name above.
 

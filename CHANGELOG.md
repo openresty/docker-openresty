@@ -3,6 +3,9 @@
 
 ## 1.29.2.2-2 (2026-03-26)
 
+Thank you to [AppVeyor](https://www.appveyor.com) for many years of Windows builds! ❤️
+
+ * Windows builds moved from AppVeyor to GitHub Actions.  
  * `bookwork-fat` and `bullseye-fat` flavors now include build systems and LuaRocks (#295)
 
 ## 1.29.2.2-1 (2026-03-25)

@@ -24,5 +24,5 @@ A test script `test-build-actions.sh` is provided to verify the build process lo
 - `test-build-actions.sh`: Build verification script.
 
 ## Historical Context
-- Previously used Travis CI (`.travis.yml` - removed).
-- Windows builds are/were handled by AppVeyor (`appveyor.yml` - still present).
+- Previously used Travis CI (`archive/dot_travis.yml` - removed).
+- Previously Windows builds were handled by AppVeyor (`archive/appveyor.yml`).
