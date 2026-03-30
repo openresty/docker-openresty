@@ -19,7 +19,7 @@ ARG RESTY_FAT_IMAGE_TAG="bookworm"
 # OpenResty Debian package variants.
 # For example: "-debug" or "-valgrind"
 ARG RESTY_FAT_DEB_FLAVOR=""
-ARG RESTY_FAT_DEB_VERSION="=1.29.2.2-1~bookworm1"
+ARG RESTY_FAT_DEB_VERSION="=1.29.2.3-1~bookworm1"
 
 ARG RESTY_LUAROCKS_VERSION="3.13.0"
 

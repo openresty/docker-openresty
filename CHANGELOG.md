@@ -1,10 +1,11 @@
 `docker-openresty` Changelog
 ============================
 
-## 1.29.2.2-2 (2026-03-26)
+## 1.29.2.3-0 (2026-03-30)
 
 Thank you to [AppVeyor](https://www.appveyor.com) for many years of Windows builds! ❤️
 
+ * Upgrade OpenResty to `1.29.2.3`
  * Windows builds moved from AppVeyor to GitHub Actions.  
  * `bookwork-fat` and `bullseye-fat` flavors now include build systems and LuaRocks (#295)
 
