@@ -3,10 +3,13 @@
 
 ## 1.29.2.3-0 (2026-03-30)
 
+**`windows` flavor is currently disabled because there are no upstream binaries.**
+
 Thank you to [AppVeyor](https://www.appveyor.com) for many years of Windows builds! ❤️
 
  * Upgrade OpenResty to `1.29.2.3`
  * Windows builds moved from AppVeyor to GitHub Actions.  
+ * Disable Windows builds until upstream binaries are ready.
  * `bookwork-fat` and `bullseye-fat` flavors now include build systems and LuaRocks (#295)
 
 ## 1.29.2.2-1 (2026-03-25)
