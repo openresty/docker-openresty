@@ -28,12 +28,12 @@ LABEL resty_rpm_dist="${RESTY_RPM_DIST}"
 LABEL resty_rpm_arch="${RESTY_RPM_ARCH}"
 
 RUN if [ -n "${RESTY_DNF_NO_REPOFILE}" ]; then \
-        echo "HELLO" && dnf install -y wget \
+        dnf install -y wget \
             && wget ${RESTY_YUM_REPO} \
             && dnf install -y dnf-plugins-core \
             && dnf config-manager --add-repo ${RESTY_YUM_REPO} ; \
     else \
-        echo "WORLD" && dnf install -y dnf-plugins-core && dnf config-manager addrepo --from-repofile="${RESTY_YUM_REPO}" ; \
+        dnf install -y dnf-plugins-core && dnf config-manager addrepo --from-repofile="${RESTY_YUM_REPO}" ; \
     fi \
     && dnf install -y \
         gettext \

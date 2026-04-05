@@ -39,6 +39,7 @@ tasks:
   # TODO: Should fail if arch is wrong, perhaps add pre-flight check
   build-all-source-arm64:
     cmds:
+      - docker build -t alma-aarch64   -f alma/Dockerfile .
       - docker build -t alpine-aarch64 -f alpine/Dockerfile .
       - docker build -t jammy-aarch64  -f jammy/Dockerfile .
       - docker build -t noble-aarch64  -f noble/Dockerfile .
@@ -47,6 +48,7 @@ tasks:
   # TODO: Should fail if arch is wrong, perhaps add pre-flight check
   build-all-source-amd64:
     cmds:
+      - docker build -t alma-amd64   -f alma/Dockerfile .
       - docker build -t alpine-amd64 -f alpine/Dockerfile .
       - docker build -t jammy-amd64  -f jammy/Dockerfile .
       - docker build -t noble-amd64  -f noble/Dockerfile .
@@ -54,9 +56,10 @@ tasks:
   # Builds all source on host arch platform without tags
   build-all-source:
     cmds:
+      - docker build -f alma/Dockerfile .
       - docker build -f alpine/Dockerfile .
-      - docker build  -f jammy/Dockerfile .
-      - docker build  -f noble/Dockerfile .
+      - docker build -f jammy/Dockerfile .
+      - docker build -f noble/Dockerfile .
 
   build-debug-arm64:
       - docker build -t bullseye-debug-aarch64    -f bullseye/Dockerfile.debug    --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian" .

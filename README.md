@@ -108,6 +108,7 @@ The following "flavors" are available and built from [upstream OpenResty package
 
 The following "flavors" are built from source and are intended for more advanced and custom usage, caveat emptor:
 
+- [`alma`, (*alma/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alma/Dockerfile)
 - [`alpine-fat`, (*alpine/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile.fat)
 - [`alpine`, (*alpine/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile)
 - [`alpine-slim`, (*alpine/Dockerfile*](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile), stripped Alpine image)
@@ -148,6 +149,7 @@ The [Maintainers](#changelog--authors) of this OpenResty Docker Tooling operate 
 
  * We track build-from-source images as follows:
  
+    * [Alma Linux latest stable](https://almalinux.org/get-almalinux/)
     * [Alpine `stable`](https://www.alpinelinux.org/releases/)
     * [Ubuntu "LTS"](https://wiki.ubuntu.com/Releases)
 

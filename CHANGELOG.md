@@ -1,6 +1,10 @@
 `docker-openresty` Changelog
 ============================
 
+## 1.29.2.3-1 (2026-04-04)
+
+ * Add `alma` flavor ❤️🔴🧔‍♂️ (#248)
+
 ## 1.29.2.3-0 (2026-03-30)
 
 **`windows` flavor is currently disabled because there are no upstream binaries.**
