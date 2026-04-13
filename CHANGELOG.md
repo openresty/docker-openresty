@@ -5,6 +5,7 @@
 
  * Actually GitHub Action publish the `alma` flavor
  * `alma` flavor now uses `almalinux:10-minimal`
+ * Update GitHub Action versions
 
 ## 1.29.2.3-1 (2026-04-04)
 

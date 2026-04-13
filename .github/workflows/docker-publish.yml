@@ -204,16 +204,16 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+        uses: docker/setup-qemu-action@v4
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v4
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ secrets.GHCR_USERNAME }}
@@ -221,7 +221,7 @@ jobs:
 
       - name: Login to Docker Mirror
         if: vars.ENABLE_DOCKERHUB_MIRROR == 'true'
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ${{ env.DOCKERHUB_REGISTRY }}
           username: ${{ secrets.DOCKER_USERNAME }}
@@ -229,7 +229,7 @@ jobs:
 
       - name: Extract metadata (tags, labels)
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: |
             ${{ env.GHCR_IMAGE }}
@@ -241,7 +241,7 @@ jobs:
             type=match,pattern=^(.*)-[0-9]+$,group=1,suffix=-${{ matrix.flavor }}-${{ matrix.arch }}
 
       - name: Build and push
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: ${{ matrix.dockerfile }}
@@ -284,10 +284,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ secrets.GHCR_USERNAME }}
@@ -295,7 +295,7 @@ jobs:
 
       - name: Login to Docker Hub (Mirror)
         if: vars.ENABLE_DOCKERHUB_MIRROR == 'true'
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ${{ env.DOCKERHUB_REGISTRY }}
           username: ${{ secrets.DOCKER_USERNAME }}
@@ -347,16 +347,16 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+        uses: docker/setup-qemu-action@v4
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v4
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ secrets.GHCR_USERNAME }}
@@ -364,7 +364,7 @@ jobs:
 
       - name: Login to Docker Hub (Mirror)
         if: vars.ENABLE_DOCKERHUB_MIRROR == 'true'
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ${{ env.DOCKERHUB_REGISTRY }}
           username: ${{ secrets.DOCKER_USERNAME }}
@@ -384,7 +384,7 @@ jobs:
 
       - name: Extract metadata
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: |
             ${{ env.GHCR_IMAGE }}
@@ -396,7 +396,7 @@ jobs:
             type=match,pattern=^(.*)-[0-9]+$,group=1,suffix=-${{ matrix.flavor }}-${{ matrix.arch }}
 
       - name: Build and push
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: ${{ matrix.dockerfile }}
@@ -552,10 +552,10 @@ jobs:
         flavor: [bookworm-fat, bullseye-fat, alpine-fat]
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ secrets.GHCR_USERNAME }}
@@ -563,7 +563,7 @@ jobs:
 
       - name: Login to Docker Hub (Mirror)
         if: vars.ENABLE_DOCKERHUB_MIRROR == 'true'
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
