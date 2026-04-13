@@ -1,6 +1,11 @@
 `docker-openresty` Changelog
 ============================
 
+## 1.29.2.3-2 (2026-04-13)
+
+ * Actually GitHub Action publish the `alma` flavor
+ * `alma` flavor now uses `almalinux:10-minimal`
+
 ## 1.29.2.3-1 (2026-04-04)
 
  * Add `alma` flavor ❤️🔴🧔‍♂️ (#248)

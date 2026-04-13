@@ -2,7 +2,7 @@
 # https://github.com/openresty/docker-openresty
 
 ARG RESTY_IMAGE_BASE="almalinux"
-ARG RESTY_IMAGE_TAG="10"
+ARG RESTY_IMAGE_TAG="10-minimal"
 
 FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
 
@@ -10,7 +10,7 @@ LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
 # Docker Build Arguments
 ARG RESTY_IMAGE_BASE="almalinux"
-ARG RESTY_IMAGE_TAG="10"
+ARG RESTY_IMAGE_TAG="10-minimal"
 ARG RESTY_VERSION="1.29.2.3"
 ARG RESTY_LUAROCKS_VERSION="3.13.0"
 
@@ -113,7 +113,7 @@ LABEL resty_luajit_options="${RESTY_LUAJIT_OPTIONS}"
 LABEL resty_pcre_options="${RESTY_PCRE_OPTIONS}"
 
 
-RUN dnf install -y \
+RUN microdnf install -y \
         curl \
         diffutils \
         gd-devel \
@@ -121,6 +121,7 @@ RUN dnf install -y \
         libxslt-devel \
         patch \
         perl \
+        tar \
         zlib-devel \
     && cd /tmp \
     && if [ -n "${RESTY_EVAL_PRE_CONFIGURE}" ]; then eval $(echo ${RESTY_EVAL_PRE_CONFIGURE}); fi \
@@ -177,7 +178,7 @@ RUN dnf install -y \
         pcre2-${RESTY_PCRE_VERSION}.tar.gz pcre2-${RESTY_PCRE_VERSION} \
         openresty-${RESTY_VERSION}.tar.gz openresty-${RESTY_VERSION} \
     && if [ -n "${RESTY_ADD_PACKAGE_BUILDDEPS}" ]; then DEBIAN_FRONTEND=noninteractive apt-get remove -y --purge ${RESTY_ADD_PACKAGE_BUILDDEPS} ; fi \
-    && dnf clean all \
+    && microdnf clean all \
     && mkdir -p /var/run/openresty \
     && ln -sf /dev/stdout /usr/local/openresty/nginx/logs/access.log \
     && ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log

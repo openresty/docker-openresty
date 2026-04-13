@@ -40,6 +40,20 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          # --- Alma ---
+          - flavor: alma
+            arch: amd64
+            dockerfile: alma/Dockerfile
+            platforms: linux/amd64
+          - flavor: alma
+            arch: arm64
+            dockerfile: alma/Dockerfile
+            platforms: linux/arm64
+          - flavor: alma
+            arch: s390x
+            dockerfile: alma/Dockerfile
+            platforms: linux/s390x
+
           # --- Alpine ---
           - flavor: alpine
             arch: amd64
@@ -253,7 +267,20 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        flavor: [alpine, alpine-slim, alpine-apk, rocky, fedora, bookworm, bookworm-buildpack, bullseye, bullseye-debug, bullseye-valgrind, jammy, noble]
+        flavor:
+          - alma
+          - alpine
+          - alpine-slim
+          - alpine-apk
+          - rocky
+          - fedora
+          - bookworm
+          - bookworm-buildpack
+          - bullseye
+          - bullseye-debug
+          - bullseye-valgrind
+          - jammy
+          - noble
 
     steps:
       - name: Checkout
