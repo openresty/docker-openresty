@@ -4,6 +4,7 @@
 ## 1.27.1.2-12 (2026-04-16)
 
  * Upgrade `alpine` built-from source flavor to Alpine 3.22.4 (#296)
+ * Update GitHub Action versions
 
 ## 1.27.1.2-11 (2026-02-09)
 
