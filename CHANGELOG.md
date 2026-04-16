@@ -5,6 +5,7 @@
 
  * Upgrade `alpine` built-from source flavor to Alpine 3.22.4 (#296)
  * Update GitHub Action versions
+ * Update LuaRocks to `3.13.0`
 
 ## 1.27.1.2-11 (2026-02-09)
 
