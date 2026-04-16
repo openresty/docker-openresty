@@ -1,6 +1,10 @@
 `docker-openresty` Changelog
 ============================
 
+## 1.29.2.3-3 (2026-04-16)
+
+ * Upgrade `alpine` built-from source flavor to Alpine 3.22.4 (#296)
+
 ## 1.29.2.3-2 (2026-04-13)
 
  * Actually GitHub Action publish the `alma` flavor
