@@ -303,13 +303,13 @@ jobs:
           file: ${{ matrix.dockerfile }}
           platforms: ${{ matrix.platforms }}
           build-args: ${{ matrix.build-args }}
-          push: true
+          push: ${{ github.ref == 'refs/heads/master' || github.ref_type == 'tag' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
       # Docker Hub mirror push - separate step
       - name: Tag and Push to Docker Hub Mirror
-        if: vars.ENABLE_DOCKERHUB_MIRROR == 'true'
+        if: vars.ENABLE_DOCKERHUB_MIRROR == 'true' && (github.ref == 'refs/heads/master' || github.ref_type == 'tag')
         run: |
           echo "${{ steps.meta.outputs.tags }}" | while read -r TAG; do
             if [ -n "$TAG" ]; then
@@ -320,6 +320,7 @@ jobs:
 
   manifest:
     needs: build
+    if: github.ref == 'refs/heads/master' || github.ref_type == 'tag'
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -443,7 +444,7 @@ jobs:
           context: .
           file: ${{ matrix.dockerfile }}
           platforms: ${{ matrix.platforms }}
-          push: true
+          push: ${{ github.ref == 'refs/heads/master' || github.ref_type == 'tag' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
@@ -452,7 +453,7 @@ jobs:
 
       # Mirror registry push
       - name: Tag and Push to Mirror
-        if: vars.ENABLE_DOCKERHUB_MIRROR == 'true'
+        if: vars.ENABLE_DOCKERHUB_MIRROR == 'true' && (github.ref == 'refs/heads/master' || github.ref_type == 'tag')
         run: |
           echo "${{ steps.meta.outputs.tags }}" | while read -r TAG; do
             if [ -n "$TAG" ]; then
@@ -463,6 +464,7 @@ jobs:
 
   manifest-fat:
     needs: build-fat
+    if: github.ref == 'refs/heads/master' || github.ref_type == 'tag'
     runs-on: ubuntu-latest
     strategy:
       matrix:

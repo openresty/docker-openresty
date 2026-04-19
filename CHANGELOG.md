@@ -1,11 +1,12 @@
 `docker-openresty` Changelog
 ============================
 
-## 1.27.1.2-12 (2026-04-16)
+## 1.27.1.2-12 (2026-04-19)
 
  * Upgrade `alpine` built-from source flavor to Alpine 3.22.4 (#296)
  * Update GitHub Action versions
  * Update LuaRocks to `3.13.0`
+ * ci: Only publish and manifest on master and tags
 
 ## 1.27.1.2-11 (2026-02-09)
 
