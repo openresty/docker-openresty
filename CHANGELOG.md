@@ -1,6 +1,10 @@
 `docker-openresty` Changelog
 ============================
 
+ ## 1.29.2.3-5 (unreleased)
+
+ * Add `restyrepo/Dockerfile` for building OpenResty fully from GitHub, including the source distribution package.
+
 ## 1.29.2.3-4 (2026-04-22)
 
  * Upgrade OpenSSL to 3.5.6
