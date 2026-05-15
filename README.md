@@ -11,7 +11,7 @@ Thank you to [Travis CI](https://www.travis-ci.com) for donating their build inf
 
 We provide a series of [pre-built images](#openresty-image-tags) for various operating systems. Some are built-from the upstream OpenResty pre-built images and some are built from source.
 
-You can learn more about building your own custom and derived images in [`BUILDING.md`](./BUILDING.md).
+You can learn more about building your own custom and derived images in [`BUILDING.md`](./BUILDING.md).   You can learn more about securing your operations in [`HARDENING.md`](./HARDENING.md).
 
 ----
 

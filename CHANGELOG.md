@@ -3,6 +3,7 @@
 
  ## 1.29.2.3-5 (unreleased)
 
+ * Added [`HARDENING.md`](https://github.com/openresty/docker-openresty/blob/master/HARDENING.md)
  * Add `restyrepo/Dockerfile` for building OpenResty fully from GitHub, including the source distribution package.
 
 ## 1.29.2.3-4 (2026-04-22)
