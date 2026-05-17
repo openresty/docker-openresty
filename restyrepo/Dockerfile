@@ -128,10 +128,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
         unzip \
         wget \
     && cd /tmp \
-    && git clone --depth 1 "${RESTY_SOURCE_REPO}" openresty_src \
+    && git clone --depth 1 --branch "${RESTY_VERSION}" "${RESTY_SOURCE_REPO}" openresty_src \
     && cd openresty_src \
-    && git checkout master \
-    && make \ 
+    && make \
     && mv openresty-*.tar.gz "/tmp/openresty-${RESTY_VERSION}.tar.gz" \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         build-essential \

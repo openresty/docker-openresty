@@ -202,6 +202,18 @@ jobs:
             dockerfile: noble/Dockerfile
             platforms: linux/s390x
 
+          # --- RestyRepo (OpenResty built fully from GitHub source) ---
+          - flavor: restyrepo
+            arch: amd64
+            dockerfile: restyrepo/Dockerfile
+            platforms: linux/amd64
+            build-args: RESTY_VERSION=v1.29.2.4
+          - flavor: restyrepo
+            arch: arm64
+            dockerfile: restyrepo/Dockerfile
+            platforms: linux/arm64
+            build-args: RESTY_VERSION=v1.29.2.4
+
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -281,6 +293,7 @@ jobs:
           - bullseye-valgrind
           - jammy
           - noble
+          - restyrepo
 
     steps:
       - name: Checkout
