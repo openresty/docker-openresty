@@ -40,167 +40,167 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # --- Alma ---
-          - flavor: alma
-            arch: amd64
-            dockerfile: alma/Dockerfile
-            platforms: linux/amd64
-          - flavor: alma
-            arch: arm64
-            dockerfile: alma/Dockerfile
-            platforms: linux/arm64
-          - flavor: alma
-            arch: s390x
-            dockerfile: alma/Dockerfile
-            platforms: linux/s390x
-
-          # --- Alpine ---
-          - flavor: alpine
-            arch: amd64
-            dockerfile: alpine/Dockerfile
-            platforms: linux/amd64
-          - flavor: alpine
-            arch: arm64
-            dockerfile: alpine/Dockerfile
-            platforms: linux/arm64
-
-          # --- Alpine Slim ---
-          - flavor: alpine-slim
-            arch: amd64
-            dockerfile: alpine/Dockerfile
-            platforms: linux/amd64
-            build-args: RESTY_STRIP_BINARIES=1
-          - flavor: alpine-slim
-            arch: arm64
-            dockerfile: alpine/Dockerfile
-            platforms: linux/arm64
-            build-args: RESTY_STRIP_BINARIES=1
-
-          # -- Alpine APK ---
-          - flavor: alpine-apk
-            arch: amd64
-            dockerfile: alpine-apk/Dockerfile
-            platforms: linux/amd64
-          - flavor: alpine-apk
-            arch: arm64
-            dockerfile: alpine-apk/Dockerfile
-            platforms: linux/arm64
-
-          # --- Rocky Linux ---
-          - flavor: rocky
-            arch: amd64
-            dockerfile: fedora/Dockerfile
-            platforms: linux/amd64
-            build-args: |
-              RESTY_IMAGE_BASE=rockylinux/rockylinux
-              RESTY_IMAGE_TAG=9.6
-              RESTY_YUM_REPO=https://openresty.org/package/rocky/openresty2.repo
-              RESTY_RPM_DIST=el9
-              RESTY_DNF_NO_REPOFILE=1
-          - flavor: rocky
-            arch: arm64
-            dockerfile: fedora/Dockerfile
-            platforms: linux/arm64
-            build-args: |
-              RESTY_IMAGE_BASE=rockylinux/rockylinux
-              RESTY_IMAGE_TAG=9.6
-              RESTY_YUM_REPO=https://openresty.org/package/rocky/openresty2.repo
-              RESTY_RPM_DIST=el9
-              RESTY_RPM_ARCH=aarch64
-              RESTY_DNF_NO_REPOFILE=1
-
-          # --- Fedora ---
-          # Note: fedora-aarch64 is commented out in Travis CI
-          - flavor: fedora
-            arch: amd64
-            dockerfile: fedora/Dockerfile
-            platforms: linux/amd64
-
-          # --- Debian Bookworm ---
-          - flavor: bookworm
-            arch: amd64
-            dockerfile: bookworm/Dockerfile
-            platforms: linux/amd64
-          - flavor: bookworm
-            arch: arm64
-            dockerfile: bookworm/Dockerfile
-            platforms: linux/arm64
-            build-args: |
-              RESTY_APT_REPO=https://openresty.org/package/arm64/debian
-              RESTY_APT_ARCH=arm64
-
-          # --- Debian Bookworm Buildpack ---
-          - flavor: bookworm-buildpack
-            arch: amd64
-            dockerfile: bookworm/Dockerfile.buildpack
-            platforms: linux/amd64
-          - flavor: bookworm-buildpack
-            arch: arm64
-            dockerfile: bookworm/Dockerfile.buildpack
-            platforms: linux/arm64
-            build-args: |
-              RESTY_APT_REPO=https://openresty.org/package/arm64/debian
-              RESTY_APT_ARCH=arm64
-  
-          # --- Debian Bullseye ---
-          - flavor: bullseye
-            arch: amd64
-            dockerfile: bullseye/Dockerfile
-            platforms: linux/amd64
-          - flavor: bullseye
-            arch: arm64
-            dockerfile: bullseye/Dockerfile
-            platforms: linux/arm64
-            build-args: RESTY_APT_REPO=https://openresty.org/package/arm64/debian
-          # --- Debian Bullseye Debug ---
-          - flavor: bullseye-debug
-            arch: amd64
-            dockerfile: bullseye/Dockerfile.debug
-            platforms: linux/amd64
-          - flavor: bullseye-debug
-            arch: arm64
-            dockerfile: bullseye/Dockerfile.debug
-            platforms: linux/arm64
-            build-args: RESTY_APT_REPO=https://openresty.org/package/arm64/debian
-  
-          # --- Debian Bullseye Valgrind ---
-          - flavor: bullseye-valgrind
-            arch: amd64
-            dockerfile: bullseye/Dockerfile.valgrind
-            platforms: linux/amd64
-          - flavor: bullseye-valgrind
-            arch: arm64
-            dockerfile: bullseye/Dockerfile.valgrind
-            platforms: linux/arm64
-            build-args: RESTY_APT_REPO=https://openresty.org/package/arm64/debian
-  
-          # --- Ubuntu Jammy ---
-          - flavor: jammy
-            arch: amd64
-            dockerfile: jammy/Dockerfile
-            platforms: linux/amd64
-          - flavor: jammy
-            arch: arm64
-            dockerfile: jammy/Dockerfile
-            platforms: linux/arm64
-          - flavor: jammy
-            arch: s390x
-            dockerfile: jammy/Dockerfile
-            platforms: linux/s390x
-
-          # --- Ubuntu Noble ---
-          - flavor: noble
-            arch: amd64
-            dockerfile: noble/Dockerfile
-            platforms: linux/amd64
-          - flavor: noble
-            arch: arm64
-            dockerfile: noble/Dockerfile
-            platforms: linux/arm64
-          - flavor: noble
-            arch: s390x
-            dockerfile: noble/Dockerfile
-            platforms: linux/s390x
+#          # --- Alma ---
+#          - flavor: alma
+#            arch: amd64
+#            dockerfile: alma/Dockerfile
+#            platforms: linux/amd64
+#          - flavor: alma
+#            arch: arm64
+#            dockerfile: alma/Dockerfile
+#            platforms: linux/arm64
+#          - flavor: alma
+#            arch: s390x
+#            dockerfile: alma/Dockerfile
+#            platforms: linux/s390x
+#
+#          # --- Alpine ---
+#          - flavor: alpine
+#            arch: amd64
+#            dockerfile: alpine/Dockerfile
+#            platforms: linux/amd64
+#          - flavor: alpine
+#            arch: arm64
+#            dockerfile: alpine/Dockerfile
+#            platforms: linux/arm64
+#
+#          # --- Alpine Slim ---
+#          - flavor: alpine-slim
+#            arch: amd64
+#            dockerfile: alpine/Dockerfile
+#            platforms: linux/amd64
+#            build-args: RESTY_STRIP_BINARIES=1
+#          - flavor: alpine-slim
+#            arch: arm64
+#            dockerfile: alpine/Dockerfile
+#            platforms: linux/arm64
+#            build-args: RESTY_STRIP_BINARIES=1
+#
+#          # -- Alpine APK ---
+#          - flavor: alpine-apk
+#            arch: amd64
+#            dockerfile: alpine-apk/Dockerfile
+#            platforms: linux/amd64
+#          - flavor: alpine-apk
+#            arch: arm64
+#            dockerfile: alpine-apk/Dockerfile
+#            platforms: linux/arm64
+#
+#          # --- Rocky Linux ---
+#          - flavor: rocky
+#            arch: amd64
+#            dockerfile: fedora/Dockerfile
+#            platforms: linux/amd64
+#            build-args: |
+#              RESTY_IMAGE_BASE=rockylinux/rockylinux
+#              RESTY_IMAGE_TAG=9.6
+#              RESTY_YUM_REPO=https://openresty.org/package/rocky/openresty2.repo
+#              RESTY_RPM_DIST=el9
+#              RESTY_DNF_NO_REPOFILE=1
+#          - flavor: rocky
+#            arch: arm64
+#            dockerfile: fedora/Dockerfile
+#            platforms: linux/arm64
+#            build-args: |
+#              RESTY_IMAGE_BASE=rockylinux/rockylinux
+#              RESTY_IMAGE_TAG=9.6
+#              RESTY_YUM_REPO=https://openresty.org/package/rocky/openresty2.repo
+#              RESTY_RPM_DIST=el9
+#              RESTY_RPM_ARCH=aarch64
+#              RESTY_DNF_NO_REPOFILE=1
+#
+#          # --- Fedora ---
+#          # Note: fedora-aarch64 is commented out in Travis CI
+#          - flavor: fedora
+#            arch: amd64
+#            dockerfile: fedora/Dockerfile
+#            platforms: linux/amd64
+#
+#          # --- Debian Bookworm ---
+#          - flavor: bookworm
+#            arch: amd64
+#            dockerfile: bookworm/Dockerfile
+#            platforms: linux/amd64
+#          - flavor: bookworm
+#            arch: arm64
+#            dockerfile: bookworm/Dockerfile
+#            platforms: linux/arm64
+#            build-args: |
+#              RESTY_APT_REPO=https://openresty.org/package/arm64/debian
+#              RESTY_APT_ARCH=arm64
+#
+#          # --- Debian Bookworm Buildpack ---
+#          - flavor: bookworm-buildpack
+#            arch: amd64
+#            dockerfile: bookworm/Dockerfile.buildpack
+#            platforms: linux/amd64
+#          - flavor: bookworm-buildpack
+#            arch: arm64
+#            dockerfile: bookworm/Dockerfile.buildpack
+#            platforms: linux/arm64
+#            build-args: |
+#              RESTY_APT_REPO=https://openresty.org/package/arm64/debian
+#              RESTY_APT_ARCH=arm64
+#  
+#          # --- Debian Bullseye ---
+#          - flavor: bullseye
+#            arch: amd64
+#            dockerfile: bullseye/Dockerfile
+#            platforms: linux/amd64
+#          - flavor: bullseye
+#            arch: arm64
+#            dockerfile: bullseye/Dockerfile
+#            platforms: linux/arm64
+#            build-args: RESTY_APT_REPO=https://openresty.org/package/arm64/debian
+#          # --- Debian Bullseye Debug ---
+#          - flavor: bullseye-debug
+#            arch: amd64
+#            dockerfile: bullseye/Dockerfile.debug
+#            platforms: linux/amd64
+#          - flavor: bullseye-debug
+#            arch: arm64
+#            dockerfile: bullseye/Dockerfile.debug
+#            platforms: linux/arm64
+#            build-args: RESTY_APT_REPO=https://openresty.org/package/arm64/debian
+#  
+#          # --- Debian Bullseye Valgrind ---
+#          - flavor: bullseye-valgrind
+#            arch: amd64
+#            dockerfile: bullseye/Dockerfile.valgrind
+#            platforms: linux/amd64
+#          - flavor: bullseye-valgrind
+#            arch: arm64
+#            dockerfile: bullseye/Dockerfile.valgrind
+#            platforms: linux/arm64
+#            build-args: RESTY_APT_REPO=https://openresty.org/package/arm64/debian
+#  
+#          # --- Ubuntu Jammy ---
+#          - flavor: jammy
+#            arch: amd64
+#            dockerfile: jammy/Dockerfile
+#            platforms: linux/amd64
+#          - flavor: jammy
+#            arch: arm64
+#            dockerfile: jammy/Dockerfile
+#            platforms: linux/arm64
+#          - flavor: jammy
+#            arch: s390x
+#            dockerfile: jammy/Dockerfile
+#            platforms: linux/s390x
+#
+#          # --- Ubuntu Noble ---
+#          - flavor: noble
+#            arch: amd64
+#            dockerfile: noble/Dockerfile
+#            platforms: linux/amd64
+#          - flavor: noble
+#            arch: arm64
+#            dockerfile: noble/Dockerfile
+#            platforms: linux/arm64
+#          - flavor: noble
+#            arch: s390x
+#            dockerfile: noble/Dockerfile
+#            platforms: linux/s390x
 
           # --- RestyRepo (OpenResty built fully from GitHub source) ---
           - flavor: restyrepo
@@ -280,19 +280,19 @@ jobs:
     strategy:
       matrix:
         flavor:
-          - alma
-          - alpine
-          - alpine-slim
-          - alpine-apk
-          - rocky
-          - fedora
-          - bookworm
-          - bookworm-buildpack
-          - bullseye
-          - bullseye-debug
-          - bullseye-valgrind
-          - jammy
-          - noble
+#          - alma
+#          - alpine
+#          - alpine-slim
+#          - alpine-apk
+#          - rocky
+#          - fedora
+#          - bookworm
+#          - bookworm-buildpack
+#          - bullseye
+#          - bullseye-debug
+#          - bullseye-valgrind
+#          - jammy
+#          - noble
           - restyrepo
 
     steps:
@@ -318,119 +318,119 @@ jobs:
         run: ./scripts/create-manifest.sh "${{ matrix.flavor }}" "${{ env.GHCR_IMAGE }}" "${{ env.DOCKERHUB_IMAGE }}" "${{ vars.ENABLE_DOCKERHUB_MIRROR }}"
 
 
-  build-fat:
-    needs: manifest
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - flavor: bookworm-fat
-            base_flavor: bookworm
-            arch: amd64
-            dockerfile: bookworm/Dockerfile.fat
-            platforms: linux/amd64
-          - flavor: bookworm-fat
-            base_flavor: bookworm
-            arch: arm64
-            dockerfile: bookworm/Dockerfile.fat
-            platforms: linux/arm64
-          
-          - flavor: bullseye-fat
-            base_flavor: bullseye
-            arch: amd64
-            dockerfile: bullseye/Dockerfile.fat
-            platforms: linux/amd64
-          - flavor: bullseye-fat
-            base_flavor: bullseye
-            arch: arm64
-            dockerfile: bullseye/Dockerfile.fat
-            platforms: linux/arm64
-
-          - flavor: alpine-fat
-            base_flavor: alpine
-            arch: amd64
-            dockerfile: alpine/Dockerfile.fat
-            platforms: linux/amd64
-          - flavor: alpine-fat
-            base_flavor: alpine
-            arch: arm64
-            dockerfile: alpine/Dockerfile.fat
-            platforms: linux/arm64
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v4
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v4
-
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v4
-        with:
-          registry: ghcr.io
-          username: ${{ secrets.GHCR_USERNAME }}
-          password: ${{ secrets.GHCR_PASSWORD }}
-
-      - name: Login to Docker Hub (Mirror)
-        if: vars.ENABLE_DOCKERHUB_MIRROR == 'true'
-        uses: docker/login-action@v4
-        with:
-          registry: ${{ env.DOCKERHUB_REGISTRY }}
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Determine Fat Base Image
-        id: fat-base
-        run: |
-          TAG_PREFIX=""
-          if [[ "${{ github.ref_type }}" == "tag" ]]; then
-             TAG_PREFIX="${{ github.ref_name }}-"
-          fi
-          
-          BASE_TAG="${TAG_PREFIX}${{ matrix.base_flavor }}"
-          echo "RESTY_FAT_IMAGE_TAG=$BASE_TAG" >> $GITHUB_ENV
-          echo "RESTY_FAT_IMAGE_BASE=${{ env.GHCR_IMAGE }}" >> $GITHUB_ENV
-
-      - name: Extract metadata
-        id: meta
-        uses: docker/metadata-action@v6
-        with:
-          images: |
-            ${{ env.GHCR_IMAGE }}
-          flavor: |
-            latest=false
-          tags: |
-            type=raw,value=${{ matrix.flavor }}-${{ matrix.arch }},enable=${{ github.ref == 'refs/heads/master' }}
-            type=ref,event=tag,suffix=-${{ matrix.flavor }}-${{ matrix.arch }}
-            type=match,pattern=^(.*)-[0-9]+$,group=1,suffix=-${{ matrix.flavor }}-${{ matrix.arch }}
-
-      - name: Build and push
-        uses: docker/build-push-action@v7
-        with:
-          context: .
-          file: ${{ matrix.dockerfile }}
-          platforms: ${{ matrix.platforms }}
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          build-args: |
-            RESTY_FAT_IMAGE_BASE=${{ env.RESTY_FAT_IMAGE_BASE }}
-            RESTY_FAT_IMAGE_TAG=${{ env.RESTY_FAT_IMAGE_TAG }}
-
-      # Mirror registry push
-      - name: Tag and Push to Mirror
-        if: vars.ENABLE_DOCKERHUB_MIRROR == 'true'
-        run: |
-          echo "${{ steps.meta.outputs.tags }}" | while read -r TAG; do
-            if [ -n "$TAG" ]; then
-              MIRROR_TAG=$(echo "$TAG" | sed "s|${{ env.GHCR_IMAGE }}|${{ env.DOCKERHUB_IMAGE }}|")
-              docker buildx imagetools create -t "$MIRROR_TAG" "$TAG"
-            fi
-          done
+#  build-fat:
+#    needs: manifest
+#    runs-on: ubuntu-latest
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        include:
+#          - flavor: bookworm-fat
+#            base_flavor: bookworm
+#            arch: amd64
+#            dockerfile: bookworm/Dockerfile.fat
+#            platforms: linux/amd64
+#          - flavor: bookworm-fat
+#            base_flavor: bookworm
+#            arch: arm64
+#            dockerfile: bookworm/Dockerfile.fat
+#            platforms: linux/arm64
+#          
+#          - flavor: bullseye-fat
+#            base_flavor: bullseye
+#            arch: amd64
+#            dockerfile: bullseye/Dockerfile.fat
+#            platforms: linux/amd64
+#          - flavor: bullseye-fat
+#            base_flavor: bullseye
+#            arch: arm64
+#            dockerfile: bullseye/Dockerfile.fat
+#            platforms: linux/arm64
+#
+#          - flavor: alpine-fat
+#            base_flavor: alpine
+#            arch: amd64
+#            dockerfile: alpine/Dockerfile.fat
+#            platforms: linux/amd64
+#          - flavor: alpine-fat
+#            base_flavor: alpine
+#            arch: arm64
+#            dockerfile: alpine/Dockerfile.fat
+#            platforms: linux/arm64
+#
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v6
+#
+#      - name: Set up QEMU
+#        uses: docker/setup-qemu-action@v4
+#
+#      - name: Set up Docker Buildx
+#        uses: docker/setup-buildx-action@v4
+#
+#      - name: Login to GitHub Container Registry
+#        uses: docker/login-action@v4
+#        with:
+#          registry: ghcr.io
+#          username: ${{ secrets.GHCR_USERNAME }}
+#          password: ${{ secrets.GHCR_PASSWORD }}
+#
+#      - name: Login to Docker Hub (Mirror)
+#        if: vars.ENABLE_DOCKERHUB_MIRROR == 'true'
+#        uses: docker/login-action@v4
+#        with:
+#          registry: ${{ env.DOCKERHUB_REGISTRY }}
+#          username: ${{ secrets.DOCKER_USERNAME }}
+#          password: ${{ secrets.DOCKER_PASSWORD }}
+#
+#      - name: Determine Fat Base Image
+#        id: fat-base
+#        run: |
+#          TAG_PREFIX=""
+#          if [[ "${{ github.ref_type }}" == "tag" ]]; then
+#             TAG_PREFIX="${{ github.ref_name }}-"
+#          fi
+#          
+#          BASE_TAG="${TAG_PREFIX}${{ matrix.base_flavor }}"
+#          echo "RESTY_FAT_IMAGE_TAG=$BASE_TAG" >> $GITHUB_ENV
+#          echo "RESTY_FAT_IMAGE_BASE=${{ env.GHCR_IMAGE }}" >> $GITHUB_ENV
+#
+#      - name: Extract metadata
+#        id: meta
+#        uses: docker/metadata-action@v6
+#        with:
+#          images: |
+#            ${{ env.GHCR_IMAGE }}
+#          flavor: |
+#            latest=false
+#          tags: |
+#            type=raw,value=${{ matrix.flavor }}-${{ matrix.arch }},enable=${{ github.ref == 'refs/heads/master' }}
+#            type=ref,event=tag,suffix=-${{ matrix.flavor }}-${{ matrix.arch }}
+#            type=match,pattern=^(.*)-[0-9]+$,group=1,suffix=-${{ matrix.flavor }}-${{ matrix.arch }}
+#
+#      - name: Build and push
+#        uses: docker/build-push-action@v7
+#        with:
+#          context: .
+#          file: ${{ matrix.dockerfile }}
+#          platforms: ${{ matrix.platforms }}
+#          push: true
+#          tags: ${{ steps.meta.outputs.tags }}
+#          labels: ${{ steps.meta.outputs.labels }}
+#          build-args: |
+#            RESTY_FAT_IMAGE_BASE=${{ env.RESTY_FAT_IMAGE_BASE }}
+#            RESTY_FAT_IMAGE_TAG=${{ env.RESTY_FAT_IMAGE_TAG }}
+#
+#      # Mirror registry push
+#      - name: Tag and Push to Mirror
+#        if: vars.ENABLE_DOCKERHUB_MIRROR == 'true'
+#        run: |
+#          echo "${{ steps.meta.outputs.tags }}" | while read -r TAG; do
+#            if [ -n "$TAG" ]; then
+#              MIRROR_TAG=$(echo "$TAG" | sed "s|${{ env.GHCR_IMAGE }}|${{ env.DOCKERHUB_IMAGE }}|")
+#              docker buildx imagetools create -t "$MIRROR_TAG" "$TAG"
+#            fi
+#          done
 
   # Windows disabled for now
   # build-windows:
@@ -557,30 +557,30 @@ jobs:
   #             "${{ env.GHCR_IMAGE }}:${TAG_PREFIX}windows-ltsc2022"
   #         fi
 
-  manifest-fat:
-    needs: build-fat
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        flavor: [bookworm-fat, bullseye-fat, alpine-fat]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v4
-        with:
-          registry: ghcr.io
-          username: ${{ secrets.GHCR_USERNAME }}
-          password: ${{ secrets.GHCR_PASSWORD }}
-
-      - name: Login to Docker Hub (Mirror)
-        if: vars.ENABLE_DOCKERHUB_MIRROR == 'true'
-        uses: docker/login-action@v4
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Create and Push Manifest
-        run: ./scripts/create-manifest.sh "${{ matrix.flavor }}" "${{ env.GHCR_IMAGE }}" "${{ env.DOCKERHUB_IMAGE }}" "${{ vars.ENABLE_DOCKERHUB_MIRROR }}"
+#  manifest-fat:
+#    needs: build-fat
+#    runs-on: ubuntu-latest
+#    strategy:
+#      matrix:
+#        flavor: [bookworm-fat, bullseye-fat, alpine-fat]
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v6
+#
+#      - name: Login to GitHub Container Registry
+#        uses: docker/login-action@v4
+#        with:
+#          registry: ghcr.io
+#          username: ${{ secrets.GHCR_USERNAME }}
+#          password: ${{ secrets.GHCR_PASSWORD }}
+#
+#      - name: Login to Docker Hub (Mirror)
+#        if: vars.ENABLE_DOCKERHUB_MIRROR == 'true'
+#        uses: docker/login-action@v4
+#        with:
+#          username: ${{ secrets.DOCKER_USERNAME }}
+#          password: ${{ secrets.DOCKER_PASSWORD }}
+#
+#      - name: Create and Push Manifest
+#        run: ./scripts/create-manifest.sh "${{ matrix.flavor }}" "${{ env.GHCR_IMAGE }}" "${{ env.DOCKERHUB_IMAGE }}" "${{ vars.ENABLE_DOCKERHUB_MIRROR }}"
 
