@@ -11,7 +11,7 @@ LABEL maintainer="Evan Wies <evan@neomantra.net>"
 # Docker Build Arguments
 ARG RESTY_IMAGE_BASE="debian"
 ARG RESTY_IMAGE_TAG="trixie-slim"
-ARG RESTY_VERSION="master"
+ARG RESTY_VERSION="v1.29.2.4" # Includes the full branch name, hence 'v' prefix
 ARG RESTY_SOURCE_REPO="https://github.com/openresty/openresty.git"
 ARG RESTY_LUAROCKS_VERSION="3.13.0"
 

@@ -125,7 +125,7 @@ or use your own UID/GID for even tighter control.
 3. **Pin your image today** so you can upgrade cleanly:
 
    ```yaml
-   image: openresty/openresty:1.29.2.3-0-bookworm   # example pinned tag
+   image: openresty/openresty:1.29.2.4-0-bookworm   # example pinned tag
    ```
 
 4. After the patched image is released:

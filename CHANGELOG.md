@@ -1,10 +1,11 @@
 `docker-openresty` Changelog
 ============================
 
- ## 1.29.2.4-0 (2026-05-17)
+ ## 1.29.2.4-0 (2026-05-18)
 
 **Only `restyrepo` is included in this release.**  Thanks to the OpenResty maintainers.
 
+ * Upgrade OpenResty to `1.29.2.4` (#298)
  * Build `restyrepo` against `github.com/openresty/openresty` tag `v1.29.2.4`.
  * Added [`HARDENING.md`](https://github.com/openresty/docker-openresty/blob/master/HARDENING.md)
  * Add `restyrepo/Dockerfile` for building OpenResty fully from GitHub, including the source distribution package.
