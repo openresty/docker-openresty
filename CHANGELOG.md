@@ -1,6 +1,10 @@
 `docker-openresty` Changelog
 ============================
 
+## Unreleased
+
+ * Add a build-time guard for the CVE-2026-42945 NGINX rewrite module fix in source-built images.
+
  ## 1.29.2.4-0 (2026-05-18)
 
 **Only `build-from-source` and `alpine-apk` flavors are included in this release.**  Thanks to the OpenResty maintainers.
