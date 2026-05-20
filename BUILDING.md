@@ -27,6 +27,7 @@ Dockerfiles are provided for the following base systems, selecting the Dockerfil
  * [Alpine Fat](https://github.com/openresty/docker-openresty/blob/master/alpine/Dockerfile.fat) (`alpine/Dockerfile.fat`)
  * [Ubuntu Jammy](https://github.com/openresty/docker-openresty/blob/master/jammy/Dockerfile) (`jammy/Dockerfile`)
  * [Ubuntu Noble](https://github.com/openresty/docker-openresty/blob/master/noble/Dockerfile) (`noble/Dockerfile`)
+ * [Ubuntu Resolute](https://github.com/openresty/docker-openresty/blob/master/resolute/Dockerfile) (`resolute/Dockerfile`)
 
 We used to support more build flavors but have trimmed that down.  Older Dockerfiles are archived in the [`archive`](https://github.com/openresty/docker-openresty/tree/master/archive) folder.
 

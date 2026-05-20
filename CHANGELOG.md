@@ -1,7 +1,11 @@
 `docker-openresty` Changelog
 ============================
 
- ## 1.29.2.4-0 (2026-05-18)
+## 1.29.2.4-1 (2026-05-20)
+
+ * Add Ubuntu Resolute Raccoon build-from-source flavor (`resolute`)
+
+## 1.29.2.4-0 (2026-05-18)
 
 **Only `build-from-source` and `alpine-apk` flavors are included in this release.**  Thanks to the OpenResty maintainers.
 

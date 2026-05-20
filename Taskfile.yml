@@ -30,9 +30,9 @@ tasks:
   build-all-upstream-amd64:
     cmds:
       - docker build -t alpine-apk-amd64 -f alpine-apk/Dockerfile .
-      - docker build -t rocky-amd64      -f fedora/Dockerfile     --build-arg RESTY_IMAGE_BASE=rockylinux/rockylinux --build-arg RESTY_IMAGE_TAG=9.6 --build-arg RESTY_YUM_REPO="https://openresty.org/package/rocky/openresty2.repo" --build-arg RESTY_RPM_DIST="el9" --build-arg RESTY_DNF_NO_REPOFILE="1" --build-arg RESTY_RPM_ARCH="x86_64" .
-      - docker build -t fedora-amd64     -f fedora/Dockerfile     --build-arg RESTY_RPM_ARCH=x86_64 .
-      - docker build -t bookworm-amd64   -f bookworm/Dockerfile   --build-arg RESTY_APT_ARCH=amd64 .
+      #- docker build -t rocky-amd64      -f fedora/Dockerfile     --build-arg RESTY_IMAGE_BASE=rockylinux/rockylinux --build-arg RESTY_IMAGE_TAG=9.6 --build-arg RESTY_YUM_REPO="https://openresty.org/package/rocky/openresty2.repo" --build-arg RESTY_RPM_DIST="el9" --build-arg RESTY_DNF_NO_REPOFILE="1" --build-arg RESTY_RPM_ARCH="x86_64" .
+      #- docker build -t fedora-amd64     -f fedora/Dockerfile     --build-arg RESTY_RPM_ARCH=x86_64 .
+      #- docker build -t bookworm-amd64   -f bookworm/Dockerfile   --build-arg RESTY_APT_ARCH=amd64 .
       - docker build -t bullseye-amd64   -f bullseye/Dockerfile   --build-arg RESTY_APT_ARCH=amd64 .
 
   # Just uses host arch with aarch64 tags...
@@ -43,6 +43,7 @@ tasks:
       - docker build -t alpine-aarch64 -f alpine/Dockerfile .
       - docker build -t jammy-aarch64  -f jammy/Dockerfile .
       - docker build -t noble-aarch64  -f noble/Dockerfile .
+      - docker build -t resolute-aarch64  -f resolute/Dockerfile .
 
   # Just uses host arch with amd64 tags...
   # TODO: Should fail if arch is wrong, perhaps add pre-flight check
@@ -52,6 +53,7 @@ tasks:
       - docker build -t alpine-amd64 -f alpine/Dockerfile .
       - docker build -t jammy-amd64  -f jammy/Dockerfile .
       - docker build -t noble-amd64  -f noble/Dockerfile .
+      - docker build -t resolute-amd64  -f resolute/Dockerfile .
 
   # Builds all source on host arch platform without tags
   build-all-source:
@@ -60,6 +62,7 @@ tasks:
       - docker build -f alpine/Dockerfile .
       - docker build -f jammy/Dockerfile .
       - docker build -f noble/Dockerfile .
+      - docker build -f resolute/Dockerfile .
 
   build-debug-arm64:
       - docker build -t bullseye-debug-aarch64    -f bullseye/Dockerfile.debug    --build-arg RESTY_APT_REPO="https://openresty.org/package/arm64/debian" .

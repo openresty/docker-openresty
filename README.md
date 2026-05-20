@@ -41,16 +41,18 @@ It is best practice to pin your images to an explicit image tag.  The [next sect
 
 | Image  | Description |
 | --- | --- |
-| `openresty/openresty:1.29.2.4-0-noble` | Built-from-source Ubuntu Noble |
-| `openresty/openresty:1.29.2.4-0-jammy` | Built-from-source Ubuntu Jammy |
-| `openresty/openresty:1.29.2.4-0-bookworm-fat` | Built-from-upstream Debian Bookworm |
-| `openresty/openresty:1.29.2.4-0-alpine` | Built-from-source Alpine |
-| `openresty/openresty:1.29.2.4-0-alpine-apk` | Built-from-upstream Alpine |
+| `openresty/openresty:1.29.2.4-1-resolute` | Built-from-source Ubuntu Resolute Raccoon |
+| `openresty/openresty:1.29.2.4-1-noble` | Built-from-source Ubuntu Noble Narwhal |
+| `openresty/openresty:1.29.2.4-1-jammy` | Built-from-source Ubuntu Jammy Jellyfish |
+| `openresty/openresty:1.29.2.4-1-bookworm-fat` | Built-from-upstream Debian Bookworm |
+| `openresty/openresty:1.29.2.4-1-alpine` | Built-from-source Alpine |
+| `openresty/openresty:1.29.2.4-1-alpine-apk` | Built-from-upstream Alpine |
 
 These are examples of untagged image names, for reference:
 
 | Image | Description |
 | --- | --- |
+| `openresty/openresty:resolute` | Latest Ubuntu Resolute |
 | `openresty/openresty:noble` | Latest Ubuntu Noble |
 | `openresty/openresty:jammy` | Latest Ubuntu Jammy |
 | `openresty/openresty:alpine` | Latest Alpine |

@@ -202,6 +202,20 @@ jobs:
             dockerfile: noble/Dockerfile
             platforms: linux/s390x
 
+          # --- Ubuntu Resolute ---
+          - flavor: resolute
+            arch: amd64
+            dockerfile: resolute/Dockerfile
+            platforms: linux/amd64
+          - flavor: resolute
+            arch: arm64
+            dockerfile: resolute/Dockerfile
+            platforms: linux/arm64
+          - flavor: resolute
+            arch: s390x
+            dockerfile: resolute/Dockerfile
+            platforms: linux/s390x
+
           # --- RestyRepo (OpenResty built fully from GitHub source) ---
           - flavor: restyrepo
             arch: amd64
@@ -290,7 +304,7 @@ jobs:
 #          - bullseye-debug
 #          - bullseye-valgrind
           - jammy
-          - noble
+          - resolute
           - restyrepo
 
     steps:
