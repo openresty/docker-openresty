@@ -1,10 +1,11 @@
 `docker-openresty` Changelog
 ============================
 
-## 1.29.2.4-1 (2026-05-20)
+## 1.29.2.4-1 (unreleased)
 
  * Add Ubuntu Resolute Raccoon build-from-source flavor (`resolute`)
  * Fix pinned OpenSSL 1.1.0 patch from commit `ed328977028c3ec3033bc25873ee360056e247cd` to `master`
+ * Remove `--seccomp-unconfined` from [HARDENING.md](./HARDENING.md) (#300)
 
 ## 1.29.2.4-0 (2026-05-18)
 

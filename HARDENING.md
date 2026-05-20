@@ -76,17 +76,22 @@ or use your own UID/GID for even tighter control.
 
 ### Filesystem and Capability Hardening
 
+[Docker documentation on `seccomp`](https://docs.docker.com/engine/security/seccomp/)
+
+Here are Docker CLI args to consider to harden the filesystem and capabilities:
+
 ```bash
 --read-only \
 --tmpfs /tmp \
 --tmpfs /var/run \
 --cap-drop=ALL \
 --cap-add=NET_BIND_SERVICE \
---security-opt apparmor=docker-default \
---security-opt seccomp=unconfined   # or a custom seccomp profile
+--security-opt apparmor=docker-default # or a custom seccomp profile
 ```
 
 ### Resource Limits (Prevent DoS Amplification)
+
+Here are Docker CLI args to consider to limit resource overconsumption:
 
 ```bash
 --cpus=2.0 \
