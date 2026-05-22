@@ -234,6 +234,7 @@ LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
 # Docker Build Arguments
 ARG RESTY_VERSION="v1.29.2.4" # Uses the full tag name, hence 'v' prefix
+ARG RESTY_SHA256="a9de2d4e7e20e31e439a85960300e1146837a9e33761d27ecb8964bef215aa85"
 ARG RESTY_LUAROCKS_VERSION="3.13.0"
 ARG RESTY_LUAROCKS_SHA256="245bf6ec560c042cb8948e3d661189292587c5949104677f1eecddc54dbe7e37"
 
@@ -319,6 +320,7 @@ LABEL resty_image_base="${RESTY_IMAGE_BASE}"
 LABEL resty_image_tag="${RESTY_IMAGE_TAG}"
 
 LABEL resty_version="${RESTY_VERSION}"
+LABEL resty_sha256="${RESTY_SHA256}"
 LABEL resty_luarocks_version="${RESTY_LUAROCKS_VERSION}"
 LABEL resty_luarocks_sha256="${RESTY_LUAROCKS_SHA256}"
 LABEL resty_openssl_version="${RESTY_OPENSSL_VERSION}"
@@ -367,9 +369,13 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && mkdir -v -p openresty_src.tmp/work \
     && cd openresty_src.tmp \
     && printf > work/.curl-config -- '%s\n' \
-        'output = openresty.tar.gz' \
+        'output = openresty-'"${RESTY_VERSION#v}"'.tar.gz' \
         'url = "https://github.com/openresty/openresty/archive/refs/tags/'"${RESTY_VERSION}"'.tar.gz"' \
     && fetch_archives && checksum_archives \
+    && TMPDIR="${PWD}/work" asfald --overwrite \
+        --hash "${RESTY_SHA256}" \
+        --output 'work/openresty.tar.gz' -- \
+        "https://github.com/openresty/openresty/archive/refs/tags/${RESTY_VERSION}.tar.gz" \
     && cd /tmp \
     && tar xzf openresty_src.tmp/work/openresty.tar.gz \
     && mv openresty-*/ openresty_src \
