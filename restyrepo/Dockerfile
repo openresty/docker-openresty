@@ -234,7 +234,6 @@ LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
 # Docker Build Arguments
 ARG RESTY_VERSION="v1.29.2.4" # Uses the full tag name, hence 'v' prefix
-ARG RESTY_SOURCE_REPO="https://github.com/openresty/openresty.git"
 ARG RESTY_LUAROCKS_VERSION="3.13.0"
 ARG RESTY_LUAROCKS_SHA256="245bf6ec560c042cb8948e3d661189292587c5949104677f1eecddc54dbe7e37"
 
@@ -355,9 +354,33 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
         perl \
         unzip \
         wget \
+    && checksum_archives() ( cd work \
+        && cksum --algorithm='sha256' --binary --untagged * \
+    ) \
+    && fetch_archives() ( cd work \
+        && curl --config .curl-config --parallel --parallel-max 4 \
+        --fail --location --connect-timeout 10 --retry 3 --retry-delay 2 \
+        --remove-on-error --remote-time --silent --show-error \
+        --write-out 'HTTP: %{http_code}  Wrote: %{size_download} bytes\t%{filename_effective}\nURL: %{url_effective}\n\n' \
+    ) \
     && cd /tmp \
-    && git clone --depth 1 --branch "${RESTY_VERSION}" "${RESTY_SOURCE_REPO}" openresty_src \
+    && mkdir -v -p openresty_src.tmp/work \
+    && cd openresty_src.tmp \
+    && printf > work/.curl-config -- '%s\n' \
+        'output = openresty.tar.gz' \
+        'url = "https://github.com/openresty/openresty/archive/refs/tags/'"${RESTY_VERSION}"'.tar.gz"' \
+    && fetch_archives && checksum_archives \
+    && cd /tmp \
+    && tar xzf openresty_src.tmp/work/openresty.tar.gz \
+    && mv openresty-*/ openresty_src \
+    && rm -rf openresty_src.tmp \
+    && mkdir -v -p openresty_src/work \
     && cd openresty_src \
+    && ( . util/ver >/dev/null \
+        && busybox grep -B 1 -e '^[$]root/util/get-tarball ' util/mirror-tarballs | busybox sed -e 's@ver="$main_ver"@ver="'"${main_ver}"'"@;' \
+    ) > work/.calls \
+    && busybox awk -e '/^ver=/ { ver=gensub(/^ver="?([^"]+)"?$/, "\\1", 1); } $1 ~ /\/util\/get-tarball$/ { gsub(/[$][{]?ver[}]?/, ver); ofp=gensub(/^"?([^"]+)"?$/, "\\1", 1, $4); print "output","=",ofp; if (0 == system("test -s '\''" ofp "'\''")) { print "time-cond","=",ofp; }; print "url","=",$2; }' < work/.calls > work/.curl-config \
+    && fetch_archives && checksum_archives \
     && make \
     && mv openresty-*.tar.gz "/tmp/openresty-${RESTY_VERSION}.tar.gz" \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
