@@ -242,7 +242,6 @@ ARG RESTY_LUAROCKS_SHA256="245bf6ec560c042cb8948e3d661189292587c5949104677f1eecd
 ARG RESTY_OPENSSL_VERSION="3.5.6"
 ARG RESTY_OPENSSL_SHA256="deae7c80cba99c4b4f940ecadb3c3338b13cb77418409238e57d7f31f2a3b736"
 ARG RESTY_OPENSSL_PATCH_VERSION="3.5.5"
-ARG RESTY_OPENSSL_PATCH_SHA256="0a30cc762a9d72901e8415a33f7671bb68469d46121061e26afe7b718f47581e"
 ARG RESTY_OPENSSL_URL_BASE="https://github.com/openssl/openssl/releases/download/openssl-${RESTY_OPENSSL_VERSION}"
 # LEGACY:  "https://www.openssl.org/source/old/1.1.1"
 ARG RESTY_OPENSSL_BUILD_OPTIONS="enable-camellia enable-seed enable-rfc3779 enable-cms enable-md2 enable-rc5 \
@@ -326,7 +325,6 @@ LABEL resty_luarocks_sha256="${RESTY_LUAROCKS_SHA256}"
 LABEL resty_openssl_version="${RESTY_OPENSSL_VERSION}"
 LABEL resty_openssl_sha256="${RESTY_OPENSSL_SHA256}"
 LABEL resty_openssl_patch_version="${RESTY_OPENSSL_PATCH_VERSION}"
-LABEL resty_openssl_patch_sha256="${RESTY_OPENSSL_PATCH_SHA256}"
 LABEL resty_openssl_url_base="${RESTY_OPENSSL_URL_BASE}"
 LABEL resty_openssl_build_options="${RESTY_OPENSSL_BUILD_OPTIONS}"
 LABEL resty_pcre_version="${RESTY_PCRE_VERSION}"
@@ -409,27 +407,18 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
         "${RESTY_OPENSSL_URL_BASE}/openssl-${RESTY_OPENSSL_VERSION}.tar.gz" \
     && tar xzf "${TMPDIR:-/tmp}/openssl-${RESTY_OPENSSL_VERSION}.tar.gz" \
     && cd openssl-${RESTY_OPENSSL_VERSION} \
-    && TMPDIR="${TMPDIR:-/tmp}" asfald --overwrite \
-        --hash "${RESTY_OPENSSL_PATCH_SHA256}" \
-        --output "${TMPDIR:-/tmp}/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch" -- \
-        "https://github.com/openresty/openresty/raw/refs/heads/master/patches/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch" \
-    && if [ $(echo ${RESTY_OPENSSL_VERSION} | cut -c 1-2) = "3." ] ; then \
-        echo 'patching OpenSSL 3.x for OpenResty' \
-        && patch -p1 < "${TMPDIR:-/tmp}/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch"; \
-    fi \
-    && if [ $(echo ${RESTY_OPENSSL_VERSION} | cut -c 1-5) = "1.1.1" ] ; then \
-        echo 'patching OpenSSL 1.1.1 for OpenResty' \
-        && patch -p1 < "${TMPDIR:-/tmp}/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch"; \
-    fi \
-    && if [ $(echo ${RESTY_OPENSSL_VERSION} | cut -c 1-5) = "1.1.0" ] ; then \
-        echo 'patching OpenSSL 1.1.0 for OpenResty' \
-        && TMPDIR="${TMPDIR:-/tmp}" asfald --overwrite \
-            --hash '060720ca2b93452dcf68211064841e0417c4a4a40e976fe0b2b5797162917066' \
-            --output "${TMPDIR:-/tmp}/openssl-1.1.0j-parallel_build_fix.patch" -- \
-            'https://github.com/openresty/openresty/raw/refs/heads/master/patches/openssl-1.1.0j-parallel_build_fix.patch' \
-        && patch -p1 < "${TMPDIR:-/tmp}/openssl-1.1.0j-parallel_build_fix.patch" \
-        && patch -p1 < "${TMPDIR:-/tmp}/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch"; \
-    fi \
+    && case "$(printf -- '%s' "${RESTY_OPENSSL_VERSION}" | cut -c 1-5)" in \
+        (3.*) \
+            echo 'patching OpenSSL 3.x for OpenResty' \
+            && patch -p1 < "/tmp/openresty_src/patches/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch" ;; \
+        (1.1.1) \
+            echo 'patching OpenSSL 1.1.1 for OpenResty' \
+            && patch -p1 < "/tmp/openresty_src/patches/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch" ;; \
+        (1.1.0) \
+            echo 'patching OpenSSL 1.1.0 for OpenResty' \
+            && patch -p1 < "/tmp/openresty_src/patches/openssl-1.1.0j-parallel_build_fix.patch" \
+            && patch -p1 < "/tmp/openresty_src/patches/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch" ;; \
+    esac \
     && ./config \
       shared zlib -g \
       --prefix=/usr/local/openresty/openssl3 \
