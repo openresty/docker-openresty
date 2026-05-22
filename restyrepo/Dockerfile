@@ -4,19 +4,243 @@
 ARG RESTY_IMAGE_BASE="debian"
 ARG RESTY_IMAGE_TAG="trixie-slim"
 
-FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
+FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG} AS resty-base
+RUN DEBIAN_FRONTEND=noninteractive apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        bash \
+        busybox \
+        ca-certificates \
+        coreutils \
+        curl
+
+FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG} AS asfald-download
+
+# Do not update this.
+# Simply download asfald-latest with this version instead.
+# Later versions removed the feature we depend upon.
+ARG ASFALD_VERSION="0.6.0"
+
+ARG ASFALD_FILE_AMD64="asfald-x86_64-unknown-linux-musl"
+ARG ASFALD_FILE_ARM64="asfald-aarch64-unknown-linux-musl"
+
+ARG SHA256_ASFALD_AMD64="017cdc44d767bb4733a3bd3fa5f97719e3f58236d006321dfae1924fdda3de9d"
+ARG SHA256_ASFALD_ARM64="4fc112617a71f97592b8760b98c16339d5243577186c970c784fbcab2ef8abd1"
+
+ARG DESTDIR="/downloaded"
+ARG CHECKSUM_ALGORITHM="sha256"
+
+ARG ASFALD_DOWNLOAD_URI="asfaload/asfald/releases/download/v${ASFALD_VERSION}"
+ARG ASFALD_URL="https://github.com/${ASFALD_DOWNLOAD_URI}"
+
+# Let Docker download and cache these files for us
+ADD "${ASFALD_URL}/checksums.txt" "${DESTDIR}/"
+ARG ASFALD_CHECKSUM_AMD64="${CHECKSUM_ALGORITHM}:${SHA256_ASFALD_AMD64}"
+ARG ASFALD_CHECKSUM_ARM64="${CHECKSUM_ALGORITHM}:${SHA256_ASFALD_ARM64}"
+ADD --checksum="${ASFALD_CHECKSUM_AMD64}" "${ASFALD_URL}/${ASFALD_FILE_AMD64}" "${DESTDIR}/"
+ADD --checksum="${ASFALD_CHECKSUM_ARM64}" "${ASFALD_URL}/${ASFALD_FILE_ARM64}" "${DESTDIR}/"
+
+ARG TARGETARCH
+RUN set -eu ; \
+    decide_fn() { \
+      case "${TARGETARCH}" in \
+        (amd64) printf -- '%s\n' "${ASFALD_FILE_AMD64}" ;; \
+        (arm64) printf -- '%s\n' "${ASFALD_FILE_ARM64}" ;; \
+        (*) printf -- '%s\n' 'fallback-to-busybox.sh' ;; \
+      esac ; \
+    } ; \
+\
+    { \
+        printf -- '%s\n' '#!/usr/bin/env sh' '' \
+            '_cleanup() { case "${1}" in' \
+            '    (register) [ -n "${2}" ] && _cleanup_registry="${_cleanup_registry}${2}\000" ;;' \
+            '    (clear)' \
+            '        busybox printf "%b" "${_cleanup_registry}" | busybox xargs -r -0 busybox rm -f;' \
+            '        _cleanup_registry="";' \
+            '        ;;' \
+            '    esac;' \
+            '}' '_cleanup_registry="";' 'trap "_cleanup clear" EXIT;' '' \
+            '_get_url() {' \
+            '    _o="${1}"; shift;' \
+            '    _u="${1}"; shift;' \
+            '    if [ 1 -eq "${USE_CURL:-0}" ]; then' \
+            '        curl -fsSLo "${_o}" -- "${_u}";' \
+            '    else' \
+            '        busybox wget -O "${_o}" "${@}" -- "${_u}";' \
+            '    fi;' \
+            '    _rc="${?}";' \
+            '    unset -v _o _u;' \
+            '    return "${_rc}";' \
+            '}' '' \
+            '_stderr() {' \
+            '    printf 1>&2 -- "%s\n" "${@}";' \
+            '}' '' \
+            'extract_gh_digests() {' \
+            '    busybox awk -e '\' \
+            '      /clipboard digest for / {' \
+            '        td=gensub(/<clipboard-copy (.+)>/, "\\1", "g");' \
+            '        d=gensub(/^.* value="[^:]+:([^"]+)".*$/, "\\1", 1, td);' \
+            '        f=gensub(/^.* aria-label=".+digest for ([^"]+)".*$/, "\\1", 1, td);' \
+            '        print d " *" f;' \
+            '      }' \
+            '    '\'';' \
+            '}' '' \
+            'find_hash_for_file() {' \
+            '    _f="${1}"; shift;' \
+            '    busybox awk -v file="${_f}" -e '\''$0 ~ " [* ]" file "$" {print $1; exit;}'\'' "${@}";' \
+            '    unset -v _f;' \
+            '}' '' \
+            'get_from_gh_url() { case "${1}" in' \
+            '    (owner)' \
+            '        busybox awk -v url="${2}" -e '\' \
+            '          END {' \
+            '            print gensub(/^https?:\/\/github\.com\/([^\/]+)\/.*$/, "\\1", 1, url);' \
+            '          }' \
+            '        '\'' </dev/null;' \
+            '        ;;' \
+            '    (repo)' \
+            '        busybox awk -v url="${2}" -e '\' \
+            '          END {' \
+            '            print gensub(/^https?:\/\/github\.com\/[^\/]+\/([^\/]+)\/.*$/, "\\1", 1, url);' \
+            '          }' \
+            '        '\'' </dev/null;' \
+            '        ;;' \
+            '    (tag)' \
+            '        _url="${2}";' \
+            '        if is_gh_tag_url "${_url}"; then' \
+            '            busybox basename "${_url}";' \
+            '        elif is_gh_download_url "${_url}"; then' \
+            '            _tag_url="$(busybox dirname "${_url}")";' \
+            '            busybox basename "${_tag_url}";' \
+            '            unset -v _tag_url;' \
+            '        fi;' \
+            '        unset -v _url;' \
+            '        ;;' \
+            '    esac;' \
+            '}' '' \
+            'get_gh_digests_from_tag() {' \
+            '    _url="$(printf -- "https://github.com/%s/%s/releases/expanded_assets/%s\n" "${1}" "${2}" "${3}")";' \
+            '    _get_url - "${_url}" -q | extract_gh_digests;' \
+            '    unset -v _url;' \
+            '}' '' \
+            'is_gh_download_url() { case "${1}" in' \
+            '    (http*://github.com/*/releases/download/*) return 0 ;;' \
+            '    esac;' \
+            '    return 1;' \
+            '}' '' \
+            'is_gh_tag_url() { case "${1}" in' \
+            '    (http*://github.com/*/releases/tag/*) return 0 ;;' \
+            '    esac;' \
+            '    return 1;' \
+            '}' '' \
+            'for _arg in "${@}"; do case "${_arg}" in' \
+            '    (--force-absent|-f) _verified=1 ;;' \
+            '    (--hash|-H) _set_H=1 ;;' \
+            '    (--output|-o) _set_o=1 ;;' \
+            '    (--pattern|-p) _set_p=1 ;;' \
+            '    (*)' \
+            '        if [ 1 -eq "${_set_H:-0}" ]; then hash="${_arg}"; unset -v _set_H ; fi ;' \
+            '        if [ 1 -eq "${_set_o:-0}" ]; then output="${_arg}"; unset -v _set_o ; fi ;' \
+            '        if [ 1 -eq "${_set_p:-0}" ]; then pattern="${_arg}"; unset -v _set_p ; fi ;' \
+            '        url="${_arg}"' \
+            '        ;;' \
+            'esac; done; unset -v _arg ;' '' \
+            'if [ -z "${output-}" ]; then output="$(busybox basename "${url}")"; fi;' \
+            'if [ -z "${hash-}" ] && [ -n "${pattern-}" ]; then' \
+            '    cs_url="$(busybox awk '\\ \
+            '        -v file="$(busybox basename "${url}")" '\\ \
+            '        -v fullpath="${url}" '\\ \
+            '        -v path="$(busybox dirname "${url}")" '\\ \
+            '        -v pattern="${pattern}" -e '\' \
+            '      END {' \
+            '        out = gensub(/[$][{]file[}]/, file, "g", pattern);' \
+            '        out = gensub(/[$][{]fullpath[}]/, fullpath, "g", out);' \
+            '        out = gensub(/[$][{]path[}]/, path, "g", out);' \
+            '        print out;' \
+            '      }' \
+            '    '\'' </dev/null)";' \
+            'fi;' \
+            'gh_tag="$(get_from_gh_url "tag" "${url}")";' \
+            'if [ -z "${hash-}" ] && [ -n "${gh_tag}" ]; then' \
+            '    gh_owner="$(get_from_gh_url "owner" "${url}")";' \
+            '    gh_repo="$(get_from_gh_url "repo" "${url}")";' \
+            '    csfile="$(busybox mktemp)" && _cleanup register "${csfile}" &&' \
+            '    get_gh_digests_from_tag "${gh_owner}" "${gh_repo}" "${gh_tag}" > "${csfile}" &&' \
+            '    hash="$(find_hash_for_file "$(busybox basename "${url}")" "${csfile}")";' \
+            '    [ -s "${csfile}" ] || _stderr "Warning: No digests extracted for any artifacts at GitHub.com!";' \
+            '    [ -n "${hash}" ] || _stderr "Warning: No digest found at GitHub.com!";' \
+            'fi;' \
+            'dlfile="$(busybox mktemp)" &&' \
+            '    _cleanup register "${dlfile}" &&' \
+            '    { [ -z "${cs_url-}" ] || { _get_url "${dlfile}" "${cs_url}" -q && hash="$(find_hash_for_file "$(busybox basename "${url}")" "${dlfile}")" ; [ -n "${hash-}" ]; } ; } &&' \
+            '    _get_url "${dlfile}" "${url}" &&' \
+            '    { [ -z "${hash-}" ] || { busybox printf -- "%s *%s\n" "${hash-}" "${dlfile}" | busybox sha256sum -cw && _verified=1 || _verified=0; } ; } &&' \
+            '    { [ "-" = "${output-}" ] && busybox cat "${dlfile}" || [ 1 -eq "${_verified:-0}" ] && busybox mv -fT "${dlfile}" "${output-}" ; } ;' \
+        ; \
+    } > "${DESTDIR}/fallback-to-busybox.sh" ; \
+\
+    file="$(decide_fn)" ; \
+    install -v -D -m 00755 -o root -g root "${DESTDIR}/${file}" "/verified/${TARGETARCH}/asfald"
+
+FROM scratch AS asfald
+ARG TARGETARCH
+COPY --from=asfald-download "/verified/${TARGETARCH}/asfald" /usr/local/sbin/
+
+FROM resty-base AS with-asfald
+COPY --from=asfald /usr/local/sbin/ /usr/local/sbin/
+
+ARG TARGETARCH
+RUN set -eu ; \
+\
+    decide_arch() { \
+      case "${TARGETARCH}" in \
+        (amd64) printf -- 'x86_64' ;; \
+        (arm64) printf -- 'aarch64' ;; \
+      esac ; \
+    } ; \
+    decide_latest_tag() { \
+        busybox wget -q -S -O /dev/null \
+            "https://github.com/${1}/${2}/releases/latest" 2>&1 | \
+            busybox awk -F : -e 'tolower($1) ~ /^[[:space:]]*location$/ { n = split($NF, P, "/"); print P[n]; exit; }' ; \
+    } ; \
+\
+    set -x ; arch="$(decide_arch)" ; \
+    dest='/usr/local/sbin/asfald-latest' ; \
+    if [ -z "${arch}" ]; then ln -s asfald "${dest}" ; exit 0; fi ; \
+    gh_releases_uri='github.com/asfaload/asfald/releases' ; \
+    TMPDIR="$(busybox dirname "${dest}")" \
+    asfald --overwrite --output "${dest}" \
+        --pattern '${path}/checksums.txt' -- \
+        "https://${gh_releases_uri}/latest/download/asfald-${arch}-unknown-linux-musl" && \
+    busybox chmod -c 00755 "${dest}" && busybox chown -c root:root "${dest}" ; \
+\
+    checksums_base_uri="https://gh.checksums.asfaload.com/${gh_releases_uri}/download" ; \
+    latest_version="$(decide_latest_tag 'asfaload' 'asfald')" ; \
+    checksums_url="${checksums_base_uri}/${latest_version}/checksums.txt" ; \
+    dest="$(busybox mktemp)" ; \
+    TMPDIR="$(busybox dirname "${dest}")" \
+    asfald --overwrite --output "${dest}" \
+        --quiet --force-absent --no-asfaload-index -- "${checksums_url}" ; \
+    specific_checksum="$(busybox awk -v dl="asfald-${arch}-unknown-linux-musl" -e '$NF ~ dl "$" { print $1; exit; }' "${dest}" ; busybox rm -f "${dest}")" ; \
+    (cd /usr/local/sbin && busybox printf -- '%s *%s\n' "${specific_checksum}" 'asfald-latest' | cksum --algorithm='sha256' --check --strict --warn || busybox rm -f 'asfald-latest') ; \
+    [ -x /usr/local/sbin/asfald-latest ] ; \
+    specific_checksum="$(asfald-latest --get-hash "https://${gh_releases_uri}/download/${latest_version}/asfald-${arch}-unknown-linux-musl" | busybox head -n 1)" ; \
+    (cd /usr/local/sbin && busybox printf -- '%s *%s\n' "${specific_checksum##*:}" 'asfald-latest' | cksum --algorithm="${specific_checksum%%:*}" --check --strict --warn || busybox rm -f 'asfald-latest') ; \
+    [ -x /usr/local/sbin/asfald-latest ] ;
+
+FROM with-asfald
+SHELL ["/usr/bin/env", "bash", "-c"]
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
 # Docker Build Arguments
-ARG RESTY_IMAGE_BASE="debian"
-ARG RESTY_IMAGE_TAG="trixie-slim"
-ARG RESTY_VERSION="v1.29.2.4" # Includes the full branch name, hence 'v' prefix
-ARG RESTY_SOURCE_REPO="https://github.com/openresty/openresty.git"
+ARG RESTY_VERSION="v1.29.2.4" # Uses the full tag name, hence 'v' prefix
+ARG RESTY_SHA256="a9de2d4e7e20e31e439a85960300e1146837a9e33761d27ecb8964bef215aa85"
 ARG RESTY_LUAROCKS_VERSION="3.13.0"
+ARG RESTY_LUAROCKS_SHA256="245bf6ec560c042cb8948e3d661189292587c5949104677f1eecddc54dbe7e37"
 
 # https://github.com/openresty/openresty-packaging/blob/master/deb/openresty-openssl3/debian/rules
 ARG RESTY_OPENSSL_VERSION="3.5.6"
+ARG RESTY_OPENSSL_SHA256="deae7c80cba99c4b4f940ecadb3c3338b13cb77418409238e57d7f31f2a3b736"
 ARG RESTY_OPENSSL_PATCH_VERSION="3.5.5"
 ARG RESTY_OPENSSL_URL_BASE="https://github.com/openssl/openssl/releases/download/openssl-${RESTY_OPENSSL_VERSION}"
 # LEGACY:  "https://www.openssl.org/source/old/1.1.1"
@@ -90,17 +314,22 @@ ARG _RESTY_CONFIG_DEPS="--with-pcre \
     --with-ld-opt='-L/usr/local/openresty/pcre2/lib -L/usr/local/openresty/openssl3/lib -Wl,-rpath,/usr/local/openresty/pcre2/lib:/usr/local/openresty/openssl3/lib' \
     "
 
+ARG RESTY_IMAGE_BASE RESTY_IMAGE_TAG
 LABEL resty_image_base="${RESTY_IMAGE_BASE}"
 LABEL resty_image_tag="${RESTY_IMAGE_TAG}"
+
 LABEL resty_version="${RESTY_VERSION}"
+LABEL resty_sha256="${RESTY_SHA256}"
 LABEL resty_luarocks_version="${RESTY_LUAROCKS_VERSION}"
+LABEL resty_luarocks_sha256="${RESTY_LUAROCKS_SHA256}"
 LABEL resty_openssl_version="${RESTY_OPENSSL_VERSION}"
+LABEL resty_openssl_sha256="${RESTY_OPENSSL_SHA256}"
 LABEL resty_openssl_patch_version="${RESTY_OPENSSL_PATCH_VERSION}"
 LABEL resty_openssl_url_base="${RESTY_OPENSSL_URL_BASE}"
 LABEL resty_openssl_build_options="${RESTY_OPENSSL_BUILD_OPTIONS}"
 LABEL resty_pcre_version="${RESTY_PCRE_VERSION}"
-LABEL resty_pcre_build_options="${RESTY_PCRE_BUILD_OPTIONS}"
 LABEL resty_pcre_sha256="${RESTY_PCRE_SHA256}"
+LABEL resty_pcre_build_options="${RESTY_PCRE_BUILD_OPTIONS}"
 LABEL resty_config_options="${RESTY_CONFIG_OPTIONS}"
 LABEL resty_config_options_more="${RESTY_CONFIG_OPTIONS_MORE}"
 LABEL resty_config_deps="${_RESTY_CONFIG_DEPS}"
@@ -117,8 +346,6 @@ LABEL resty_pcre_options="${RESTY_PCRE_OPTIONS}"
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-        ca-certificates \
-        curl \
         dos2unix \
         git \
         make \
@@ -127,9 +354,37 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
         perl \
         unzip \
         wget \
+    && checksum_archives() ( cd work \
+        && cksum --algorithm='sha256' --binary --untagged * \
+    ) \
+    && fetch_archives() ( cd work \
+        && curl --config .curl-config --parallel --parallel-max 4 \
+        --fail --location --connect-timeout 10 --retry 3 --retry-delay 2 \
+        --remove-on-error --remote-time --silent --show-error \
+        --write-out 'HTTP: %{http_code}  Wrote: %{size_download} bytes\t%{filename_effective}\nURL: %{url_effective}\n\n' \
+    ) \
     && cd /tmp \
-    && git clone --depth 1 --branch "${RESTY_VERSION}" "${RESTY_SOURCE_REPO}" openresty_src \
+    && mkdir -v -p openresty_src.tmp/work \
+    && cd openresty_src.tmp \
+    && printf > work/.curl-config -- '%s\n' \
+        'output = openresty-'"${RESTY_VERSION#v}"'.tar.gz' \
+        'url = "https://github.com/openresty/openresty/archive/refs/tags/'"${RESTY_VERSION}"'.tar.gz"' \
+    && fetch_archives && checksum_archives \
+    && TMPDIR="${PWD}/work" asfald --overwrite \
+        --hash "${RESTY_SHA256}" \
+        --output 'work/openresty.tar.gz' -- \
+        "https://github.com/openresty/openresty/archive/refs/tags/${RESTY_VERSION}.tar.gz" \
+    && cd /tmp \
+    && tar xzf openresty_src.tmp/work/openresty.tar.gz \
+    && mv openresty-*/ openresty_src \
+    && rm -rf openresty_src.tmp \
+    && mkdir -v -p openresty_src/work \
     && cd openresty_src \
+    && ( . util/ver >/dev/null \
+        && busybox grep -B 1 -e '^[$]root/util/get-tarball ' util/mirror-tarballs | busybox sed -e 's@ver="$main_ver"@ver="'"${main_ver}"'"@;' \
+    ) > work/.calls \
+    && busybox awk -e '/^ver=/ { ver=gensub(/^ver="?([^"]+)"?$/, "\\1", 1); } $1 ~ /\/util\/get-tarball$/ { gsub(/[$][{]?ver[}]?/, ver); ofp=gensub(/^"?([^"]+)"?$/, "\\1", 1, $4); print "output","=",ofp; if (0 == system("test -s '\''" ofp "'\''")) { print "time-cond","=",ofp; }; print "url","=",$2; }' < work/.calls > work/.curl-config \
+    && fetch_archives && checksum_archives \
     && make \
     && mv openresty-*.tar.gz "/tmp/openresty-${RESTY_VERSION}.tar.gz" \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
@@ -146,22 +401,24 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
         ${RESTY_ADD_PACKAGE_RUNDEPS} \
     && cd /tmp \
     && if [ -n "${RESTY_EVAL_PRE_CONFIGURE}" ]; then eval $(echo ${RESTY_EVAL_PRE_CONFIGURE}); fi \
-    && curl -fSL "${RESTY_OPENSSL_URL_BASE}/openssl-${RESTY_OPENSSL_VERSION}.tar.gz" -o openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
-    && tar xzf openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
+    && TMPDIR="${TMPDIR:-/tmp}" asfald --overwrite \
+        --hash "${RESTY_OPENSSL_SHA256}" \
+        --output "${TMPDIR:-/tmp}/openssl-${RESTY_OPENSSL_VERSION}.tar.gz" -- \
+        "${RESTY_OPENSSL_URL_BASE}/openssl-${RESTY_OPENSSL_VERSION}.tar.gz" \
+    && tar xzf "${TMPDIR:-/tmp}/openssl-${RESTY_OPENSSL_VERSION}.tar.gz" \
     && cd openssl-${RESTY_OPENSSL_VERSION} \
-    && if [ $(echo ${RESTY_OPENSSL_VERSION} | cut -c 1-2) = "3." ] ; then \
-        echo 'patching OpenSSL 3.x for OpenResty' \
-        && curl -s https://raw.githubusercontent.com/openresty/openresty/master/patches/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch | patch -p1 ; \
-    fi \
-    && if [ $(echo ${RESTY_OPENSSL_VERSION} | cut -c 1-5) = "1.1.1" ] ; then \
-        echo 'patching OpenSSL 1.1.1 for OpenResty' \
-        && curl -s https://raw.githubusercontent.com/openresty/openresty/master/patches/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch | patch -p1 ; \
-    fi \
-    && if [ $(echo ${RESTY_OPENSSL_VERSION} | cut -c 1-5) = "1.1.0" ] ; then \
-        echo 'patching OpenSSL 1.1.0 for OpenResty' \
-        && curl -s https://raw.githubusercontent.com/openresty/openresty/master/patches/openssl-1.1.0j-parallel_build_fix.patch | patch -p1 \
-        && curl -s https://raw.githubusercontent.com/openresty/openresty/master/patches/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch | patch -p1 ; \
-    fi \
+    && case "$(printf -- '%s' "${RESTY_OPENSSL_VERSION}" | cut -c 1-5)" in \
+        (3.*) \
+            echo 'patching OpenSSL 3.x for OpenResty' \
+            && patch -p1 < "/tmp/openresty_src/patches/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch" ;; \
+        (1.1.1) \
+            echo 'patching OpenSSL 1.1.1 for OpenResty' \
+            && patch -p1 < "/tmp/openresty_src/patches/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch" ;; \
+        (1.1.0) \
+            echo 'patching OpenSSL 1.1.0 for OpenResty' \
+            && patch -p1 < "/tmp/openresty_src/patches/openssl-1.1.0j-parallel_build_fix.patch" \
+            && patch -p1 < "/tmp/openresty_src/patches/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch" ;; \
+    esac \
     && ./config \
       shared zlib -g \
       --prefix=/usr/local/openresty/openssl3 \
@@ -171,9 +428,11 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && make -j${RESTY_J} \
     && make -j${RESTY_J} install_sw \
     && cd /tmp \
-    && curl -fSL "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-${RESTY_PCRE_VERSION}/pcre2-${RESTY_PCRE_VERSION}.tar.gz" -o pcre2-${RESTY_PCRE_VERSION}.tar.gz \
-    && echo "${RESTY_PCRE_SHA256}  pcre2-${RESTY_PCRE_VERSION}.tar.gz" | shasum -a 256 --check \
-    && tar xzf pcre2-${RESTY_PCRE_VERSION}.tar.gz \
+    && TMPDIR="${TMPDIR:-/tmp}" asfald --overwrite \
+        --hash "${RESTY_PCRE_SHA256}" \
+        --output "${TMPDIR:-/tmp}/pcre2-${RESTY_PCRE_VERSION}.tar.gz" -- \
+        "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-${RESTY_PCRE_VERSION}/pcre2-${RESTY_PCRE_VERSION}.tar.gz" \
+    && tar xzf "${TMPDIR:-/tmp}/pcre2-${RESTY_PCRE_VERSION}.tar.gz" \
     && cd /tmp/pcre2-${RESTY_PCRE_VERSION} \
     && CFLAGS="-g -O3" ./configure \
         --prefix=/usr/local/openresty/pcre2 \
@@ -192,11 +451,14 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && make -j${RESTY_J} install \
     && cd /tmp \
     && rm -rf \
-        openssl-${RESTY_OPENSSL_VERSION}.tar.gz openssl-${RESTY_OPENSSL_VERSION} \
-        pcre2-${RESTY_PCRE_VERSION}.tar.gz pcre2-${RESTY_PCRE_VERSION} \
+        "${TMPDIR:-/tmp}/openssl-${RESTY_OPENSSL_VERSION}.tar.gz" "${TMPDIR:-/tmp}"/openssl-*.patch openssl-${RESTY_OPENSSL_VERSION} \
+        "${TMPDIR:-/tmp}/pcre2-${RESTY_PCRE_VERSION}.tar.gz" pcre2-${RESTY_PCRE_VERSION} \
         openresty-${RESTY_VERSION}.tar.gz openresty-${RESTY_VERSION} openresty_src \
-    && curl -fSL https://luarocks.github.io/luarocks/releases/luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz -o luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
-    && tar xzf luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
+    && TMPDIR="${TMPDIR:-/tmp}" asfald --overwrite \
+        --hash "${RESTY_LUAROCKS_SHA256}" \
+        --output "${TMPDIR:-/tmp}/luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz" -- \
+        "https://github.com/luarocks/luarocks/raw/refs/heads/gh-pages/releases/luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz" \
+    && tar xzf "${TMPDIR:-/tmp}/luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz" \
     && cd luarocks-${RESTY_LUAROCKS_VERSION} \
     && ./configure \
         --prefix=/usr/local/openresty/luajit \
