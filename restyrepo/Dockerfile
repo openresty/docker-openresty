@@ -204,9 +204,9 @@ RUN set -eu ; \
     } ; \
 \
     set -x ; arch="$(decide_arch)" ; \
-    gh_releases_uri='github.com/asfaload/asfald/releases' ; \
     dest='/usr/local/sbin/asfald-latest' ; \
     if [ -z "${arch}" ]; then ln -s asfald "${dest}" ; exit 0; fi ; \
+    gh_releases_uri='github.com/asfaload/asfald/releases' ; \
     TMPDIR="$(busybox dirname "${dest}")" \
     asfald --overwrite --output "${dest}" \
         --pattern '${path}/checksums.txt' -- \
@@ -236,10 +236,12 @@ LABEL maintainer="Evan Wies <evan@neomantra.net>"
 ARG RESTY_VERSION="v1.29.2.4" # Uses the full tag name, hence 'v' prefix
 ARG RESTY_SOURCE_REPO="https://github.com/openresty/openresty.git"
 ARG RESTY_LUAROCKS_VERSION="3.13.0"
+ARG RESTY_LUAROCKS_SHA256="245bf6ec560c042cb8948e3d661189292587c5949104677f1eecddc54dbe7e37"
 
 # https://github.com/openresty/openresty-packaging/blob/master/deb/openresty-openssl3/debian/rules
 ARG RESTY_OPENSSL_VERSION="3.5.6"
 ARG RESTY_OPENSSL_PATCH_VERSION="3.5.5"
+ARG RESTY_OPENSSL_PATCH_SHA256="0a30cc762a9d72901e8415a33f7671bb68469d46121061e26afe7b718f47581e"
 ARG RESTY_OPENSSL_URL_BASE="https://github.com/openssl/openssl/releases/download/openssl-${RESTY_OPENSSL_VERSION}"
 # LEGACY:  "https://www.openssl.org/source/old/1.1.1"
 ARG RESTY_OPENSSL_BUILD_OPTIONS="enable-camellia enable-seed enable-rfc3779 enable-cms enable-md2 enable-rc5 \
@@ -318,13 +320,15 @@ LABEL resty_image_tag="${RESTY_IMAGE_TAG}"
 
 LABEL resty_version="${RESTY_VERSION}"
 LABEL resty_luarocks_version="${RESTY_LUAROCKS_VERSION}"
+LABEL resty_luarocks_sha256="${RESTY_LUAROCKS_SHA256}"
 LABEL resty_openssl_version="${RESTY_OPENSSL_VERSION}"
 LABEL resty_openssl_patch_version="${RESTY_OPENSSL_PATCH_VERSION}"
+LABEL resty_openssl_patch_sha256="${RESTY_OPENSSL_PATCH_SHA256}"
 LABEL resty_openssl_url_base="${RESTY_OPENSSL_URL_BASE}"
 LABEL resty_openssl_build_options="${RESTY_OPENSSL_BUILD_OPTIONS}"
 LABEL resty_pcre_version="${RESTY_PCRE_VERSION}"
-LABEL resty_pcre_build_options="${RESTY_PCRE_BUILD_OPTIONS}"
 LABEL resty_pcre_sha256="${RESTY_PCRE_SHA256}"
+LABEL resty_pcre_build_options="${RESTY_PCRE_BUILD_OPTIONS}"
 LABEL resty_config_options="${RESTY_CONFIG_OPTIONS}"
 LABEL resty_config_options_more="${RESTY_CONFIG_OPTIONS_MORE}"
 LABEL resty_config_deps="${_RESTY_CONFIG_DEPS}"
@@ -368,21 +372,32 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
         ${RESTY_ADD_PACKAGE_RUNDEPS} \
     && cd /tmp \
     && if [ -n "${RESTY_EVAL_PRE_CONFIGURE}" ]; then eval $(echo ${RESTY_EVAL_PRE_CONFIGURE}); fi \
-    && curl -fSL "${RESTY_OPENSSL_URL_BASE}/openssl-${RESTY_OPENSSL_VERSION}.tar.gz" -o openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
-    && tar xzf openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
+    && TMPDIR="${TMPDIR:-/tmp}" asfald --overwrite \
+        --output "${TMPDIR:-/tmp}/openssl-${RESTY_OPENSSL_VERSION}.tar.gz" \
+        --pattern '${fullpath}.sha256' -- \
+        "${RESTY_OPENSSL_URL_BASE}/openssl-${RESTY_OPENSSL_VERSION}.tar.gz" \
+    && tar xzf "${TMPDIR:-/tmp}/openssl-${RESTY_OPENSSL_VERSION}.tar.gz" \
     && cd openssl-${RESTY_OPENSSL_VERSION} \
+    && TMPDIR="${TMPDIR:-/tmp}" asfald --overwrite \
+        --hash "${RESTY_OPENSSL_PATCH_SHA256}" \
+        --output "${TMPDIR:-/tmp}/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch" -- \
+        "https://github.com/openresty/openresty/raw/refs/heads/master/patches/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch" \
     && if [ $(echo ${RESTY_OPENSSL_VERSION} | cut -c 1-2) = "3." ] ; then \
         echo 'patching OpenSSL 3.x for OpenResty' \
-        && curl -s https://raw.githubusercontent.com/openresty/openresty/master/patches/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch | patch -p1 ; \
+        && patch -p1 < "${TMPDIR:-/tmp}/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch"; \
     fi \
     && if [ $(echo ${RESTY_OPENSSL_VERSION} | cut -c 1-5) = "1.1.1" ] ; then \
         echo 'patching OpenSSL 1.1.1 for OpenResty' \
-        && curl -s https://raw.githubusercontent.com/openresty/openresty/master/patches/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch | patch -p1 ; \
+        && patch -p1 < "${TMPDIR:-/tmp}/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch"; \
     fi \
     && if [ $(echo ${RESTY_OPENSSL_VERSION} | cut -c 1-5) = "1.1.0" ] ; then \
         echo 'patching OpenSSL 1.1.0 for OpenResty' \
-        && curl -s https://raw.githubusercontent.com/openresty/openresty/master/patches/openssl-1.1.0j-parallel_build_fix.patch | patch -p1 \
-        && curl -s https://raw.githubusercontent.com/openresty/openresty/master/patches/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch | patch -p1 ; \
+        && TMPDIR="${TMPDIR:-/tmp}" asfald --overwrite \
+            --hash '060720ca2b93452dcf68211064841e0417c4a4a40e976fe0b2b5797162917066' \
+            --output "${TMPDIR:-/tmp}/openssl-1.1.0j-parallel_build_fix.patch" -- \
+            'https://github.com/openresty/openresty/raw/refs/heads/master/patches/openssl-1.1.0j-parallel_build_fix.patch' \
+        && patch -p1 < "${TMPDIR:-/tmp}/openssl-1.1.0j-parallel_build_fix.patch" \
+        && patch -p1 < "${TMPDIR:-/tmp}/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch"; \
     fi \
     && ./config \
       shared zlib -g \
@@ -393,9 +408,11 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && make -j${RESTY_J} \
     && make -j${RESTY_J} install_sw \
     && cd /tmp \
-    && curl -fSL "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-${RESTY_PCRE_VERSION}/pcre2-${RESTY_PCRE_VERSION}.tar.gz" -o pcre2-${RESTY_PCRE_VERSION}.tar.gz \
-    && echo "${RESTY_PCRE_SHA256}  pcre2-${RESTY_PCRE_VERSION}.tar.gz" | shasum -a 256 --check \
-    && tar xzf pcre2-${RESTY_PCRE_VERSION}.tar.gz \
+    && TMPDIR="${TMPDIR:-/tmp}" asfald --overwrite \
+        --hash "${RESTY_PCRE_SHA256}" \
+        --output "${TMPDIR:-/tmp}/pcre2-${RESTY_PCRE_VERSION}.tar.gz" -- \
+        "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-${RESTY_PCRE_VERSION}/pcre2-${RESTY_PCRE_VERSION}.tar.gz" \
+    && tar xzf "${TMPDIR:-/tmp}/pcre2-${RESTY_PCRE_VERSION}.tar.gz" \
     && cd /tmp/pcre2-${RESTY_PCRE_VERSION} \
     && CFLAGS="-g -O3" ./configure \
         --prefix=/usr/local/openresty/pcre2 \
@@ -414,11 +431,14 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && make -j${RESTY_J} install \
     && cd /tmp \
     && rm -rf \
-        openssl-${RESTY_OPENSSL_VERSION}.tar.gz openssl-${RESTY_OPENSSL_VERSION} \
-        pcre2-${RESTY_PCRE_VERSION}.tar.gz pcre2-${RESTY_PCRE_VERSION} \
+        "${TMPDIR:-/tmp}/openssl-${RESTY_OPENSSL_VERSION}.tar.gz" "${TMPDIR:-/tmp}"/openssl-*.patch openssl-${RESTY_OPENSSL_VERSION} \
+        "${TMPDIR:-/tmp}/pcre2-${RESTY_PCRE_VERSION}.tar.gz" pcre2-${RESTY_PCRE_VERSION} \
         openresty-${RESTY_VERSION}.tar.gz openresty-${RESTY_VERSION} openresty_src \
-    && curl -fSL https://luarocks.github.io/luarocks/releases/luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz -o luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
-    && tar xzf luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
+    && TMPDIR="${TMPDIR:-/tmp}" asfald --overwrite \
+        --hash "${RESTY_LUAROCKS_SHA256}" \
+        --output "${TMPDIR:-/tmp}/luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz" -- \
+        "https://github.com/luarocks/luarocks/raw/refs/heads/gh-pages/releases/luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz" \
+    && tar xzf "${TMPDIR:-/tmp}/luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz" \
     && cd luarocks-${RESTY_LUAROCKS_VERSION} \
     && ./configure \
         --prefix=/usr/local/openresty/luajit \
