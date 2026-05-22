@@ -240,6 +240,7 @@ ARG RESTY_LUAROCKS_SHA256="245bf6ec560c042cb8948e3d661189292587c5949104677f1eecd
 
 # https://github.com/openresty/openresty-packaging/blob/master/deb/openresty-openssl3/debian/rules
 ARG RESTY_OPENSSL_VERSION="3.5.6"
+ARG RESTY_OPENSSL_SHA256="deae7c80cba99c4b4f940ecadb3c3338b13cb77418409238e57d7f31f2a3b736"
 ARG RESTY_OPENSSL_PATCH_VERSION="3.5.5"
 ARG RESTY_OPENSSL_PATCH_SHA256="0a30cc762a9d72901e8415a33f7671bb68469d46121061e26afe7b718f47581e"
 ARG RESTY_OPENSSL_URL_BASE="https://github.com/openssl/openssl/releases/download/openssl-${RESTY_OPENSSL_VERSION}"
@@ -322,6 +323,7 @@ LABEL resty_version="${RESTY_VERSION}"
 LABEL resty_luarocks_version="${RESTY_LUAROCKS_VERSION}"
 LABEL resty_luarocks_sha256="${RESTY_LUAROCKS_SHA256}"
 LABEL resty_openssl_version="${RESTY_OPENSSL_VERSION}"
+LABEL resty_openssl_sha256="${RESTY_OPENSSL_SHA256}"
 LABEL resty_openssl_patch_version="${RESTY_OPENSSL_PATCH_VERSION}"
 LABEL resty_openssl_patch_sha256="${RESTY_OPENSSL_PATCH_SHA256}"
 LABEL resty_openssl_url_base="${RESTY_OPENSSL_URL_BASE}"
@@ -373,8 +375,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && cd /tmp \
     && if [ -n "${RESTY_EVAL_PRE_CONFIGURE}" ]; then eval $(echo ${RESTY_EVAL_PRE_CONFIGURE}); fi \
     && TMPDIR="${TMPDIR:-/tmp}" asfald --overwrite \
-        --output "${TMPDIR:-/tmp}/openssl-${RESTY_OPENSSL_VERSION}.tar.gz" \
-        --pattern '${fullpath}.sha256' -- \
+        --hash "${RESTY_OPENSSL_SHA256}" \
+        --output "${TMPDIR:-/tmp}/openssl-${RESTY_OPENSSL_VERSION}.tar.gz" -- \
         "${RESTY_OPENSSL_URL_BASE}/openssl-${RESTY_OPENSSL_VERSION}.tar.gz" \
     && tar xzf "${TMPDIR:-/tmp}/openssl-${RESTY_OPENSSL_VERSION}.tar.gz" \
     && cd openssl-${RESTY_OPENSSL_VERSION} \
