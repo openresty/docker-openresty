@@ -3,6 +3,8 @@
 
 ## 1.29.2.5-0 (2024-05-24)
 
+**Only `build-from-source` flavors are included in this release.**  Thanks to the OpenResty maintainers for their prompt release.
+
  * Upgrade OpenResty to `1.29.2.5` (#302)
 
 ## 1.29.2.4-1 (2024-05-21)
