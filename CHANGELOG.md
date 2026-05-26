@@ -1,6 +1,12 @@
 `docker-openresty` Changelog
 ============================
 
+## 1.29.2.5-1 (2024-05-26)
+
+**All unarchived flavors are are included in this release.** Thanks to the OpenResty maintainers.
+
+ * Restore publishing of build-from-upstream flavors for `1.29.2.5`.
+
 ## 1.29.2.5-0 (2024-05-24)
 
 **Only `build-from-source` flavors are included in this release.**  Thanks to the OpenResty maintainers for their prompt release.
