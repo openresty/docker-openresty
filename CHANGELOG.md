@@ -1,6 +1,10 @@
 `docker-openresty` Changelog
 ============================
 
+## 1.31.1.1-0 (2024-06-05)
+
+ * Upgrade OpenResty to `1.31.1.1` (#303)
+
 ## 1.29.2.5-1 (2024-05-26)
 
 **All unarchived flavors are are included in this release.** Thanks to the OpenResty maintainers.
