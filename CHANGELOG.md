@@ -3,6 +3,7 @@
 
 ## 1.31.1.1-1 (2024-06-10)
 
+ * ci: Fix missing s390x builds in manifest (`alma` and `resolute`)
  * ci: Fix missing `noble` flavor
 
 ## 1.31.1.1-0 (2024-06-05)

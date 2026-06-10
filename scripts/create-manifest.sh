@@ -34,10 +34,10 @@ RESTY_LATEST_SERIES="${RESTY_LATEST_SERIES:-1.29}"
 # Default to amd64 and arm64, can be overridden by RESTY_ARCHS env var
 ARCHS="${RESTY_ARCHS:-amd64 arm64}"
 
-# Add s390x for Ubuntu flavors
-UBUNTU_FLAVORS=("jammy" "noble")
-for ub_flavor in "${UBUNTU_FLAVORS[@]}"; do
-    if [[ "$FLAVOR" == "$ub_flavor" ]]; then
+# Add s390x for flavors that build it (must match the workflow build matrix)
+S390X_FLAVORS=("alma" "jammy" "noble" "resolute")
+for s390x_flavor in "${S390X_FLAVORS[@]}"; do
+    if [[ "$FLAVOR" == "$s390x_flavor" ]]; then
         ARCHS="$ARCHS s390x"
         break
     fi
@@ -90,7 +90,11 @@ for TAG_PREFIX in "${PREFIXES[@]}"; do
     # 1. Create GHCR Manifest
     echo "Creating manifest ${REGISTRY_IMAGE}:$TARGET_TAG"
     # Note: docker buildx imagetools create automatically pushes the manifest to the registry.
-    docker buildx imagetools create -t "${REGISTRY_IMAGE}:$TARGET_TAG" $SOURCES
+    if [[ "$DRY_RUN" != "true" ]]; then
+        docker buildx imagetools create -t "${REGISTRY_IMAGE}:$TARGET_TAG" $SOURCES
+    else
+        echo "DRY RUN: docker buildx imagetools create -t \"${REGISTRY_IMAGE}:$TARGET_TAG\" $SOURCES"
+    fi
     
     # 2. Create Mirror Manifest (if enabled)
     if [[ "$ENABLE_MIRROR" == "true" ]]; then
