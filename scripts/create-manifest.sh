@@ -56,9 +56,10 @@ if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
     TAG_NAME="$GITHUB_REF_NAME"
     PREFIXES+=("${TAG_NAME}-")
     
-    # Aliasing logic: Matches tags ending in single digit revision (e.g. 1.2.1-1 -> 1.2.1)
-    # If the tag matches the pattern (.*)-[0-9]$, we creates an alias for the base (group 1)
-    if [[ "$TAG_NAME" =~ ^(.*)-[0-9]$ ]]; then
+    # Aliasing logic: Matches tags ending in a revision number (e.g. 1.2.1-1 -> 1.2.1, 1.2.1-11 -> 1.2.1)
+    # If the tag matches the pattern (.*)-[0-9]+$, we create an alias for the base (group 1).
+    # This must match the metadata-action pattern in .github/workflows/docker-publish.yml
+    if [[ "$TAG_NAME" =~ ^(.*)-[0-9]+$ ]]; then
         TAG_BASE="${BASH_REMATCH[1]}"
         if [[ "$TAG_BASE" != "$TAG_NAME" ]]; then
            PREFIXES+=("${TAG_BASE}-")
