@@ -65,6 +65,12 @@ if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
            PREFIXES+=("${TAG_BASE}-")
         fi
     fi
+
+    # Also publish moving major.minor aliases (e.g. 1.31-alpine) for the
+    # current OpenResty release series.
+    if [[ "$TAG_NAME" =~ ^([0-9]+\.[0-9]+)\..*-[0-9]+$ ]]; then
+        PREFIXES+=("${BASH_REMATCH[1]}-")
+    fi
 else
     # For master branch or other non-tags, we use an empty prefix to just tag as "flavor"
     PREFIXES+=("")

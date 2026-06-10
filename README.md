@@ -47,6 +47,7 @@ It is best practice to pin your images to an explicit image tag.  The [next sect
 | `openresty/openresty:1.29.2.4-1-bookworm-fat` | Built-from-upstream Debian Bookworm |
 | `openresty/openresty:1.29.2.4-1-alpine` | Built-from-source Alpine |
 | `openresty/openresty:1.29.2.4-1-alpine-apk` | Built-from-upstream Alpine |
+| `openresty/openresty:1.31-alpine` | Latest Alpine image in the OpenResty 1.31 release series |
 
 These are examples of untagged image names, for reference:
 
@@ -121,9 +122,9 @@ The `openresty/openresty:latest` tag points to the latest `bookworm` image.
 
 Since `1.19.3.2-1`, all flavors support multi-architecture builds, both `amd64` and `aarch64`.  Since `1.21.4.1-1`, the `s390x` architecture is supported for build-from-source Ubuntu flavors (like `jammy`); prior to version `1.27.1.2-3`, [PCRE JIT](https://github.com/zherczeg/sljit/issues/89) is disabled for `s390x`.
 
-Starting with `1.13.6.1`, releases are tagged with `<openresty-version>-<image-version>-<flavor>`.  The latest `image-version` will also be tagged `<openresty-version>-<flavor>`.   The HEAD of the master branch is also labeled plainly as `<flavor>`.  The builds are managed by [GitHub Actions](https://github.com/openresty/docker-openresty/actions).
+Starting with `1.13.6.1`, releases are tagged with `<openresty-version>-<image-version>-<flavor>`.  The latest `image-version` will also be tagged `<openresty-version>-<flavor>`.  OpenResty release series are also tagged as `<openresty-major>.<openresty-minor>-<flavor>`, such as `1.31-alpine`.  The HEAD of the master branch is also labeled plainly as `<flavor>`.  The builds are managed by [GitHub Actions](https://github.com/openresty/docker-openresty/actions).
 
-There are architecture-specific tags as well, `<openresty-version>-<image-version>-<flavor>-<arch>`, but one would generally pull from the multi-architecture name above.
+There are architecture-specific tags as well, `<openresty-version>-<image-version>-<flavor>-<arch>` and `<openresty-major>.<openresty-minor>-<flavor>-<arch>`, but one would generally pull from the multi-architecture name above.
 
 OpenResty supports SSE 4.2 optimizations.  Starting with the `1.19.3.1` series, the architecture is auto-detected and the optimizations enabled accordingly.  Earlier image series `1.15.8.1` and `1.17.8.2` have `-nosse42` image flavors for systems which explicitly disable SSE 4.2 support; this is useful for older systems and embedded systems.  They are built with `-mno-sse4.2` appended to the build arg `RESTY_LUAJIT_OPTIONS`.  It is highly recommended *NOT* to use these if your system supports SSE 4.2 because the `CRC32` instruction dramatically improves large string performance.  These are only for built-from-source flavors, e.g. `1.15.8.1-3-bionic-nosse42`, `1.15.8.1-3-alpine-nosse42`, `1.15.8.1-3-alpine-fat-nosse42`.
 
