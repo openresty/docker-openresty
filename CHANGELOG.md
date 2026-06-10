@@ -6,6 +6,7 @@
  * ci: Release images with simple `1.31-<platform>` label (#304)
  * ci: Fix missing s390x builds in manifest (`alma` and `resolute`)
  * ci: Fix missing `noble` flavor
+ * alma: fixup run-deps and build-deps
  * alma: properly handle `RESTY_ADD_PACKAGE_RUNDEPS` and `RESTY_ADD_PACKAGE_BUILDDEPS`
 
 ## 1.31.1.1-0 (2024-06-05)
