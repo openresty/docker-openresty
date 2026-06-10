@@ -1,6 +1,10 @@
 `docker-openresty` Changelog
 ============================
 
+## 1.31.1.1-1 (2024-06-10)
+
+ * ci: Fix missing `noble` flavor
+
 ## 1.31.1.1-0 (2024-06-05)
 
  * Upgrade OpenResty to `1.31.1.1` (#303)

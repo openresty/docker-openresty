@@ -302,6 +302,7 @@ jobs:
           - bullseye-debug
           - bullseye-valgrind
           - jammy
+          - noble
           - resolute
           - restyrepo
 
