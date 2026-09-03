@@ -1,6 +1,10 @@
 `docker-openresty` Changelog
 ============================
 
+## 1.31.1.1-3 (2026-09-04)
+
+ * Upgrade OpenSSL to 3.5.8
+
 ## 1.31.1.1-2 (2026-07-08)
 
  * Upgrade OpenSSL to 3.5.7 (#307)

@@ -56,7 +56,7 @@ docker build -t myopenresty-restyrepo \
 | RESTY_VERSION                           | 1.27.1.2 / v1.31.1.1 for `restyrepo` | The version of OpenResty to use. For `restyrepo`, this is the branch or tag checked out from `RESTY_SOURCE_REPO` and should include the full ref name, such as `v1.31.1.1`. |
 | RESTY_SOURCE_REPO                       | "https://github.com/openresty/openresty.git" | The OpenResty source repository to clone. Used by `restyrepo`. |
 | RESTY_LUAROCKS_VERSION                  | 3.13.0 | The version of LuaRocks to use. |
-| RESTY_OPENSSL_VERSION                   | 3.5.7 | The version of OpenSSL to use. |
+| RESTY_OPENSSL_VERSION                   | 3.5.8 | The version of OpenSSL to use. |
 | RESTY_OPENSSL_PATCH_VERSION             | 3.5.5 | The version of OpenSSL to use when patching. |
 | RESTY_OPENSSL_URL_BASE                  | "https://github.com/openssl/openssl/releases/download/openssl-${RESTY_OPENSSL_VERSION}" | The base of the URL to download OpenSSL from. |
 | RESTY_OPENSSL_BUILD_OPTIONS             | "enable-camellia enable-seed enable-rfc3779 enable-cms enable-md2 enable-rc5 enable-weak-ssl-ciphers enable-ssl3 enable-ssl3-method enable-md2 enable-ktls enable-fips" | Options to tweak Resty's OpenSSL build. |
