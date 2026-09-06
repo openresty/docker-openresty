@@ -30,19 +30,14 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         ca-certificates \
         gettext-base \
-        gnupg2 \
         lsb-base \
-        lsb-release \
-        software-properties-common \
         wget \
-    && wget -qO /tmp/pubkey.gpg ${RESTY_APT_PGP} \
-    && DEBIAN_FRONTEND=noninteractive apt-key add /tmp/pubkey.gpg \
-    && rm /tmp/pubkey.gpg \
-    && DEBIAN_FRONTEND=noninteractive add-apt-repository -y "deb ${RESTY_APT_REPO} $(lsb_release -sc) openresty" \
+    && wget -qO /etc/apt/trusted.gpg.d/openresty-keyring.gpg ${RESTY_APT_PGP} \
+    && chown root:root /etc/apt/trusted.gpg.d/openresty-keyring.gpg \
+    && chmod ugo+r /etc/apt/trusted.gpg.d/openresty-keyring.gpg \
+    && chmod go-w /etc/apt/trusted.gpg.d/openresty-keyring.gpg \
+    && echo "deb [signed-by=/etc/apt/trusted.gpg.d/openresty-keyring.gpg] ${RESTY_APT_REPO} bullseye openresty" | tee /etc/apt/sources.list.d/openresty.list \
     && DEBIAN_FRONTEND=noninteractive apt-get remove -y --purge \
-        gnupg2 \
-        lsb-release \
-        software-properties-common \
         wget \
     && DEBIAN_FRONTEND=noninteractive apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
