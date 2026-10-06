@@ -6,6 +6,7 @@
 # env:
 #   GHCR_IMAGE: GitHub Container Registry image
 #   DOCKERHUB_IMAGE: Docker Hub image
+#   RESTY_J: make parallelism for source-built flavors (hosted runners have 4 vCPUs)
 #
 # secrets:
 #   GHCR_USERNAME: GitHub Container Registry username
@@ -28,6 +29,7 @@ env:
   GHCR_IMAGE: ${{ vars.GHCR_IMAGE || format('ghcr.io/{0}/openresty', github.repository_owner) }}
   DOCKERHUB_REGISTRY: ${{ vars.DOCKERHUB_REGISTRY || 'docker.io' }}
   DOCKERHUB_IMAGE: ${{ vars.DOCKERHUB_IMAGE || 'docker.io/openresty/openresty' }}
+  RESTY_J: ${{ vars.RESTY_J || '4' }}
 
 permissions:
   contents: read
@@ -263,7 +265,9 @@ jobs:
           context: .
           file: ${{ matrix.dockerfile }}
           platforms: ${{ matrix.platforms }}
-          build-args: ${{ matrix.build-args }}
+          build-args: |
+            RESTY_J=${{ env.RESTY_J }}
+            ${{ matrix.build-args }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
