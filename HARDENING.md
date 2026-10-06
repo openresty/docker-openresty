@@ -61,33 +61,51 @@ If your configuration is generated dynamically (Lua templates, Ingress controlle
 
 Even with the config fix applied, apply these container-level controls:
 
-### Run as Non-Root
-The official images support dropping privileges:
+### Run as Non-Root with a Read-Only Filesystem
 
-```yaml
-# docker run
-docker run --user nobody ...
+Selecting `--user` alone is insufficient: Nginx needs a writable PID location and temporary directories. The following example runs the `bookworm` image as UID/GID `10001:10001`, with a read-only root filesystem and no Linux capabilities.
 
-# docker-compose / swarm / Kubernetes
-user: "nobody"
+Save this as `nonroot.default.conf` in your current directory. Port 8080 avoids needing `NET_BIND_SERVICE` on runtimes that enforce privileged ports. Docker normally sets `net.ipv4.ip_unprivileged_port_start=0` in containers, allowing non-root processes to bind port 80 without that capability; other runtimes and configurations may differ:
+
+```nginx
+server {
+    listen 8080;
+    server_name localhost;
+
+    location / {
+        root /usr/local/openresty/nginx/html;
+        index index.html;
+    }
+}
 ```
 
-or use your own UID/GID for even tighter control.
-
-### Filesystem and Capability Hardening
-
-[Docker documentation on `seccomp`](https://docs.docker.com/engine/security/seccomp/)
-
-Here are Docker CLI args to consider to harden the filesystem and capabilities:
+Make the configuration readable by the container user, then start the server:
 
 ```bash
---read-only \
---tmpfs /tmp \
---tmpfs /var/run \
---cap-drop=ALL \
---cap-add=NET_BIND_SERVICE \
---security-opt apparmor=docker-default # or a custom seccomp profile
+chmod 644 nonroot.default.conf
+docker run --rm --name openresty-nonroot \
+  --user 10001:10001 \
+  --read-only \
+  --tmpfs /var/run/openresty:rw,noexec,nosuid,nodev,size=64m,mode=0700,uid=10001,gid=10001 \
+  --cap-drop=ALL \
+  --security-opt no-new-privileges=true \
+  --publish 127.0.0.1:8080:8080 \
+  --mount "type=bind,src=$(pwd)/nonroot.default.conf,dst=/etc/nginx/conf.d/default.conf,readonly" \
+  openresty/openresty:bookworm \
+  openresty -g 'daemon off; pid /var/run/openresty/nginx.pid;'
 ```
+
+In another terminal, verify the server with `curl --fail http://127.0.0.1:8080/`. To check the configuration before starting the server, use `openresty -t -g 'pid /var/run/openresty/nginx.pid;'` as the command after the image name.
+
+The tmpfs is owned by the selected UID/GID and holds both the PID file and the temporary directories configured by the image. Master and worker processes run as that same UID, so mode `0700` permits both to write. If you change the UID/GID, update the tmpfs ownership too; a root master configured to switch workers to another UID would need different directory ownership or permissions. Logs retain the image's stdout/stderr links.
+
+The 64 MiB tmpfs limit is shared by request-body temporary files and proxy buffering spills. Size it for your workload: exhausting it can cause request failures.
+
+Standard Linux flavors use `openresty` on PATH and `/usr/local/openresty/nginx/html` as the document root. For `bookworm-debug`, use `openresty-debug` and `/usr/local/openresty-debug/nginx/html`; for `bookworm-valgrind`, use `openresty-valgrind` and `/usr/local/openresty-valgrind/nginx/html`.
+
+The example above mounts only Nginx's runtime directory as writable. Add separate, size-limited writable mounts if your application needs uploads, caches, or `/tmp`; give them the same UID/GID ownership. Keep application code and configuration read-only.
+
+Retain Docker's default [seccomp profile](https://docs.docker.com/engine/security/seccomp/) and, where supported, its AppArmor profile. AppArmor and seccomp are separate controls. When translating the example to Compose or Kubernetes, preserve the non-root identity, writable runtime directory, PID override, read-only root filesystem, dropped capabilities, and prevention of privilege escalation.
 
 ### Resource Limits (Prevent DoS Amplification)
 
@@ -103,8 +121,11 @@ Here are Docker CLI args to consider to limit resource overconsumption:
 
 ### User Namespaces & Other Protections (Linux hosts)
 
+If the Docker daemon uses [user-namespace remapping](https://docs.docker.com/engine/security/userns-remap/), retain it by omitting `--userns`. Do not use `--userns=host` for hardening: it disables that remapping for the container. Alternatively, use [rootless Docker](https://docs.docker.com/engine/security/rootless/) or rootless Podman. Arrange bind-mount permissions for the mapped host identity when using remapping.
+
+Prevent processes from gaining additional privileges (also included in the example above):
+
 ```bash
---userns=host \          # or use rootless Docker / Podman
 --security-opt no-new-privileges=true
 ```
 
@@ -158,6 +179,6 @@ Here are Docker CLI args to consider to limit resource overconsumption:
 
 Open an issue in the [`docker-openresty` repository](https://github.com/openresty/docker-openresty). This document will be updated whenever new CVEs or best practices emerge.
 
-**Last updated:** May 15, 2026  EW
+**Last updated:** September 9, 2026  EW
 **Applies to:** All `openresty/openresty` images prior to the CVE-2026-42945 patch release.
 ```
