@@ -234,6 +234,8 @@ GitHub Actions
 
 The GitHub Actions to build is located in the [`.github/workflows/docker-publish.yml`](./.github/workflows/docker-publish.yml) file.
 
+Each flavor/architecture row builds on its own hosted runner.  amd64 rows run on `ubuntu-latest` and arm64 rows run natively on `ubuntu-24.04-arm`.  s390x and ppc64le rows build under QEMU emulation on `ubuntu-latest`, which is much slower.  Source-built flavors are compiled with `RESTY_J=4` to match the 4 vCPUs of hosted runners.
+
 | Environment Variable | Description |
 |:---------------------|:----------- |
 | GHCR_IMAGE | GitHub Container Registry image |
