@@ -299,6 +299,8 @@ $ docker inspect openresty/openresty:1.17.8.1-0-bionic | jq '.[].Config.Labels'
 | `resty_install_base`                     | buildarg `RESTY_INSTALL_BASE`                                                                                         |
 | `resty_install_tag`                      | buildarg `RESTY_INSTALL_TAG`                                                                                          |
 | `resty_luajit_options`                   | buildarg `RESTY_LUAJIT_OPTIONS`                                                                                       |
+| `resty_luajit_ref`                       | buildarg `RESTY_LUAJIT_REF`                                                                                           |
+| `resty_luajit_repo`                      | buildarg `RESTY_LUAJIT_REPO`                                                                                          |
 | `resty_luarocks_version`                 | buildarg `RESTY_LUAROCKS_VERSION`                                                                                     |
 | `resty_openssl_patch_version`            | buildarg `RESTY_OPENSSL_PATCH_VERSION`                                                                                |
 | `resty_openssl_url_base`                 | buildarg `RESTY_OPENSSL_URL_BASE`                                                                                     |

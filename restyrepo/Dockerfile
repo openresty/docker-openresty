@@ -76,6 +76,9 @@ ARG RESTY_CONFIG_OPTIONS="\
 ARG RESTY_CONFIG_OPTIONS_MORE=""
 ARG RESTY_LUAJIT_OPTIONS="--with-luajit-xcflags='-DLUAJIT_NUMMODE=2 -DLUAJIT_ENABLE_LUA52COMPAT'"
 ARG RESTY_PCRE_OPTIONS="--with-pcre-jit"
+# When RESTY_LUAJIT_REF is set, the bundled LuaJIT is replaced with this repo at this ref
+ARG RESTY_LUAJIT_REPO="https://github.com/openresty/luajit2.git"
+ARG RESTY_LUAJIT_REF=""
 
 ARG RESTY_ADD_PACKAGE_BUILDDEPS=""
 ARG RESTY_ADD_PACKAGE_RUNDEPS=""
@@ -112,6 +115,8 @@ LABEL resty_eval_pre_make="${RESTY_EVAL_PRE_MAKE}"
 LABEL resty_eval_post_make="${RESTY_EVAL_POST_MAKE}"
 LABEL resty_luajit_options="${RESTY_LUAJIT_OPTIONS}"
 LABEL resty_pcre_options="${RESTY_PCRE_OPTIONS}"
+LABEL resty_luajit_repo="${RESTY_LUAJIT_REPO}"
+LABEL resty_luajit_ref="${RESTY_LUAJIT_REF}"
 
 
 
@@ -185,6 +190,13 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && tar xzf "openresty-${RESTY_VERSION}.tar.gz" \
     && mv openresty-*/ "openresty-${RESTY_VERSION}" \
     && cd /tmp/openresty-${RESTY_VERSION} \
+    && if [ -n "${RESTY_LUAJIT_REF}" ]; then \
+        LUAJIT_DIR=$(ls -d bundle/LuaJIT-*) \
+        && echo "replacing ${LUAJIT_DIR} with ${RESTY_LUAJIT_REPO} at ${RESTY_LUAJIT_REF}" \
+        && rm -rf "${LUAJIT_DIR}" \
+        && git clone "${RESTY_LUAJIT_REPO}" "${LUAJIT_DIR}" \
+        && git -C "${LUAJIT_DIR}" checkout "${RESTY_LUAJIT_REF}" ; \
+    fi \
     && if [ -n "${RESTY_EVAL_POST_DOWNLOAD_PRE_CONFIGURE}" ]; then eval $(echo ${RESTY_EVAL_POST_DOWNLOAD_PRE_CONFIGURE}); fi \
     && eval ./configure -j${RESTY_J} ${_RESTY_CONFIG_DEPS} ${RESTY_CONFIG_OPTIONS} ${RESTY_CONFIG_OPTIONS_MORE} ${RESTY_LUAJIT_OPTIONS} ${RESTY_PCRE_OPTIONS} \
     && if [ -n "${RESTY_EVAL_PRE_MAKE}" ]; then eval $(echo ${RESTY_EVAL_PRE_MAKE}); fi \
