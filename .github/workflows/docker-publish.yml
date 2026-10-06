@@ -215,10 +215,26 @@ jobs:
             arch: amd64
             dockerfile: restyrepo/Dockerfile
             platforms: linux/amd64
+            smoke-test: true
           - flavor: restyrepo
             arch: arm64
             dockerfile: restyrepo/Dockerfile
             platforms: linux/arm64
+            smoke-test: true
+          # Unofficial ppc64le build with a patched LuaJIT (openresty/openresty#1152,
+          # openresty/luajit2#279, #311). Published only as restyrepo-ppc64le; it is
+          # deliberately not in the restyrepo manifest (scripts/create-manifest.sh).
+          # The PPC64 port has no JIT, so it runs interpreter-only.
+          - flavor: restyrepo
+            arch: ppc64le
+            dockerfile: restyrepo/Dockerfile
+            platforms: linux/ppc64le
+            smoke-test: true
+            build-args: |
+              RESTY_LUAJIT_REPO=https://github.com/neomantra/openresty-luajit2.git
+              RESTY_LUAJIT_REF=d18fd8f681f644f83eee28bf63b1cf4b1be44cda
+              RESTY_LUAJIT_OPTIONS=--with-luajit-xcflags='-DLUAJIT_NUMMODE=2 -DLUAJIT_ENABLE_LUA52COMPAT -DLUAJIT_DISABLE_JIT'
+              RESTY_EVAL_POST_DOWNLOAD_PRE_CONFIGURE=grep -q fctidz bundle/LuaJIT-*/src/vm_ppc.dasc
 
     steps:
       - name: Checkout
@@ -260,6 +276,7 @@ jobs:
             type=match,pattern=^([0-9]+\.[0-9]+)\..*-[0-9]+$,group=1,suffix=-${{ matrix.flavor }}-${{ matrix.arch }}
 
       - name: Build and push
+        id: build
         uses: docker/build-push-action@v7
         with:
           context: .
@@ -271,6 +288,14 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Smoke test
+        if: matrix.smoke-test
+        run: |
+          docker run --rm --platform "${{ matrix.platforms }}" \
+            -v "$PWD/tests/smoke:/smoke:ro" \
+            "${{ env.GHCR_IMAGE }}@${{ steps.build.outputs.digest }}" \
+            bash /smoke/smoke.sh
 
       # Docker Hub mirror push - separate step
       - name: Tag and Push to Docker Hub Mirror

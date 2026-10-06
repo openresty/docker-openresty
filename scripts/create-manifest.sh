@@ -43,6 +43,9 @@ for s390x_flavor in "${S390X_FLAVORS[@]}"; do
     fi
 done
 
+# restyrepo-ppc64le is built but intentionally left out of the restyrepo manifest
+# while it depends on an unmerged LuaJIT fix (see the workflow build matrix).
+
 # Fedora only supports amd64 in this setup
 if [[ "$FLAVOR" == "fedora" ]]; then
   ARCHS="amd64"
