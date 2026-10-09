@@ -1,6 +1,15 @@
 `docker-openresty` Changelog
 ============================
 
+## 1.31.1.1-4 (2026-10-09)
+
+ * Add unofficial [`restyrepo-ppc64le`](https://hub.docker.com/r/openresty/openresty/tags?name=restyrepo-ppc64le) image for IBM Power, built under QEMU with a patched LuaJIT (openresty/openresty#1152, openresty/luajit2#279). Published only under `restyrepo-ppc64le` tags, not in the `restyrepo` manifest (#311)
+ * restyrepo: add `RESTY_LUAJIT_REPO` and `RESTY_LUAJIT_REF` build args to replace the bundled LuaJIT
+ * ci: Smoke-test `restyrepo` images after each build (`tests/smoke/smoke.sh`)
+ * ci: Build arm64 images natively on `ubuntu-24.04-arm` runners instead of under QEMU
+ * ci: Build source flavors with `RESTY_J=4`
+ * Replace HARDENING.md runtime flags with a working non-root, read-only example; correct `--userns` advice
+
 ## 1.31.1.1-3 (2026-09-04)
 
  * Upgrade OpenSSL to 3.5.8
