@@ -31,6 +31,13 @@ RUN wget -O "/etc/apk/keys/$(basename ${RESTY_APK_KEY_URL})" "${RESTY_APK_KEY_UR
       tzdata \
       zlib \
     && apk add "openresty${RESTY_APK_VERSION}" \
+    # Alpine 3.18 is EOL and ships no ca-certificates fix for the 2026-10
+    # eMudhra key compromise, so drop "emSign ECC Root CA - G3" ourselves. (issue #312)
+    # Remove this once the base image moves to a supported Alpine release.
+    && apk add --no-cache ca-certificates \
+    && rm -f /usr/share/ca-certificates/mozilla/emSign_ECC_Root_CA_-_G3.crt \
+    && sed -i '/emSign_ECC_Root_CA_-_G3/d' /etc/ca-certificates.conf \
+    && update-ca-certificates \
     && mkdir -p /var/run/openresty \
     && ln -sf /dev/stdout /usr/local/openresty/nginx/logs/access.log \
     && ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log

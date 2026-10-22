@@ -42,6 +42,17 @@ RUN sed -i s/mirror.centos.org/vault.centos.org/g /etc/yum.repos.d/*.repo \
         tar \
         unzip \
         wget \
+    # Refresh the CA trust store so rebuilds pick up upstream root removals,
+    # and block "emSign ECC Root CA - G3" (2026-10 eMudhra key compromise)
+    # ourselves until the distro's ca-certificates package drops it.
+    # EL7/EL8-era p11-kit reads the "blacklist" directory, not "blocklist".
+    && yum upgrade -y ca-certificates \
+    && mkdir -p /etc/pki/ca-trust/source/blacklist \
+    && awk '/^# emSign ECC Root CA - G3$/{f=1; next} f&&/BEGIN CERTIFICATE/{p=1} p{print} p&&/END CERTIFICATE/{exit}' \
+        /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem \
+        > /etc/pki/ca-trust/source/blacklist/emSign_ECC_Root_CA_-_G3.pem \
+    && if [ ! -s /etc/pki/ca-trust/source/blacklist/emSign_ECC_Root_CA_-_G3.pem ]; then rm -f /etc/pki/ca-trust/source/blacklist/emSign_ECC_Root_CA_-_G3.pem; fi \
+    && update-ca-trust \
     && cd /tmp \
     && curl -fSL https://luarocks.github.io/luarocks/releases/luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz -o luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && tar xzf luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \

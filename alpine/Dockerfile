@@ -135,6 +135,8 @@ RUN apk add --no-cache --virtual .build-deps \
         tzdata \
         zlib \
         ${RESTY_ADD_PACKAGE_RUNDEPS} \
+    # Refresh the CA trust store so rebuilds pick up upstream root removals
+    && apk add --no-cache --upgrade ca-certificates-bundle \
     && cd /tmp \
     && if [ -n "${RESTY_EVAL_PRE_CONFIGURE}" ]; then eval $(echo ${RESTY_EVAL_PRE_CONFIGURE}); fi \
     && cd /tmp \
