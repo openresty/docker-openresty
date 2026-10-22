@@ -38,6 +38,7 @@ RUN wget -qO - ${RESTY_APT_PGP} | gpg --dearmor > /etc/apt/trusted.gpg.d/openres
     && echo "deb [arch=$RESTY_APT_ARCH signed-by=/etc/apt/trusted.gpg.d/openresty-keyring.gpg] $RESTY_APT_REPO $(grep -Po 'VERSION="[0-9]+ \(\K[^)]+' /etc/os-release) openresty" | tee /etc/apt/sources.list.d/openresty.list \
     && DEBIAN_FRONTEND=noninteractive apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        ca-certificates \
         openresty${RESTY_DEB_FLAVOR}${RESTY_DEB_VERSION} \
         openresty-resty${RESTY_DEB_FLAVOR}${RESTY_DEB_VERSION} \
         openresty-opm${RESTY_DEB_FLAVOR}${RESTY_DEB_VERSION} \

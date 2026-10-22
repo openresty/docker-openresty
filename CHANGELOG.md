@@ -1,6 +1,14 @@
 `docker-openresty` Changelog
 ============================
 
+## 1.31.1.1-5 (2026-10-22)
+
+ * Remove the compromised `emSign ECC Root CA - G3` root (October 2026 eMudhra intermediate CA key compromise) from every image's CA trust store (#312):
+   * `bookworm`, `bookworm-buildpack`, `jammy`, `noble`, `resolute`, `restyrepo`: picked up automatically from the distro `ca-certificates` package on rebuild
+   * `alpine`, `alpine-slim`: upgrade `ca-certificates-bundle` at build time instead of relying on the base image
+   * `alma`, `rocky`, `fedora`: upgrade `ca-certificates` at build time and add the root to `/etc/pki/ca-trust/source/blocklist` until RHEL-family packages drop it
+   * `alpine-apk`: Alpine 3.18 is EOL with no fix, so the root is removed from the bundle manually
+
 ## 1.31.1.1-4 (2026-10-09)
 
  * Add unofficial [`restyrepo-ppc64le`](https://hub.docker.com/r/openresty/openresty/tags?name=restyrepo-ppc64le) image for IBM Power, built under QEMU with a patched LuaJIT (openresty/openresty#1152, openresty/luajit2#279). Published only under `restyrepo-ppc64le` tags, not in the `restyrepo` manifest (#311)
