@@ -3,6 +3,7 @@
 
 ## 1.31.1.1-5 (2026-10-22)
 
+ * Upgrade PCRE to 10.49
  * Remove the compromised `emSign ECC Root CA - G3` root (October 2026 eMudhra intermediate CA key compromise) from every image's CA trust store (#312):
    * `bookworm`, `bookworm-buildpack`, `jammy`, `noble`, `resolute`, `restyrepo`: picked up automatically from the distro `ca-certificates` package on rebuild
    * `alpine`, `alpine-slim`: upgrade `ca-certificates-bundle` at build time instead of relying on the base image

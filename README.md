@@ -248,26 +248,39 @@ Image Labels
 The image builds are labeled with various information, such as the versions of OpenResty and its dependent libraries.  Here's an example of printing the labels using [`jq`](https://stedolan.github.io/jq/):
 
 ```
-$ docker pull openresty/openresty:1.17.8.1-0-bionic
-$ docker inspect openresty/openresty:1.17.8.1-0-bionic | jq '.[].Config.Labels'
+docker inspect openresty/openresty:1.31.1.1-4-resolute | jq '.[].Config.Labels'
 {
-  "maintainer": "Evan Wies <evan@*********.net>",
+  "maintainer": "Evan Wies <evan@********>",
+  "org.opencontainers.image.created": "2026-10-09T20:07:42.925Z",
+  "org.opencontainers.image.description": "Docker tooling for OpenResty",
+  "org.opencontainers.image.licenses": "BSD-2-Clause",
+  "org.opencontainers.image.revision": "77ba3655ac32d36ccc830c1b3df93e5259d2a826",
+  "org.opencontainers.image.source": "https://github.com/openresty/docker-openresty",
+  "org.opencontainers.image.title": "docker-openresty",
+  "org.opencontainers.image.url": "https://github.com/openresty/docker-openresty",
+  "org.opencontainers.image.version": "1.31.1.1-resolute-arm64",
   "resty_add_package_builddeps": "",
   "resty_add_package_rundeps": "",
-  "resty_config_deps": "--with-pcre     --with-cc-opt='-DNGX_LUA_ABORT_AT_PANIC -I/usr/local/openresty/pcre/include -I/usr/local/openresty/openssl/include'     --with-ld-opt='-L/usr/local/openresty/pcre/lib -L/usr/local/openresty/openssl/lib -Wl,-rpath,/usr/local/openresty/pcre/lib:/usr/local/openresty/openssl/lib'     ",
-  "resty_config_options": "    --with-compat     --with-file-aio     --with-http_addition_module     --with-http_auth_request_module     --with-http_dav_module     --with-http_flv_module     --with-http_geoip_module=dynamic     --with-http_gunzip_module     --with-http_gzip_static_module     --with-http_image_filter_module=dynamic     --with-http_mp4_module     --with-http_random_index_module     --with-http_realip_module     --with-http_secure_link_module     --with-http_slice_module     --with-http_ssl_module     --with-http_stub_status_module     --with-http_sub_module     --with-http_v2_module     --with-http_v3_module     --with-http_xslt_module=dynamic     --with-ipv6     --with-mail     --with-mail_ssl_module     --with-md5-asm     --with-pcre-jit     --with-sha1-asm     --with-stream     --with-stream_ssl_module     --with-threads     ",
+  "resty_config_deps": "--with-pcre     --with-cc-opt='-DNGX_LUA_ABORT_AT_PANIC -I/usr/local/openresty/pcre2/include -I/usr/local/openresty/openssl3/include'     --with-ld-opt='-L/usr/local/openresty/pcre2/lib -L/usr/local/openresty/openssl3/lib -Wl,-rpath,/usr/local/openresty/pcre2/lib:/usr/local/openresty/openssl3/lib'     ",
+  "resty_config_options": "    --with-compat     --without-http_rds_json_module     --without-http_rds_csv_module     --without-lua_rds_parser     --without-mail_pop3_module     --without-mail_imap_module     --without-mail_smtp_module     --with-http_addition_module     --with-http_auth_request_module     --with-http_dav_module     --with-http_flv_module     --with-http_geoip_module=dynamic     --with-http_gunzip_module     --with-http_gzip_static_module     --with-http_image_filter_module=dynamic     --with-http_mp4_module     --with-http_random_index_module     --with-http_realip_module     --with-http_secure_link_module     --with-http_slice_module     --with-http_ssl_module     --with-http_stub_status_module     --with-http_sub_module     --with-http_v2_module     --with-http_v3_module     --with-http_xslt_module=dynamic     --with-ipv6     --with-mail     --with-mail_ssl_module     --with-md5-asm     --with-sha1-asm     --with-stream     --with-stream_ssl_module     --with-stream_ssl_preread_module     --with-threads     ",
   "resty_config_options_more": "",
+  "resty_eval_post_download_pre_configure": "",
   "resty_eval_post_make": "",
   "resty_eval_pre_configure": "",
-  "resty_eval_post_download_pre_configure": "",
+  "resty_eval_pre_make": "",
   "resty_image_base": "ubuntu",
-  "resty_image_tag": "bionic",
-  "resty_luarocks_version": "3.3.1",
-  "resty_openssl_patch_version": "1.1.0d",
-  "resty_openssl_url_base": "https://www.openssl.org/source/old/1.1.0",
-  "resty_openssl_version": "1.1.0l",
-  "resty_pcre_version": "8.45",
-  "resty_version": "1.17.8.1"
+  "resty_image_tag": "resolute",
+  "resty_luajit_options": "--with-luajit-xcflags='-DLUAJIT_NUMMODE=2 -DLUAJIT_ENABLE_LUA52COMPAT'",
+  "resty_luarocks_version": "3.13.0",
+  "resty_openssl_build_options": "enable-camellia enable-seed enable-rfc3779 enable-cms enable-md2 enable-rc5         enable-weak-ssl-ciphers enable-ssl3 enable-ssl3-method enable-md2 enable-ktls enable-fips         ",
+  "resty_openssl_patch_version": "3.5.5",
+  "resty_openssl_url_base": "https://github.com/openssl/openssl/releases/download/openssl-3.5.8",
+  "resty_openssl_version": "3.5.8",
+  "resty_pcre_build_options": "--enable-jit --enable-pcre2grep-jit --disable-bsr-anycrlf --disable-coverage --disable-ebcdic --disable-fuzz-support     --disable-jit-sealloc --disable-never-backslash-C --enable-newline-is-lf --enable-pcre2-8 --enable-pcre2-16 --enable-pcre2-32     --enable-pcre2grep-callout --enable-pcre2grep-callout-fork --disable-pcre2grep-libbz2 --disable-pcre2grep-libz --disable-pcre2test-libedit     --enable-percent-zt --disable-rebuild-chartables --enable-shared --disable-static --disable-silent-rules --enable-unicode --disable-valgrind     ",
+  "resty_pcre_options": "--with-pcre-jit",
+  "resty_pcre_sha256": "c08ae2388ef333e8403e670ad70c0a11f1eed021fd88308d7e02f596fcd9dc16",
+  "resty_pcre_version": "10.47",
+  "resty_version": "1.31.1.1"
 }
 ```
 
