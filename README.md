@@ -131,9 +131,9 @@ OpenResty supports SSE 4.2 optimizations.  Starting with the `1.19.3.1` series, 
 
 It is *highly recommended* that you use the upstream-based images for best support.  For best stability, pin your images to the full tag, for example `1.21.4.1-0-bionic`.
 
-The `restyrepo` flavor is a built-from-source image that clones the OpenResty GitHub repository, builds the OpenResty source tarball from the selected branch or tag, and then builds OpenResty from that generated tarball.  It uses Debian Trixie as its base image and is published for `amd64` and `arm64`.
+The `restyrepo` flavor is a built-from-source image that clones the OpenResty GitHub repository, builds the OpenResty source tarball from the selected branch or tag, and then builds OpenResty from that generated tarball.  It uses Debian Trixie as its base image and is published for `amd64`, `arm64`, and `ppc64le`.
 
-An **unofficial** `restyrepo-ppc64le` image is also published for IBM Power.  It replaces the bundled LuaJIT with a patched build that is still under review ([openresty/openresty#1152](https://github.com/openresty/openresty/issues/1152), [openresty/luajit2#279](https://github.com/openresty/luajit2/pull/279)), runs LuaJIT interpreter-only, and is built under QEMU emulation rather than on POWER hardware.  It is only published under `restyrepo-ppc64le` tags (e.g. `openresty/openresty:restyrepo-ppc64le`, `openresty/openresty:1.31.1.1-4-restyrepo-ppc64le`) and is not part of the multi-arch `restyrepo` image.  Please report results on POWER hardware to the issue above.
+On `ppc64le` (IBM Power), `restyrepo` replaces the `v1.31.1.1` bundled LuaJIT with upstream `openresty/luajit2` `v2.1-20261023` ([openresty/openresty#1152](https://github.com/openresty/openresty/issues/1152), [openresty/luajit2#279](https://github.com/openresty/luajit2/pull/279)), runs LuaJIT interpreter-only (as the PPC64 port has no JIT), and is built under QEMU emulation rather than on POWER hardware.
 
 `-fat` images are ones that have [LuaRocks and OPM](#opm) installed in them. `-buildpack` images are based on [`buildpack-deps` images](https://hub.docker.com/_/buildpack-deps#what-is-buildpack-deps); they might be useful when more build scaffolding is required in your application.
 

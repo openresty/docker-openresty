@@ -222,18 +222,17 @@ jobs:
             dockerfile: restyrepo/Dockerfile
             platforms: linux/arm64
             smoke-test: true
-          # Unofficial ppc64le build with a patched LuaJIT (openresty/openresty#1152,
-          # openresty/luajit2#279, #311). Published only as restyrepo-ppc64le; it is
-          # deliberately not in the restyrepo manifest (scripts/create-manifest.sh).
-          # The PPC64 port has no JIT, so it runs interpreter-only.
+          # ppc64le build using upstream LuaJIT v2.1-20261023 with the PPC64
+          # 64-bit number-conversion fix (openresty/openresty#1152,
+          # openresty/luajit2#279, #311) until the next OpenResty release tag
+          # bundles it. The PPC64 port has no JIT, so it runs interpreter-only.
           - flavor: restyrepo
             arch: ppc64le
             dockerfile: restyrepo/Dockerfile
             platforms: linux/ppc64le
             smoke-test: true
             build-args: |
-              RESTY_LUAJIT_REPO=https://github.com/neomantra/openresty-luajit2.git
-              RESTY_LUAJIT_REF=d18fd8f681f644f83eee28bf63b1cf4b1be44cda
+              RESTY_LUAJIT_REF=v2.1-20261023
               RESTY_LUAJIT_OPTIONS=--with-luajit-xcflags='-DLUAJIT_NUMMODE=2 -DLUAJIT_ENABLE_LUA52COMPAT -DLUAJIT_DISABLE_JIT'
               RESTY_EVAL_POST_DOWNLOAD_PRE_CONFIGURE=grep -q fctidz bundle/LuaJIT-*/src/vm_ppc.dasc
 
