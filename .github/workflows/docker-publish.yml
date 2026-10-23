@@ -222,6 +222,12 @@ jobs:
             dockerfile: restyrepo/Dockerfile
             platforms: linux/arm64
             smoke-test: true
+          # The bundled LuaJIT supports s390x in interpreter-only mode.
+          - flavor: restyrepo
+            arch: s390x
+            dockerfile: restyrepo/Dockerfile
+            platforms: linux/s390x
+            smoke-test: true
           # ppc64le build using upstream LuaJIT v2.1-20261023 with the PPC64
           # 64-bit number-conversion fix (openresty/openresty#1152,
           # openresty/luajit2#279, #311) until the next OpenResty release tag

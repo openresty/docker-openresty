@@ -35,7 +35,7 @@ RESTY_LATEST_SERIES="${RESTY_LATEST_SERIES:-1.29}"
 ARCHS="${RESTY_ARCHS:-amd64 arm64}"
 
 # Add s390x for flavors that build it (must match the workflow build matrix)
-S390X_FLAVORS=("alma" "jammy" "noble" "resolute")
+S390X_FLAVORS=("alma" "jammy" "noble" "resolute" "restyrepo")
 for s390x_flavor in "${S390X_FLAVORS[@]}"; do
     if [[ "$FLAVOR" == "$s390x_flavor" ]]; then
         ARCHS="$ARCHS s390x"

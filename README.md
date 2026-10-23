@@ -131,7 +131,9 @@ OpenResty supports SSE 4.2 optimizations.  Starting with the `1.19.3.1` series, 
 
 It is *highly recommended* that you use the upstream-based images for best support.  For best stability, pin your images to the full tag, for example `1.21.4.1-0-bionic`.
 
-The `restyrepo` flavor is a built-from-source image that clones the OpenResty GitHub repository, builds the OpenResty source tarball from the selected branch or tag, and then builds OpenResty from that generated tarball.  It uses Debian Trixie as its base image and is published for `amd64`, `arm64`, and `ppc64le`.
+The `restyrepo` flavor is a built-from-source image that clones the OpenResty GitHub repository, builds the OpenResty source tarball from the selected branch or tag, and then builds OpenResty from that generated tarball.  It uses Debian Trixie as its base image and is published for `amd64`, `arm64`, `s390x`, and `ppc64le`.
+
+On `s390x` (IBM Z), `restyrepo` uses the bundled LuaJIT in interpreter-only mode and is built under QEMU emulation.  The image runs the same smoke tests as the other `restyrepo` architectures.
 
 On `ppc64le` (IBM Power), `restyrepo` replaces the `v1.31.1.1` bundled LuaJIT with upstream `openresty/luajit2` `v2.1-20261023` ([openresty/openresty#1152](https://github.com/openresty/openresty/issues/1152), [openresty/luajit2#279](https://github.com/openresty/luajit2/pull/279)), runs LuaJIT interpreter-only (as the PPC64 port has no JIT), and is built under QEMU emulation rather than on POWER hardware.
 

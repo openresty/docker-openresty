@@ -1,6 +1,11 @@
 `docker-openresty` Changelog
 ============================
 
+## 1.31.1.1-6 (2026-10-23)
+
+ * Add `ppc64le` to the `restyrepo` multi-architecture manifest and switch to upstream `openresty/luajit2` `v2.1-20261023` with the PPC64 number-conversion fix (#311, openresty/luajit2#279)
+ * Add `s390x` to the `restyrepo` build matrix and multi-architecture manifest, with smoke tests and the bundled LuaJIT running in interpreter-only mode
+
 ## 1.31.1.1-5 (2026-10-22)
 
  * Upgrade Alpine to 3.24.3 (#312)
