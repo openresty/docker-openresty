@@ -1,6 +1,11 @@
 `docker-openresty` Changelog
 ============================
 
+## 1.31.8.1-0 (2026-10-27)
+
+ * Upgrade OpenResty to `1.31.8.1` (nginx core `1.31.8`, bundled LuaJIT `2.1-20261023`)
+ * `windows` remains at `1.31.1.1` until the upstream `win64` zip is published
+
 ## 1.31.1.1-6 (2026-10-23)
 
  * Add `ppc64le` to the `restyrepo` multi-architecture manifest and switch to upstream `openresty/luajit2` `v2.1-20261023` with the PPC64 number-conversion fix (#311, openresty/luajit2#279)
