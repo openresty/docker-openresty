@@ -169,39 +169,6 @@ jobs:
               RESTY_APT_REPO=https://openresty.org/package/arm64/debian
               RESTY_APT_ARCH=arm64
 
-          # --- Debian Bullseye ---
-          - flavor: bullseye
-            arch: amd64
-            dockerfile: bullseye/Dockerfile
-            platforms: linux/amd64
-          - flavor: bullseye
-            arch: arm64
-            dockerfile: bullseye/Dockerfile
-            platforms: linux/arm64
-            build-args: RESTY_APT_REPO=https://openresty.org/package/arm64/debian
-
-          # --- Debian Bullseye Debug ---
-          - flavor: bullseye-debug
-            arch: amd64
-            dockerfile: bullseye/Dockerfile.debug
-            platforms: linux/amd64
-          - flavor: bullseye-debug
-            arch: arm64
-            dockerfile: bullseye/Dockerfile.debug
-            platforms: linux/arm64
-            build-args: RESTY_APT_REPO=https://openresty.org/package/arm64/debian
-
-          # --- Debian Bullseye Valgrind ---
-          - flavor: bullseye-valgrind
-            arch: amd64
-            dockerfile: bullseye/Dockerfile.valgrind
-            platforms: linux/amd64
-          - flavor: bullseye-valgrind
-            arch: arm64
-            dockerfile: bullseye/Dockerfile.valgrind
-            platforms: linux/arm64
-            build-args: RESTY_APT_REPO=https://openresty.org/package/arm64/debian
-
           # --- Ubuntu Bionic ---
           - flavor: bionic
             arch: amd64
@@ -324,7 +291,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        flavor: [alpine, alpine-slim, alpine-apk, amzn2, rocky, centos, centos7, fedora, bookworm, bookworm-buildpack, bullseye, bullseye-debug, bullseye-valgrind, bionic, focal, jammy, noble]
+        flavor: [alpine, alpine-slim, alpine-apk, amzn2, rocky, centos, centos7, fedora, bookworm, bookworm-buildpack, bionic, focal, jammy, noble]
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -366,17 +333,6 @@ jobs:
             dockerfile: bookworm/Dockerfile.fat
             platforms: linux/arm64
           
-          - flavor: bullseye-fat
-            base_flavor: bullseye
-            arch: amd64
-            dockerfile: bullseye/Dockerfile.fat
-            platforms: linux/amd64
-          - flavor: bullseye-fat
-            base_flavor: bullseye
-            arch: arm64
-            dockerfile: bullseye/Dockerfile.fat
-            platforms: linux/arm64
-
           - flavor: alpine-fat
             base_flavor: alpine
             arch: amd64
@@ -468,7 +424,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        flavor: [bookworm-fat, bullseye-fat, alpine-fat]
+        flavor: [bookworm-fat, alpine-fat]
     steps:
       - name: Checkout
         uses: actions/checkout@v6

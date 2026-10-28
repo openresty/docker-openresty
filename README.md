@@ -55,14 +55,6 @@ These are examples of untagged image names, for reference:
 | `openresty/openresty:jammy` | Latest Ubuntu Jammy |
 | `openresty/openresty:alpine` | Latest Alpine |
 
-There are also specific tags for [Debug](https://openresty.org/en/deb-packages.html#openresty-debug) and [Valgrind](https://openresty.org/en/deb-packages.html#openresty-valgrind) OpenResty variants:
-| Image | Description |
-| --- | --- |
-| `openresty/openresty:bullseye-debug` | Bullseye flavor with `openresty-debug` |
-| `openresty/openresty:bullseye-valgrind` | Bullseye flavor with `openresty-valgrind` |
-| `openresty/openresty:bullseye-fat-debug` | Bullseye FAT flavor with `openresty-debug` |
-| `openresty/openresty:bullseye-fat-valgrind` | Bullseye FAT flavor with `openresty-valgrind` |
-
 ## Image Registries
  
  The CI/CD pipeline builds images to the [GitHub Container Registry](https://github.com/openresty/docker-openresty/pkgs/container/openresty) (GHCR) as the primary source.
@@ -82,7 +74,7 @@ Usage
 If you are happy with the build defaults, then you can use the openresty image from the [Docker Hub](https://hub.docker.com/r/openresty/openresty/).  The image tags available there are listed at the top of this README.
 
 ```
-docker run [options] openresty/openresty:bullseye-fat
+docker run [options] openresty/openresty:bookworm-fat
 ```
 
 *[options]* would be things like -p to map ports, -v to map volumes, and -d to daemonize.
@@ -101,8 +93,6 @@ The following "flavors" are available and built from [upstream OpenResty package
 - [`bookworm-buildpack`, (*bookworm/Dockerfile.buildpack*)](https://github.com/openresty/docker-openresty/blob/master/bookworm/Dockerfile.buildpack)
 - [`bookworm-fat`, (*bookworm/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/bookworm/Dockerfile.fat)
 - [`bookworm`, (*bookworm/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/bookworm/Dockerfile)
-- [`bullseye-fat`, (*bullseye/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/bullseye/Dockerfile.fat)
-- [`bullseye`, (*bullseye/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/bullseye/Dockerfile)
 - [`centos`, `centos-rpm`, (*centos/Dockerfile* with `el8`)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
 - [`centos7`, (*centos7/Dockerfile* with `el7`)](https://github.com/openresty/docker-openresty/blob/master/centos7/Dockerfile)
 - [`fedora`, `fedora-rpm`, (*fedora/Dockerfile* with `fc36`)](https://github.com/openresty/docker-openresty/blob/master/fedora/Dockerfile)
@@ -143,8 +133,6 @@ The [Maintainers](#changelog--authors) of this OpenResty Docker Tooling operate 
 
     * [`alpine-apk`, (*alpine-apk/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/alpine-apk/Dockerfile)
     * [`amzn2`, (*centos/Dockerfile* with `amzn2`)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
-    * [`bullseye-fat`, (*bullseye/Dockerfile.fat*)](https://github.com/openresty/docker-openresty/blob/master/bullseye/Dockerfile.fat)
-    * [`bullseye`, (*bullseye/Dockerfile*)](https://github.com/openresty/docker-openresty/blob/master/bullseye/Dockerfile)
     * [`centos`, `centos-rpm`, (*centos/Dockerfile* with `el8`)](https://github.com/openresty/docker-openresty/blob/master/centos/Dockerfile)
     * [`centos7`, (*centos7/Dockerfile* with `el7`)](https://github.com/openresty/docker-openresty/blob/master/centos7/Dockerfile)
     * [`fedora`, `fedora-rpm`, (*fedora/Dockerfile* with `fc36`)](https://github.com/openresty/docker-openresty/blob/master/fedora/Dockerfile)
@@ -199,11 +187,11 @@ OPM
 
 Starting at version 1.11.2.2, OpenResty for Linux includes a [package manager called `opm`](https://github.com/openresty/opm#readme), which can be found at `/usr/local/openresty/bin/opm`.
 
-`opm` is built in all the images except `alpine` and `bullseye` and `bookworm`.
+`opm` is built in all the images except `alpine` and `bookworm`.
 
 To use `opm` in the `alpine` image, you must also install the `curl` and `perl` packages; they are not included by default because they double the image size.  You may install them like so: `apk add --no-cache curl perl`.
 
-To use `opm` within the `bullseye` image, you can either use the `bullseye-fat` image or install the `openresty-opm` package in a custom build (which you would need to do to install your own `opm` packages anyway), as shown in [this buster example](https://github.com/openresty/docker-openresty/blob/master/archive/buster/Dockerfile.opm_example).
+To use `opm` within the `bookworm` image, you can either use the `bookworm-fat` image or install the `openresty-opm` package in a custom build (which you would need to do to install your own `opm` packages anyway), as shown in [this buster example](https://github.com/openresty/docker-openresty/blob/master/archive/buster/Dockerfile.opm_example).
 
 
 LuaRocks

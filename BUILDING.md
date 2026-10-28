@@ -138,19 +138,18 @@ docker build --build-arg RESTY_RPM_FLAVOR="-debug" -f fedora/Dockerfile .
 Building (DEB based)
 ====================
 
-OpenResty now now has [Debian Packages (DEBs) available](https://openresty.org/en/deb-packages.html).  The `bullseye` image use these DEBs rather than building from source.
+OpenResty now now has [Debian Packages (DEBs) available](https://openresty.org/en/deb-packages.html).  The `bookworm` image uses these DEBs rather than building from source.
 
 You can derive your own Docker images from this to install your own packages.  See [bookworm/Dockerfile.fat](https://github.com/openresty/docker-openresty/blob/master/bookworm/Dockerfile.fat) and [buster/Dockerfile.luarocks_example](https://github.com/openresty/docker-openresty/blob/master/archive/buster/Dockerfile.luarocks_example).
 
 This Docker image can be built and customized by cloning the repo and running `docker build` with the desired Dockerfile:
 
  * [Debian Bookworm 12 DEB](https://github.com/openresty/docker-openresty/blob/master/bookworm/Dockerfile) (`bookworm/Dockerfile`)
- * [Debian Bullseye 11 DEB](https://github.com/openresty/docker-openresty/blob/master/bullseye/Dockerfile) (`bullseye/Dockerfile`)
 
 The following are the available build-time options. They can be set using the `--build-arg` CLI argument, like so:
 
 ```
-docker build --build-arg RESTY_DEB_FLAVOR="-debug" -f bullseye/Dockerfile .
+docker build --build-arg RESTY_DEB_FLAVOR="-debug" -f bookworm/Dockerfile .
 ```
 
 | Key | Default | Description |
@@ -159,7 +158,7 @@ docker build --build-arg RESTY_DEB_FLAVOR="-debug" -f bullseye/Dockerfile .
 |RESTY_APT_PGP     | "https://openresty.org/package/pubkey.gpg" | URL to download APT PGP key from |
 |RESTY_APT_ARCH    | `amd64` | Architecture for APT lookups |
 |RESTY_IMAGE_BASE  | "debian" | The Debian Docker image base to build `FROM`. |
-|RESTY_IMAGE_TAG   | "bullseye-slim" | The Debian Docker image tag to build `FROM`. |
+|RESTY_IMAGE_TAG   | "bookworm-slim" | The Debian Docker image tag to build `FROM`. |
 |RESTY_DEB_FLAVOR  | "" | The `openresty` package flavor to use.  Possibly `"-debug"` or `"-valgrind"`. |
 |RESTY_DEB_VERSION | "=1.27.1.2-1~bookworm1" | The [Debian package version](https://openresty.org/package/debian/pool/openresty/o/openresty/) to use, with `=` prepended. |
 |RESTY_FAT_DEB_FLAVOR  | "" | The `openresty` package flavor to use to install "fat" packages.  Possibly `"-debug"` or `"-valgrind"`. |
