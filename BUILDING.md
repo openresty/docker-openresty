@@ -42,7 +42,7 @@ docker build --build-arg RESTY_J=4 -f jammy/Dockerfile .
 | Key                                     | Default | Description |
 |:-----------------------------------------| :-----: |:----------- |
 | RESTY_IMAGE_BASE                        | "ubuntu" / "alpine" | The Debian or Alpine Docker image base to build `FROM`. |
-| RESTY_IMAGE_TAG                         | "noble" / "3.23.4" | The Debian or Alpine Docker image tag to build `FROM`. |
+| RESTY_IMAGE_TAG                         | "noble" / "3.24.3" | The Debian or Alpine Docker image tag to build `FROM`. |
 | RESTY_VERSION                           | 1.27.1.2 | The version of OpenResty to use. |
 | RESTY_LUAROCKS_VERSION                  | 3.13.0 | The version of LuaRocks to use. |
 | RESTY_OPENSSL_VERSION                   | 3.5.5 | The version of OpenSSL to use. |
