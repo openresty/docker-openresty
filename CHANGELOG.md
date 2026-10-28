@@ -11,6 +11,7 @@
    * `bionic`, `focal`: past standard support with no `ca-certificates` fix, so the root is deselected in `/etc/ca-certificates.conf`
    * `alpine-apk`: Alpine 3.18 is EOL with no fix, so the root is removed from the bundle manually
  * Move `bullseye` flavors to archive as Debian 11 LTS ended on 2026-08-31 and `bullseye-security` is no longer served
+ * Upgrade PCRE to 10.49
 
 ## 1.27.1.2-12 (2026-04-19)
 

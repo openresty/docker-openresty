@@ -49,8 +49,8 @@ docker build --build-arg RESTY_J=4 -f jammy/Dockerfile .
 | RESTY_OPENSSL_PATCH_VERSION             | 3.5.5 | The version of OpenSSL to use when patching. |
 | RESTY_OPENSSL_URL_BASE                  | "https://github.com/openssl/openssl/releases/download/openssl-${RESTY_OPENSSL_VERSION}" | The base of the URL to download OpenSSL from. |
 | RESTY_OPENSSL_BUILD_OPTIONS             | "enable-camellia enable-seed enable-rfc3779 enable-cms enable-md2 enable-rc5 enable-weak-ssl-ciphers enable-ssl3 enable-ssl3-method enable-md2 enable-ktls enable-fips" | Options to tweak Resty's OpenSSL build. |
-| RESTY_PCRE_VERSION                      | 10.44 | The version of PCRE2 to use. |
-| RESTY_PCRE_SHA256                       | `86b9cb0aa3bcb7994faa88018292bc704cdbb708e785f7c74352ff6ea7d3175b` | The SHA-256 checksum of the PCRE2 package to check. |
+| RESTY_PCRE_VERSION                      | 10.49 | The version of PCRE2 to use. |
+| RESTY_PCRE_SHA256                       | `929f0b20e62879252a15886b06c89f1edef61a363cbd5826fb041080a5e557ae` | The SHA-256 checksum of the PCRE2 package to check. |
 | RESTY_PCRE_BUILD_OPTIONS                | "--enable-jit --enable-pcre2grep-jit --disable-bsr-anycrlf --disable-coverage --disable-ebcdic --disable-fuzz-support \
     --disable-jit-sealloc --disable-never-backslash-C --enable-newline-is-lf --enable-pcre2-8 --enable-pcre2-16 --enable-pcre2-32 \
     --enable-pcre2grep-callout --enable-pcre2grep-callout-fork --disable-pcre2grep-libbz2 --disable-pcre2grep-libz --disable-pcre2test-libedit \
