@@ -1,6 +1,11 @@
 `docker-openresty` Changelog
 ============================
 
+## 1.31.9.1-0 (UNRELEASED)
+
+ * Upgrade OpenResty to `1.31.9.1` (nginx core `1.31.9`; fixes CVE-2026-123007, CVE-2026-123633, CVE-2026-118899 and the other nginx 1.31.9 security fixes)
+ * `windows` remains at `1.31.1.1` until the upstream `win64` zip is published
+
 ## 1.31.8.1-0 (2026-10-27)
 
  * Upgrade OpenResty to `1.31.8.1` (nginx core `1.31.8`, bundled LuaJIT `2.1-20261023`)
