@@ -26,18 +26,18 @@ LABEL resty_luarocks_version="${RESTY_LUAROCKS_VERSION}"
 
 RUN apk add --no-cache --virtual .build-deps \
         perl-dev \
-    && apk add --no-cache \
         bash \
         build-base \
-        curl \
-        libintl \ 
         linux-headers \
         make \
         musl \
         outils-md5 \
         perl \
+        curl \
+    && apk add --no-cache \
         unzip \
         wget \
+        libintl \
     && cd /tmp \
     && curl -fSL https://luarocks.github.io/luarocks/releases/luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz -o luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && tar xzf luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
