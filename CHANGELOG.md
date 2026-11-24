@@ -1,6 +1,10 @@
 `docker-openresty` Changelog
 ============================
 
+## 1.31.9.1-1 (2026-11-24)
+
+ * Build `1.31.9.1` for all supported flavors.
+ 
 ## 1.31.9.1-0 (2026-11-23)
 
 **Only `build-from-source` flavors are included in this release.**
